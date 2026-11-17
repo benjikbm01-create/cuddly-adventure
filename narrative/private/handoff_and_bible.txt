@@ -1,0 +1,1127 @@
+THE HOLLOW ATLAS
+PRODUCTION-READY FIRST PLAYABLE BUILD + PRIVATE MASTER STORY BIBLE
+CLAUDE CODE MASTER HANDOFF — MINECRAFT JAVA 1.21.1 / FABRIC / JAVA 21
+Version 1.0 | 17 November 2026
+
+=============================================================================
+WARNING — THIS FILE INCLUDES MAJOR STORY SPOILERS IN ITS FINAL SECTION.
+THIS ENTIRE FILE IS FOR THE CODING/CONTENT AGENT, NOT FOR THE PLAYER TO READ.
+=============================================================================
+
+HANDOFF SUMMARY FOR CLAUDE CODE
+
+You are the lead engineer, build/release owner, gameplay integrator, and initial
+world-building developer for The Hollow Atlas. This is the FIRST PRODUCTION
+VERTICAL SLICE of a much larger fantasy RPG built inside Minecraft Java 1.21.1.
+It is not a disposable demo: sound systems and authored content must remain
+usable in v1.0. Finish one integrated, genuinely playable experience instead of
+creating a hundred disconnected stubs. Start implementing after a brief repo
+and environment audit. Keep a working build after each milestone.
+
+The player/commissioner has instructed you to keep the main story COMPLETELY
+UNSPOILED. The private narrative bible at the end of this file is authoritative
+for narrative production; do not quote, summarize, display, include in commit
+messages, or surface it in progress reports, filenames, GUI previews, task
+titles, log excerpts, or screenshots likely to be seen by the player. The
+first story content may be discovered by the player organically INSIDE THE GAME.
+For testing, create a separate clearly marked noncanonical sandbox with neutral
+NPCs and quests where possible. The complete story bible is included for
+long-range continuity, NOT as an instruction to author all acts now.
+
+YOUR IMMEDIATE MISSION
+
+A. Establish a compiling and launchable Fabric 1.21.1 production project.
+B. Create an attractive, permanent starting region with coherent landmarks.
+C. Deliver living NPCs, branching conversations, working quests, protection,
+   early combat/abilities, a custom inventory shell and hotbar, and saves.
+D. Integrate these systems into a real 30–90 minute opening gameplay loop,
+   with room for optional exploration and replay rather than artificial padding.
+E. Package files so the commissioner can install and play them.
+F. Report only verified functionality, in spoiler-free terms.
+
+No amount of source code or passing Gradle compilation is proof of gameplay.
+Never claim in-game verification if you could not actually launch Minecraft.
+Do not promise unattended overnight completion or continue past an agent session
+boundary. Preserve the repository and a useful progress report at every stop.
+
+=============================================================================
+PART A — APPROVED GAME SPECIFICATIONS (LONG-TERM PRODUCT CONTRACT)
+=============================================================================
+
+A1. GAME IDENTITY
+
+- Name: The Hollow Atlas.
+- Target: Minecraft Java Edition 1.21.1, Fabric, Java 21; single-player first.
+- Genre: original nonlinear open-world fantasy action RPG using Minecraft's
+  voxel look but a controlled adventure-map world, not ordinary survival.
+- World: fully authored 8,000 x 8,000-block intended final map, around 8–12
+  distinctive regions; real cities, towns, roads, forest, mountains, coasts,
+  wilderness, secrets, underground authored spaces and natural boundaries.
+- Look: vibrant vanilla-plus Minecraft at 32x32 texture resolution. Soft rich
+  grass/foliage, warm natural woods, expressive medieval building materials,
+  lively but readable palettes. Avoid gratuitous high-poly models.
+- Tone: both cozy daily life and intense, emotional adventure; no Zelda copy.
+- Player: customizable name/appearance; ordinary nomadic traveler, shared
+  unhurried opening, no chosen-one prophecy, no forced home ownership.
+- Story: the private narrative bible at the end replaces older premises.
+  Nonlinear investigation and a target 30–50-hour *eventual* main campaign.
+  The player has asked for surprise: maintain strict spoiler discipline.
+- Side content: a broad mix of short tasks, multi-stage quests, discoveries,
+  festivals, mysteries, humor, difficult choices and lasting local effects.
+- World reacts substantially to significant choices, but the player is not
+  constantly rushed by expiry timers. Multiple real faction-driven endings.
+- Optional navigation guidance: physical landmarks, clues, tavern rumors,
+  journal notes and a living atlas. Do not blanket the map in icons.
+
+A2. WORLD / EXPLORATION CONTRACT
+
+- Final map as above: broad roads, distinct cultures and architecture,
+  massive cities plus smaller villages, inns, farms, camps, harbors, dungeons.
+- Extremely dense authored secrets and multi-layer clues; find unusual things
+  by noticing them, following rumors, exploring old trails and using abilities.
+- Unlockable waypoint/travel network. Horses/mount bonding, boats, carriages,
+  ships, gliding, stamina-limited climbing, grappling and other traversal.
+- Climate and storms affect visibility, routines, hazards and a few puzzles.
+- The Atlas tracks rumor vs fact, handwriting/notes, player markers, evolving
+  routes and geographic history; map marker precision depends on discoveries.
+- Meaningful world changes: bridges reopen, shops expand, routes recover,
+  settlements regrow and NPC schedules change. Make changes save-safe.
+- Strictly NO random vanilla terrain beyond the authored adventure boundary
+  during intended play. Prevent players bypassing map limits or quest puzzles.
+- Restricted block breaking/placing everywhere except designated resources,
+  quest interactions and approved housing changes. Blocks are not generic loot.
+
+A3. NPC AND LIVING-WORLD CONTRACT
+
+- Detailed schedules: home, work, meals, market, tavern, social time, sleep,
+  weather changes, festivals, needs expressed through believable behavior.
+- Friendships, rivalries and remembered choices; important personal arcs.
+- Handwritten story dialogue + contextual ambient speech. No paid LLM calls
+  at runtime. Dialogue choices include investigation, persuasion/intimidation,
+  reputation, learned evidence, character history and location/time conditions.
+- World events can occur without player involvement: work shifts, caravans,
+  merchant restocks, gossip, celebrations and local disputes.
+- Truly bustling settlements in final: Tier 1 detailed authored NPCs, Tier 2
+  simplified nearby residents, Tier 3 aggregated distant residents. Do NOT
+  instantiate thousands of pathfinding entities simultaneously.
+- Consequences: witnesses react to crime; guards intervene; merchant access,
+  prices, rumors and NPC trust change based on legitimate world state.
+- Recruitable companions are BASIC helpers, not a full tactical party manager:
+  follow, assist in combat, comment occasionally, survive unloading/reloads.
+- Town development is systemic and mostly automatic after the player's
+  missions/resources, with meaningful influence over local priorities.
+
+A4. ACTION COMBAT / ENEMIES / DIFFICULTY
+
+- Hardcore action combat, skill-based, with telegraphed precise timing.
+- Advanced dodges, perfect blocks/parries, stamina, guard breaks, counters,
+  distinct attack styles, class-specific combos and trained weapon mastery.
+- Tactical enemies: block, retreat, strafe, telegraph ranged/melee attacks,
+  use different patterns, but do not overbuild full group warfare AI.
+- Bosses are multi-phase action/puzzle encounters grounded in environments.
+- Regional danger plus hybrid scaling within sensible bounds: returning to an
+  early area can still feel easier after growth.
+- Balanced death: checkpoint recovery, inventory preserved, small transparent
+  cost or limited encounter reset (subject to in-game balance tuning).
+- Difficulty presets: Story / Normal / Hard / Expert; Hard is closest to
+  intended challenge; explain the meaning of each in settings.
+- Basic companion fight support only.
+
+A5. ABILITIES AND CHARACTER PROGRESSION
+
+- Eventual 20–30 unique active abilities; most should be trained techniques,
+  mobility tools, rare relic mechanisms or physical skills. Magic is extremely
+  rare among NPCs and should feel rare for the player as well.
+- Unlock a mixture through main story and optional exploration. Branching
+  upgrade paths allow meaningful build choice and respecs.
+- Magic energy and physical stamina are separate pools; cooldowns for strong
+  actions; NO ultimate abilities.
+- Abilities affect combat, exploration, secrets, quests, designated structures
+  and environmental puzzles. Soft gates, not whole-map hard locks.
+- Examples for future integration: Grapple, Windstep, Echo Sight, Reconstruct,
+  Blink Dash, Rootbind, Arc Strike, Aegis Guard. The bible defines diegetic
+  limits: never turn the protagonist into an ordinary spell-slinging wizard.
+- Hybrid progression: levels and trained skills plus quest/exploration rewards;
+  chosen weapon techniques and hidden discoveries matter more than grinding.
+- Fully customizable NINE-slot hotbar: weapons, equipment actions, consumables
+  and abilities in any slot. Select normally and optionally bind direct use
+  keys for fast combat. Explain controls and make every binding remappable.
+
+A6. INVENTORY / GEAR / ECONOMY
+
+- Custom category-based RPG inventory (weapons, armor, consumables, materials,
+  quest items, valuables) with expandable capacity, readable stats and search.
+- Mixed equipment rarity progression and individually memorable weapons with
+  distinctive effects; deep blacksmith upgrades keep favorites relevant.
+- NO durability on weapons or armor. Never accidentally delete a unique item.
+- Specialized crafting (smith, cooking, alchemy, workshops), gathering only at
+  designated world resources, no uncontrolled block mining.
+- Diverse rewards: unique gear, recipes, clues, materials, maps, decorations;
+  collecting is for personal records, NOT mandatory power through set quotas.
+- Regional markets have different goods/prices; merchants have personalities,
+  restock schedules and personal stories. Keep economy predictable enough that
+  losing faction access cannot softlock the story.
+- Cooking produces healing and temporary situational bonuses.
+- Shared storage within owned homes; owning housing is always optional.
+
+A7. HOUSING, SOCIAL LIFE, OUTDOORS
+
+- Multiple optional purchasable homes with room customization, but the player
+  is a traveler. Homes are mostly cosmetic/private; no story lock or huge perks.
+- Optional small businesses, not an invasive management simulator.
+- No ordinary profession career system; work comes through quests and choices.
+- Festivals/events recur; many recreational activities, games, competitions,
+  fishing, exploration and wilderness discoveries.
+- NPCs have active independent social lives and towns change mood from market
+  mornings to tavern evenings to quiet rainy nights.
+- Light hunger; sleep completely optional; basic campfires, NOT elaborate tents.
+- Regional weather hazards requiring preparation, not full temperature sims.
+- Rich species ecosystems with migration, feeding, fleeing and predators,
+  simulated efficiently; dangerous humans, wildlife and rare monsters.
+- Dynamic travel encounters and meaningful roadside micro-stories, not spam.
+- Proper stealth: noise, sight, cover, alerts, distractions and stealth attack.
+- Pets mainly cosmetic. Mount ownership, bonding, gear and summon in appropriate
+  areas. Followers basic; no heavy companion micromanagement.
+- Strong emphasis on outdoor activities, exploration, wildlife observation,
+  hunting/fishing challenges and unique discoveries.
+
+A8. USER INTERFACE / AUDIO / GRAPHICS / TECH
+
+- First and third person both fully playable, including combat and dialogue.
+- Custom action-RPG controls with optional direct ability shortcuts.
+- Fantasy RPG visual interface, detailed information HUD (health/stamina/energy,
+  quick access, relevant enemy and quest info, configurable overlays).
+- Immersive dialogue UI, portraits or close-up views, occasional framing,
+  partial voice acting: short character responses, not every spoken line.
+- Dynamic music by region, weather, time, danger and narrative state.
+- Reactive audio by environment, crowd, interior, weather and activity.
+- Stylized effects and optional shaders; priority is smooth, robust gameplay.
+- Target 60 FPS on reasonable gaming hardware once optimized; measure rather
+  than claim. Provide crowd, audio, effects and rendering controls.
+- Tiered NPC simulation is required for scale.
+- RPG saving: autosaves, future manual slots and checkpoints; protect story
+  flags and world mutations from corruption.
+- Complete packaged adventure: pinned mod versions, bundled world, resource
+  pack, dependencies, installer/readme and optional visuals.
+- Extensive options: controls, readability, dialogue speed, subtitles, FOV,
+  screen effects, HUD display, objective guidance and accessibility.
+- REUSE EXISTING COMPATIBLE MODS when they help. Prioritize checking authentic
+  Fabric 1.21.1 releases, all dependencies, permissions/licensing, load order,
+  multiplayer/client restrictions, mod conflicts and performance. Examples to
+  investigate rather than automatically bundle: Sound Physics Remastered,
+  Naturalist, wildlife alternatives, camera/movement and optimization tools.
+  Some named mods may be Forge-only, unofficial ports, or incompatible:
+  NEVER claim compatibility or bundle files without verifying actual releases.
+
+=============================================================================
+PART B — v0.1 FIRST PERMANENT PLAYABLE BUILD: EXACT SCOPE & ACCEPTANCE
+=============================================================================
+
+B1. SCOPE PHILOSOPHY
+
+Build a production vertical slice, not the entire campaign. The first region,
+quest data schema, schedules, item registry, client screens and save format must
+survive expansion. A reasonable playable target is a 30–90-minute slice and
+several optional activities. This is a content target, not a work-time estimate
+and not a claim of full 30–50-hour gameplay. Reject artificial playtime padding.
+
+Unfinished *advanced* features should be documented as future work, not faked
+using notification-only UI. Keep internal architecture extensible without
+building large speculative frameworks whose only output is empty interfaces.
+
+B2. HARD DEPENDENCY BOOTSTRAP (MILESTONE 0)
+
+1. Inspect workspace: list files, read existing README/Gradle settings, inspect
+   git status. If work exists, DO NOT overwrite. Review what actually runs.
+2. Confirm JDK 21 (java -version). If missing, document exact install steps;
+   use allowed project-local toolchain if available. Don't modify system
+   configuration outside scope without permission.
+3. Use an appropriate Fabric example/template for Minecraft 1.21.1, ensuring
+   Fabric Loom, Fabric Loader, Yarn/official mappings and Fabric API versions
+   are compatible. Use verified version pinning; do not guess coordinates.
+4. Include Gradle wrapper scripts and wrapper properties/checksum verification.
+   Build with ./gradlew (or gradlew.bat), not dependence on a global Gradle.
+5. Define mod id 'hollowatlas', stable Java package, clear Fabric client/server
+   entrypoints; no secret network credentials or remote dependencies at runtime.
+6. Establish 'gradlew build' success from clean state, runClient where possible,
+   and a smoke command or test that checks initialization.
+7. Make a Git commit at each known-good milestone. Do not commit generated
+   caches/build directories or spoiler docs to a public repository. A PRIVATE
+   local repo containing story data is acceptable; Git remotes must not
+   accidentally expose story docs.
+8. Document commands, prerequisites, OS caveats and exact JAR location.
+
+B3. REPOSITORY SKELETON
+
+Recommended architecture; adapt to existing working code, don't mechanically
+force packages if this creates conflicts:
+
+  src/main/java/.../HollowAtlas.java
+  src/main/java/.../client/HollowAtlasClient.java
+  src/main/java/.../world/{WorldRegistry,ProtectionService,LocationIndex}.java
+  src/main/java/.../state/{GameState,StateCodec,StateMigration}.java
+  src/main/java/.../npc/{NpcDefinition,NpcBrain,ScheduleService,...}.java
+  src/main/java/.../dialogue/{DialogueEngine,DialogueNode,...}.java
+  src/main/java/.../quest/{QuestEngine,QuestObjective,...}.java
+  src/main/java/.../inventory/{SatchelService,ItemCategory,...}.java
+  src/main/java/.../combat/{CombatController,StaminaService,...}.java
+  src/main/java/.../ability/{AbilityRegistry,AbilityExecutor,...}.java
+  src/main/java/.../client/ui/{DialogueScreen,QuestJournalScreen,
+                                 InventoryScreen,HudRenderer,...}.java
+  src/main/resources/{fabric.mod.json,assets/hollowatlas/,
+                      data/hollowatlas/}
+  content/world/{map-source,export,region-anchors}/
+  content/npcs/*.json
+  content/dialogue/*.json
+  content/quests/*.json
+  content/evidence/*.json
+  narrative/private/   (spoiler-containing, do not echo to user)
+  narrative/tests/     (noncanonical, spoiler-safe test writing)
+  tests/
+  docs/{ARCHITECTURE,ROADMAP,PROGRESS,TESTING,DEPENDENCIES}.md
+
+Keep a server-authoritative game state even in integrated single player;
+client screens may display state but may not silently mutate quest flags.
+Validate client-to-server requests for item and ability activation to prevent
+state corruption and bypasses. Use Minecraft registry IDs consistently.
+
+B4. WORLD SLICE (MILESTONE 1)
+
+- A coherent hand-authored roughly 600–900 block wide opening region targeting
+  about 750x750 initially, geographically placed so it can later be inserted
+  into the large 8,000x8,000 world. Use story bible's canonical opening area
+  and geography, not retired draft names or premise.
+- Include a central village that looks intentional, with >= 10 accessible
+  interiors/buildings across residential, civic and trade functions. Exact
+  count not as important as quality, paths and believable local work.
+- Include inn/meeting point, smith or workshop, merchant, nearby orchard/farms,
+  footpaths, water source, woodland and a small authored cavern/dungeon.
+- Include 5 optional discoverables with varied mechanics (e.g. an overlook,
+  an off-road clue, simple puzzle, flora/wildlife site and a small cache).
+- At least one road leaves the local area toward future map expansions;
+  implement a tasteful temporary boundary rather than a wall of bedrock.
+- Landforms, paths and buildings should be coherent and avoid copy-paste
+  repetition. Use vanilla-style block palette matching 32x future textures.
+- Include map-source reproducibility: source .schem/.nbt files, generator script,
+  heightmap/world edits, or other traceable build files. A playable .zip world
+  save or scripted world generator must actually be delivered.
+- All important NPC positions and quest points referenced through named
+  LocationIndex anchors, NOT scattered hardcoded XYZ numbers.
+- Use protected adventure map; no ordinary mining, unapproved block placing,
+  fluid grief, explosions, fire spread damage or physics exploits that destroy
+  quest structures. Provide staff-only builder/test override.
+- If the first environment cannot produce a high-quality map, produce an honest,
+  usable first region and document art/world-quality shortcomings; NEVER
+  provide a schematic filename with no schematic contents.
+
+B5. LIVING NPCS (MILESTONE 2)
+
+- Implement at least 10 named, persistent residents with occupations and
+  location-associated schedules. 5 should have full visible schedule loops.
+- Resident schedule examples include bed/home -> work -> social/food -> home;
+  guard route, vendor stock duty, farmer tending field, innkeeper closing.
+- Schedule actions should be visibly different, not five waypoint patrol loops
+  labeled as different occupations. Actual work animations may remain simple.
+- Each NPC has persistent id, name, profession, home, work anchor, basic
+  personality tags, current task, relationship/reputation references and alive
+  state. NPCs need safe positional recovery if paths block.
+- NPC interaction cannot softlock if they are sleeping, traveling, unloaded,
+  absent temporarily, or attacked by enemies. Offer interactions when needed,
+  schedule pausing or fallback quest anchors consistent with world design.
+- Nearby residents update on a measured schedule, not all perform full path
+  searches every game tick. Unloaded residents progress abstractly and arrive
+  at reasonable positions on reload; no teleporting in plain sight.
+- Add background ambient chats between appropriate residents, contextual
+  weather and time dialogue, and simple social relationships for 2 pairs.
+- Do not try to simulate thousands of real entities in v0.1. Implement tiered
+  interfaces and benchmark with dozens of mock residents if feasible.
+
+B6. DIALOGUE / QUESTS / INVESTIGATION (MILESTONE 3)
+
+Dialogue:
+- Build an actually navigable GUI with speaker, choices, back/close,
+  condition checks, text wrapping, keyboard/mouse support and useful focus.
+- Support branch predicates (quest state, evidence, relationship, time,
+  reputation, background flavor) and actions (accept quest, record evidence,
+  award item, set world flag, open shop). Guard against double activation.
+- Localizable content files with schema validation and error reporting.
+- At least five distinct conversations and at least one major branching
+  conversation. Dialogue writing should be natural and not overexplain lore.
+
+Quests:
+- Implement three self-contained optional quests with different objective
+  types (talk, inspect, explore, gather, fight or solve); one must produce a
+  visible, persistent NPC or village state change.
+- Implement an opening main quest segment drawn from the PRIVATE story bible;
+  do NOT surface it in Claude's progress notes. It must be playable by user
+  in-game and its reveal pacing must follow the private bible.
+- Quest data: stable namespaced IDs, phases/stages, prereqs, objectives,
+  rewards, abandon/respawn semantics where appropriate, and localized text.
+- Quest journal displays active, tracked, completed entries and hints; guidance
+  may be disabled. On player entry, reveal only discovered quests.
+- Safe error behavior: invalid event payloads cannot advance quests twice;
+  no quest can be completed by just entering '/quest complete'. Debug commands
+  must be permission-gated and clearly excluded from normal play.
+- Story-critical items are protected against accidental drop/sell/consumption.
+
+Investigation system seed:
+- Build 1 small clue-inspection interaction with evidence record and journal
+  update, and a 2–3-evidence comparison case for development testing.
+- The detective case board must distinguish observed facts from guesses;
+  incorrect hypotheses should not corrupt saves or deadlock investigation.
+- Use spoiler-safe test cases if user sees early demo before main story.
+
+B7. COMBAT / ABILITIES (MILESTONE 4)
+
+First implementation:
+- Remappable keys for light attack (vanilla-style supported), heavy attack,
+  dodge, block/parry and any ability activation.
+- Stamina drain, regen, UI indicator, exhausted action handling. Blocking
+  reduces impact; parry requires a window, then allows a counter advantage.
+- Two distinguishable enemy patterns: one melee telegraphed rush / heavy swing,
+  one ranged or evasive pattern; no pure health-sponge stat changes.
+- Death respawns at relevant checkpoint with inventory/unique items retained,
+  avoids double drop/duplication; reset combat state correctly on respawn.
+- At least one small combat challenge and one optional encounter.
+- First-person and third-person test both functional, even with simple
+  vanilla-style animations before full polish.
+- Do not accidentally disable normal attack/block or create key conflicts.
+
+Abilities:
+- General AbilityDefinition registry with IDs, unlock conditions, category,
+  resource cost, cooldown, level/branch hooks, input activation, particle/sound
+  event, error feedback and persistence.
+- Fully functional example: one movement/utility skill (e.g. grapple at
+  marked anchors or a trained short dash) and one investigation/exploration
+  tool (e.g. inspect/trace nearby marked clue). If a rare supernatural ability
+  is story-gated, don't give it to the player before its canonical unlock.
+- Any active ability must obey map protection and collision rules, not bypass
+  world border, bypass doors or place/remove arbitrary blocks.
+- Combat cooldowns shown; no hidden infinite-resource spam; no ultimates.
+- Full 20–30 abilities and sophisticated skill trees are FUTURE content, not
+  part of the v0.1 done definition. Prepare data interfaces for branching.
+
+B8. INVENTORY / SHOP / HOTBAR (MILESTONE 5)
+
+- A customized category-based RPG screen that actually lists carried objects
+  (weapons, armor, supplies, materials, valuables, key items). Never purely
+  present dummy cards that do not correspond to real inventory state.
+- Nine-slot hotbar holds configurable references to equipment, abilities and
+  consumables. Its selection/activation semantics must work in gameplay and
+  survive saves. No separate fake hotbar disconnected from inventory.
+- For v0.1, start with basic equip slots, item tooltips and a clean filter.
+  Full expandable capacity upgrades and all future crafting panels can follow.
+- No durability damage to weapons/armor; reconcile vanilla ItemStack durability
+  behavior in registered equipment without making all unregistered blocks
+  unbreakable or corrupting third-party mods.
+- At least one shop with real inventory, currency transactions, purchase/sell,
+  safe price validation, restocking after time, no dupe exploits.
+- One cooking or small crafting station usable with designated resources.
+- Minimum 3 distinct loot/reward types beyond currency, e.g. food, charm,
+  equipment or crafting materials. Quest key items cannot be sold.
+- Basic designated gathering spots: collect limited resources by action and
+  reset them on a controlled schedule. Do not allow free mining nearby.
+
+B9. UI / JOURNAL / SOUND / TEXTURE INTEGRATION (MILESTONE 6)
+
+- Readable fantasy-style initial GUIs for dialogue, categories, journal,
+  tracked objectives, optional markers, health, stamina and ability energy.
+- Custom HUD may show richer content but avoid screen clutter; include toggle
+  for markers and dialogue text scale. Provide actual save/config persistence.
+- World map/Atlas v0.1: zoomable or sufficiently clear static local overview,
+  manually discovered places, player position, optional tracked lead. A grand
+  continent atlas is FUTURE work.
+- The Hollow Atlas 32x visual assets are developed separately. If the
+  commissioner attaches a 1.21.1 pack (v0.2 or newer), install/test it and
+  preserve its textures; otherwise use vanilla. DO NOT silently ship a generic
+  incompatible pack or assume unprovided assets exist.
+- Limited ambient sound and music transitions if legal assets are available.
+  No copyright-infringing music or assets. Use licensed, original or public
+  domain content; document provenance/permissions.
+- Optional 1.21.1 Fabric sound/wildlife mods may be tested in a separate profile.
+  Integrate only if verified, do not hard-require uncertain dependencies.
+
+B10. SAVE MODEL / STATE MANAGEMENT
+
+Maintain one canonical game-state system with clear ownership. Define all
+persistent keys as stable namespaced identifiers. Use versioned serialization,
+correct server-side saving, data integrity validation, and idempotent effects.
+
+State groups must include:
+- Player loadout, inventory, owned currency, skills, abilities, discovered sites.
+- Quest ID, stage, branch choices, completion timestamps/flags.
+- NPC stable identity, schedules, current occupations/positions/reputation.
+- Interaction/protection permissions and gathering station cooldowns.
+- World mutations (bridge open, shop available, event resolved) with safe
+  reapplication after chunk unload/reload.
+- Optional difficulty, navigation preferences and supported user settings.
+
+Autosave on normal Minecraft persistence mechanisms. Keep error-safe backups
+before major migrations. Full manual save-slot UI can come after stable v0.1.
+Document whether vanilla save copy is required for multiple playthroughs.
+
+B11. WORLD SIMULATION / PERFORMANCE SAFETY
+
+- Avoid per-tick full-world scans; use spatial indexes/regions, bounded tasks,
+  cached lookup of quest anchors and event listeners where possible.
+- Limit simultaneous active NPC path planning and raycast/exposure checks.
+- For wilderness, use curated local spawns and encounters, not random combat
+  every minute. Evolve future ecosystem simulation in zones.
+- Ensure scripted world changes cannot erase player possessions.
+- Use lightweight behavior for NPCs outside view distance. Add profiling
+  command or debug counters for active/tiered NPCs and scheduled tick work.
+- Make crowd/detail limits configurable; document realistic performance tests
+  (hardware, FPS, MSPT, resolution, mods), never promise a fixed FPS without
+  measuring.
+
+=============================================================================
+PART C — PROJECT DELIVERY PROCESS, EVIDENCE OF COMPLETION AND QA
+=============================================================================
+
+C1. DEVELOPMENT MILESTONES & STOP CONDITIONS
+
+0. Environment and Git baseline: reproducible clean build, no dependency errors.
+1. Permanent village source and playable world export, coordinates documented.
+2. NPC entity, data, schedules and visible movement working.
+3. Dialogue UI + branching + 3 side quests + opening narrative segment.
+4. Real combat, stamina, 2 patterns, 2 ability examples, death/checkpoints.
+5. Categorized inventory, nine-slot loadout, merchant and resource interactions.
+6. Integrate in-game slice; save/reload; polish; package; manual QA report.
+
+At each milestone, demonstrate concrete acceptance evidence (video or captures
+where possible, test logs, build artifact hashes, game screenshots, or tests).
+If any milestone cannot be fully completed, report an exact gap and pause
+expansion of dependent functionality. Do not make up test results.
+
+C2. ACCEPTANCE TESTS — AUTOMATED WHEN FEASIBLE, MANUAL IN GAME OTHERWISE
+
+[ ] A clean clone/open builds with pinned dependencies and JDK 21.
+[ ] A real mod JAR installs in the documented Fabric 1.21.1 profile.
+[ ] A real authored world launches at the expected safe starting point.
+[ ] The starting area has accessible inn, workplace, homes, road and cave.
+[ ] Player cannot break ordinary protected blocks or place blocks at will.
+[ ] Player CAN gather from a designated node and use quest-specific actions.
+[ ] At least ten named NPCs exist and five exhibit distinct visible routines.
+[ ] Two NPCs naturally converse or show context-specific social behavior.
+[ ] NPC schedules survive unloading, reloading and sleeping/advancing time.
+[ ] Player can start, branch and finish at least three optional quests.
+[ ] One quest changes an NPC routine or part of the village persistently.
+[ ] The opening main-story segment is playable through game interactions.
+[ ] Dialogue choices work; choices/quest flags persist after relaunch.
+[ ] Quest journal accurately updates without using commands to complete.
+[ ] Investigation clue can be inspected and revisited without duplication.
+[ ] Melee, heavy attack, dodge, block/parry, stamina and enemy patterns work.
+[ ] Dying returns to checkpoint with appropriate inventory preserved.
+[ ] At least two abilities are usable and show cooldown/energy/stamina.
+[ ] The nine-slot hotbar is remappable, usable and save-persistent.
+[ ] Categorized inventory displays actual items and equipment.
+[ ] Merchant accepts money and completes real buy/sell transactions.
+[ ] Player can get food/loot and prepare one recipe or craft item.
+[ ] Key quest items cannot accidentally be sold, dropped or duplicated.
+[ ] Relevant HUD numbers match authoritative state, with no stale displays.
+[ ] Both first-person and third-person combat input tested.
+[ ] Exit/reopen test retains quest, inventory, NPC and world state.
+[ ] No crash at launch; major errors logged and fixed; no infinite debug spam.
+[ ] Player receives only spoiler-safe release notes; secrets remain undisclosed.
+
+Test variations:
+- Reload while dialogue is open / while quest is partially complete.
+- NPC blocked from reaching workplace; recovery path.
+- Merchant stock at zero; cannot buy below zero or duplicate currency.
+- Change time/weather and observe schedule transitions.
+- Disconnect/reopen after a scripted building/road change.
+- Inventory full during reward issuance; deliver or queue reward safely.
+- Action key bound to existing vanilla key; conflict warning.
+- Ability used on protected door, region border or unloaded area.
+- Two difficulty settings; verify intended change without corruption.
+- Low effects/crowd preset; inspect CPU use and responsiveness.
+- Incompatible external mod disabled/removed; core gameplay still starts.
+
+C3. DEFINITION OF 'DONE'
+
+Use statuses IMPLEMENTED, BUILD-PASSING, IN-GAME-VERIFIED, and NOT VERIFIED.
+'Functional' requires concrete gameplay behavior, and 'in-game verified'
+requires actual launched client or trusted manual player check. Passing tests
+alone is not equivalent. Provide a spoiler-free list with status, reproduction
+instructions and known limitations. No invented feature completeness percentages.
+
+C4. GIT / EDITING SAFETY
+
+- Before changes, git status; preserve existing source and progress.
+- Work in branches or milestone commits with clear, spoiler-neutral messages.
+- Do not force-push, delete user directories, or rewrite commits without
+  explicit permission.
+- Separate generated world exports and temporary caches from editable sources.
+- Pin dependencies; document licensing and include attribution files.
+- Avoid uploading private story material to public issues, logs or services.
+- Never run untrusted downloaded scripts without review. Use minimal privileges.
+- Keep robust local backups for world saves and story state migrations.
+
+C5. CLI / DEBUG / DEVELOPER UTILITIES
+
+Provide opt-in developer commands behind explicit dev flag or permission:
+- inspect NPC ID and current schedule stage
+- inspect quest ID/stage without secret plot text in normal logs
+- teleport to authored region anchor for tests
+- reset ONLY a named sandbox test scenario (no global destructive reset)
+- profile NPC counts, route/navigation attempts and active scheduled tasks
+- validate content JSON, references, location anchors and missing assets
+- generate harmless sample saves, without overriding user's actual save
+
+C6. DELIVERABLE DIRECTORY / REPORT
+
+Expected final handoff, using accessible paths relative to project root:
+- source/ (or standard src/) and complete Gradle project
+- gradlew, gradlew.bat, wrapper files, pinned dependency manifest
+- build/libs/...jar (verified actual build artifact)
+- world/ or exported zipped world with installation path instructions
+- optional bundled resource-pack ZIP (only if provided/tested)
+- README.md with installation, launch and troubleshooting
+- ARCHITECTURE.md with module interfaces and data ownership
+- GAME_DESIGN.md with approved design (PUBLIC, spoiler-free)
+- ROADMAP.md with v0.1 vs future features explicitly distinguished
+- PROGRESS.md with milestone status and known incomplete work
+- TESTING.md with actual runs, logs, pass/fail and manual QA
+- DEPENDENCIES.md with exact Fabric and optional mod versions/licenses
+- PRIVATE narrative folder with content from appended story bible
+- QUICKSTART.txt for someone who just wants to open the playable build
+
+A final message to the player MUST NOT mention late-act events, secret names,
+plot culprits, surprise factions, ending rules or hidden lore. Report only
+engineering outcomes and how to play. The attached private story bible may be
+present in the repository but should not be automatically opened in a preview
+for the player. If players browse raw source/game assets, spoilers are not
+cryptographically hidden. Be candid about that limitation.
+
+C7. PRIORITY IF RESOURCES / TIME ARE LIMITED
+
+Do not scramble all milestones at once. Prioritize:
+  1. clean working JAR + world
+  2. save/protection + a small coherent playable space
+  3. schedule NPC + branching dialogue
+  4. a complete quest loop with world-state consequences
+  5. custom nine-slot loadout and core stamina combat
+  6. secondary abilities, crafting, effects and polish
+
+Always leave a buildable repo and a truthful PROGRESS.md. If the system can
+safely implement more, continue in order. You are not authorized to skip
+reviews or claim 'full game complete' when only v0.1 is implemented.
+
+C8. REQUIRED FIRST ACTIONS FOR CLAUDE
+
+1. Read this entire specification silently, including private bible.
+2. Inspect the repository and available development tools. Identify the
+   actual current files before suggesting or writing replacements.
+3. Write a compact architecture + milestone checklist for internal use; keep
+   user-visible summary spoiler-free and short.
+4. Establish reproducible Gradle build on Minecraft 1.21.1 Fabric Java 21.
+5. Begin implementing prioritized systems, committing verified progress.
+6. Never block on optional 32x textures, advanced shaders, full map or music.
+7. If architecture would conflict with this story bible's future quest/world
+   requirements, design migration points now rather than assuming a rewrite.
+8. When session ends, report installed build, tests, and remaining limitations.
+
+=============================================================================
+PART D — PRIVATE NARRATIVE BIBLE (FULL ORIGINAL SOURCE, UNMODIFIED)
+=============================================================================
+
+EVERYTHING BELOW IS SPOILER-CONTAINING INTERNAL CREATIVE MATERIAL.
+THE PLAYER WANTS TO EXPERIENCE THESE EVENTS IN THE GAME, NOT READ THEM HERE.
+Do not show the following section in chat, review diffs, screenshots, file
+previews, public task titles, commit subjects or routine development updates.
+Use it as the story authority; only implement the v0.1 opening segment now.
+
+# THE HOLLOW ATLAS
+## PRIVATE NARRATIVE DESIGN BIBLE — NOT FOR PLAYER PREVIEW
+
+Version: 1.0 — narrative baseline for Minecraft Java 1.21.1 (Fabric)
+Status: internal story direction; production content to be written and tested incrementally
+Classification: SPOILERS — give directly to Claude Code, do not preview or summarize for the player
+
+---
+
+# 1. Narrative Charter
+
+The Hollow Atlas is a 30–50-hour, nonlinear, single-player fantasy RPG set in an original continent. The protagonist is an ordinary customizable traveler, not an heir, savior, or prophesied vessel. The opening is unhurried and inviting. The primary conflict is a continent-wide market in extremely rare devices called *mercies*—objects that appear to reverse loss, heal harm, or make impossible work possible. The question is not whether magic is evil. The mystery concerns who possesses the legal and material right to decide where the price of relief is paid.
+
+Players should never receive this story bible. The user expressly wants the story, surprises, characters, and endings to remain unknown until played. Public-facing progress updates must use spoiler-neutral engineering language, not plot recaps. All character and quest designs below are provisional names for the game's internal narrative; they may be revised for clarity, but their causality and dramatic functions should be preserved.
+
+Tone: warm everyday life, humorous regional characters, occasional harsh consequences, intelligent political conflict, hard-earned hope. Never flatten all groups into good/evil factions. Magic is extremely rare, dangerous to use casually, and culturally disruptive precisely because most citizens have never encountered it. The player may use 20–30 gameplay abilities in the completed game, but most are martial techniques, mobility devices, and trained skills rather than omnipresent spellcasting. Only a handful are genuinely supernatural.
+
+Narrative principles:
+- Every major revelation must be supported by earlier discoverable clues that become meaningful in hindsight.
+- The player can investigate three central leads in any order. No secret mandatory clue is attached to a permanently missable quest.
+- People are not solely exposition devices. Each major NPC has duties, friends, flaws, ordinary preferences, and personal quests outside the crisis.
+- Choices affect civic infrastructure, livelihoods, physical locations, and relationships, with visible postgame states.
+- Combat, detective work, travel, and environmental puzzles each matter. Bosses are expressions of characters or systems, not random mythic monsters.
+- No generic cosmic apocalypse. The tragedy is that good people may sustain a bad system because their families rely on it.
+- Avoid copying the four guardians, ancient calamity, chosen champion, missing town, or reality-rewritten-place storylines.
+
+# 2. Premise — The Measure of Mercy
+
+Within the past decade, a small number of translucent, palm-sized devices known as mercies began circulating through wealthy city hospitals, drought-struck districts, remote mines, and illicit markets. Officially, the devices are recovered relics. They are costly, difficult to operate, often single-purpose, and tracked through paper warrants and stamped copper bands. A mercy cannot create a new object from nothing. It can make one local, physical outcome astonishingly likely: mend tissue, keep a bridge from collapsing for a day, ripen a harvest, calm an overpressured boiler, or filter a reservoir.
+
+The public believes the devices require a harmless 'settling' period. In fact they are linked to a continent-spanning chain of ancient *weighhouses*, half-engineered public works hidden inside canals, aqueducts, caravan stations, mines, and granaries. Each house can distribute the physical fallout of a miracle through a network of designated *receivers*. The original builders intended this network as mutual aid during disasters: large groups of informed communities deliberately consented to share a small, temporary burden so that a catastrophe could be averted in one place. Their mechanisms were not free magic; they were an auditable civic bargain.
+
+Modern devices have been modified with forged seals that allow operators to draw on receivers whose descendants never consented. The harm is diffuse: crop blight, brittle timber, strange animal migrations, dry springs, accidents that seem natural. Importantly, the symptoms are not proof of one simple one-to-one magical transfer. The audience's initial hypothesis that every healing equals another person's injury is wrong. The devices strain local *stability buffers*, which collect many small changes and release them through ordinary physical systems. Badly calibrated draws may damage living systems; well-governed, low-volume use may be sustainable. The first critical moral question is whose consent counts when a voluntary social system spans generations; the second is how to unwind dependence without causing preventable suffering.
+
+There is a stranger layer: the weighhouses were not abandoned by accident. The final assembly in the system, the **Last Assay**, was intentionally divided among six civic authorities to prevent any one city from redirecting the burden. The hardware still exists, but its true operating procedures were fragmented and used as competing political leverage. The catastrophic risk is a scheduled *Reckoning*—a routine of automatic rebalancing that modern operators do not know how to stop, set in motion when accumulated liabilities exceed safeguards. It is not an evil awakening. It is a safety procedure executing without valid recipients, and will sever key waterways and trade junctions unless reconfigured before the next seasonal conjunction.
+
+The primary antagonist is a coalition of interests, habits, and betrayals—not a lone archvillain. A very persuasive human adversary wants to centralize the network under a continental emergency directorate. Their logic is defensible: one governing authority could stop dangerous private misuse tomorrow. Their weakness is the power that centralization would create forever. The player can support regulation, restoration, decentralization, or a negotiated retreat, but no outcome is costless.
+
+# 3. Geography — Ten Regions in an 8,000 × 8,000 Map
+
+The following map regions are diegetic and must match quest coordinates in the final world. These are *worldbuilding targets*, not promises that the map exists already. Each needs large routes, minor settlements, interior spaces, hidden encounters, and a regional identity. The player is a nomad; homes are optional and no main quest requires home ownership.
+
+
+1. **Westreach Meadows** — starting district; rolling fields, orchard villages, stone culverts, early roadside inns; center: Brindlecross. Safe roads, bandit pockets, modest daily life. Prologue begins here.
+
+2. **Veylport Basin** — river city of markets and guild headquarters; canal barges, warehouses, old floodgates; center: Veylport. First major economic and investigative hub.
+3. **The Rainward Canopy** — heavy green forest with living wildlife corridors, abandoned mills, and forest communities; center: Hartroot. Sensitive to environmental strain; stealth and tracking routes.
+4. **Garnet Heights** — red-rock terraces, upland farms, reservoirs, and engineers' stations; center: Redbarrow. Heat hazards, waterworks, vantage towers.
+5. **Boreal Stair** — cold mountain routes, mining towns, cliff tunnels, ancient assay chambers; center: Sableforge. Climbing, snow, low visibility, mining politics.
+6. **Tideglass Reach** — colorful coast, lighthouses, harbors, sea caves, salt gardens; center: Lumehaven. Smuggling and legitimate seaborne trade intertwined.
+7. **The Greyfold** — mist-bound peatlands and old causeways; center: Hollowmere. Strong folklore, environmental puzzles, wild animal behavior, misunderstood incidents.
+8. **Saffron Expanse** — dry steppe and caravan corridor with oasis settlements and wind-carved ruins; center: Kestrel Rest. Travel, regional shortages, contested toll rights.
+9. **The Crownplain** — dense walled capital region, courts, archives and assembly chambers; center: Asterhold. State power and civic law.
+10. **The Underways** — limited, authored network of caverns, ventilation shafts and weighhouse service tunnels beneath several regions. Not an unrestricted, globally mineable underground. Major endgame level space, accessed by quests and abilities.
+
+Area design standard: every road should include plausible travel activity. Between hubs place travelers, lodging, market days, animal herds, optional clues, branch trails, and micro-stories. Build secret density through handcrafted sites, not randomly generated chests. The terrain is fixed and protected except quest and resource interactions. Travel is a mix of horse bonding, carriages, ships, unlockable waystations, stamina-limited climbing and gliding, Grapple and other traversal tools. Use the player-facing Atlas to record discoveries and rumors; objective markers are optional.
+
+# 4. Public Factions and Their Private Fractures
+
+Exactly six major faction coalitions shape the campaign. Each can provide quests and economic benefits without automatic membership. Reputation is earned through deeds and evidence. Local chapters can disagree with central leadership.
+
+## F1 — The Brass Exchange
+Public: licensed traders and hospital suppliers; reliable transport, price stability, dispute mediation.
+Leader: **Maelin Orr**, eloquent director, formerly a field medic who watched a child die because emergency treatment arrived too late.
+Virtue: gets relief into hard-to-reach communities. Flaw: normalizes secrecy, tiered pricing, and contractual loopholes.
+Internal fracture: Maelin wants regulated access; chief broker **Damon Sile** has falsified receiver warrants and hidden the records. Maelin knows the paperwork is compromised but not the full magnitude.
+Gameplay: delivery chains, warehouse infiltration, ledgers, supply-line protection, mercy rationing dilemmas.
+
+## F2 — The Common Assembly
+Public: alliance of elected city councils; offers legal legitimacy and public safety codes.
+Leader: **Chancellor Ina Morrow**, older negotiator; intelligent and unusually patient.
+Virtue: can coordinate repairs and guarantee equitable service. Flaw: emergency powers could become permanent.
+Internal fracture: elected delegates debate regional vetoes; a security minister uses a staged attack to push emergency central control.
+Gameplay: legal evidence, persuasion checks, hearings, security missions, regional policy outcomes.
+
+## F3 — The Riverwatch Compact
+Public: farmers, watershed stewards, ferrymen, rangers and local land associations opposing reckless draws.
+Leader: **Seren Fen**, former river engineer who can read environmental symptoms better than anyone.
+Virtue: notices losses concealed in official statistics. Flaw: militant wing **the Split Current** targets shipments without regard to dependent hospitals.
+Internal fracture: Seren condemns attacks; deputy **Hale Dren** secretly backs a few raids to force investigation.
+Gameplay: ecosystem clues, stealth surveillance, water puzzles, protection of vulnerable habitats.
+
+## F4 — The Guild of Assayers
+Public: technical scholars and machinists studying unusual materials; operates calibrated labs and repair schools.
+Leader: **Master Oris Vale**, deliberate, persuasive advocate of open science.
+Virtue: possesses the skills to diagnose and rebuild the network. Flaw: experiments have taken human risks without informed consent.
+Internal fracture: junior assayer **Yara Pell** exposed an accident, then was expelled; the guild destroyed its own test results to preserve public trust.
+Gameplay: evidence reconstruction, timed machinery puzzles, component testing, skill unlocks.
+
+## F5 — The Stonehand Confederacy
+Public: miners, quarry crews, metalworkers, mountain transport cooperatives.
+Leader: **Tamsin Rook**, union organizer and brilliant mechanical operator.
+Virtue: understands working conditions and the actual material supply. Flaw: closure would destroy livelihoods across mountain communities.
+Internal fracture: extraction bosses exploit safety exemptions; workers have been told forged grades are legitimate.
+Gameplay: mines, dangerous lifts, camp defense, mechanical bosses, strike and pay disputes.
+
+## F6 — The Unmarked Road
+Public: no single public identity; a loose lattice of independent travelers, smuggling crews and unauthorized healers.
+Face: **Joss Arden**, cheerful courier who sincerely moves remedies to people excluded from city systems.
+Virtue: acts faster than committees and serves marginalized towns. Flaw: smugglers may be carrying counterfeit or dangerously altered mercies.
+Internal fracture: cell leader **The Lantern Fox** sells warrants to all sides and later turns out to be several people using one shared title, not a single mastermind.
+Gameplay: hidden routes, off-books aid, stealth, disguise options, bargaining and moral choices.
+
+Faction progression: first contact, service, proof of trust, internal dilemma, formal endorsement optional, crisis cooperation/conflict. No faction is always right. Grant multiple ending routes through alliances and evidence rather than a single faction choice UI.
+
+# 5. Principal Cast (Internal Character Cards)
+
+These are the main named characters whose dialogue and schedules must be handcrafted. None should serve only as an exposition vending machine. Each has non-quest daily routines and two or more contextual reactions to local changes.
+
+**Nella Ash** — roadside innkeeper in Brindlecross; witty, practical, remembers travelers by habits. Knows the starting caravan road intimately. Secret: her brother is in an unauthorized health program; she hides invoices because she is afraid his supply will stop. Has an optional hospitality quest and recurring festival dialogue. NOT a traitor.
+
+**Corin Bell** — itinerant packer/contracted courier who gives the first ordinary delivery job. Warm, talkative, chronically late. Carries a sealed replacement part, not a mythical artifact. His employer falsely told him it was for an orchard pump. He disappears temporarily because he witnesses sabotage; can be recovered with or without Free Road help. Could become a basic follower in one quest.
+
+**Idra Sol** — young bookkeeper for the Brass Exchange, initially skeptical of the player. Notices identical signatures on warrants spanning decades. Strong investigator ally but sometimes withholds names to protect her family. Personal arc: choosing between legal witness protection and public disclosure. She must not be made romance-required or permanently missable.
+
+**Seren Fen** — Riverwatch leader, analytical, can be abrasive and reluctant to compromise. Likes collecting shells from lakes where water quality has improved. Her personal arc asks whether she can stop radicals she once inspired.
+
+**Yara Pell** — exiled engineer, energetic, funny when nervous, excellent at improvised repairs. First appears in a minor side quest. Later discovers a mechanism that allows the player to test historical receiver consent. Is not secretly magical.
+
+**Tamsin Rook** — mine organizer, dry humor, openly angry at extractive management but worried about layoffs. Uses a prosthetic work glove, not a supernatural hand. Helps in the decisive service-tunnel expedition depending on previous choices.
+
+**Ina Morrow** — city chancellor, realistic politician, deeply worried about infrastructure breakdown. Has a non-villainous private history: she previously approved restricted trade during a winter epidemic. Public revelation can be handled fairly or as partisan spectacle.
+
+**Maelin Orr** — Exchange director, well-meaning but culpably reluctant to confront records. Can become ally, adversary, or exhausted institutional reformer, based on evidence and public pressure.
+
+**Joss Arden** — playful smuggler-courier, sees legal systems as slow tools of the wealthy. Personal stakes: a village where donated mercies saved lives but polluted the water table. Can appear at crossroads dynamically. Basic follower in a handful of optional missions.
+
+**Oris Vale** — Guild master. Believes a central authority of experts should make difficult decisions because public debate is too slow. His motive sounds reasonable; his central flaw is unaccountable certainty.
+
+**Kiva Marr** — archivist of old public works, half-retired cartographer with failing eyesight, maintains inaccessible maintenance atlases. Helps interpret diagrams but refuses to hand over dangerous maps until the player proves responsible. Curates the living Atlas's historical layers.
+
+**Oren Dask** — engineer and eventual late-act opposing force; former flood-rescue coordinator whose confidence comes from real competence. Advocates centrally locking the Last Assay under an emergency directorate. He orchestrates limited disruptions to gather political support, but does not invent the network or directly cause every disaster. He is convinced future uncontrolled draws will be worse. Final confrontation may be a debate, infiltration, or nonlethal battle depending on player choices.
+
+# 6. Supernatural and Mechanical Rules
+
+## 6.1 The mercies
+- Devices are scarce (approximately 200–300 confirmed across the continent at campaign start); most villagers have seen none. Many supposed mercies are forgeries or ordinary mechanisms.
+- Activation requires compatible material, precise conditions, and a registered (or forged) network seal. Protagonist cannot casually manufacture one.
+- Each device has a narrow purpose and local physical effect. Demonstrations are rare and memorable.
+- Use settles through receiver buffers. The cost is not direct mirrored injury, nor a sentient curse. It is measurable destabilization in shared environmental and engineered systems.
+- Stable use is possible under auditable limits, restoration work, and ongoing consent. Coercive use is the cause of most high-profile harm.
+- Publicly known use is limited, contested, and misunderstood; no frequent NPC fireball casting.
+
+## 6.2 Player's abilities and story
+- Player's combat abilities are primarily trained martial/mobility skills, devices, and learned techniques. Genuine magic should remain rare and tied to specific finds.
+- Echo Sight, Reconstruct, and related supernatural abilities exist as gameplay tools but should be diegetically reframed as uncommon *trace instruments* or skills, not evidence the ordinary traveler is chosen.
+- Critical story paths must not require optional abilities. Mandatory story-use abilities are acquired through fair, clear main quest progress or have equivalent nonmagical alternatives.
+- Deep world interaction remains: trace clues, reveal repair lines, stabilize a bridge's approved quest blocks, activate mechanisms. Never allow arbitrary terrain destruction.
+
+## 6.3 Why the Last Assay matters
+- Six public authorities once countersigned a shared emergency reserve. When private draws exceed safeguards, the Last Assay schedules mechanical isolation of overloaded lines to save the whole lattice. In modern geography, that would close vital canals, spoil food stores, and render trade corridors unusable.
+- Isolations are physically plausible regional setbacks rather than instant continent-wide explosion.
+- Restoring shared control requires six *attestations* (evidence-backed guarantees from social groups), not six collectible magical crystals. This echoes the player's actual detective work and alliance-building.
+- A procedural majority can force central control, but excludes dissenting receivers and entrenches inequity. A federated charter is harder to achieve; a planned shutdown limits future harm but causes painful scarcity.
+
+# 7. Narrative Structure and Pacing
+
+Target: main line 30–50 hours across six acts, depending on exploration, detective depth, combat skill, and which investigation branches are pursued. Optional content is additional. A 30–50-hour target is not a claim that this document alone provides that much authored playtime.
+
+Act I (3–5h): everyday hospitality, early delivery, unsettling local anomaly and first proof. Introduce life before conspiracy; avoid frontloading lore.
+Act II (5–7h): port/city markets, three major competing explanations, choice of which witnesses to pursue.
+Act III (8–12h): open investigation branches; independent discovery of contracts, ecology, technical apparatus.
+Act IV (5–8h): proof of broken consent; faction divisions; legitimate harm caused by well-intentioned actions.
+Act V (6–10h): political trial and infrastructure emergency; repair routes and public evidence campaigns.
+Act VI (4–8h): Last Assay, negotiable confrontation, final public compact, branching regional outcomes.
+
+Total ~31–50h. Do not force time by filler: use layered interior spaces, voiced snippets only as assets permit, puzzle clarity, variable investigative routes, and NPC routines. No arbitrary compulsory grinding.
+
+# 8. Main Quest Spine — Quest IDs, Beats, Flags
+
+IDs and flags are implementation-facing. Every quest gets localization, start/complete triggers, checks against persistent saves, re-entry rules, dialogue references, map region/coordinate targets, and test cases. Quest names shown here may be hidden from the player before discovery.
+
+## Act I — The First Errand
+
+
+**M01 A Room for the Rain** (Westreach): Arrive at Brindlecross; optional talk to Nella; first inn, market, and safety tutorial. Player can ignore story at any time. Flags: `visited_brindlecross`, `met_nella`.
+
+**M02 The Orchard Ledger**: A farmer asks for a pump repair, teaching designated interactions and clue inspection; establish nonmagical machines and local labor. Flag `repaired_pump`.
+
+**M03 A Parcel Bound East**: Corin hires player to deliver spare fittings to a mountain clinic. Dialogue includes honest, skeptical and mercenary responses; all reach a playable outcome. Flag `accepted_courier_work`.
+
+**M04 The Wrong Seal**: At roadside relay, stamped crate does not match its contents; discover physical inconsistency and choose whether to report or quietly note. Flag `found_seal_mismatch`, `report_choice`.
+
+**M05 The Good Work**: Deliver to Sableforge. A genuinely helpful miracle treatment saves people, shown sparingly and respectfully. The player helps with nonmagical rescue. Flag `witnessed_mercy`.
+
+**M06 The Bitter Water**: Near mining settlement, water animals are unwell. Study three forms of evidence; no single clue proves magical cause. Flag `watercase_open`, `collected_evidence_*`.
+
+**M07 One Ledger, Two Names**: Follow contract and shipment trails to Veylport; meet Idra. Unlock Atlas case board and first competing hypotheses. Flag `caseboard_unlocked`.
+
+## Act II — The Price on the Label
+
+
+**M08 An Honest Seller**: Investigate licensed merchant; learn trade regulations, legal claims and ordinary fraud. Exposes false miracle (nonmagical stagecraft) to keep mystery grounded. Flag `false_device_identified`.
+
+**M09 Three Witnesses**: Interview hospital, river commune and miner, each sees same event differently. Evidence-based dialogue tutorial. Flag `witness_count`.
+
+**M10 The Night Cargo**: Stealth or combat approach to nighttime dock shipment. Can obtain manifest by eavesdropping, buying access or infiltration; no forced stealth build. Flag `manifest_obtained`.
+
+**M11 Before the Council**: Player presents a *provisional* theory at small hearing; wrong conclusions cause different trust responses but no fail-state. Flag `theory_a` (fraud), `theory_b` (mismanagement), `theory_c` (ecological mechanism).
+
+**M12 The Three Tracks**: Unlock simultaneous leads through the Rainward Canopy, Sableforge, and Crownplain, playable in any order.
+
+## Act III — Three Investigation Branches (order flexible)
+
+### Branch R — The River's Account
+
+**R01 A Line of Sick Willows**: Investigate a forest corridor via wildlife and sound clues. Document changes in small habitats.
+
+**R02 The Split Current**: Protect a barge or prevent sabotage by learning the militants' intentions. Nonlethal and combat routes.
+
+**R03 Receivers**: Discover physical receiver stations hidden in an irrigation network; a mechanism puzzle teaches matching flows.
+
+**R04 The Witness That Wasn't There**: Inspect an old community agreement; a consent signature is chronologically impossible. Flag `forged_consent_a`.
+
+**R05 Green Accounting**: Present findings to Seren. Decide whether to publish incomplete evidence; significant local consequences.
+
+### Branch S — The Mountain Assay
+
+**S01 Into the Sounding Shaft**: Explore active mine; navigation and regulated work zones; interact with workers rather than mine terrain freely.
+
+**S02 The Breathing Lift**: Environmental boss: runaway lift assembly, counterweights, steam vents. Can be solved by timed action and puzzle.
+
+**S03 The Graded Stone**: Compare ore samples and guild marks; discover trace physical connection between device and network.
+
+**S04 One More Shift**: Help save miners from a collapse caused by flawed equipment rather than supernatural sabotage. Choice of rescue priorities changes relationships, not raw morality score.
+
+**S05 The Assayer's Refusal**: Confront Oris or aid Yara's research; access the forbidden test ledger. Flag `lab_results`.
+
+### Branch C — The Civic Record
+
+**C01 The Hall of Claims**: Court archives with layered dialogue and permissions; find an obscure legal basis for receiver commitments.
+
+**C02 Duplicate Hands**: Investigate identical signatures across generations through document comparison, timelines and witness questioning.
+
+**C03 The Missing Testimony**: Locate a witness who has fled; follow inn rumors, road schedules or undercover lead.
+
+**C04 Public Interest**: Choose whether to shield a vulnerable witness's name; affects later testimony access and safety.
+
+**C05 The River Has a Vote**: Discover early drafts of federated consent. Flag `federation_blueprint`.
+
+Branch reconciliation: all three produce complementary proof. Critical Act IV requires any two branches fully completed plus a short catch-up investigation; third yields stronger ending options and exposes hidden evidence. This supports freedom while ensuring sufficient player understanding. All side branches remain available later where narratively consistent.
+
+## Act IV — What the Weighhouses Keep
+
+
+**M13 The House Beneath the Gate**: Combine proof to locate first functioning weighhouse below a city floodgate. Dungeon includes analogue locks, records, water levels, and a trained security guardian machine (not a mythical god).
+
+**M14 The First Weighing**: Reveal that devices distribute system strain through receiver buffers and that original use required communal consent. Present clear demonstration with measurable before/after changes.
+
+**M15 Six Signatures**: Learn six-authority governance design. Acquire first physical attestation via ethical deeds and trustworthy evidence.
+
+**M16 False Consent**: Trace forged receiver permissions to Damon Sile and corrupt protection network; distinguish Maelin's negligence from Damon's active crime.
+
+**M17 Winter Receipts**: Learn Ina's wartime trade exemption saved lives but bypassed fair procedure. Player can confront, contextualize, publicize or bargain.
+
+**M18 The Flooded Orchard**: A seemingly safe repair for the player harms another district unless constraints are verified. It creates one hard, signposted consequence and demonstrates no universal perfect solution.
+
+**M19 The Open Docket**: Continent hears first credible proof. Factions fracture. Some NPCs change routines, markets, travel, safety patrols and conversation.
+
+## Act V — A Public Debt
+
+
+**M20 From Road to Road**: Investigate a series of failures along trade junctions; confirm the Last Assay's automatic isolation protocol.
+
+**M21 A Knife in the Lock**: Security minister engineers a violent disruption to force central control; early evidence points toward several suspects. Stealth, tracking and witness interrogation.
+
+**M22 The Price of Proof**: Player chooses how to publish technical plans without enabling new forgeries. Different factions gain access and open/close routes.
+
+**M23 The Assembly of Six**: Convene delegates in Asterhold. Evidence quality, testimonies, friendships and subquest outcomes change the proposed charter terms.
+
+**M24 The Weighhouse War**: Defend or infiltrate two stations; choose which corridor to stabilize first. Both are reachable later, but one has immediate regional effects.
+
+**M25 The False Lantern**: Reveal Unmarked Road alias is shared by several agents; evidence clarifies distinct motives; avoid a one-note smuggler mastermind reveal.
+
+**M26 A Season's Notice**: Kiva reveals Last Assay's trigger date, based on geological/weather cycles. This adds urgency to late story dialogue but does not create a harsh player timer. It advances on story flags, not time spent exploring.
+
+**M27 A Charter or a Chain**: Determine which policy routes are accessible based on faction trust, attestation evidence, repairs and prior choices. All runs must allow at least one legitimate ending, including a costlier emergency option.
+
+## Act VI — The Last Assay
+
+
+**M28 Doors Below the Tide**: Reach Underways via a route selected by allies. Solo and companion variants have different flavor but equal progression.
+
+**M29 What the Machine Is For**: Three-stage major dungeon: water pressure, receiver ledger matching, staged isolation. Puzzle design reacts to available mandatory abilities and allows nonmagic routes.
+
+**M30 A Man Who Counts Losses**: Confront Oren Dask. Conversation checks respect player's investigated truth. If negotiations collapse, nonlethal action boss with telegraphed attacks and environmental levers. Oren survives in most endings; death is not mandatory resolution.
+
+**M31 The Sixth Attestation**: Secure final authorization by legal, technical, or communal means; differs according to alliances. No mandatory collectible gem scavenger hunt.
+
+**M32 The Final Allocation**: A choice made through observed outcomes and governance terms, not three unexplained colored buttons. Available settlements show what will change.
+
+**M33 Dawn in the Counting House**: Short playable epilogue. Return to main world, inspect changed towns, updated Atlas and NPC schedules. Side quests and exploration remain accessible.
+
+# 9. Hard Plot Truths and Reveal Discipline
+
+These are exact facts for writers, not player-facing material.
+
+
+**Truth A:** Devices are scarce, but the supply has risen because guild refiners found an old technique for repairing dead devices; not because supernatural powers suddenly awakened. Several lots are counterfeits.
+
+**Truth B:** Initial rumors of harm transferred one-for-one are wrong. Impacts accumulate through designated engineered receivers, irrigation, soil moisture, transport materials and ecosystems. The harm follows networks and conditions rather than the exact innocent life supposedly 'paid' for a miracle.
+
+**Truth C:** The original program was consent-based, deliberately limited and widely audited; ancient builders were not all wicked exploiters.
+
+**Truth D:** Modern warrant forgery is systemic, but each faction shares a different responsibility. There are guilty people, not a single omnipotent plotter.
+
+**Truth E:** Oris has hidden dangerous test data, but has also developed a genuinely useful stabilizing method. Bringing him to justice can coexist with using his work.
+
+**Truth F:** The Last Assay is a non-sentient safety machine—not a god, dragon, ancient villain or magic apocalypse.
+
+**Truth G:** Oren's staged incidents accelerate political consolidation. He knows he is breaking the law and believes that an emergency directorate will prevent more deaths. He must remain intelligible even if rejected.
+
+**Truth H:** Community trust is as necessary as technical repair. Player cannot earn ideal ending just by collecting technical documents.
+
+Reveal order: M05 first miracle; M08 real vs false contrast; M10–12 records; two Act III branches expose distributed signatures and physical infrastructure; M14 core mechanism; M16–19 conspiracy details; M20 system failure; M26 countdown; M30 antagonist motive; M32 moral choice. Foreshadow at least three chapters before each reveal through ordinary details (water gauges, stamp marks, recurring phrases, archived measurements). Avoid obvious villain speeches.
+
+# 10. Endings and Conditions
+
+The player must not see the full ending list in the quest journal. Present only supported policy options with world consequences drawn from discovered evidence. Four major ending structures; regional variations depend on earlier decisions.
+
+
+**Ending E1 — The Public Charter**
+Requirements: high evidence quality (>=2 complete branches plus public records), 4+ civic attestation supports, repair work at both critical nodes, no permanently lost key witnesses. Establish a federation of receivers with consent-based draws, transparent audits, limited emergency provisions and independent rights to withdraw. Hospitals keep restricted access; old harms remain and need years of rehabilitation. Trade slows; small towns gain oversight roles. Oren may face tribunal or become a supervised technical adviser depending on confrontation outcome.
+
+
+**Ending E2 — The Emergency Directorate**
+Requirements: Common Assembly support OR technical emergency clause. Centralize network authority under a reviewable but initially broad emergency office. Stabilizes high-volume hospital and water uses rapidly. Some vulnerable regions remain obligated; dissenting communities have limited vetoes. Cities prosper quickly, and rural resentment rises. This is politically effective but ethically uneasy. Postgame includes oversight and resistance quests.
+
+
+**Ending E3 — The Gentle Closure**
+Requirements: specific infrastructure study and sufficient alternate supply chain work OR acceptance of greater short-term hardship. Gradually decommission primary draw network while reserving a finite, regulated emergency stock. Many damaged habitats recover, but hospitals lose a lifesaving tool; the player should see transition programs and communities refusing a simple moral verdict. Economic upheaval and retraining quests continue postgame.
+
+
+**Ending E4 — The Distributed Compact**
+Requirements: strong relationships with at least four community-level groups, discoveries from all three investigation branches, protected witnesses and repaired understations. Rebuild decentralized local weighhouses whose communities decide participation; lower maximum capacity and slower response than centralization, but greater autonomy. The main downside is uneven protection across regions and operational fragility. Ending must not be framed as objectively perfect.
+
+
+**Emergency fallback — A Winter Without Balance**
+Available if player ignored most evidence or made destructive choices. The network is partially isolated to avert immediate catastrophe. Suffering is regional but not annihilation. Player continues exploring and rebuilding, with a damaged-travel-world epilogue. Treat as a valid difficult outcome, not a 'game over'.
+
+Regional epilogues independently track: `riverwatch_treaty`, `mine_safety_reform`, `witness_protected`, `supply_route_open`, `orchard_restored`, `smugglers_legalized`, `brindlecross_prosperity`, `last_assay_policy`, `dask_disposition`. Use these flags to select modest changes to world assets, shops, encounters and NPC dialogue.
+
+# 11. Key Supporting Questlines (Optional Narrative, Not Filler)
+
+Every arc below should contain at least three distinct verbs (talk, explore, investigate, defend, travel, solve, gather, decide), a memorable character, a possible world change, and a self-contained payoff. No multiple quests that are only 'collect ten things'. Twenty-five major side quest arcs, plus many shorter local events, can support a rich optional campaign.
+
+SQ01 **The Blue Ribbon Stall** (Westreach): neighbor vendors compete for festival space; player traces theft and chooses fair resolution. Reopens second market stall.
+SQ02 **Two Weeks of Rain** (Westreach): repair culverts before a harvest festival; environmental puzzle tied to weather; local flood behavior improves.
+SQ03 **The Last Delivery** (Westreach): elderly courier wants lost route documented; pathfinding, small combat and humor; unlocks atlas annotations.
+SQ04 **The Singing Mill** (Rainward): night noises blamed on ghosts; investigation reveals an injured animal and a dangerous broken wheel. Player chooses repair or quiet abandonment.
+SQ05 **A Window to the Marsh** (Greyfold): naturalist seeks a rare bird; observation and tracking, no killing required. Small ecosystem fact collection.
+SQ06 **The Broken Bell** (Veylport): an apprentice wants to restore a waterfront bell; climbing and social persuasion; harbor schedule changes.
+SQ07 **Salt on the Ledger** (Tideglass): port customs mystery about missing bags, fake seals and legitimate desperation; economic consequences.
+SQ08 **Three Empty Tables** (Veylport): innkeeper investigates former friends who no longer visit; NPC relationship web and meaningful reunion or honest separation.
+SQ09 **A Sled for Winter** (Boreal): rebuild a mountain transport route; gather designated materials, solve pulley puzzle, unlock caravan travel.
+SQ10 **Fire Under the Floor** (Boreal): miners blame a mythic creature; mine safety and ventilation problem with dangerous animal encounter.
+SQ11 **The Redwater Orchard** (Garnet): drought-struck orchard dispute over reservoir rights. Change canal access and seasonal produce.
+SQ12 **Every Stone a Name** (Crownplain): examine memorial records and a disputed family history; thoughtful dialogue, not sensational tragedy.
+SQ13 **The Empty Nets** (Tideglass): fishermen and reef guardians disagree on protected breeding zones; help design enforceable boundary.
+SQ14 **Night Market Challenge** (Saffron): caravan race, barter, optional stealth competition; alternative merchant stock unlocked.
+SQ15 **The Quiet Guard** (Crownplain): guard with damaged hearing investigates repeated false alarms; player uses visual clues; guard routines change.
+SQ16 **A Forge Without Smoke** (Boreal): blacksmith and apprentice develop more efficient fuel use; minor equipment upgrade recipe.
+SQ17 **A Rival at the Bridge** (Westreach): recurring duelist challenges player across regions; builds friendship or rivalry; combat mastery milestones.
+SQ18 **The Child's Weather Book** (Greyfold): document strange weather; mechanics tutorial for regional climates, emotive family payoff.
+SQ19 **The Six Masks** (Veylport): festival performance troupe loses costumes; clues and character-driven comedy, not a crime epic.
+SQ20 **A Place for the Herd** (Rainward): ranger and farmers disagree over migrating animals; stealth tracking, fence repairs, coexistence outcome.
+SQ21 **The Oldest Map** (Saffron): cartographer's notes point to ruined observatory; puzzle reveals optional world-history lore, not main plot spoiler.
+SQ22 **Borrowed Shoes** (Veylport): a low-paid porter wants to enter a race but cannot afford boots; social/economic quest with several honest solutions.
+SQ23 **The Lantern Fox's Favor** (Tideglass): free market courier aids poor settlement, player chooses lawful or covert route; later changes smuggler trust.
+SQ24 **A Night at the Festival** (Westreach): recurring event with minigames, social interactions, changing NPC relationship conditions.
+SQ25 **The Workshop Door** (Garnet): old engineer left a technical puzzle workshop and letter to a former student; reward is an unusual nonmagical traversal tool.
+
+Optional multi-hour character arcs: Idra's Public Witness; Seren's Broken Movement; Yara's Second Chance; Tamsin's Fair Shift; Corin's Debt; Nella's Family Program; Joss's Missing Shipment. These should each have 3–5 distinct missions, branching conversations and consequences. They can connect to main acts without being mandatory for basic completion.
+
+# 12. Puzzle Dungeons and Boss Design
+
+Story dungeons are authored areas with immutable scenery and limited puzzle interactables. Every puzzle should show affordances, state, reset logic and accessibility alternatives. Never make arbitrary mining solve them.
+
+D1 **Floodgate Vault** (Act IV): rotating water channels, pressure gauges, register-reading and vertical climbing. Boss-like encounter: a hydraulic lock assembly, telegraphing steam bursts and shifting platforms.
+D2 **Breathing Lift** (Act III Mountain): descent timing, counterweights and narrow service bridges. Major hazard challenge; optional mechanical miniboss.
+D3 **The Sealed Archive** (Act III Civic): investigation dungeon with witness statements, calendar contradictions, mechanical locks and quiet stealth sections, no required combat.
+D4 **The River's Teeth** (Act III River): wildlife migration paths, floodplain terrain, sluice control, bridge repair; boss is a defensive altered marsh predator with the option of nonlethal disengagement.
+D5 **Saltglass Catacombs** (Act V): smugglers' paths, decoy cargo and dual-route stealth/combat infiltration, environmental trap puzzle.
+D6 **The Redbarrow Regulators** (Act V): timed valves, wind pressure, multi-level mining/repair routes and a heavily armored human enforcer boss with telegraphed guard breaks.
+D7 **Asterhold Service Court** (Act V): social-infiltration space with schedules, permission slips, evidence and quiet traversal.
+D8 **The Last Assay** (Act VI): three-stage final environmental dungeon featuring changing conduit networks, consent-credential puzzle and a physical isolation race. Finale combat against Oren if diplomacy fails; no giant ancient demon.
+
+Hardcore action combat: weapons have distinct stances, dodges, guard-breaks, stamina management, and skill rewards. Bosses have multiple readable phases, puzzles, and nonmagical environmental solutions; they should not assume the player has optional rare magic.
+
+# 13. Dialogue and Detective Systems
+
+All dialogue is authored and localized; use contextual lines for time, weather, relationship and world state. No mandatory paid AI. Each conversation offers characterful responses but never makes the player guess an arbitrary correct line to avoid losing the game.
+
+Evidence model: collectible evidence entries with source, confidence, location, timestamp/order marker, witness reliability, contradiction sets, and case-board links. Deduction screen lets player connect claims and evidence. Incorrect hypotheses produce believable, recoverable reactions and may change optional NPC trust; the player can revisit with new evidence.
+
+Key dice-free dialogue checks: `knowledge` (evidence learned), `reputation` (faction/local), `relationship` (individual), `background` (ordinary traveler flavor), `skill` (non-exclusive skill thresholds), `time/location`, `quest_state`. Never require extensive early grinding to pass critical check. Player's name/appearance customizable; backstory is simply an ordinary traveler. No prophecy.
+
+Conversation style: concise ordinary speech with occasional humor, no constant exposition or encyclopedic monologues. Merchants discuss daily life; children have safe age-appropriate incidental lines; people hold genuine disagreement without sounding like philosophical essays.
+
+The side quest log distinguishes player-observed fact, tentative deduction and rumor. The living Atlas pins visited sites and maps changing trade routes. When an NPC mentions a rumored location, it appears as an approximate area, not an exact marker by default; optional guidance can be enabled.
+
+# 14. World Life and System Integration
+
+- Major cities have dense visible crowds, but not thousands of fully simulated live entities. Use tiered simulation: authored high-detail NPCs, local scheduled residents, distant aggregate population. Maintain deterministic routines and safe state persistence.
+- NPCs socialize, gossip, celebrate recurring holidays, visit work, move to taverns, react to weather and witness crimes. Faction choices affect shops and travel, not just dialogue.
+- Player is primarily nomadic: inns and optional campfires support travel. Owned houses are cosmetic/private, optional multiple purchases; no housing lock on crafting or story progression. Shared home storage if a home is purchased.
+- Periodic roadside encounters include neutral traders, lost travelers, animal migration, weather events, guards, smugglers, and small personal stories. No excessive ambush spam.
+- Very rich wildlife is possible through version-compatible licensed mods where appropriate. Verify Fabric 1.21.1, dependency versions, licenses, and performance. Existing audio/ecosystem mods should be integrated where safe rather than rewritten.
+- Light hunger, optional sleep, regional weather hazards, cosmetic pets, bondable mounts, simple companions, and proper stealth. Campfires only, not a full tent-management system.
+- No weapon or armor durability. Use mixed rare equipment and unique effects, deep upgrades, categorized inventory, expandable storage, specialized crafting, regional economy, memorable loot, personal-only collections, and fully customizable nine-slot weapons/abilities bar. No ultimates. Abilities have separate stamina/energy and branching upgrades, 20–30 total, with soft gating.
+- Support first and third person, custom action controls, detailed HUD, partial voice acting, dynamic soundtrack, reactive ambience and optional effects; stable performance comes first. All optional external mods vetted for license and version before shipping.
+
+# 15. Spoiler Containment in Engineering Workflow
+
+This section is a strict production requirement from the player, not flavor.
+
+1. Private plot docs stay in `narrative/private/` and are never included in game launcher announcements, public changelogs or player-readable repository summary.
+2. Use opaque quest IDs (M01, R03, etc.) in developer progress displays. Avoid secret names and plot descriptions in screenshots, filenames, window titles and commit messages that may be seen by the player.
+3. Any test/demo quest shown to the player must be from a **spoiler-free sandbox** with invented disposable NPCs rather than a main-plot event.
+4. If explaining a bug requires spoilers, describe it generically ('Act IV case-board transition') rather than giving away the revelation.
+5. Final in-game quest content naturally reveals as player progress unlocks it; content gating is a gameplay behavior, not a security feature. A user who opens the shipped resource files could read scripts. Be accurate about this limitation.
+6. Deliver narrative build logs only at feature level: `Main quests authored: 16/33; branching conditions passing: 82%; dialogue data compiled`, not secret quest titles.
+7. The player does not want to approve story spoilers. Treat this bible as delegated narrative direction; ask only when a genuinely gameplay-relevant choice cannot be inferred.
+
+# 16. Data Design for Claude Code
+
+Recommended structures (adapt to existing codebase):
+
+
+- `narrative/private/bible.md` — this private source.
+
+- `data/story/quests/*.json` — authored quest nodes and staged objectives, with IDs and localization keys.
+
+- `data/story/dialogue/*.json` — dialogue trees with response predicates and action effects.
+
+- `data/story/characters/*.json` — character profiles, schedules, traits, affiliations and relationship flags.
+
+- `data/story/factions/*.json` — reputation thresholds, service rewards and local disputes.
+
+- `data/story/world_states/*.json` — reversible/nonreversible local state changes with chunk-safe application.
+
+- `data/story/cases/*.json` — evidence, testimony, rumor links, contradictions and hypotheses.
+
+- `data/story/endings/*.json` — policy eligibility rules and regional epilogue flags.
+
+- `data/story/region_index.json` — region bounds, climate, music palettes, travel links and quest sites.
+
+Sample quest object (structural, noncanonical exact schema):
+
+```json
+{
+  "id": "M06",
+  "chapter": "act_1",
+  "required_flags": ["witnessed_mercy"],
+  "stages": ["talk_worker", "inspect_water", "collect_samples", "compare_notes"],
+  "world_state_on_complete": ["watercase_open"],
+  "soft_failures": ["ignored_early_warning"],
+  "localization_key": "quest.m06.title",
+  "region": "boreal_stair"
+}
+```
+
+Save compatibility: persistent UUIDs for NPCs, namespaced quest keys, migrations for later content versions, idempotent world state changes and case board evidence, data validation at startup. Never add a one-off mission script that bypasses the central persistence architecture.
+
+Testing matrix:
+- Branches completed in all 6 orders, 2-of-3 reconciliation, late third-branch return.
+- Witness protected vs public, repair priority A vs B, all endings plus emergency fallback.
+- Save/reload mid-dialogue, mid-investigation, mid-dungeon, post-world-change.
+- Region unloaded/reloaded while NPC routines update abstractly.
+- Manual save/autosave and respawn checkpoint without duplication or quest corruption.
+- Optional guidance on/off; low visual effects; accessible puzzle clues.
+- No required quest can deadlock because an NPC goes to sleep, dies, falls off terrain, or is stuck in navigation.
+- Build can be installed alongside approved dependency mods in exactly Minecraft 1.21.1 Fabric.
+
+# 17. Content Production Plan (Narrative Only)
+
+Milestone N1 — Core public-facing setting bible with no spoilers, region/culture names, sample ordinary NPC dialogue, no secret reveals; mechanics test quests.
+Milestone N2 — Full Act I main quest scripts, early optional regional side quests, quest/caseboard mechanics, voice direction and localization.
+Milestone N3 — Three Act III branch datasets plus regional interiors, multiple solutions and testing matrix.
+Milestone N4 — Acts IV–VI quest/dialogue content, faction proof and ending conditions, world state variants.
+Milestone N5 — Side quest expansion to target counts, contextual bark libraries, town holidays, postgame epilogues.
+Milestone N6 — Narrative QA: continuity audits, spoiler audits, save compatibility, choice consequence replay, playtime pacing and no plot deadlocks.
+
+This document is a complete narrative **blueprint**, not the 30–50-hour playable campaign or the full scripted dialogue corpus. Claude Code still must implement missions, author scene dialogue, create actual world content and test it. Keep the user's story unspoiled through this work.
+
+---
+
+END PRIVATE BIBLE.
+
+
+
+=============================================================================
+END OF PRIVATE HANDOFF.
+=============================================================================

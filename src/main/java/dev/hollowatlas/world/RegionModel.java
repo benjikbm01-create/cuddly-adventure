@@ -218,9 +218,16 @@ public final class RegionModel {
                 double shape = 1 + pk.crag * (spur - 0.55) * Math.min(1, (1 - t) * 2.2);
                 double rough = noise(x / 7.0 + pk.x, z / 7.0 - pk.z) * 3.5 * pk.crag * t;
                 double add = pk.h * cone * shape + rough;
-                if (pk.crater > 0 && d < pk.crater * 1.25) {
-                    double c = 1 - d / (pk.crater * 1.25);
-                    add -= pk.crater_depth * smooth(c * 1.4) ;            // the bowl inside the rim
+                if (pk.crater > 0) {
+                    // a bowl sunk below the rim: lowest in the middle, so a lava or water lake sits inside it
+                    double rt = Math.max(0, 1 - pk.crater / rr);
+                    double rim = pk.h * (0.55 * rt * rt * (3 - 2 * rt) + 0.45 * Math.pow(rt, 2.4)) * shape;
+                    double q = d / pk.crater;
+                    if (q < 1.35) {
+                        double bowl = rim - pk.crater_depth * Math.max(0, 1 - q * q) + rough * 0.5;
+                        double wt = q < 1 ? 1 : 1 - smooth((q - 1) / 0.35);
+                        add = add * (1 - wt) + Math.min(add, bowl) * wt;
+                    }
                 }
                 h += add;
             }

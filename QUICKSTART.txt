@@ -10,6 +10,7 @@ You need: Minecraft Java Edition 1.21.1 with the Fabric Loader installed
      TheHollowAtlas-world.zip
      TheHollowAtlas-DevTest-world.zip        (optional: spoiler-free test world)
      DEV_TESTING.md                          (testing checklist)
+     TheHollowAtlas-Showcase-world.zip       (optional: 2000x2000 scenery showcase, see below)
 
 2. Press Win+R, type   %APPDATA%\.minecraft   and press Enter.
 
@@ -55,6 +56,20 @@ BUG TESTING WITHOUT SPOILERS
   Unzip it into "saves" too (you get saves\hollow_atlas_devtest). It can't touch
   your real save. In it, press F7 for the Developer Menu.
 - Full checklist: DEV_TESTING.md (in this folder).
+
+SCENERY SHOWCASE (terrain and buildings only, no people, no story)
+- Unzip TheHollowAtlas-Showcase-world.zip into "saves" (you get saves\hollow_atlas_showcase).
+- The download is tiny because the map builds itself the first time you open it:
+  you'll see "Building showcase map: NN%" above your hotbar. It takes a few minutes;
+  you can fly around while it appears. Leave the world open until it says it's finished.
+- You're in creative mode: double-tap Space to fly. Tip: raise Render Distance
+  (Options > Video Settings) to 16-24 chunks for the big views.
+- Places to look for: the Cliff City (6 stacked terraces + citadel) north of the start,
+  the Crown mountain behind it, the volcano (north-east), the badlands mesas (east),
+  the blossom lake town (south-east), the floating islands over the big lake (south-west),
+  the great gorge with needle rocks (west), and a monastery high in the pine forest (north-west).
+- Use /tp to jump around: e.g. /tp 0 200 -200 (city), /tp 640 260 -560 (volcano),
+  /tp 560 150 300 (mesa outpost), /tp -600 200 650 (floating islands).
 
 SPOILERS: the game's story files are inside the mod and in the project repository.
 Opening them will spoil the plot.

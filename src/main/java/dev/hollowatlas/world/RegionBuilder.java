@@ -317,11 +317,13 @@ public final class RegionBuilder {
             default -> {
                 if (model.layout.snow_line > 0 && H >= model.layout.snow_line) yield Blocks.SNOW_BLOCK.getDefaultState();
                 String pal = model.paletteAt(x, z);
-                if (pal.equals("badlands")) yield r < 0.7 ? Blocks.RED_SAND.getDefaultState() : r < 0.85 ? Blocks.COARSE_DIRT.getDefaultState()
-                        : r < 0.93 ? Blocks.TERRACOTTA.getDefaultState() : Blocks.GRASS_BLOCK.getDefaultState();
-                if (pal.equals("volcanic")) yield r < 0.35 ? Blocks.BLACKSTONE.getDefaultState() : r < 0.6 ? Blocks.BASALT.getDefaultState()
-                        : r < 0.8 ? Blocks.COARSE_DIRT.getDefaultState() : r < 0.83 ? Blocks.MAGMA_BLOCK.getDefaultState() : Blocks.TUFF.getDefaultState();
-                if (pal.equals("taiga") && r < 0.35) yield Blocks.PODZOL.getDefaultState();
+                // zone ground in natural patches (noise), with a little per-block variation only
+                double patch = model.noise(x / 9.0 + 71, z / 9.0 - 33) + (r - 0.5) * 0.35;
+                if (pal.equals("badlands")) yield patch < 0.15 ? Blocks.RED_SAND.getDefaultState() : patch < 0.45 ? Blocks.TERRACOTTA.getDefaultState()
+                        : patch < 0.62 ? Blocks.COARSE_DIRT.getDefaultState() : Blocks.ORANGE_TERRACOTTA.getDefaultState();
+                if (pal.equals("volcanic")) yield patch < -0.2 ? Blocks.BASALT.getDefaultState() : patch < 0.25 ? Blocks.BLACKSTONE.getDefaultState()
+                        : patch < 0.5 ? Blocks.TUFF.getDefaultState() : r < 0.08 ? Blocks.MAGMA_BLOCK.getDefaultState() : Blocks.COARSE_DIRT.getDefaultState();
+                if (pal.equals("taiga") && patch > 0.1) yield patch > 0.55 ? Blocks.COARSE_DIRT.getDefaultState() : Blocks.PODZOL.getDefaultState();
                 double wd = woodsDensity(x, z);
                 if (wd > 0.25 && r < 0.10) yield Blocks.PODZOL.getDefaultState();
                 if (wd > 0.25 && r < 0.14) yield Blocks.COARSE_DIRT.getDefaultState();
@@ -685,7 +687,7 @@ public final class RegionBuilder {
                 double r = rnd(x, z, 77);
                 if ("lava".equals(p.fluid)) continue;
                 if (model.water[i] != Integer.MIN_VALUE) {
-                    if (r < 0.12) set(x, model.water[i] + 1, z, Blocks.LILY_PAD.getDefaultState());
+                    if (r < (p.r > 30 ? 0.012 : 0.12)) set(x, model.water[i] + 1, z, Blocks.LILY_PAD.getDefaultState());
                     continue;
                 }
                 boolean shore = false;

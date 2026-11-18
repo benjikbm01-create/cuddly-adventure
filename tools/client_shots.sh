@@ -5,7 +5,8 @@ set -euo pipefail
 cd "$(dirname "$0")/.."
 #   WORLD=dev tools/client_shots.sh "..."   uses the developer test world instead of the story world
 SPEC="$1"
-if [ "${WORLD:-story}" = "dev" ]; then SRC=run-devworld/hollow_atlas_devtest; NAME=hollow_atlas_devtest; else SRC=run-world/hollow_atlas; NAME=hollow_atlas; fi
+if [ "${WORLD:-story}" = "dev" ]; then SRC=run-devworld/hollow_atlas_devtest; NAME=hollow_atlas_devtest
+elif [ "${WORLD:-story}" = "showcase" ]; then SRC=run-showcase/hollow_atlas_showcase; NAME=hollow_atlas_showcase; else SRC=run-world/hollow_atlas; NAME=hollow_atlas; fi
 mkdir -p run/saves run/screenshots
 rm -rf "run/saves/$NAME"
 cp -r "$SRC" "run/saves/$NAME"

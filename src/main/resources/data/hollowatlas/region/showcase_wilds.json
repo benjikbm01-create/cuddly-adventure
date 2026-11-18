@@ -25,6 +25,13 @@
  "village_radius": 0,
  "zones": [
   {
+   "id": "sc_z_cherry",
+   "x": 230,
+   "z": 640,
+   "r": 240,
+   "palette": "cherry"
+  },
+  {
    "id": "sc_z_volcano",
    "x": 640,
    "z": -560,
@@ -33,17 +40,10 @@
   },
   {
    "id": "sc_z_badlands",
-   "x": 630,
-   "z": 330,
-   "r": 360,
+   "x": 650,
+   "z": 310,
+   "r": 330,
    "palette": "badlands"
-  },
-  {
-   "id": "sc_z_cherry",
-   "x": 230,
-   "z": 640,
-   "r": 240,
-   "palette": "cherry"
   },
   {
    "id": "sc_z_taiga",

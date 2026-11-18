@@ -23,9 +23,9 @@ L = dict(id="showcase_wilds", name="The Hollow Atlas: Showcase", mode="showcase"
 
 # ------------------------------------------------------------------------------------------- regions of the map
 L["zones"] = [
+    dict(id="sc_z_cherry", x=230, z=640, r=240, palette="cherry"),      # listed first: wins where zones overlap
     dict(id="sc_z_volcano", x=640, z=-560, r=330, palette="volcanic"),
-    dict(id="sc_z_badlands", x=630, z=330, r=360, palette="badlands"),
-    dict(id="sc_z_cherry", x=230, z=640, r=240, palette="cherry"),
+    dict(id="sc_z_badlands", x=650, z=310, r=330, palette="badlands"),
     dict(id="sc_z_taiga", x=-580, z=-430, r=380, palette="taiga"),
 ]
 

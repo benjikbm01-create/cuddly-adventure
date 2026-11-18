@@ -36,6 +36,12 @@ v0.1.3 (v0.1 plus fixes and the developer test world with the Test Heights mount
 Windows: use `gradlew.bat build`. World generation needs bash (Git Bash or WSL) or run `gradlew runBuildWorld`
 after creating `run-world/server.properties` as in `tools/build_world.sh`.
 
+## Scenery showcase
+
+`hollow_atlas_showcase` is a separate 2000 x 2000 scenery-only world (terrain and buildings, no residents or quests),
+generated from `tools/showcase_src/showcase.py`. The release ships it as a tiny seed world that builds itself the first
+time it is opened (`tools/build_showcase_world.sh seed`); `tools/build_showcase_world.sh` builds it fully for QA.
+
 ## Testing without story spoilers
 
 A separate **developer test world** (`hollow_atlas_devtest`) uses the real game systems with fictional test content only.

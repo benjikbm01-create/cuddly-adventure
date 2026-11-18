@@ -13,6 +13,8 @@ cp build/libs/hollowatlas-$VERSION.jar "$OUT/mods/"
 FAPI=$(find ~/.gradle/caches/modules-2 -name "fabric-api-0.116.6+1.21.1.jar" | head -1)
 cp "$FAPI" "$OUT/mods/"
 cp dist/TheHollowAtlas-world.zip dist/TheHollowAtlas-DevTest-world.zip "$OUT/"
+[ -f dist/TheHollowAtlas-Showcase-world.zip ] || ./tools/build_showcase_world.sh seed
+cp dist/TheHollowAtlas-Showcase-world.zip "$OUT/"
 cp QUICKSTART.txt README.md docs/DEV_TESTING.md "$OUT/"
 cat > "$OUT/licenses/FABRIC_API_LICENSE.txt" <<'LIC'
 Fabric API (https://github.com/FabricMC/fabric) is licensed under the Apache License 2.0.

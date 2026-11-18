@@ -7,12 +7,12 @@ An original open-world fantasy action RPG built as a Fabric mod for **Minecraft 
 
 ## Play it
 
-See **[QUICKSTART.txt](QUICKSTART.txt)** (Windows steps). In short: put `hollowatlas-0.1.3.jar` and Fabric API
+See **[QUICKSTART.txt](QUICKSTART.txt)** (Windows steps). In short: put `hollowatlas-0.1.4.jar` and Fabric API
 into `.minecraft/mods`, unzip `TheHollowAtlas-world.zip` into `.minecraft/saves`, launch your Fabric 1.21.1 profile.
 
 ## Status
 
-v0.1.3 (v0.1 plus fixes and the developer test world with the Test Heights mountain region). See [docs/PROGRESS.md](docs/PROGRESS.md) (spoiler-free status per milestone) and
+v0.1.4 (v0.1 plus fixes, the developer test world with the Test Heights mountain region, and the scenery showcase world). See [docs/PROGRESS.md](docs/PROGRESS.md) (spoiler-free status per milestone) and
 [docs/TESTING.md](docs/TESTING.md) (what was actually run and its results).
 
 ## Requirements

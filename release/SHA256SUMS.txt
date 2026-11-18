@@ -1,5 +1,6 @@
-cc531256ecce945b65b179bcedc45ca40b69d7364b95448d255270bb6fccaac8  TheHollowAtlas-v0.1.3/mods/fabric-api-0.116.6+1.21.1.jar
-df8f5f62d562c618b0e8e0e637fd00478d8b0027a6c50618af4bd13a9f3b38f2  TheHollowAtlas-v0.1.3/mods/hollowatlas-0.1.3.jar
-6a284342b2520830ebda5464256190f3eb516b940c3a45975080ccc4dbe79aea  TheHollowAtlas-v0.1.3/TheHollowAtlas-DevTest-world.zip
-2c5802ed470983a623d92207037ef754b827002855dcc9360859266ee00dbdcf  TheHollowAtlas-v0.1.3/TheHollowAtlas-world.zip
-87538ff9388d96e7e49df6a341913bc40f453e982733db3ed5f3cad3bcf65303  TheHollowAtlas-v0.1.3.zip
+cc531256ecce945b65b179bcedc45ca40b69d7364b95448d255270bb6fccaac8  TheHollowAtlas-v0.1.4/mods/fabric-api-0.116.6+1.21.1.jar
+52ef2b1e867885be3fce5dad65373e731ce182ff493b30c67492f1a7319f72f7  TheHollowAtlas-v0.1.4/mods/hollowatlas-0.1.4.jar
+75aa48f652bfbc8a8d43b5ef29e541a4af6149e673203aee5c4ca56c79aaf9b5  TheHollowAtlas-v0.1.4/TheHollowAtlas-DevTest-world.zip
+9a708ee5a9ea5695f8ea336fdf8ac4d519be585a12fdd3c238ab6ed8bd645fec  TheHollowAtlas-v0.1.4/TheHollowAtlas-Showcase-world.zip
+2c5802ed470983a623d92207037ef754b827002855dcc9360859266ee00dbdcf  TheHollowAtlas-v0.1.4/TheHollowAtlas-world.zip
+4a39d7e10e2e036cb84207d7863aa3624b061be098ec3040bff3cecfeb88c121  TheHollowAtlas-v0.1.4.zip

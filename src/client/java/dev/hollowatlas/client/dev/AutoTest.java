@@ -198,6 +198,13 @@ public final class AutoTest {
     private static void talkSteps(String id, int delay) {
         step("approach " + id, delay, () -> approach(id));
         step("talk " + id, 12, () -> interactNpc(id));
+        step("retry approach " + id, 15, () -> { if (!(mc().currentScreen instanceof DialogueScreen)) approach(id); });
+        step("retry talk " + id, 12, () -> {
+            if (mc().currentScreen instanceof DialogueScreen) return;
+            NpcEntity n = npc(id);
+            HollowAtlas.LOGGER.info("[autotest] retrying talk with {} (distance {})", id, n == null ? -1 : mc().player.distanceTo(n));
+            interactNpc(id);
+        });
     }
 
     private static void useBlock(String anchor) {

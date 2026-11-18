@@ -74,7 +74,7 @@ public final class Keys {
         while (ATLAS.wasPressed()) { ClientState.send("journal_request"); mc.setScreen(new AtlasScreen()); }
         while (DEV_MENU.wasPressed()) {
             // only in developer testing worlds; the server re-checks every action anyway
-            if (ClientState.b(ClientState.hud, "devtest")) mc.setScreen(new dev.hollowatlas.client.ui.DevMenuScreen());
+            if (devMenuAllowed()) mc.setScreen(new dev.hollowatlas.client.ui.DevMenuScreen());
         }
     }
 
@@ -97,5 +97,10 @@ public final class Keys {
                 }
             }
         }
+    }
+
+    /** The developer menu only exists in the developer test world (the server reports the mode). */
+    public static boolean devMenuAllowed() {
+        return ClientState.b(ClientState.hud, "devtest");
     }
 }

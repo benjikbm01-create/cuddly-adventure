@@ -64,7 +64,12 @@ public final class AutoTest {
     public static void init() {
         phase = System.getProperty("hollowatlas.autotest");
         if (phase == null || phase.isBlank()) return;
-        if (phase.equals("phase1")) phase1(); else phase2();
+        switch (phase) {
+            case "phase1" -> phase1();
+            case "dev1" -> devPhase1();
+            case "dev2" -> devPhase2();
+            default -> phase2();
+        }
         String only = System.getProperty("hollowatlas.autotest.only", "");
         if (!only.isBlank()) {
             java.util.Set<String> keep = new java.util.HashSet<>(java.util.Arrays.asList(only.split(",")));
@@ -269,6 +274,10 @@ public final class AutoTest {
             check("starting weapon in pack", count(item("hollowatlas:traveler_shortsword")) == 1);
             check("adventure mode enforced", srv(s -> sp(s).interactionManager.getGameMode() == GameMode.ADVENTURE));
             check("first-join rain", srv(s -> s.getOverworld().isRaining()));
+            check("developer mode is OFF in the story world", !dev.hollowatlas.state.WorldMode.devtest(mc().getServer()) && !ClientState.b(ClientState.hud, "devtest"));
+            srv(s -> { dev.hollowatlas.devtest.DevTestService.run(sp(s), "coins", "500"); return null; });
+            check("developer actions are refused in the story world", profile().coins == 12);
+            check("developer menu does not open in the story world", !dev.hollowatlas.client.Keys.devMenuAllowed());
         });
         step("arrival shot", 40, () -> shot("01_arrival_hud"));
         step("protection: break attempt", 10, () -> {
@@ -643,6 +652,7 @@ public final class AutoTest {
         step("residents", 140, () -> {
             int live = srv(s -> (int) NpcDirector.liveView().values().stream().filter(e -> !e.isRemoved()).count());
             check("several residents live near the square (" + live + ")", live >= 4);
+            check("no test residents in the story world", srv(s -> NpcDirector.liveView().keySet().stream().noneMatch(k -> k.startsWith("dt_"))));
             shot("13_village_evening");
         });
         step("save state", 5, () -> {
@@ -672,5 +682,292 @@ public final class AutoTest {
             check("case theory persisted", "fox_took_it".equals(p.hypotheses.get("ribbon_case")));
         });
         step("hud after reload", 60, () -> shot("14_after_reload"));
+    }
+
+    // ============================================================= DEVELOPER TEST WORLD (spoiler-free)
+
+    private static void dev(String action, String arg) {
+        JsonObject o = new JsonObject();
+        o.addProperty("action", action);
+        o.addProperty("arg", arg);
+        ClientState.send("dev", o);       // the same packet the F7 developer menu sends
+    }
+
+    private static int enemiesNear() {
+        return srv(s -> s.getOverworld().getEntitiesByClass(EnemyEntity.class, sp(s).getBoundingBox().expand(64), EnemyEntity::isAlive).size());
+    }
+
+    private static boolean onlyTestQuests() {
+        return profile().quests.keySet().stream().allMatch(k -> k.startsWith("dtq_"));
+    }
+
+    private static boolean blockIs(String anchor, int dx, int dz, net.minecraft.block.Block b) {
+        BlockPos at = LocationIndex.pos(anchor).add(dx, 0, dz);
+        return srv(s -> s.getOverworld().getBlockState(at).isOf(b));
+    }
+
+    private static int devCoins;
+    private static BlockPos devCheckpoint;
+
+    private static void devPhase1() {
+        step("dev setup", 0, () -> {
+            ClientConfig.get().dialogueSpeed = 2;
+            check("this is the developer test world", dev.hollowatlas.state.WorldMode.devtest(mc().getServer()));
+            check("HUD reports developer mode", ClientState.b(ClientState.hud, "devtest"));
+            check("test arrival gives 100 coins", profile().coins == 100);
+            check("no story quest was started", profile().quests.isEmpty() || onlyTestQuests());
+            check("only test residents exist here", srv(s -> NpcDirector.liveView().keySet().stream().allMatch(k -> k.startsWith("dt_"))));
+            check("developer menu is allowed here", dev.hollowatlas.client.Keys.devMenuAllowed());
+        });
+        step("open dev menu", 20, () -> mc().setScreen(new dev.hollowatlas.client.ui.DevMenuScreen()));
+        step("dev menu shot", 30, () -> { check("developer menu opens", mc().currentScreen instanceof dev.hollowatlas.client.ui.DevMenuScreen); shot("dev01_menu"); mc().setScreen(null); });
+
+        // ---- items
+        step("give weapons", 5, () -> dev("give_weapons", ""));
+        step("give armor", 10, () -> dev("give_armor", ""));
+        step("give food", 10, () -> dev("give_food", ""));
+        step("give materials", 10, () -> dev("give_materials", ""));
+        step("items given", 20, () -> {
+            check("weapons given", count(item("hollowatlas:ash_quarterstaff")) == 1 && count(Items.SHIELD) == 1);
+            check("armor given", count(Items.LEATHER_BOOTS) == 1);
+            check("food given", count(item("hollowatlas:hearth_stew")) == 3);
+            check("materials given", count(Items.CARROT) == 6);
+        });
+        step("fill pack", 5, () -> dev("fill_pack", ""));
+        step("overflow", 10, () -> srv(s -> { RewardService.give(sp(s), "minecraft:honeycomb", 2); return null; }));
+        step("overflow queued", 10, () -> check("reward queued when pack is full", profile().pendingRewards.getOrDefault("minecraft:honeycomb", 0) == 2));
+        step("clear pack", 5, () -> dev("clear_pack", ""));
+        step("overflow delivered", 60, () -> {
+            check("queued reward delivered after clearing", profile().pendingRewards.isEmpty() && count(Items.HONEYCOMB) == 2);
+            check("clear pack removed cobblestone", count(Items.COBBLESTONE) == 0);
+        });
+        step("coins", 5, () -> { devCoins = profile().coins; dev("coins", "50"); });
+        step("coins given", 10, () -> check("coins +50", profile().coins == devCoins + 50));
+
+        // ---- abilities
+        step("unlock windstep", 5, () -> dev("unlock_windstep", ""));
+        step("unlock echo", 10, () -> dev("unlock_echo_sight", ""));
+        step("abilities", 10, () -> check("both abilities unlocked", profile().abilities.contains("windstep") && profile().abilities.contains("echo_sight")));
+        step("use ability", 5, () -> { JsonObject o = new JsonObject(); o.addProperty("slot", 0); ClientState.send("ability", o); });
+        step("cooldown", 10, () -> check("ability on cooldown after use", !profile().cooldowns.isEmpty()));
+        step("reset cooldowns", 5, () -> dev("reset_cooldowns", ""));
+        step("cooldowns reset", 10, () -> check("cooldowns reset", profile().cooldowns.isEmpty()));
+
+        // ---- combat
+        step("to arena", 5, () -> tp("dt_arena.center", 0, 0, 6, 180, 0, 6000));
+        step("spawn pair", 60, () -> dev("spawn_pair", ""));
+        step("spawned", 20, () -> { check("spawn melee + ranged enemy (" + enemiesNear() + ")", enemiesNear() == 2); shot("dev02_enemies"); });
+        step("heavy", 5, () -> ClientState.send("heavy"));
+        step("heavy check", 20, () -> check("heavy attack spends stamina", profile().stamina < 100));
+        step("refill", 5, () -> dev("refill", ""));
+        step("refilled", 10, () -> check("refill restores stamina", profile().stamina >= 99));
+        step("clear enemies", 5, () -> dev("clear_enemies", ""));
+        step("cleared", 10, () -> check("clear enemies works", enemiesNear() == 0));
+        step("difficulty", 5, () -> dev("difficulty", "expert"));
+        step("difficulty set", 10, () -> check("difficulty changed", srv(s -> GameState.get(s).difficulty.equals("expert"))));
+        step("difficulty back", 5, () -> dev("difficulty", "normal"));
+
+        // ---- world
+        step("night", 5, () -> dev("time_night", ""));
+        step("night set", 10, () -> check("time set to night", srv(s -> { long t = s.getOverworld().getTimeOfDay() % 24000; return t >= 18000 && t < 18600; })));
+        step("rain", 5, () -> dev("weather_rain", ""));
+        step("rain set", 10, () -> check("rain started", srv(s -> s.getOverworld().getLevelProperties().isRaining())));
+        step("clear", 5, () -> { dev("weather_clear", ""); dev("time_morning", ""); });
+        step("gap on", 10, () -> dev("toggle_gap", ""));
+        step("gap built", 20, () -> check("world change: footbridge appears", blockIs("dt_gap", 0, 0, Blocks.SPRUCE_PLANKS)));
+        step("gap off", 5, () -> dev("toggle_gap", ""));
+        step("gap removed", 20, () -> check("world change: footbridge removed again", blockIs("dt_gap", 0, 0, Blocks.AIR)));
+        step("tp", 5, () -> dev("tp", "dt_pond"));
+        step("tp done", 20, () -> check("teleport to a test location", mc().player.getBlockPos().getSquaredDistance(LocationIndex.pos("dt_pond")) < 16));
+        step("tp refused", 5, () -> dev("tp", "plaza"));
+        step("tp refused check", 20, () -> check("teleport to non-test places is refused", mc().player.getBlockPos().getSquaredDistance(LocationIndex.pos("dt_pond")) < 16));
+
+        // ---- test quest: errand chain (talk, inspect, reach, gather, talk)
+        step("to alda", 5, () -> { dev("time_noon", ""); tp("dt_square_west", 2, 0, 0, 90, 0, 6000); });
+        talkSteps("dt_alda", 100);
+        step("alda menu", 20, () -> { check("test clerk dialogue opens", mc().currentScreen instanceof DialogueScreen); shot("dev03_dialogue"); });
+        step("start errand", 5, () -> choose("Start: Errand Chain"));
+        step("errand started", 20, () -> check("errand quest started", questStage("dtq_errand").equals("talk")));
+        step("to remy", 5, () -> tp("dt_hall.counter_front", 0, 0, 0, 90, 0, 6000));
+        talkSteps("dt_remy", 100);
+        step("remy bye", 20, () -> choose("Goodbye"));
+        step("errand 2", 20, () -> check("talk objective advances", questStage("dtq_errand").equals("board")));
+        step("to board", 5, () -> tp("dt_board.read", 0, 0, 0, 180, 0, 6000));
+        step("read board", 70, () -> useBlock("dt_board.sign"));
+        step("board open", 20, () -> check("notice board opens", mc().currentScreen instanceof DialogueScreen));
+        step("board done", 5, () -> choose("Done reading"));
+        step("errand 3", 20, () -> check("inspect objective advances", questStage("dtq_errand").equals("reach")));
+        step("to pond", 5, () -> tp("dt_pond", 0, 0, 0, 0, 0, 6000));
+        step("errand 4", 90, () -> check("reach objective advances", questStage("dtq_errand").equals("gather")));
+        step("herb 1", 5, () -> tp("dt_herb_1", 0, 0, 2, 180, 40, 6000));
+        step("pick 1", 70, () -> useBlock("dt_herb_1"));
+        step("herb 2", 20, () -> tp("dt_herb_2", 0, 0, 2, 180, 40, 6000));
+        step("pick 2", 70, () -> useBlock("dt_herb_2"));
+        step("errand 5", 20, () -> check("gather objective advances", questStage("dtq_errand").equals("return")));
+        step("back to alda", 5, () -> tp("dt_square_west", 2, 0, 0, 90, 0, 6000));
+        talkSteps("dt_alda", 100);
+        step("thanks", 20, () -> { devCoins = profile().coins; choose("Thanks"); });
+        step("errand done", 20, () -> {
+            check("errand quest completed", questStage("dtq_errand").equals("COMPLETED"));
+            check("errand reward paid (+20)", profile().coins == devCoins + 20);
+        });
+
+        // ---- once-only and locked choices
+        talkSteps("dt_alda", 20);
+        step("once", 20, () -> choose("once-only"));
+        step("back", 15, () -> choose("Back."));
+        step("once gone", 15, () -> {
+            check("once-only choice is gone after use", mc().currentScreen instanceof DialogueScreen ds && ds.indexOf("once-only") < 0);
+            check("completed quest no longer offered", mc().currentScreen instanceof DialogueScreen ds && ds.indexOf("Start: Errand Chain") < 0);
+        });
+        step("bye", 5, () -> choose("Goodbye"));
+
+        // ---- test quest: branching choice (option A builds the footbridge)
+        talkSteps("dt_alda", 20);
+        step("start branch", 20, () -> choose("Start: Branching Choice"));
+        talkSteps("dt_alda", 20);
+        step("pick A", 20, () -> choose("Option A"));
+        step("branch A bye", 15, () -> choose("Goodbye"));
+        step("branch A", 20, () -> {
+            check("branch A chosen", questStage("dtq_branch").equals("a_cross") && "a".equals(profile().quest("dtq_branch").choices.get("path")));
+            check("branch A changed the world", blockIs("dt_gap", 0, 0, Blocks.SPRUCE_PLANKS));
+            check("branch B effect did not happen", srv(s -> !"moved".equals(GameState.get(s).npc("dt_juno").variant)));
+        });
+        step("cross", 5, () -> tp("dt_gap_south", 0, 0, 0, 180, 0, 6000));
+        step("crossed", 90, () -> check("branch A quest completes on crossing", questStage("dtq_branch").equals("COMPLETED")));
+
+        // ---- test quest: case board (fact, testimony, rumor, theory)
+        step("start case", 5, () -> dev("start_quest", "dtq_case"));
+        step("case started", 15, () -> check("test quest started from the developer menu", questStage("dtq_case").equals("look")));
+        step("to cart", 5, () -> tp("dt_cart.clue", 0, 0, 1, 180, 30, 6000));
+        step("inspect cart", 70, () -> useBlock("dt_cart.clue"));
+        step("inspect again", 20, () -> useBlock("dt_cart.clue"));
+        step("fact", 20, () -> check("fact evidence recorded once", profile().evidence.contains("dt_ev_cart")));
+        step("find juno", 5, () -> {
+            Vec3d at = srv(s -> { NpcEntity n = NpcDirector.live("dt_juno"); return n == null ? null : n.getPos(); });
+            if (at == null) tp("dt_garden", 0, 0, 0, 0, 0, 6000);
+            else srv(s -> { sp(s).teleport(s.getOverworld(), at.x + 1.5, at.y, at.z, 90, 0); return null; });
+        });
+        talkSteps("dt_juno", 80);
+        step("juno bye", 20, () -> choose("Goodbye"));
+        step("to bertram", 5, () -> tp("dt_store.counter_front", 0, 0, 0, 90, 0, 6000));
+        talkSteps("dt_bertram", 100);
+        step("rumor", 20, () -> choose("rumors"));
+        step("rumor bye", 15, () -> choose("Goodbye"));
+        step("case think", 20, () -> {
+            check("all three evidence kinds collected", profile().evidence.containsAll(List.of("dt_ev_cart", "dt_ev_testimony", "dt_ev_rumor")));
+            check("case quest moves to theory stage", questStage("dtq_case").equals("think"));
+        });
+        step("case board", 5, () -> { ClientState.send("journal_request"); mc().setScreen(new JournalScreen(1)); });
+        step("case board shot", 30, () -> shot("dev04_case_board"));
+        step("theory", 5, () -> { JsonObject o = new JsonObject(); o.addProperty("case", "dt_case"); o.addProperty("id", "never"); ClientState.send("hypothesis", o); });
+        step("theory 2", 20, () -> { JsonObject o = new JsonObject(); o.addProperty("case", "dt_case"); o.addProperty("id", "all"); ClientState.send("hypothesis", o); });
+        step("case done", 20, () -> {
+            check("theory can be revised", "all".equals(profile().hypotheses.get("dt_case")));
+            check("case quest completed", questStage("dtq_case").equals("COMPLETED"));
+            mc().setScreen(null);
+        });
+
+        // ---- test quest: shop + cooking
+        step("start kitchen", 5, () -> { dev("start_quest", "dtq_kitchen"); dev("give_materials", ""); });
+        talkSteps("dt_bertram", 30);
+        step("trade", 20, () -> choose("Trade."));
+        step("shop open", 20, () -> { check("test shop opens", mc().currentScreen instanceof ShopScreen); shot("dev05_shop"); });
+        step("buy", 5, () -> { shopCoins = profile().coins; JsonObject o = new JsonObject(); o.addProperty("shop", "dt_shop"); o.addProperty("item", "minecraft:mutton"); ClientState.send("shop_buy", o); });
+        step("bought", 20, () -> { check("bought mutton for 2", profile().coins == shopCoins - 2); mc().setScreen(null); });
+        step("hearth", 5, () -> tp("dt_hall.hearth", 0, 0, 0, 90, 20, 6000));
+        step("use hearth", 70, () -> useBlock("dt_hall.hearth_block"));
+        step("craft window", 20, () -> check("cooking window opens at the test hearth", mc().currentScreen instanceof CraftScreen));
+        step("cook", 5, () -> { JsonObject o = new JsonObject(); o.addProperty("station", "hearth"); o.addProperty("recipe", "hearth_stew"); ClientState.send("craft", o); });
+        step("cooked", 20, () -> { check("cooking quest completed", questStage("dtq_kitchen").equals("COMPLETED")); mc().setScreen(null); });
+
+        // ---- test quest: lever puzzle (failure path, success path, world change, one-time cache)
+        step("start puzzle", 5, () -> dev("start_quest", "dtq_puzzle"));
+        step("to levers", 5, () -> tp("dt_levers.stand", 0, 0, 0, 180, 20, 6000));
+        step("red", 70, () -> useBlock("dt_levers.lever_red"));
+        step("blue (wrong)", 15, () -> useBlock("dt_levers.lever_blue"));
+        step("wrong order", 15, () -> check("wrong order does not solve", srv(s -> !GameState.get(s).flag("hollowatlas:dt_levers_solved"))));
+        step("red 2", 5, () -> useBlock("dt_levers.lever_red"));
+        step("green", 15, () -> useBlock("dt_levers.lever_green"));
+        step("blue", 15, () -> useBlock("dt_levers.lever_blue"));
+        step("solved", 20, () -> {
+            check("right order solves the puzzle", srv(s -> GameState.get(s).flag("hollowatlas:dt_levers_solved")));
+            check("hatch opened (world change)", srv(s -> s.getOverworld().getBlockState(LocationIndex.pos("dt_levers.hatch")).get(net.minecraft.block.TrapdoorBlock.OPEN)));
+        });
+        step("cache", 5, () -> useBlock("dt_levers.cache"));
+        step("cache again", 20, () -> useBlock("dt_levers.cache"));
+        step("cache loot", 20, () -> {
+            check("cache gives its loot exactly once", count(item("hollowatlas:old_coin")) == 3 + 2);
+            check("puzzle quest completed", questStage("dtq_puzzle").equals("COMPLETED"));
+        });
+
+        // ---- test quest: arena trial (encounter + kill objectives)
+        step("start arena", 5, () -> dev("start_quest", "dtq_arena"));
+        step("to arena", 5, () -> tp("dt_arena.center", -10, 0, 0, -90, 0, 6000));
+        step("encounter", 130, () -> check("arena encounter spawns 2 enemies", EncounterService.activeCount() == 2));
+        for (int k = 0; k < 2; k++) step("defeat (harness) " + k, 10, () -> srv(s -> {
+            for (EnemyEntity e : s.getOverworld().getEntitiesByClass(EnemyEntity.class, sp(s).getBoundingBox().expand(96), x -> true))
+                e.damage(s.getOverworld().getDamageSources().playerAttack(sp(s)), 200f);
+            return null;
+        }));
+        step("arena done", 40, () -> check("kill objectives complete the arena quest", questStage("dtq_arena").equals("COMPLETED")));
+
+        // ---- checkpoint + death
+        step("checkpoint", 5, () -> { tp("dt_square_east", 0, 0, 0, 0, 0, 6000); });
+        step("set checkpoint", 60, () -> { devCheckpoint = mc().player.getBlockPos(); dev("checkpoint_here", ""); });
+        step("move away", 15, () -> dev("tp", "dt_pond"));
+        step("die", 30, () -> dev("die", ""));
+        step("respawn", 40, () -> mc().player.requestRespawn());
+        step("respawned", 60, () -> check("respawned at the developer checkpoint", mc().player.getBlockPos().getSquaredDistance(devCheckpoint) < 9));
+
+        // ---- reset test quests
+        step("reset", 5, () -> dev("reset_quests", ""));
+        step("reset done", 20, () -> {
+            check("test quests reset", profile().quests.isEmpty());
+            check("test evidence reset", profile().evidence.stream().noneMatch(e -> e.startsWith("dt_")));
+            check("test world changes reset", blockIs("dt_gap", 0, 0, Blocks.AIR) && srv(s -> !GameState.get(s).flag("hollowatlas:dt_levers_solved")));
+        });
+        step("restart", 5, () -> tp("dt_square_west", 2, 0, 0, 90, 0, 6000));
+        talkSteps("dt_alda", 60);
+        step("restart errand offered", 20, () -> check("quests can be replayed after reset", mc().currentScreen instanceof DialogueScreen ds && ds.indexOf("Start: Errand Chain") >= 0));
+
+        // ---- set up a mid-quest save for phase 2 (option B this time)
+        step("start branch again", 5, () -> choose("Start: Branching Choice"));
+        talkSteps("dt_alda", 20);
+        step("pick B", 20, () -> choose("Option B"));
+        step("B bye", 15, () -> choose("Goodbye"));
+        step("branch B", 20, () -> {
+            check("branch B chosen", questStage("dtq_branch").equals("b_visit"));
+            check("branch B moved a resident's routine", srv(s -> "moved".equals(GameState.get(s).npc("dt_juno").variant)));
+            check("branch A world change not applied", blockIs("dt_gap", 0, 0, Blocks.AIR));
+        });
+        step("save", 5, () -> dev("save_now", ""));
+        step("save expect", 20, () -> {
+            try { Files.writeString(mc().runDirectory.toPath().resolve("autotest_dev_expect.txt"), profile().coins + "\n" + profile().checkpoint + "\n"); } catch (IOException ignored) { }
+            check("only test quests in this save", onlyTestQuests());
+        });
+    }
+
+    private static void devPhase2() {
+        step("dev persistence", 0, () -> {
+            String[] exp = {"-1", ""};
+            try { exp = Files.readString(mc().runDirectory.toPath().resolve("autotest_dev_expect.txt")).split("\n"); } catch (Exception ignored) { }
+            PlayerProfile p = profile();
+            check("coins persisted (" + p.coins + ")", String.valueOf(p.coins).equals(exp[0].trim()));
+            check("mid-quest branch persisted", questStage("dtq_branch").equals("b_visit") && "b".equals(p.quest("dtq_branch").choices.get("path")));
+            check("routine variant persisted", srv(s -> "moved".equals(GameState.get(s).npc("dt_juno").variant)));
+            check("abilities persisted", p.abilities.contains("windstep") && p.abilities.contains("echo_sight"));
+            check("checkpoint persisted", exp.length > 1 && p.checkpoint.equals(exp[1].trim()));
+            check("still the developer test world", dev.hollowatlas.state.WorldMode.devtest(mc().getServer()));
+        });
+        step("to pond", 5, () -> { dev("time_noon", ""); tp("dt_pond", 0, 0, -9, 0, 0, 6000); });
+        step("find juno", 200, () -> {
+            Vec3d at = srv(s -> { NpcEntity n = NpcDirector.live("dt_juno"); return n == null ? null : n.getPos(); });
+            check("moved resident is at the pond", at != null && at.squaredDistanceTo(Vec3d.ofCenter(LocationIndex.pos("dt_pond"))) < 30 * 30);
+            if (at != null) srv(s -> { sp(s).teleport(s.getOverworld(), at.x + 1.5, at.y, at.z, 90, 0); return null; });
+        });
+        talkSteps("dt_juno", 30);
+        step("juno bye", 20, () -> choose("Goodbye"));
+        step("branch B done", 20, () -> check("branch B completes after reload", questStage("dtq_branch").equals("COMPLETED")));
     }
 }

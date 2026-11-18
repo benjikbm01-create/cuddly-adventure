@@ -46,6 +46,12 @@ public final class RegionLayout {
     public int[] village_center = {0, 0};
     public int village_radius = 90;
 
+    /** Terrain never rises above this Y (the world build limit is 319). */
+    public int max_height = 312;
+    /** Strength of the rolling base terrain (1 = gentle, as in the starting region; 3-5 = big hills and dales). */
+    public double relief = 1;
+    /** Climate/geology zones: change rock strata, ground cover, plants and trees inside a radius. */
+    public List<Zone> zones = new ArrayList<>();
     public List<Peak> peaks = new ArrayList<>();
     public List<Range> ranges = new ArrayList<>();
     public List<Spire> spires = new ArrayList<>();
@@ -68,10 +74,17 @@ public final class RegionLayout {
     public static final class Hill { public String id; public int x, z, r; public double h; }
 
     /** A mountain: steep, craggy cone. crag 0..1 adds ridged noise to the flanks. */
-    public static final class Peak { public String id; public int x, z, r; public double h; public double crag = 0.35; }
+    public static final class Peak {
+        public String id; public int x, z, r; public double h; public double crag = 0.35;
+        /** Volcano: a bowl of this radius and depth sunk into the summit (0 = none). */
+        public int crater = 0; public double crater_depth = 0;
+    }
+
+    /** palette: badlands | volcanic | cherry | alpine | taiga */
+    public static final class Zone { public String id; public int x, z, r; public String palette = "alpine"; }
 
     /** A mountain range along a polyline. */
-    public static final class Range { public String id; public double width = 40, h = 40; public List<int[]> points = new ArrayList<>(); }
+    public static final class Range { public String id; public double width = 40, h = 40; public double scale = 34; public List<int[]> points = new ArrayList<>(); }
 
     /** A narrow rock pillar (hoodoo / sea stack). */
     public static final class Spire { public String id; public int x, z, r; public double h; }
@@ -85,6 +98,11 @@ public final class RegionLayout {
         public int y;
         /** Sharp edge faced with stone-brick retaining walls (use a small blend). */
         public boolean wall = false;
+        /** "circle" (radius r) or "rect" (full width w along X and depth d along Z, centred on x,z). */
+        public String shape = "circle";
+        public int w = 0, d = 0;
+        /** Streets on this terrace get lamp posts and fewer wild plants. */
+        public boolean town = false;
     }
 
     public static final class EdgeRidge {
@@ -103,7 +121,13 @@ public final class RegionLayout {
         public List<int[]> points = new ArrayList<>();
     }
 
-    public static final class Pond { public String id; public int x, z, r; public int depth = 3; }
+    public static final class Pond {
+        public String id; public int x, z, r; public int depth = 3;
+        /** Absolute water surface Y (0 = just below the ground at the centre). */
+        public int y = 0;
+        /** water | lava */
+        public String fluid = "water";
+    }
 
     public static final class Road {
         public String id;

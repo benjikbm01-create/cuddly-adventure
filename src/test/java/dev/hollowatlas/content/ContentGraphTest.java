@@ -46,7 +46,7 @@ class ContentGraphTest {
                 DOCS.add(new Doc(kind, rel.toString(), JsonParser.parseString(Files.readString(p)).getAsJsonObject(), rel.toString().contains("devtest")));
             }
         }
-        for (String id : List.of("westreach_brindlecross", "devtest_grounds", "devtest_heights", "boreal_sableforge")) {
+        for (String id : List.of("westreach_brindlecross", "devtest_grounds", "devtest_heights", "boreal_sableforge", "showcase_wilds")) {
             if (RegionLayout.class.getResource("/data/hollowatlas/region/" + id + ".json") == null) continue;
             ANCHORS.addAll(new RegionModel(RegionLayout.loadBuiltin(id)).anchors.keySet());
         }

@@ -11,7 +11,9 @@ import net.minecraft.server.MinecraftServer;
  */
 public final class WorldMode {
     public static final String DEVTEST_FLAG = "hollowatlas:mode_devtest";
-    public static final String DEVTEST = "devtest", STORY = "story";
+    /** A scenery-only showcase world: terrain and buildings, no residents, quests or other content. */
+    public static final String SHOWCASE_FLAG = "hollowatlas:mode_showcase";
+    public static final String DEVTEST = "devtest", STORY = "story", SHOWCASE = "showcase";
 
     private WorldMode() {}
 
@@ -19,14 +21,19 @@ public final class WorldMode {
         return server != null && GameState.get(server).flag(DEVTEST_FLAG);
     }
 
-    public static String of(MinecraftServer server) { return devtest(server) ? DEVTEST : STORY; }
+    public static boolean showcase(MinecraftServer server) {
+        return server != null && GameState.get(server).flag(SHOWCASE_FLAG);
+    }
+
+    public static String of(MinecraftServer server) { return showcase(server) ? SHOWCASE : devtest(server) ? DEVTEST : STORY; }
 
     /** Content object is usable in this world (test content only in test worlds, story content only in story worlds). */
     public static boolean allowed(MinecraftServer server, Object content) {
+        if (showcase(server)) return false;
         return ContentManager.isDevtest(content) == devtest(server);
     }
 
     public static boolean allowedMode(MinecraftServer server, String mode) {
-        return (DEVTEST.equals(mode)) == devtest(server);
+        return of(server).equals(mode == null ? STORY : mode);
     }
 }

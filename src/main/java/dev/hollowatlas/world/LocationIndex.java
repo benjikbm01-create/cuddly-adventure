@@ -24,6 +24,14 @@ public final class LocationIndex {
     /** Regions in map order. Their layout files live in data/hollowatlas/region/. */
     public static final List<String> REGIONS = List.of("westreach_brindlecross", "boreal_sableforge", "devtest_grounds", "devtest_heights");
     public static final String DEFAULT_REGION = REGIONS.get(0);
+    /** The scenery showcase map. It is large, so it is only loaded inside a showcase world. */
+    public static final List<String> SHOWCASE_REGIONS = List.of("showcase_wilds");
+    private static boolean showcaseSet = false;
+
+    /** Choose which set of regions this world uses; reloads if it changed (e.g. opening another save). */
+    public static synchronized void configure(boolean showcase) {
+        if (showcase != showcaseSet) { showcaseSet = showcase; models = null; }
+    }
 
     private static List<RegionModel> models;
     private static Map<String, RegionModel> owner;
@@ -37,7 +45,7 @@ public final class LocationIndex {
         List<RegionModel> ms = new ArrayList<>();
         Map<String, RegionModel> own = new LinkedHashMap<>();
         Map<String, int[]> all = new LinkedHashMap<>();
-        for (String id : REGIONS) {
+        for (String id : showcaseSet ? SHOWCASE_REGIONS : REGIONS) {
             if (LocationIndex.class.getResource("/data/hollowatlas/region/" + id + ".json") == null) {
                 HollowAtlas.LOGGER.warn("Region layout #{} not present; skipping", REGIONS.indexOf(id) + 1);
                 continue;
@@ -62,7 +70,7 @@ public final class LocationIndex {
 
     /** Spoiler-safe name for logs: test regions by id, story regions only by number. */
     public static String logLabel(RegionModel m) {
-        return "devtest".equals(m.layout.mode) ? m.layout.id : "story region #" + (REGIONS.indexOf(m.layout.id) + 1);
+        return !"story".equals(m.layout.mode) ? m.layout.id : "story region #" + (REGIONS.indexOf(m.layout.id) + 1);
     }
 
     public static List<RegionModel> models() { ensure(); return models; }

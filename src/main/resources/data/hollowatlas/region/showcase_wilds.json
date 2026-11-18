@@ -1,0 +1,4854 @@
+{
+ "id": "showcase_wilds",
+ "name": "The Hollow Atlas: Showcase",
+ "mode": "showcase",
+ "arrival_anchor": "sc_arrival",
+ "origin": [
+  0,
+  0
+ ],
+ "half_size": 1000,
+ "base_y": 66,
+ "water_y": 62,
+ "seed": 77177,
+ "border_size": 2002,
+ "snow_line": 205,
+ "surface_style": "mountain",
+ "rock_bands": true,
+ "road_steps": true,
+ "max_height": 312,
+ "relief": 3.2,
+ "village_center": [
+  -170,
+  320
+ ],
+ "village_radius": 0,
+ "zones": [
+  {
+   "id": "sc_z_volcano",
+   "x": 640,
+   "z": -560,
+   "r": 330,
+   "palette": "volcanic"
+  },
+  {
+   "id": "sc_z_badlands",
+   "x": 630,
+   "z": 330,
+   "r": 360,
+   "palette": "badlands"
+  },
+  {
+   "id": "sc_z_cherry",
+   "x": 230,
+   "z": 640,
+   "r": 240,
+   "palette": "cherry"
+  },
+  {
+   "id": "sc_z_taiga",
+   "x": -580,
+   "z": -430,
+   "r": 380,
+   "palette": "taiga"
+  }
+ ],
+ "peaks": [
+  {
+   "id": "sc_crown",
+   "x": 0,
+   "z": -540,
+   "r": 430,
+   "h": 210,
+   "crag": 0.5
+  },
+  {
+   "id": "sc_westhorn",
+   "x": -330,
+   "z": -660,
+   "r": 240,
+   "h": 150,
+   "crag": 0.6
+  },
+  {
+   "id": "sc_easthorn",
+   "x": 280,
+   "z": -680,
+   "r": 240,
+   "h": 165,
+   "crag": 0.6
+  },
+  {
+   "id": "sc_tooth",
+   "x": -270,
+   "z": -300,
+   "r": 120,
+   "h": 95,
+   "crag": 0.75
+  },
+  {
+   "id": "sc_cinder",
+   "x": 640,
+   "z": -560,
+   "r": 290,
+   "h": 170,
+   "crag": 0.3,
+   "crater": 62,
+   "crater_depth": 70
+  },
+  {
+   "id": "sc_ash_cone",
+   "x": 820,
+   "z": -300,
+   "r": 110,
+   "h": 70,
+   "crag": 0.4,
+   "crater": 18,
+   "crater_depth": 20
+  },
+  {
+   "id": "sc_red_dome",
+   "x": 860,
+   "z": 560,
+   "r": 140,
+   "h": 60,
+   "crag": 0.5
+  }
+ ],
+ "ranges": [
+  {
+   "id": "sc_north_spine",
+   "width": 170,
+   "h": 120,
+   "scale": 95,
+   "points": [
+    [
+     -990,
+     -900
+    ],
+    [
+     -520,
+     -800
+    ],
+    [
+     0,
+     -880
+    ],
+    [
+     520,
+     -800
+    ],
+    [
+     990,
+     -900
+    ]
+   ]
+  },
+  {
+   "id": "sc_west_wall",
+   "width": 120,
+   "h": 75,
+   "scale": 80,
+   "points": [
+    [
+     -990,
+     -560
+    ],
+    [
+     -940,
+     -60
+    ],
+    [
+     -980,
+     360
+    ]
+   ]
+  }
+ ],
+ "spires": [
+  {
+   "id": "sc_outpost_mesa",
+   "x": 560,
+   "z": 300,
+   "r": 62,
+   "h": 56
+  },
+  {
+   "id": "sc_mesa0",
+   "x": 846,
+   "z": 175,
+   "r": 32,
+   "h": 34
+  },
+  {
+   "id": "sc_mesa1",
+   "x": 740,
+   "z": 516,
+   "r": 22,
+   "h": 44
+  },
+  {
+   "id": "sc_mesa2",
+   "x": 659,
+   "z": 439,
+   "r": 25,
+   "h": 66
+  },
+  {
+   "id": "sc_mesa3",
+   "x": 785,
+   "z": 273,
+   "r": 34,
+   "h": 39
+  },
+  {
+   "id": "sc_mesa4",
+   "x": 623,
+   "z": 528,
+   "r": 34,
+   "h": 54
+  },
+  {
+   "id": "sc_mesa5",
+   "x": 330,
+   "z": 384,
+   "r": 26,
+   "h": 65
+  },
+  {
+   "id": "sc_mesa6",
+   "x": 800,
+   "z": 568,
+   "r": 41,
+   "h": 45
+  },
+  {
+   "id": "sc_mesa7",
+   "x": 576,
+   "z": 631,
+   "r": 24,
+   "h": 62
+  },
+  {
+   "id": "sc_mesa8",
+   "x": 692,
+   "z": 319,
+   "r": 36,
+   "h": 40
+  },
+  {
+   "id": "sc_mesa9",
+   "x": 804,
+   "z": 349,
+   "r": 37,
+   "h": 33
+  },
+  {
+   "id": "sc_mesa10",
+   "x": 572,
+   "z": 69,
+   "r": 38,
+   "h": 70
+  },
+  {
+   "id": "sc_mesa11",
+   "x": 456,
+   "z": 424,
+   "r": 37,
+   "h": 30
+  },
+  {
+   "id": "sc_mesa12",
+   "x": 775,
+   "z": 59,
+   "r": 26,
+   "h": 53
+  },
+  {
+   "id": "sc_mesa13",
+   "x": 371,
+   "z": 229,
+   "r": 27,
+   "h": 56
+  },
+  {
+   "id": "sc_hoodoo0",
+   "x": 599,
+   "z": 578,
+   "r": 4,
+   "h": 42
+  },
+  {
+   "id": "sc_hoodoo1",
+   "x": 685,
+   "z": 80,
+   "r": 8,
+   "h": 39
+  },
+  {
+   "id": "sc_hoodoo2",
+   "x": 490,
+   "z": 74,
+   "r": 3,
+   "h": 24
+  },
+  {
+   "id": "sc_hoodoo3",
+   "x": 672,
+   "z": 109,
+   "r": 7,
+   "h": 28
+  },
+  {
+   "id": "sc_hoodoo4",
+   "x": 637,
+   "z": 406,
+   "r": 8,
+   "h": 43
+  },
+  {
+   "id": "sc_hoodoo5",
+   "x": 405,
+   "z": 274,
+   "r": 6,
+   "h": 48
+  },
+  {
+   "id": "sc_hoodoo6",
+   "x": 613,
+   "z": 403,
+   "r": 5,
+   "h": 29
+  },
+  {
+   "id": "sc_hoodoo7",
+   "x": 451,
+   "z": 153,
+   "r": 7,
+   "h": 38
+  },
+  {
+   "id": "sc_hoodoo8",
+   "x": 830,
+   "z": 506,
+   "r": 4,
+   "h": 42
+  },
+  {
+   "id": "sc_hoodoo9",
+   "x": 736,
+   "z": 413,
+   "r": 8,
+   "h": 25
+  },
+  {
+   "id": "sc_hoodoo10",
+   "x": 700,
+   "z": 162,
+   "r": 6,
+   "h": 22
+  },
+  {
+   "id": "sc_hoodoo11",
+   "x": 863,
+   "z": 333,
+   "r": 8,
+   "h": 28
+  },
+  {
+   "id": "sc_hoodoo12",
+   "x": 918,
+   "z": 430,
+   "r": 5,
+   "h": 18
+  },
+  {
+   "id": "sc_hoodoo13",
+   "x": 745,
+   "z": 478,
+   "r": 4,
+   "h": 40
+  },
+  {
+   "id": "sc_hoodoo14",
+   "x": 376,
+   "z": 319,
+   "r": 7,
+   "h": 40
+  },
+  {
+   "id": "sc_hoodoo15",
+   "x": 340,
+   "z": 425,
+   "r": 3,
+   "h": 29
+  },
+  {
+   "id": "sc_hoodoo16",
+   "x": 827,
+   "z": 428,
+   "r": 5,
+   "h": 63
+  },
+  {
+   "id": "sc_hoodoo17",
+   "x": 655,
+   "z": 238,
+   "r": 3,
+   "h": 22
+  },
+  {
+   "id": "sc_hoodoo18",
+   "x": 764,
+   "z": 413,
+   "r": 6,
+   "h": 52
+  },
+  {
+   "id": "sc_hoodoo19",
+   "x": 682,
+   "z": 381,
+   "r": 4,
+   "h": 20
+  },
+  {
+   "id": "sc_hoodoo20",
+   "x": 651,
+   "z": 616,
+   "r": 8,
+   "h": 50
+  },
+  {
+   "id": "sc_hoodoo21",
+   "x": 705,
+   "z": 497,
+   "r": 5,
+   "h": 60
+  },
+  {
+   "id": "sc_hoodoo22",
+   "x": 588,
+   "z": 195,
+   "r": 7,
+   "h": 33
+  },
+  {
+   "id": "sc_hoodoo23",
+   "x": 864,
+   "z": 262,
+   "r": 8,
+   "h": 29
+  },
+  {
+   "id": "sc_hoodoo24",
+   "x": 924,
+   "z": 353,
+   "r": 8,
+   "h": 26
+  },
+  {
+   "id": "sc_hoodoo25",
+   "x": 645,
+   "z": 357,
+   "r": 4,
+   "h": 48
+  },
+  {
+   "id": "sc_hoodoo26",
+   "x": 707,
+   "z": 12,
+   "r": 7,
+   "h": 35
+  },
+  {
+   "id": "sc_hoodoo27",
+   "x": 576,
+   "z": 472,
+   "r": 6,
+   "h": 54
+  },
+  {
+   "id": "sc_hoodoo28",
+   "x": 756,
+   "z": 600,
+   "r": 5,
+   "h": 38
+  },
+  {
+   "id": "sc_hoodoo29",
+   "x": 889,
+   "z": 488,
+   "r": 4,
+   "h": 55
+  },
+  {
+   "id": "sc_hoodoo30",
+   "x": 532,
+   "z": 196,
+   "r": 8,
+   "h": 33
+  },
+  {
+   "id": "sc_hoodoo31",
+   "x": 531,
+   "z": 94,
+   "r": 5,
+   "h": 46
+  },
+  {
+   "id": "sc_hoodoo32",
+   "x": 706,
+   "z": 394,
+   "r": 3,
+   "h": 60
+  },
+  {
+   "id": "sc_hoodoo33",
+   "x": 634,
+   "z": 187,
+   "r": 5,
+   "h": 20
+  },
+  {
+   "id": "sc_hoodoo34",
+   "x": 448,
+   "z": 321,
+   "r": 3,
+   "h": 57
+  },
+  {
+   "id": "sc_hoodoo35",
+   "x": 776,
+   "z": 494,
+   "r": 7,
+   "h": 52
+  },
+  {
+   "id": "sc_hoodoo36",
+   "x": 743,
+   "z": 130,
+   "r": 5,
+   "h": 41
+  },
+  {
+   "id": "sc_hoodoo37",
+   "x": 467,
+   "z": 497,
+   "r": 4,
+   "h": 63
+  },
+  {
+   "id": "sc_hoodoo38",
+   "x": 923,
+   "z": 488,
+   "r": 5,
+   "h": 63
+  },
+  {
+   "id": "sc_hoodoo39",
+   "x": 355,
+   "z": 472,
+   "r": 4,
+   "h": 28
+  },
+  {
+   "id": "sc_hoodoo40",
+   "x": 663,
+   "z": 279,
+   "r": 5,
+   "h": 50
+  },
+  {
+   "id": "sc_hoodoo41",
+   "x": 399,
+   "z": 479,
+   "r": 7,
+   "h": 37
+  },
+  {
+   "id": "sc_hoodoo42",
+   "x": 669,
+   "z": 245,
+   "r": 4,
+   "h": 32
+  },
+  {
+   "id": "sc_hoodoo43",
+   "x": 729,
+   "z": 437,
+   "r": 6,
+   "h": 54
+  },
+  {
+   "id": "sc_hoodoo44",
+   "x": 414,
+   "z": 360,
+   "r": 4,
+   "h": 21
+  },
+  {
+   "id": "sc_hoodoo45",
+   "x": 408,
+   "z": 132,
+   "r": 8,
+   "h": 56
+  },
+  {
+   "id": "sc_hoodoo46",
+   "x": 716,
+   "z": 107,
+   "r": 3,
+   "h": 24
+  },
+  {
+   "id": "sc_hoodoo47",
+   "x": 894,
+   "z": 121,
+   "r": 7,
+   "h": 33
+  },
+  {
+   "id": "sc_hoodoo48",
+   "x": 300,
+   "z": 408,
+   "r": 4,
+   "h": 23
+  },
+  {
+   "id": "sc_hoodoo49",
+   "x": 335,
+   "z": 161,
+   "r": 5,
+   "h": 21
+  },
+  {
+   "id": "sc_hoodoo50",
+   "x": 557,
+   "z": 573,
+   "r": 6,
+   "h": 42
+  },
+  {
+   "id": "sc_hoodoo51",
+   "x": 749,
+   "z": 103,
+   "r": 8,
+   "h": 19
+  },
+  {
+   "id": "sc_hoodoo52",
+   "x": 463,
+   "z": 54,
+   "r": 6,
+   "h": 32
+  },
+  {
+   "id": "sc_hoodoo53",
+   "x": 381,
+   "z": 452,
+   "r": 3,
+   "h": 44
+  },
+  {
+   "id": "sc_hoodoo54",
+   "x": 392,
+   "z": 343,
+   "r": 6,
+   "h": 61
+  },
+  {
+   "id": "sc_hoodoo55",
+   "x": 801,
+   "z": 441,
+   "r": 7,
+   "h": 43
+  },
+  {
+   "id": "sc_hoodoo56",
+   "x": 639,
+   "z": 161,
+   "r": 3,
+   "h": 49
+  },
+  {
+   "id": "sc_hoodoo57",
+   "x": 690,
+   "z": 109,
+   "r": 4,
+   "h": 52
+  },
+  {
+   "id": "sc_hoodoo58",
+   "x": 480,
+   "z": 542,
+   "r": 7,
+   "h": 35
+  },
+  {
+   "id": "sc_hoodoo59",
+   "x": 434,
+   "z": 218,
+   "r": 8,
+   "h": 32
+  },
+  {
+   "id": "sc_needle0",
+   "x": -478,
+   "z": 321,
+   "r": 7,
+   "h": 31
+  },
+  {
+   "id": "sc_needle1",
+   "x": -419,
+   "z": -21,
+   "r": 4,
+   "h": 53
+  },
+  {
+   "id": "sc_needle2",
+   "x": -567,
+   "z": -5,
+   "r": 4,
+   "h": 80
+  },
+  {
+   "id": "sc_needle3",
+   "x": -337,
+   "z": 282,
+   "r": 4,
+   "h": 33
+  },
+  {
+   "id": "sc_needle4",
+   "x": -263,
+   "z": 155,
+   "r": 6,
+   "h": 62
+  },
+  {
+   "id": "sc_needle5",
+   "x": -312,
+   "z": -13,
+   "r": 6,
+   "h": 53
+  },
+  {
+   "id": "sc_needle6",
+   "x": -331,
+   "z": 166,
+   "r": 7,
+   "h": 52
+  },
+  {
+   "id": "sc_needle7",
+   "x": -635,
+   "z": -98,
+   "r": 6,
+   "h": 40
+  },
+  {
+   "id": "sc_needle8",
+   "x": -302,
+   "z": -66,
+   "r": 7,
+   "h": 79
+  },
+  {
+   "id": "sc_needle9",
+   "x": -553,
+   "z": -103,
+   "r": 8,
+   "h": 60
+  },
+  {
+   "id": "sc_needle10",
+   "x": -579,
+   "z": -48,
+   "r": 4,
+   "h": 56
+  },
+  {
+   "id": "sc_needle11",
+   "x": -590,
+   "z": 262,
+   "r": 4,
+   "h": 74
+  },
+  {
+   "id": "sc_needle12",
+   "x": -273,
+   "z": 273,
+   "r": 6,
+   "h": 60
+  },
+  {
+   "id": "sc_needle13",
+   "x": -424,
+   "z": -91,
+   "r": 9,
+   "h": 59
+  },
+  {
+   "id": "sc_needle14",
+   "x": -427,
+   "z": 175,
+   "r": 7,
+   "h": 30
+  },
+  {
+   "id": "sc_needle15",
+   "x": -425,
+   "z": 221,
+   "r": 9,
+   "h": 59
+  },
+  {
+   "id": "sc_needle16",
+   "x": -627,
+   "z": -73,
+   "r": 7,
+   "h": 41
+  },
+  {
+   "id": "sc_needle17",
+   "x": -459,
+   "z": -43,
+   "r": 4,
+   "h": 73
+  }
+ ],
+ "hills": [
+  {
+   "id": "sc_h1",
+   "x": -20,
+   "z": 460,
+   "r": 120,
+   "h": 16
+  },
+  {
+   "id": "sc_h2",
+   "x": -330,
+   "z": 120,
+   "r": 90,
+   "h": 22
+  },
+  {
+   "id": "sc_h3",
+   "x": 120,
+   "z": 200,
+   "r": 110,
+   "h": 18
+  },
+  {
+   "id": "sc_h4",
+   "x": -120,
+   "z": 720,
+   "r": 100,
+   "h": 14
+  },
+  {
+   "id": "sc_h5",
+   "x": 380,
+   "z": 40,
+   "r": 120,
+   "h": 26
+  },
+  {
+   "id": "sc_h6",
+   "x": -760,
+   "z": 160,
+   "r": 140,
+   "h": 30
+  }
+ ],
+ "flats": [
+  {
+   "id": "sc_city_l0",
+   "shape": "rect",
+   "x": 0,
+   "z": -120,
+   "w": 180,
+   "d": 40,
+   "blend": 2,
+   "y": 84,
+   "wall": true,
+   "town": true
+  },
+  {
+   "id": "sc_city_l1",
+   "shape": "rect",
+   "x": 0,
+   "z": -160,
+   "w": 180,
+   "d": 40,
+   "blend": 2,
+   "y": 97,
+   "wall": true,
+   "town": true
+  },
+  {
+   "id": "sc_city_l2",
+   "shape": "rect",
+   "x": 0,
+   "z": -200,
+   "w": 180,
+   "d": 40,
+   "blend": 2,
+   "y": 110,
+   "wall": true,
+   "town": true
+  },
+  {
+   "id": "sc_city_l3",
+   "shape": "rect",
+   "x": 0,
+   "z": -240,
+   "w": 170,
+   "d": 40,
+   "blend": 2,
+   "y": 123,
+   "wall": true,
+   "town": true
+  },
+  {
+   "id": "sc_city_l4",
+   "shape": "rect",
+   "x": 0,
+   "z": -280,
+   "w": 160,
+   "d": 40,
+   "blend": 2,
+   "y": 136,
+   "wall": true,
+   "town": true
+  },
+  {
+   "id": "sc_city_l5",
+   "shape": "rect",
+   "x": 0,
+   "z": -320,
+   "w": 110,
+   "d": 40,
+   "blend": 2,
+   "y": 150,
+   "wall": true,
+   "town": true
+  },
+  {
+   "id": "sc_village",
+   "x": -170,
+   "z": 320,
+   "r": 72,
+   "blend": 26,
+   "y": 0,
+   "town": true
+  },
+  {
+   "id": "sc_petalshore",
+   "x": 340,
+   "z": 520,
+   "r": 56,
+   "blend": 20,
+   "y": 0,
+   "town": true
+  },
+  {
+   "id": "sc_outpost_top",
+   "x": 560,
+   "z": 300,
+   "r": 42,
+   "blend": 3,
+   "y": 121,
+   "town": true
+  },
+  {
+   "id": "sc_monastery",
+   "x": -330,
+   "z": -470,
+   "r": 36,
+   "blend": 4,
+   "y": 0,
+   "wall": true,
+   "town": true
+  },
+  {
+   "id": "sc_observatory",
+   "x": 470,
+   "z": -410,
+   "r": 20,
+   "blend": 6,
+   "y": 0,
+   "wall": true,
+   "town": true
+  },
+  {
+   "id": "sc_summit_flat",
+   "x": 0,
+   "z": -530,
+   "r": 7,
+   "blend": 5,
+   "y": 0
+  }
+ ],
+ "falls": [
+  {
+   "id": "sc_gorge_head_fall",
+   "x": -246,
+   "z": -394,
+   "w": 4,
+   "axis": "x"
+  },
+  {
+   "id": "sc_city_fall",
+   "x": -104,
+   "z": -208,
+   "w": 3,
+   "axis": "z"
+  },
+  {
+   "id": "sc_isle_fall0",
+   "x": -541,
+   "z": 519,
+   "w": 2,
+   "axis": "z",
+   "top": 152
+  },
+  {
+   "id": "sc_isle_fall1",
+   "x": -675,
+   "z": 639,
+   "w": 2,
+   "axis": "z",
+   "top": 176
+  },
+  {
+   "id": "sc_isle_fall3",
+   "x": -623,
+   "z": 799,
+   "w": 2,
+   "axis": "z",
+   "top": 196
+  },
+  {
+   "id": "sc_isle_fall5",
+   "x": 186,
+   "z": 649,
+   "w": 2,
+   "axis": "z",
+   "top": 132
+  }
+ ],
+ "edge_ridge": {
+  "width": 70,
+  "height": 60,
+  "gaps": [
+   {
+    "edge": "south",
+    "at": 0,
+    "half": 14
+   }
+  ]
+ },
+ "rivers": [
+  {
+   "id": "sc_great_gorge",
+   "width": 16,
+   "depth": 3,
+   "water_y": 32,
+   "gorge": true,
+   "points": [
+    [
+     -250,
+     -390
+    ],
+    [
+     -264,
+     -376
+    ],
+    [
+     -274,
+     -361
+    ],
+    [
+     -277,
+     -341
+    ],
+    [
+     -277,
+     -319
+    ],
+    [
+     -284,
+     -301
+    ],
+    [
+     -302,
+     -290
+    ],
+    [
+     -327,
+     -284
+    ],
+    [
+     -347,
+     -275
+    ],
+    [
+     -354,
+     -257
+    ],
+    [
+     -353,
+     -234
+    ],
+    [
+     -353,
+     -212
+    ],
+    [
+     -362,
+     -196
+    ],
+    [
+     -376,
+     -183
+    ],
+    [
+     -390,
+     -170
+    ],
+    [
+     -384,
+     -152
+    ],
+    [
+     -386,
+     -133
+    ],
+    [
+     -389,
+     -113
+    ],
+    [
+     -383,
+     -96
+    ],
+    [
+     -365,
+     -82
+    ],
+    [
+     -344,
+     -69
+    ],
+    [
+     -334,
+     -53
+    ],
+    [
+     -338,
+     -33
+    ],
+    [
+     -346,
+     -12
+    ],
+    [
+     -348,
+     7
+    ],
+    [
+     -340,
+     24
+    ],
+    [
+     -330,
+     40
+    ],
+    [
+     -338,
+     56
+    ],
+    [
+     -352,
+     68
+    ],
+    [
+     -371,
+     76
+    ],
+    [
+     -387,
+     87
+    ],
+    [
+     -392,
+     106
+    ],
+    [
+     -390,
+     130
+    ],
+    [
+     -389,
+     153
+    ],
+    [
+     -400,
+     168
+    ],
+    [
+     -420,
+     176
+    ],
+    [
+     -441,
+     182
+    ],
+    [
+     -456,
+     195
+    ],
+    [
+     -463,
+     212
+    ],
+    [
+     -470,
+     230
+    ],
+    [
+     -479,
+     247
+    ],
+    [
+     -478,
+     268
+    ],
+    [
+     -470,
+     291
+    ],
+    [
+     -473,
+     311
+    ],
+    [
+     -492,
+     326
+    ],
+    [
+     -513,
+     340
+    ],
+    [
+     -522,
+     358
+    ],
+    [
+     -519,
+     379
+    ],
+    [
+     -520,
+     400
+    ]
+   ]
+  },
+  {
+   "id": "sc_red_canyon",
+   "width": 11,
+   "depth": 2,
+   "water_y": 42,
+   "gorge": true,
+   "points": [
+    [
+     960,
+     90
+    ],
+    [
+     941,
+     96
+    ],
+    [
+     923,
+     103
+    ],
+    [
+     912,
+     122
+    ],
+    [
+     899,
+     138
+    ],
+    [
+     876,
+     134
+    ],
+    [
+     852,
+     131
+    ],
+    [
+     840,
+     148
+    ],
+    [
+     831,
+     172
+    ],
+    [
+     814,
+     180
+    ],
+    [
+     791,
+     178
+    ],
+    [
+     774,
+     187
+    ],
+    [
+     760,
+     200
+    ],
+    [
+     739,
+     204
+    ],
+    [
+     721,
+     211
+    ],
+    [
+     714,
+     237
+    ],
+    [
+     699,
+     251
+    ],
+    [
+     675,
+     248
+    ],
+    [
+     660,
+     260
+    ],
+    [
+     649,
+     276
+    ],
+    [
+     647,
+     294
+    ],
+    [
+     655,
+     317
+    ],
+    [
+     647,
+     334
+    ],
+    [
+     624,
+     346
+    ],
+    [
+     614,
+     362
+    ],
+    [
+     621,
+     384
+    ],
+    [
+     620,
+     403
+    ],
+    [
+     610,
+     420
+    ],
+    [
+     592,
+     428
+    ],
+    [
+     582,
+     444
+    ],
+    [
+     578,
+     467
+    ],
+    [
+     560,
+     476
+    ],
+    [
+     534,
+     475
+    ],
+    [
+     520,
+     487
+    ],
+    [
+     514,
+     508
+    ],
+    [
+     500,
+     520
+    ]
+   ]
+  },
+  {
+   "id": "sc_willow",
+   "width": 10,
+   "depth": 3,
+   "points": [
+    [
+     70,
+     -60
+    ],
+    [
+     61,
+     -42
+    ],
+    [
+     67,
+     -23
+    ],
+    [
+     80,
+     -2
+    ],
+    [
+     78,
+     15
+    ],
+    [
+     55,
+     30
+    ],
+    [
+     32,
+     44
+    ],
+    [
+     29,
+     62
+    ],
+    [
+     41,
+     83
+    ],
+    [
+     47,
+     102
+    ],
+    [
+     40,
+     120
+    ],
+    [
+     38,
+     142
+    ],
+    [
+     30,
+     161
+    ],
+    [
+     3,
+     168
+    ],
+    [
+     -22,
+     177
+    ],
+    [
+     -23,
+     199
+    ],
+    [
+     -14,
+     227
+    ],
+    [
+     -21,
+     247
+    ],
+    [
+     -40,
+     260
+    ],
+    [
+     -33,
+     276
+    ],
+    [
+     -15,
+     289
+    ],
+    [
+     -4,
+     304
+    ],
+    [
+     -11,
+     326
+    ],
+    [
+     -26,
+     350
+    ],
+    [
+     -27,
+     370
+    ],
+    [
+     -7,
+     382
+    ],
+    [
+     14,
+     393
+    ],
+    [
+     21,
+     410
+    ],
+    [
+     20,
+     430
+    ],
+    [
+     39,
+     440
+    ],
+    [
+     48,
+     458
+    ],
+    [
+     42,
+     486
+    ],
+    [
+     43,
+     509
+    ],
+    [
+     67,
+     517
+    ],
+    [
+     95,
+     521
+    ],
+    [
+     106,
+     538
+    ],
+    [
+     110,
+     560
+    ],
+    [
+     138,
+     557
+    ],
+    [
+     142,
+     580
+    ],
+    [
+     150,
+     600
+    ]
+   ]
+  }
+ ],
+ "ponds": [
+  {
+   "id": "sc_mirror_lake",
+   "x": -600,
+   "z": 660,
+   "r": 250,
+   "depth": 10,
+   "y": 62
+  },
+  {
+   "id": "sc_blossom_lake",
+   "x": 190,
+   "z": 660,
+   "r": 115,
+   "depth": 7,
+   "y": 62
+  },
+  {
+   "id": "sc_crater_lava",
+   "x": 640,
+   "z": -560,
+   "r": 34,
+   "depth": 3,
+   "fluid": "lava"
+  },
+  {
+   "id": "sc_ash_lava",
+   "x": 820,
+   "z": -300,
+   "r": 9,
+   "depth": 2,
+   "fluid": "lava"
+  },
+  {
+   "id": "sc_tarn",
+   "x": -560,
+   "z": -320,
+   "r": 26,
+   "depth": 4
+  },
+  {
+   "id": "sc_city_pool",
+   "x": -120,
+   "z": -205,
+   "r": 7,
+   "depth": 2
+  }
+ ],
+ "roads": [
+  {
+   "id": "sc_city_street0",
+   "width": 5,
+   "surface": "cobble",
+   "graded": true,
+   "points": [
+    [
+     -84,
+     -120,
+     84
+    ],
+    [
+     84,
+     -120,
+     84
+    ]
+   ]
+  },
+  {
+   "id": "sc_city_street1",
+   "width": 5,
+   "surface": "cobble",
+   "graded": true,
+   "points": [
+    [
+     -84,
+     -160,
+     97
+    ],
+    [
+     84,
+     -160,
+     97
+    ]
+   ]
+  },
+  {
+   "id": "sc_city_street2",
+   "width": 5,
+   "surface": "cobble",
+   "graded": true,
+   "points": [
+    [
+     -84,
+     -200,
+     110
+    ],
+    [
+     84,
+     -200,
+     110
+    ]
+   ]
+  },
+  {
+   "id": "sc_city_street3",
+   "width": 5,
+   "surface": "cobble",
+   "graded": true,
+   "points": [
+    [
+     -79,
+     -240,
+     123
+    ],
+    [
+     79,
+     -240,
+     123
+    ]
+   ]
+  },
+  {
+   "id": "sc_city_street4",
+   "width": 5,
+   "surface": "cobble",
+   "graded": true,
+   "points": [
+    [
+     -74,
+     -280,
+     136
+    ],
+    [
+     74,
+     -280,
+     136
+    ]
+   ]
+  },
+  {
+   "id": "sc_city_street5",
+   "width": 5,
+   "surface": "cobble",
+   "graded": true,
+   "points": [
+    [
+     -49,
+     -320,
+     150
+    ],
+    [
+     49,
+     -320,
+     150
+    ]
+   ]
+  },
+  {
+   "id": "sc_city_ramp0",
+   "width": 4,
+   "surface": "cobble",
+   "graded": true,
+   "points": [
+    [
+     86,
+     -120,
+     84
+    ],
+    [
+     100,
+     -120,
+     84
+    ],
+    [
+     130,
+     -134,
+     89
+    ],
+    [
+     104,
+     -150,
+     95
+    ],
+    [
+     96,
+     -160,
+     97
+    ],
+    [
+     86,
+     -160,
+     97
+    ]
+   ]
+  },
+  {
+   "id": "sc_city_ramp1",
+   "width": 4,
+   "surface": "cobble",
+   "graded": true,
+   "points": [
+    [
+     -86,
+     -160,
+     97
+    ],
+    [
+     -100,
+     -160,
+     97
+    ],
+    [
+     -130,
+     -174,
+     102
+    ],
+    [
+     -104,
+     -190,
+     108
+    ],
+    [
+     -96,
+     -200,
+     110
+    ],
+    [
+     -86,
+     -200,
+     110
+    ]
+   ]
+  },
+  {
+   "id": "sc_city_ramp2",
+   "width": 4,
+   "surface": "cobble",
+   "graded": true,
+   "points": [
+    [
+     86,
+     -200,
+     110
+    ],
+    [
+     100,
+     -200,
+     110
+    ],
+    [
+     130,
+     -214,
+     115
+    ],
+    [
+     99,
+     -230,
+     121
+    ],
+    [
+     91,
+     -240,
+     123
+    ],
+    [
+     81,
+     -240,
+     123
+    ]
+   ]
+  },
+  {
+   "id": "sc_city_ramp3",
+   "width": 4,
+   "surface": "cobble",
+   "graded": true,
+   "points": [
+    [
+     -81,
+     -240,
+     123
+    ],
+    [
+     -95,
+     -240,
+     123
+    ],
+    [
+     -125,
+     -254,
+     128
+    ],
+    [
+     -94,
+     -270,
+     134
+    ],
+    [
+     -86,
+     -280,
+     136
+    ],
+    [
+     -76,
+     -280,
+     136
+    ]
+   ]
+  },
+  {
+   "id": "sc_city_ramp4",
+   "width": 4,
+   "surface": "cobble",
+   "graded": true,
+   "points": [
+    [
+     76,
+     -280,
+     136
+    ],
+    [
+     90,
+     -280,
+     136
+    ],
+    [
+     120,
+     -294,
+     141
+    ],
+    [
+     69,
+     -310,
+     147
+    ],
+    [
+     61,
+     -320,
+     150
+    ],
+    [
+     51,
+     -320,
+     150
+    ]
+   ]
+  },
+  {
+   "id": "sc_grand_stair",
+   "width": 7,
+   "surface": "cobble",
+   "graded": true,
+   "points": [
+    [
+     0,
+     -120,
+     84
+    ],
+    [
+     0,
+     -131,
+     84
+    ],
+    [
+     0,
+     -149,
+     97
+    ],
+    [
+     0,
+     -171,
+     97
+    ],
+    [
+     0,
+     -189,
+     110
+    ],
+    [
+     0,
+     -211,
+     110
+    ],
+    [
+     0,
+     -229,
+     123
+    ],
+    [
+     0,
+     -251,
+     123
+    ],
+    [
+     0,
+     -269,
+     136
+    ],
+    [
+     0,
+     -291,
+     136
+    ],
+    [
+     0,
+     -309,
+     150
+    ],
+    [
+     0,
+     -320,
+     150
+    ]
+   ]
+  },
+  {
+   "id": "sc_village_main",
+   "width": 6,
+   "surface": "cobble",
+   "graded": true,
+   "points": [
+    [
+     -234,
+     320
+    ],
+    [
+     -106,
+     320
+    ]
+   ]
+  },
+  {
+   "id": "sc_village_cross",
+   "width": 5,
+   "points": [
+    [
+     -170,
+     260
+    ],
+    [
+     -170,
+     380
+    ]
+   ]
+  },
+  {
+   "id": "sc_petal_street",
+   "width": 5,
+   "surface": "cobble",
+   "graded": true,
+   "points": [
+    [
+     292,
+     520
+    ],
+    [
+     388,
+     520
+    ]
+   ]
+  },
+  {
+   "id": "sc_mesa_plaza",
+   "width": 5,
+   "surface": "cobble",
+   "graded": true,
+   "points": [
+    [
+     548,
+     296,
+     121
+    ],
+    [
+     572,
+     296,
+     121
+    ]
+   ]
+  },
+  {
+   "id": "sc_mesa_stair",
+   "width": 5,
+   "surface": "cobble",
+   "graded": true,
+   "points": [
+    [
+     560,
+     426,
+     66
+    ],
+    [
+     560,
+     370,
+     90
+    ],
+    [
+     560,
+     336,
+     121
+    ],
+    [
+     560,
+     310,
+     121
+    ]
+   ]
+  },
+  {
+   "id": "sc_monastery_court",
+   "width": 4,
+   "surface": "cobble",
+   "graded": true,
+   "points": [
+    [
+     -344,
+     -462
+    ],
+    [
+     -316,
+     -462
+    ]
+   ]
+  },
+  {
+   "id": "sc_kings_road",
+   "width": 5,
+   "graded": true,
+   "points": [
+    [
+     0,
+     990,
+     66
+    ],
+    [
+     0,
+     860
+    ],
+    [
+     -40,
+     700
+    ],
+    [
+     -60,
+     560
+    ],
+    [
+     -120,
+     430
+    ],
+    [
+     -170,
+     382
+    ]
+   ]
+  },
+  {
+   "id": "sc_north_road",
+   "width": 5,
+   "graded": true,
+   "points": [
+    [
+     -170,
+     258
+    ],
+    [
+     -140,
+     160
+    ],
+    [
+     -60,
+     40
+    ],
+    [
+     -20,
+     -40,
+     70
+    ],
+    [
+     0,
+     -70,
+     72
+    ]
+   ]
+  },
+  {
+   "id": "sc_city_gate",
+   "width": 7,
+   "surface": "cobble",
+   "graded": true,
+   "points": [
+    [
+     0,
+     -70,
+     72
+    ],
+    [
+     0,
+     -97,
+     84
+    ],
+    [
+     0,
+     -120,
+     84
+    ]
+   ]
+  },
+  {
+   "id": "sc_lake_road",
+   "width": 4,
+   "graded": true,
+   "points": [
+    [
+     -106,
+     320
+    ],
+    [
+     -20,
+     360
+    ],
+    [
+     120,
+     430
+    ],
+    [
+     240,
+     480
+    ],
+    [
+     290,
+     520
+    ]
+   ]
+  },
+  {
+   "id": "sc_mesa_road",
+   "width": 4,
+   "graded": true,
+   "points": [
+    [
+     390,
+     520
+    ],
+    [
+     460,
+     480
+    ],
+    [
+     560,
+     426,
+     66
+    ]
+   ]
+  },
+  {
+   "id": "sc_west_road",
+   "width": 4,
+   "graded": true,
+   "bridge": "rope",
+   "points": [
+    [
+     -234,
+     320
+    ],
+    [
+     -300,
+     300
+    ],
+    [
+     -420,
+     260
+    ],
+    [
+     -560,
+     300
+    ],
+    [
+     -620,
+     400
+    ]
+   ]
+  },
+  {
+   "id": "sc_monastery_road",
+   "width": 3,
+   "surface": "lane",
+   "graded": true,
+   "points": [
+    [
+     -30,
+     -320,
+     150
+    ],
+    [
+     -59,
+     -320,
+     150
+    ],
+    [
+     -90,
+     -330
+    ],
+    [
+     -140,
+     -360
+    ],
+    [
+     -190,
+     -350
+    ],
+    [
+     -240,
+     -390
+    ],
+    [
+     -210,
+     -430
+    ],
+    [
+     -270,
+     -445
+    ],
+    [
+     -316,
+     -462
+    ]
+   ]
+  },
+  {
+   "id": "sc_volcano_road",
+   "width": 3,
+   "surface": "lane",
+   "graded": true,
+   "points": [
+    [
+     30,
+     -320,
+     150
+    ],
+    [
+     59,
+     -320,
+     150
+    ],
+    [
+     110,
+     -330
+    ],
+    [
+     200,
+     -360
+    ],
+    [
+     300,
+     -380
+    ],
+    [
+     380,
+     -400
+    ],
+    [
+     458,
+     -400
+    ]
+   ]
+  },
+  {
+   "id": "sc_summit_trail",
+   "width": 2,
+   "surface": "lane",
+   "graded": true,
+   "points": [
+    [
+     0,
+     -332,
+     150
+    ],
+    [
+     0,
+     -344,
+     150
+    ],
+    [
+     30,
+     -370
+    ],
+    [
+     -20,
+     -400
+    ],
+    [
+     30,
+     -430
+    ],
+    [
+     -10,
+     -460
+    ],
+    [
+     20,
+     -490
+    ],
+    [
+     0,
+     -515
+    ]
+   ]
+  }
+ ],
+ "woods": [
+  {
+   "id": "sc_taiga",
+   "x": -580,
+   "z": -380,
+   "r": 330,
+   "density": 0.5,
+   "mix": [
+    "spruce",
+    "spruce",
+    "mega_spruce",
+    "pine",
+    "mega_pine"
+   ]
+  },
+  {
+   "id": "sc_greenwood",
+   "x": -760,
+   "z": 170,
+   "r": 170,
+   "density": 0.45,
+   "mix": [
+    "oak",
+    "birch",
+    "dark_oak",
+    "fancy_oak"
+   ]
+  },
+  {
+   "id": "sc_birch_hill",
+   "x": 150,
+   "z": 210,
+   "r": 90,
+   "density": 0.35,
+   "mix": [
+    "super_birch",
+    "birch"
+   ]
+  },
+  {
+   "id": "sc_blossoms",
+   "x": 240,
+   "z": 600,
+   "r": 210,
+   "density": 0.22,
+   "mix": [
+    "cherry"
+   ]
+  },
+  {
+   "id": "sc_south_wood",
+   "x": -260,
+   "z": 860,
+   "r": 120,
+   "density": 0.4,
+   "mix": [
+    "oak",
+    "dark_oak",
+    "azalea"
+   ]
+  },
+  {
+   "id": "sc_crown_pines",
+   "x": -120,
+   "z": -260,
+   "r": 140,
+   "density": 0.3,
+   "mix": [
+    "spruce",
+    "pine"
+   ]
+  }
+ ],
+ "fields": [
+  {
+   "id": "sc_f1",
+   "crop": "wheat",
+   "x1": -310,
+   "z1": 300,
+   "x2": -265,
+   "z2": 360
+  },
+  {
+   "id": "sc_f2",
+   "crop": "carrots",
+   "x1": -310,
+   "z1": 370,
+   "x2": -265,
+   "z2": 410
+  },
+  {
+   "id": "sc_f3",
+   "crop": "potatoes",
+   "x1": -75,
+   "z1": 390,
+   "x2": -40,
+   "z2": 450
+  },
+  {
+   "id": "sc_f4",
+   "crop": "beetroots",
+   "x1": -75,
+   "z1": 460,
+   "x2": -45,
+   "z2": 490
+  },
+  {
+   "id": "sc_orchard",
+   "crop": "orchard",
+   "x1": -230,
+   "z1": 415,
+   "x2": -130,
+   "z2": 460
+  }
+ ],
+ "buildings": [
+  {
+   "id": "sc_b1",
+   "type": "house",
+   "label": "Cliff City house",
+   "x": -77,
+   "z": -128,
+   "w": 9,
+   "d": 8,
+   "facing": "south",
+   "floors": 1,
+   "beds": 2,
+   "wall": "minecraft:white_terracotta",
+   "frame": "minecraft:stripped_spruce_log",
+   "roof": "spruce",
+   "foundation": "minecraft:stone_bricks"
+  },
+  {
+   "id": "sc_b2",
+   "type": "house",
+   "label": "Cliff City house",
+   "x": -64,
+   "z": -128,
+   "w": 9,
+   "d": 7,
+   "facing": "south",
+   "floors": 1,
+   "beds": 2,
+   "wall": "minecraft:smooth_sandstone",
+   "frame": "minecraft:stripped_dark_oak_log",
+   "roof": "dark_oak",
+   "foundation": "minecraft:stone_bricks"
+  },
+  {
+   "id": "sc_b3",
+   "type": "bakery",
+   "label": "Cliff City bakery",
+   "x": -49,
+   "z": -129,
+   "w": 11,
+   "d": 9,
+   "facing": "south",
+   "floors": 1,
+   "beds": 1,
+   "wall": "minecraft:spruce_planks",
+   "frame": "minecraft:stripped_dark_oak_log",
+   "roof": "dark_oak",
+   "foundation": "minecraft:cobblestone"
+  },
+  {
+   "id": "sc_b4",
+   "type": "store",
+   "label": "Cliff City store",
+   "x": -35,
+   "z": -129,
+   "w": 11,
+   "d": 9,
+   "facing": "south",
+   "floors": 1,
+   "beds": 1,
+   "wall": "minecraft:stone_bricks",
+   "frame": "minecraft:stripped_dark_oak_log",
+   "roof": "deepslate",
+   "foundation": "minecraft:cobbled_deepslate"
+  },
+  {
+   "id": "sc_b5",
+   "type": "smithy",
+   "label": "Cliff City smithy",
+   "x": -20,
+   "z": -129,
+   "w": 11,
+   "d": 9,
+   "facing": "south",
+   "floors": 1,
+   "beds": 1,
+   "wall": "minecraft:white_terracotta",
+   "frame": "minecraft:stripped_spruce_log",
+   "roof": "spruce",
+   "foundation": "minecraft:stone_bricks",
+   "floor": "minecraft:stone_bricks"
+  },
+  {
+   "id": "sc_b6",
+   "type": "inn",
+   "label": "Cliff City inn",
+   "x": 17,
+   "z": -130,
+   "w": 15,
+   "d": 11,
+   "facing": "south",
+   "floors": 1,
+   "beds": 1,
+   "wall": "minecraft:spruce_planks",
+   "frame": "minecraft:stripped_dark_oak_log",
+   "roof": "dark_oak",
+   "foundation": "minecraft:cobblestone"
+  },
+  {
+   "id": "sc_b7",
+   "type": "house",
+   "label": "Cliff City house",
+   "x": 33,
+   "z": -128,
+   "w": 9,
+   "d": 7,
+   "facing": "south",
+   "floors": 1,
+   "beds": 2,
+   "wall": "minecraft:stone_bricks",
+   "frame": "minecraft:stripped_dark_oak_log",
+   "roof": "deepslate",
+   "foundation": "minecraft:cobbled_deepslate"
+  },
+  {
+   "id": "sc_b8",
+   "type": "house",
+   "label": "Cliff City house",
+   "x": 47,
+   "z": -128,
+   "w": 9,
+   "d": 8,
+   "facing": "south",
+   "floors": 2,
+   "beds": 2,
+   "wall": "minecraft:white_terracotta",
+   "frame": "minecraft:stripped_spruce_log",
+   "roof": "spruce",
+   "foundation": "minecraft:stone_bricks"
+  },
+  {
+   "id": "sc_b9",
+   "type": "house",
+   "label": "Cliff City house",
+   "x": 59,
+   "z": -128,
+   "w": 9,
+   "d": 7,
+   "facing": "south",
+   "floors": 1,
+   "beds": 2,
+   "wall": "minecraft:smooth_sandstone",
+   "frame": "minecraft:stripped_dark_oak_log",
+   "roof": "dark_oak",
+   "foundation": "minecraft:stone_bricks"
+  },
+  {
+   "id": "sc_b10",
+   "type": "bakery",
+   "label": "Cliff City bakery",
+   "x": 73,
+   "z": -129,
+   "w": 11,
+   "d": 9,
+   "facing": "south",
+   "floors": 1,
+   "beds": 1,
+   "wall": "minecraft:spruce_planks",
+   "frame": "minecraft:stripped_dark_oak_log",
+   "roof": "dark_oak",
+   "foundation": "minecraft:cobblestone"
+  },
+  {
+   "id": "sc_b11",
+   "type": "house",
+   "label": "Cliff City house",
+   "x": -77,
+   "z": -112,
+   "w": 9,
+   "d": 7,
+   "facing": "north",
+   "floors": 1,
+   "beds": 2,
+   "wall": "minecraft:smooth_sandstone",
+   "frame": "minecraft:stripped_dark_oak_log",
+   "roof": "dark_oak",
+   "foundation": "minecraft:stone_bricks"
+  },
+  {
+   "id": "sc_b12",
+   "type": "bakery",
+   "label": "Cliff City bakery",
+   "x": -62,
+   "z": -111,
+   "w": 11,
+   "d": 9,
+   "facing": "north",
+   "floors": 1,
+   "beds": 1,
+   "wall": "minecraft:spruce_planks",
+   "frame": "minecraft:stripped_dark_oak_log",
+   "roof": "dark_oak",
+   "foundation": "minecraft:cobblestone"
+  },
+  {
+   "id": "sc_b13",
+   "type": "store",
+   "label": "Cliff City store",
+   "x": -48,
+   "z": -111,
+   "w": 11,
+   "d": 9,
+   "facing": "north",
+   "floors": 1,
+   "beds": 1,
+   "wall": "minecraft:stone_bricks",
+   "frame": "minecraft:stripped_dark_oak_log",
+   "roof": "deepslate",
+   "foundation": "minecraft:cobbled_deepslate"
+  },
+  {
+   "id": "sc_b14",
+   "type": "smithy",
+   "label": "Cliff City smithy",
+   "x": -33,
+   "z": -111,
+   "w": 11,
+   "d": 9,
+   "facing": "north",
+   "floors": 1,
+   "beds": 1,
+   "wall": "minecraft:white_terracotta",
+   "frame": "minecraft:stripped_spruce_log",
+   "roof": "spruce",
+   "foundation": "minecraft:stone_bricks",
+   "floor": "minecraft:stone_bricks"
+  },
+  {
+   "id": "sc_b15",
+   "type": "house",
+   "label": "Cliff City house",
+   "x": -18,
+   "z": -111,
+   "w": 9,
+   "d": 8,
+   "facing": "north",
+   "floors": 2,
+   "beds": 2,
+   "wall": "minecraft:smooth_sandstone",
+   "frame": "minecraft:stripped_dark_oak_log",
+   "roof": "dark_oak",
+   "foundation": "minecraft:stone_bricks"
+  },
+  {
+   "id": "sc_b16",
+   "type": "house",
+   "label": "Cliff City house",
+   "x": 14,
+   "z": -112,
+   "w": 9,
+   "d": 7,
+   "facing": "north",
+   "floors": 1,
+   "beds": 2,
+   "wall": "minecraft:stone_bricks",
+   "frame": "minecraft:stripped_dark_oak_log",
+   "roof": "deepslate",
+   "foundation": "minecraft:cobbled_deepslate"
+  },
+  {
+   "id": "sc_b17",
+   "type": "house",
+   "label": "Cliff City house",
+   "x": 28,
+   "z": -111,
+   "w": 9,
+   "d": 8,
+   "facing": "north",
+   "floors": 2,
+   "beds": 2,
+   "wall": "minecraft:white_terracotta",
+   "frame": "minecraft:stripped_spruce_log",
+   "roof": "spruce",
+   "foundation": "minecraft:stone_bricks"
+  },
+  {
+   "id": "sc_b18",
+   "type": "house",
+   "label": "Cliff City house",
+   "x": 40,
+   "z": -112,
+   "w": 9,
+   "d": 7,
+   "facing": "north",
+   "floors": 1,
+   "beds": 2,
+   "wall": "minecraft:smooth_sandstone",
+   "frame": "minecraft:stripped_dark_oak_log",
+   "roof": "dark_oak",
+   "foundation": "minecraft:stone_bricks"
+  },
+  {
+   "id": "sc_b19",
+   "type": "bakery",
+   "label": "Cliff City bakery",
+   "x": 54,
+   "z": -111,
+   "w": 11,
+   "d": 9,
+   "facing": "north",
+   "floors": 1,
+   "beds": 1,
+   "wall": "minecraft:spruce_planks",
+   "frame": "minecraft:stripped_dark_oak_log",
+   "roof": "dark_oak",
+   "foundation": "minecraft:cobblestone"
+  },
+  {
+   "id": "sc_b20",
+   "type": "store",
+   "label": "Cliff City store",
+   "x": 70,
+   "z": -111,
+   "w": 11,
+   "d": 9,
+   "facing": "north",
+   "floors": 1,
+   "beds": 1,
+   "wall": "minecraft:stone_bricks",
+   "frame": "minecraft:stripped_dark_oak_log",
+   "roof": "deepslate",
+   "foundation": "minecraft:cobbled_deepslate"
+  },
+  {
+   "id": "sc_b21",
+   "type": "store",
+   "label": "Cliff City store",
+   "x": -76,
+   "z": -169,
+   "w": 11,
+   "d": 9,
+   "facing": "south",
+   "floors": 1,
+   "beds": 1,
+   "wall": "minecraft:white_terracotta",
+   "frame": "minecraft:stripped_spruce_log",
+   "roof": "spruce",
+   "foundation": "minecraft:stone_bricks"
+  },
+  {
+   "id": "sc_b22",
+   "type": "smithy",
+   "label": "Cliff City smithy",
+   "x": -61,
+   "z": -169,
+   "w": 11,
+   "d": 9,
+   "facing": "south",
+   "floors": 1,
+   "beds": 1,
+   "wall": "minecraft:smooth_sandstone",
+   "frame": "minecraft:stripped_dark_oak_log",
+   "roof": "dark_oak",
+   "foundation": "minecraft:stone_bricks",
+   "floor": "minecraft:stone_bricks"
+  },
+  {
+   "id": "sc_b23",
+   "type": "house",
+   "label": "Cliff City house",
+   "x": -46,
+   "z": -168,
+   "w": 9,
+   "d": 8,
+   "facing": "south",
+   "floors": 2,
+   "beds": 2,
+   "wall": "minecraft:spruce_planks",
+   "frame": "minecraft:stripped_dark_oak_log",
+   "roof": "dark_oak",
+   "foundation": "minecraft:cobblestone"
+  },
+  {
+   "id": "sc_b24",
+   "type": "inn",
+   "label": "Cliff City inn",
+   "x": -31,
+   "z": -170,
+   "w": 15,
+   "d": 11,
+   "facing": "south",
+   "floors": 1,
+   "beds": 1,
+   "wall": "minecraft:stone_bricks",
+   "frame": "minecraft:stripped_dark_oak_log",
+   "roof": "deepslate",
+   "foundation": "minecraft:cobbled_deepslate"
+  },
+  {
+   "id": "sc_b25",
+   "type": "house",
+   "label": "Cliff City house",
+   "x": -15,
+   "z": -168,
+   "w": 9,
+   "d": 7,
+   "facing": "south",
+   "floors": 1,
+   "beds": 2,
+   "wall": "minecraft:white_terracotta",
+   "frame": "minecraft:stripped_spruce_log",
+   "roof": "spruce",
+   "foundation": "minecraft:stone_bricks"
+  },
+  {
+   "id": "sc_b26",
+   "type": "house",
+   "label": "Cliff City house",
+   "x": 14,
+   "z": -168,
+   "w": 9,
+   "d": 7,
+   "facing": "south",
+   "floors": 1,
+   "beds": 2,
+   "wall": "minecraft:spruce_planks",
+   "frame": "minecraft:stripped_dark_oak_log",
+   "roof": "dark_oak",
+   "foundation": "minecraft:cobblestone"
+  },
+  {
+   "id": "sc_b27",
+   "type": "bakery",
+   "label": "Cliff City bakery",
+   "x": 28,
+   "z": -169,
+   "w": 11,
+   "d": 9,
+   "facing": "south",
+   "floors": 1,
+   "beds": 1,
+   "wall": "minecraft:stone_bricks",
+   "frame": "minecraft:stripped_dark_oak_log",
+   "roof": "deepslate",
+   "foundation": "minecraft:cobbled_deepslate"
+  },
+  {
+   "id": "sc_b28",
+   "type": "store",
+   "label": "Cliff City store",
+   "x": 44,
+   "z": -169,
+   "w": 11,
+   "d": 9,
+   "facing": "south",
+   "floors": 1,
+   "beds": 1,
+   "wall": "minecraft:white_terracotta",
+   "frame": "minecraft:stripped_spruce_log",
+   "roof": "spruce",
+   "foundation": "minecraft:stone_bricks"
+  },
+  {
+   "id": "sc_b29",
+   "type": "smithy",
+   "label": "Cliff City smithy",
+   "x": 58,
+   "z": -169,
+   "w": 11,
+   "d": 9,
+   "facing": "south",
+   "floors": 1,
+   "beds": 1,
+   "wall": "minecraft:smooth_sandstone",
+   "frame": "minecraft:stripped_dark_oak_log",
+   "roof": "dark_oak",
+   "foundation": "minecraft:stone_bricks",
+   "floor": "minecraft:stone_bricks"
+  },
+  {
+   "id": "sc_b30",
+   "type": "house",
+   "label": "Cliff City house",
+   "x": 72,
+   "z": -168,
+   "w": 9,
+   "d": 8,
+   "facing": "south",
+   "floors": 1,
+   "beds": 2,
+   "wall": "minecraft:spruce_planks",
+   "frame": "minecraft:stripped_dark_oak_log",
+   "roof": "dark_oak",
+   "foundation": "minecraft:cobblestone"
+  },
+  {
+   "id": "sc_b31",
+   "type": "smithy",
+   "label": "Cliff City smithy",
+   "x": -76,
+   "z": -151,
+   "w": 11,
+   "d": 9,
+   "facing": "north",
+   "floors": 1,
+   "beds": 1,
+   "wall": "minecraft:smooth_sandstone",
+   "frame": "minecraft:stripped_dark_oak_log",
+   "roof": "dark_oak",
+   "foundation": "minecraft:stone_bricks",
+   "floor": "minecraft:stone_bricks"
+  },
+  {
+   "id": "sc_b32",
+   "type": "house",
+   "label": "Cliff City house",
+   "x": -61,
+   "z": -151,
+   "w": 9,
+   "d": 8,
+   "facing": "north",
+   "floors": 2,
+   "beds": 2,
+   "wall": "minecraft:spruce_planks",
+   "frame": "minecraft:stripped_dark_oak_log",
+   "roof": "dark_oak",
+   "foundation": "minecraft:cobblestone"
+  },
+  {
+   "id": "sc_b33",
+   "type": "inn",
+   "label": "Cliff City inn",
+   "x": -46,
+   "z": -150,
+   "w": 15,
+   "d": 11,
+   "facing": "north",
+   "floors": 1,
+   "beds": 1,
+   "wall": "minecraft:stone_bricks",
+   "frame": "minecraft:stripped_dark_oak_log",
+   "roof": "deepslate",
+   "foundation": "minecraft:cobbled_deepslate"
+  },
+  {
+   "id": "sc_b34",
+   "type": "house",
+   "label": "Cliff City house",
+   "x": -30,
+   "z": -152,
+   "w": 9,
+   "d": 7,
+   "facing": "north",
+   "floors": 1,
+   "beds": 2,
+   "wall": "minecraft:white_terracotta",
+   "frame": "minecraft:stripped_spruce_log",
+   "roof": "spruce",
+   "foundation": "minecraft:stone_bricks"
+  },
+  {
+   "id": "sc_b35",
+   "type": "house",
+   "label": "Cliff City house",
+   "x": -16,
+   "z": -151,
+   "w": 9,
+   "d": 8,
+   "facing": "north",
+   "floors": 2,
+   "beds": 2,
+   "wall": "minecraft:smooth_sandstone",
+   "frame": "minecraft:stripped_dark_oak_log",
+   "roof": "dark_oak",
+   "foundation": "minecraft:stone_bricks"
+  },
+  {
+   "id": "sc_b36",
+   "type": "bakery",
+   "label": "Cliff City bakery",
+   "x": 15,
+   "z": -151,
+   "w": 11,
+   "d": 9,
+   "facing": "north",
+   "floors": 1,
+   "beds": 1,
+   "wall": "minecraft:stone_bricks",
+   "frame": "minecraft:stripped_dark_oak_log",
+   "roof": "deepslate",
+   "foundation": "minecraft:cobbled_deepslate"
+  },
+  {
+   "id": "sc_b37",
+   "type": "store",
+   "label": "Cliff City store",
+   "x": 31,
+   "z": -151,
+   "w": 11,
+   "d": 9,
+   "facing": "north",
+   "floors": 1,
+   "beds": 1,
+   "wall": "minecraft:white_terracotta",
+   "frame": "minecraft:stripped_spruce_log",
+   "roof": "spruce",
+   "foundation": "minecraft:stone_bricks"
+  },
+  {
+   "id": "sc_b38",
+   "type": "smithy",
+   "label": "Cliff City smithy",
+   "x": 45,
+   "z": -151,
+   "w": 11,
+   "d": 9,
+   "facing": "north",
+   "floors": 1,
+   "beds": 1,
+   "wall": "minecraft:smooth_sandstone",
+   "frame": "minecraft:stripped_dark_oak_log",
+   "roof": "dark_oak",
+   "foundation": "minecraft:stone_bricks",
+   "floor": "minecraft:stone_bricks"
+  },
+  {
+   "id": "sc_b39",
+   "type": "house",
+   "label": "Cliff City house",
+   "x": 59,
+   "z": -151,
+   "w": 9,
+   "d": 8,
+   "facing": "north",
+   "floors": 1,
+   "beds": 2,
+   "wall": "minecraft:spruce_planks",
+   "frame": "minecraft:stripped_dark_oak_log",
+   "roof": "dark_oak",
+   "foundation": "minecraft:cobblestone"
+  },
+  {
+   "id": "sc_b40",
+   "type": "inn",
+   "label": "Cliff City inn",
+   "x": 76,
+   "z": -150,
+   "w": 15,
+   "d": 11,
+   "facing": "north",
+   "floors": 2,
+   "beds": 1,
+   "wall": "minecraft:stone_bricks",
+   "frame": "minecraft:stripped_dark_oak_log",
+   "roof": "deepslate",
+   "foundation": "minecraft:cobbled_deepslate"
+  },
+  {
+   "id": "sc_b41",
+   "type": "inn",
+   "label": "Cliff City inn",
+   "x": -74,
+   "z": -210,
+   "w": 15,
+   "d": 11,
+   "facing": "south",
+   "floors": 1,
+   "beds": 1,
+   "wall": "minecraft:white_terracotta",
+   "frame": "minecraft:stripped_spruce_log",
+   "roof": "spruce",
+   "foundation": "minecraft:stone_bricks"
+  },
+  {
+   "id": "sc_b42",
+   "type": "house",
+   "label": "Cliff City house",
+   "x": -58,
+   "z": -208,
+   "w": 9,
+   "d": 7,
+   "facing": "south",
+   "floors": 1,
+   "beds": 2,
+   "wall": "minecraft:smooth_sandstone",
+   "frame": "minecraft:stripped_dark_oak_log",
+   "roof": "dark_oak",
+   "foundation": "minecraft:stone_bricks"
+  },
+  {
+   "id": "sc_b43",
+   "type": "house",
+   "label": "Cliff City house",
+   "x": -44,
+   "z": -208,
+   "w": 9,
+   "d": 8,
+   "facing": "south",
+   "floors": 2,
+   "beds": 2,
+   "wall": "minecraft:spruce_planks",
+   "frame": "minecraft:stripped_dark_oak_log",
+   "roof": "dark_oak",
+   "foundation": "minecraft:cobblestone"
+  },
+  {
+   "id": "sc_b44",
+   "type": "house",
+   "label": "Cliff City house",
+   "x": -32,
+   "z": -208,
+   "w": 9,
+   "d": 7,
+   "facing": "south",
+   "floors": 1,
+   "beds": 2,
+   "wall": "minecraft:stone_bricks",
+   "frame": "minecraft:stripped_dark_oak_log",
+   "roof": "deepslate",
+   "foundation": "minecraft:cobbled_deepslate"
+  },
+  {
+   "id": "sc_b45",
+   "type": "bakery",
+   "label": "Cliff City bakery",
+   "x": -18,
+   "z": -209,
+   "w": 11,
+   "d": 9,
+   "facing": "south",
+   "floors": 1,
+   "beds": 1,
+   "wall": "minecraft:white_terracotta",
+   "frame": "minecraft:stripped_spruce_log",
+   "roof": "spruce",
+   "foundation": "minecraft:stone_bricks"
+  },
+  {
+   "id": "sc_b46",
+   "type": "smithy",
+   "label": "Cliff City smithy",
+   "x": 15,
+   "z": -209,
+   "w": 11,
+   "d": 9,
+   "facing": "south",
+   "floors": 1,
+   "beds": 1,
+   "wall": "minecraft:spruce_planks",
+   "frame": "minecraft:stripped_dark_oak_log",
+   "roof": "dark_oak",
+   "foundation": "minecraft:cobblestone",
+   "floor": "minecraft:stone_bricks"
+  },
+  {
+   "id": "sc_b47",
+   "type": "house",
+   "label": "Cliff City house",
+   "x": 29,
+   "z": -208,
+   "w": 9,
+   "d": 8,
+   "facing": "south",
+   "floors": 1,
+   "beds": 2,
+   "wall": "minecraft:stone_bricks",
+   "frame": "minecraft:stripped_dark_oak_log",
+   "roof": "deepslate",
+   "foundation": "minecraft:cobbled_deepslate"
+  },
+  {
+   "id": "sc_b48",
+   "type": "inn",
+   "label": "Cliff City inn",
+   "x": 46,
+   "z": -210,
+   "w": 15,
+   "d": 11,
+   "facing": "south",
+   "floors": 2,
+   "beds": 1,
+   "wall": "minecraft:white_terracotta",
+   "frame": "minecraft:stripped_spruce_log",
+   "roof": "spruce",
+   "foundation": "minecraft:stone_bricks"
+  },
+  {
+   "id": "sc_b49",
+   "type": "house",
+   "label": "Cliff City house",
+   "x": 61,
+   "z": -208,
+   "w": 9,
+   "d": 7,
+   "facing": "south",
+   "floors": 1,
+   "beds": 2,
+   "wall": "minecraft:smooth_sandstone",
+   "frame": "minecraft:stripped_dark_oak_log",
+   "roof": "dark_oak",
+   "foundation": "minecraft:stone_bricks"
+  },
+  {
+   "id": "sc_b50",
+   "type": "house",
+   "label": "Cliff City house",
+   "x": 74,
+   "z": -208,
+   "w": 9,
+   "d": 8,
+   "facing": "south",
+   "floors": 1,
+   "beds": 2,
+   "wall": "minecraft:spruce_planks",
+   "frame": "minecraft:stripped_dark_oak_log",
+   "roof": "dark_oak",
+   "foundation": "minecraft:cobblestone"
+  },
+  {
+   "id": "sc_b51",
+   "type": "house",
+   "label": "Cliff City house",
+   "x": -77,
+   "z": -192,
+   "w": 9,
+   "d": 7,
+   "facing": "north",
+   "floors": 1,
+   "beds": 2,
+   "wall": "minecraft:smooth_sandstone",
+   "frame": "minecraft:stripped_dark_oak_log",
+   "roof": "dark_oak",
+   "foundation": "minecraft:stone_bricks"
+  },
+  {
+   "id": "sc_b52",
+   "type": "house",
+   "label": "Cliff City house",
+   "x": -63,
+   "z": -191,
+   "w": 9,
+   "d": 8,
+   "facing": "north",
+   "floors": 2,
+   "beds": 2,
+   "wall": "minecraft:spruce_planks",
+   "frame": "minecraft:stripped_dark_oak_log",
+   "roof": "dark_oak",
+   "foundation": "minecraft:cobblestone"
+  },
+  {
+   "id": "sc_b53",
+   "type": "house",
+   "label": "Cliff City house",
+   "x": -51,
+   "z": -192,
+   "w": 9,
+   "d": 7,
+   "facing": "north",
+   "floors": 1,
+   "beds": 2,
+   "wall": "minecraft:stone_bricks",
+   "frame": "minecraft:stripped_dark_oak_log",
+   "roof": "deepslate",
+   "foundation": "minecraft:cobbled_deepslate"
+  },
+  {
+   "id": "sc_b54",
+   "type": "bakery",
+   "label": "Cliff City bakery",
+   "x": -37,
+   "z": -191,
+   "w": 11,
+   "d": 9,
+   "facing": "north",
+   "floors": 1,
+   "beds": 1,
+   "wall": "minecraft:white_terracotta",
+   "frame": "minecraft:stripped_spruce_log",
+   "roof": "spruce",
+   "foundation": "minecraft:stone_bricks"
+  },
+  {
+   "id": "sc_b55",
+   "type": "store",
+   "label": "Cliff City store",
+   "x": -21,
+   "z": -191,
+   "w": 11,
+   "d": 9,
+   "facing": "north",
+   "floors": 1,
+   "beds": 1,
+   "wall": "minecraft:smooth_sandstone",
+   "frame": "minecraft:stripped_dark_oak_log",
+   "roof": "dark_oak",
+   "foundation": "minecraft:stone_bricks"
+  },
+  {
+   "id": "sc_b56",
+   "type": "house",
+   "label": "Cliff City house",
+   "x": 14,
+   "z": -191,
+   "w": 9,
+   "d": 8,
+   "facing": "north",
+   "floors": 1,
+   "beds": 2,
+   "wall": "minecraft:stone_bricks",
+   "frame": "minecraft:stripped_dark_oak_log",
+   "roof": "deepslate",
+   "foundation": "minecraft:cobbled_deepslate"
+  },
+  {
+   "id": "sc_b57",
+   "type": "inn",
+   "label": "Cliff City inn",
+   "x": 31,
+   "z": -190,
+   "w": 15,
+   "d": 11,
+   "facing": "north",
+   "floors": 2,
+   "beds": 1,
+   "wall": "minecraft:white_terracotta",
+   "frame": "minecraft:stripped_spruce_log",
+   "roof": "spruce",
+   "foundation": "minecraft:stone_bricks"
+  },
+  {
+   "id": "sc_b58",
+   "type": "house",
+   "label": "Cliff City house",
+   "x": 46,
+   "z": -192,
+   "w": 9,
+   "d": 7,
+   "facing": "north",
+   "floors": 1,
+   "beds": 2,
+   "wall": "minecraft:smooth_sandstone",
+   "frame": "minecraft:stripped_dark_oak_log",
+   "roof": "dark_oak",
+   "foundation": "minecraft:stone_bricks"
+  },
+  {
+   "id": "sc_b59",
+   "type": "house",
+   "label": "Cliff City house",
+   "x": 59,
+   "z": -191,
+   "w": 9,
+   "d": 8,
+   "facing": "north",
+   "floors": 1,
+   "beds": 2,
+   "wall": "minecraft:spruce_planks",
+   "frame": "minecraft:stripped_dark_oak_log",
+   "roof": "dark_oak",
+   "foundation": "minecraft:cobblestone"
+  },
+  {
+   "id": "sc_b60",
+   "type": "house",
+   "label": "Cliff City house",
+   "x": 73,
+   "z": -192,
+   "w": 9,
+   "d": 7,
+   "facing": "north",
+   "floors": 2,
+   "beds": 2,
+   "wall": "minecraft:stone_bricks",
+   "frame": "minecraft:stripped_dark_oak_log",
+   "roof": "deepslate",
+   "foundation": "minecraft:cobbled_deepslate"
+  },
+  {
+   "id": "sc_b61",
+   "type": "house",
+   "label": "Cliff City house",
+   "x": -72,
+   "z": -248,
+   "w": 9,
+   "d": 7,
+   "facing": "south",
+   "floors": 1,
+   "beds": 2,
+   "wall": "minecraft:white_terracotta",
+   "frame": "minecraft:stripped_spruce_log",
+   "roof": "spruce",
+   "foundation": "minecraft:stone_bricks"
+  },
+  {
+   "id": "sc_b62",
+   "type": "bakery",
+   "label": "Cliff City bakery",
+   "x": -58,
+   "z": -249,
+   "w": 11,
+   "d": 9,
+   "facing": "south",
+   "floors": 1,
+   "beds": 1,
+   "wall": "minecraft:smooth_sandstone",
+   "frame": "minecraft:stripped_dark_oak_log",
+   "roof": "dark_oak",
+   "foundation": "minecraft:stone_bricks"
+  },
+  {
+   "id": "sc_b63",
+   "type": "store",
+   "label": "Cliff City store",
+   "x": -42,
+   "z": -249,
+   "w": 11,
+   "d": 9,
+   "facing": "south",
+   "floors": 1,
+   "beds": 1,
+   "wall": "minecraft:spruce_planks",
+   "frame": "minecraft:stripped_dark_oak_log",
+   "roof": "dark_oak",
+   "foundation": "minecraft:cobblestone"
+  },
+  {
+   "id": "sc_b64",
+   "type": "smithy",
+   "label": "Cliff City smithy",
+   "x": -28,
+   "z": -249,
+   "w": 11,
+   "d": 9,
+   "facing": "south",
+   "floors": 1,
+   "beds": 1,
+   "wall": "minecraft:stone_bricks",
+   "frame": "minecraft:stripped_dark_oak_log",
+   "roof": "deepslate",
+   "foundation": "minecraft:cobbled_deepslate",
+   "floor": "minecraft:stone_bricks"
+  },
+  {
+   "id": "sc_b65",
+   "type": "house",
+   "label": "Cliff City house",
+   "x": -14,
+   "z": -248,
+   "w": 9,
+   "d": 8,
+   "facing": "south",
+   "floors": 1,
+   "beds": 2,
+   "wall": "minecraft:white_terracotta",
+   "frame": "minecraft:stripped_spruce_log",
+   "roof": "spruce",
+   "foundation": "minecraft:stone_bricks"
+  },
+  {
+   "id": "sc_b66",
+   "type": "house",
+   "label": "Cliff City house",
+   "x": 14,
+   "z": -248,
+   "w": 9,
+   "d": 7,
+   "facing": "south",
+   "floors": 1,
+   "beds": 2,
+   "wall": "minecraft:spruce_planks",
+   "frame": "minecraft:stripped_dark_oak_log",
+   "roof": "dark_oak",
+   "foundation": "minecraft:cobblestone"
+  },
+  {
+   "id": "sc_b67",
+   "type": "house",
+   "label": "Cliff City house",
+   "x": 27,
+   "z": -248,
+   "w": 9,
+   "d": 8,
+   "facing": "south",
+   "floors": 1,
+   "beds": 2,
+   "wall": "minecraft:stone_bricks",
+   "frame": "minecraft:stripped_dark_oak_log",
+   "roof": "deepslate",
+   "foundation": "minecraft:cobbled_deepslate"
+  },
+  {
+   "id": "sc_b68",
+   "type": "house",
+   "label": "Cliff City house",
+   "x": 41,
+   "z": -248,
+   "w": 9,
+   "d": 7,
+   "facing": "south",
+   "floors": 2,
+   "beds": 2,
+   "wall": "minecraft:white_terracotta",
+   "frame": "minecraft:stripped_spruce_log",
+   "roof": "spruce",
+   "foundation": "minecraft:stone_bricks"
+  },
+  {
+   "id": "sc_b69",
+   "type": "bakery",
+   "label": "Cliff City bakery",
+   "x": 54,
+   "z": -249,
+   "w": 11,
+   "d": 9,
+   "facing": "south",
+   "floors": 1,
+   "beds": 1,
+   "wall": "minecraft:smooth_sandstone",
+   "frame": "minecraft:stripped_dark_oak_log",
+   "roof": "dark_oak",
+   "foundation": "minecraft:stone_bricks"
+  },
+  {
+   "id": "sc_b70",
+   "type": "store",
+   "label": "Cliff City store",
+   "x": 69,
+   "z": -249,
+   "w": 11,
+   "d": 9,
+   "facing": "south",
+   "floors": 1,
+   "beds": 1,
+   "wall": "minecraft:spruce_planks",
+   "frame": "minecraft:stripped_dark_oak_log",
+   "roof": "dark_oak",
+   "foundation": "minecraft:cobblestone"
+  },
+  {
+   "id": "sc_b71",
+   "type": "bakery",
+   "label": "Cliff City bakery",
+   "x": -71,
+   "z": -231,
+   "w": 11,
+   "d": 9,
+   "facing": "north",
+   "floors": 1,
+   "beds": 1,
+   "wall": "minecraft:smooth_sandstone",
+   "frame": "minecraft:stripped_dark_oak_log",
+   "roof": "dark_oak",
+   "foundation": "minecraft:stone_bricks"
+  },
+  {
+   "id": "sc_b72",
+   "type": "store",
+   "label": "Cliff City store",
+   "x": -55,
+   "z": -231,
+   "w": 11,
+   "d": 9,
+   "facing": "north",
+   "floors": 1,
+   "beds": 1,
+   "wall": "minecraft:spruce_planks",
+   "frame": "minecraft:stripped_dark_oak_log",
+   "roof": "dark_oak",
+   "foundation": "minecraft:cobblestone"
+  },
+  {
+   "id": "sc_b73",
+   "type": "smithy",
+   "label": "Cliff City smithy",
+   "x": -41,
+   "z": -231,
+   "w": 11,
+   "d": 9,
+   "facing": "north",
+   "floors": 1,
+   "beds": 1,
+   "wall": "minecraft:stone_bricks",
+   "frame": "minecraft:stripped_dark_oak_log",
+   "roof": "deepslate",
+   "foundation": "minecraft:cobbled_deepslate",
+   "floor": "minecraft:stone_bricks"
+  },
+  {
+   "id": "sc_b74",
+   "type": "house",
+   "label": "Cliff City house",
+   "x": -27,
+   "z": -231,
+   "w": 9,
+   "d": 8,
+   "facing": "north",
+   "floors": 1,
+   "beds": 2,
+   "wall": "minecraft:white_terracotta",
+   "frame": "minecraft:stripped_spruce_log",
+   "roof": "spruce",
+   "foundation": "minecraft:stone_bricks"
+  },
+  {
+   "id": "sc_b75",
+   "type": "house",
+   "label": "Cliff City house",
+   "x": 14,
+   "z": -232,
+   "w": 9,
+   "d": 7,
+   "facing": "north",
+   "floors": 1,
+   "beds": 2,
+   "wall": "minecraft:spruce_planks",
+   "frame": "minecraft:stripped_dark_oak_log",
+   "roof": "dark_oak",
+   "foundation": "minecraft:cobblestone"
+  },
+  {
+   "id": "sc_b76",
+   "type": "house",
+   "label": "Cliff City house",
+   "x": 27,
+   "z": -231,
+   "w": 9,
+   "d": 8,
+   "facing": "north",
+   "floors": 1,
+   "beds": 2,
+   "wall": "minecraft:stone_bricks",
+   "frame": "minecraft:stripped_dark_oak_log",
+   "roof": "deepslate",
+   "foundation": "minecraft:cobbled_deepslate"
+  },
+  {
+   "id": "sc_b77",
+   "type": "house",
+   "label": "Cliff City house",
+   "x": 41,
+   "z": -232,
+   "w": 9,
+   "d": 7,
+   "facing": "north",
+   "floors": 2,
+   "beds": 2,
+   "wall": "minecraft:white_terracotta",
+   "frame": "minecraft:stripped_spruce_log",
+   "roof": "spruce",
+   "foundation": "minecraft:stone_bricks"
+  },
+  {
+   "id": "sc_b78",
+   "type": "bakery",
+   "label": "Cliff City bakery",
+   "x": 54,
+   "z": -231,
+   "w": 11,
+   "d": 9,
+   "facing": "north",
+   "floors": 1,
+   "beds": 1,
+   "wall": "minecraft:smooth_sandstone",
+   "frame": "minecraft:stripped_dark_oak_log",
+   "roof": "dark_oak",
+   "foundation": "minecraft:stone_bricks"
+  },
+  {
+   "id": "sc_b79",
+   "type": "store",
+   "label": "Cliff City store",
+   "x": 69,
+   "z": -231,
+   "w": 11,
+   "d": 9,
+   "facing": "north",
+   "floors": 1,
+   "beds": 1,
+   "wall": "minecraft:spruce_planks",
+   "frame": "minecraft:stripped_dark_oak_log",
+   "roof": "dark_oak",
+   "foundation": "minecraft:cobblestone"
+  },
+  {
+   "id": "sc_b80",
+   "type": "smithy",
+   "label": "Cliff City smithy",
+   "x": -66,
+   "z": -289,
+   "w": 11,
+   "d": 9,
+   "facing": "south",
+   "floors": 1,
+   "beds": 1,
+   "wall": "minecraft:white_terracotta",
+   "frame": "minecraft:stripped_spruce_log",
+   "roof": "spruce",
+   "foundation": "minecraft:stone_bricks",
+   "floor": "minecraft:stone_bricks"
+  },
+  {
+   "id": "sc_b81",
+   "type": "house",
+   "label": "Cliff City house",
+   "x": -52,
+   "z": -288,
+   "w": 9,
+   "d": 8,
+   "facing": "south",
+   "floors": 1,
+   "beds": 2,
+   "wall": "minecraft:smooth_sandstone",
+   "frame": "minecraft:stripped_dark_oak_log",
+   "roof": "dark_oak",
+   "foundation": "minecraft:stone_bricks"
+  },
+  {
+   "id": "sc_b82",
+   "type": "inn",
+   "label": "Cliff City inn",
+   "x": -35,
+   "z": -290,
+   "w": 15,
+   "d": 11,
+   "facing": "south",
+   "floors": 2,
+   "beds": 1,
+   "wall": "minecraft:spruce_planks",
+   "frame": "minecraft:stripped_dark_oak_log",
+   "roof": "dark_oak",
+   "foundation": "minecraft:cobblestone"
+  },
+  {
+   "id": "sc_b83",
+   "type": "house",
+   "label": "Cliff City house",
+   "x": -20,
+   "z": -288,
+   "w": 9,
+   "d": 7,
+   "facing": "south",
+   "floors": 1,
+   "beds": 2,
+   "wall": "minecraft:stone_bricks",
+   "frame": "minecraft:stripped_dark_oak_log",
+   "roof": "deepslate",
+   "foundation": "minecraft:cobbled_deepslate"
+  },
+  {
+   "id": "sc_b84",
+   "type": "house",
+   "label": "Cliff City house",
+   "x": 14,
+   "z": -288,
+   "w": 9,
+   "d": 7,
+   "facing": "south",
+   "floors": 2,
+   "beds": 2,
+   "wall": "minecraft:smooth_sandstone",
+   "frame": "minecraft:stripped_dark_oak_log",
+   "roof": "dark_oak",
+   "foundation": "minecraft:stone_bricks"
+  },
+  {
+   "id": "sc_b85",
+   "type": "bakery",
+   "label": "Cliff City bakery",
+   "x": 27,
+   "z": -289,
+   "w": 11,
+   "d": 9,
+   "facing": "south",
+   "floors": 1,
+   "beds": 1,
+   "wall": "minecraft:spruce_planks",
+   "frame": "minecraft:stripped_dark_oak_log",
+   "roof": "dark_oak",
+   "foundation": "minecraft:cobblestone"
+  },
+  {
+   "id": "sc_b86",
+   "type": "store",
+   "label": "Cliff City store",
+   "x": 42,
+   "z": -289,
+   "w": 11,
+   "d": 9,
+   "facing": "south",
+   "floors": 1,
+   "beds": 1,
+   "wall": "minecraft:stone_bricks",
+   "frame": "minecraft:stripped_dark_oak_log",
+   "roof": "deepslate",
+   "foundation": "minecraft:cobbled_deepslate"
+  },
+  {
+   "id": "sc_b87",
+   "type": "smithy",
+   "label": "Cliff City smithy",
+   "x": 58,
+   "z": -289,
+   "w": 11,
+   "d": 9,
+   "facing": "south",
+   "floors": 1,
+   "beds": 1,
+   "wall": "minecraft:white_terracotta",
+   "frame": "minecraft:stripped_spruce_log",
+   "roof": "spruce",
+   "foundation": "minecraft:stone_bricks",
+   "floor": "minecraft:stone_bricks"
+  },
+  {
+   "id": "sc_b88",
+   "type": "house",
+   "label": "Cliff City house",
+   "x": -67,
+   "z": -271,
+   "w": 9,
+   "d": 8,
+   "facing": "north",
+   "floors": 1,
+   "beds": 2,
+   "wall": "minecraft:smooth_sandstone",
+   "frame": "minecraft:stripped_dark_oak_log",
+   "roof": "dark_oak",
+   "foundation": "minecraft:stone_bricks"
+  },
+  {
+   "id": "sc_b89",
+   "type": "inn",
+   "label": "Cliff City inn",
+   "x": -50,
+   "z": -270,
+   "w": 15,
+   "d": 11,
+   "facing": "north",
+   "floors": 2,
+   "beds": 1,
+   "wall": "minecraft:spruce_planks",
+   "frame": "minecraft:stripped_dark_oak_log",
+   "roof": "dark_oak",
+   "foundation": "minecraft:cobblestone"
+  },
+  {
+   "id": "sc_b90",
+   "type": "house",
+   "label": "Cliff City house",
+   "x": -35,
+   "z": -272,
+   "w": 9,
+   "d": 7,
+   "facing": "north",
+   "floors": 1,
+   "beds": 2,
+   "wall": "minecraft:stone_bricks",
+   "frame": "minecraft:stripped_dark_oak_log",
+   "roof": "deepslate",
+   "foundation": "minecraft:cobbled_deepslate"
+  },
+  {
+   "id": "sc_b91",
+   "type": "house",
+   "label": "Cliff City house",
+   "x": -22,
+   "z": -271,
+   "w": 9,
+   "d": 8,
+   "facing": "north",
+   "floors": 1,
+   "beds": 2,
+   "wall": "minecraft:white_terracotta",
+   "frame": "minecraft:stripped_spruce_log",
+   "roof": "spruce",
+   "foundation": "minecraft:stone_bricks"
+  },
+  {
+   "id": "sc_b92",
+   "type": "bakery",
+   "label": "Cliff City bakery",
+   "x": 15,
+   "z": -271,
+   "w": 11,
+   "d": 9,
+   "facing": "north",
+   "floors": 1,
+   "beds": 1,
+   "wall": "minecraft:spruce_planks",
+   "frame": "minecraft:stripped_dark_oak_log",
+   "roof": "dark_oak",
+   "foundation": "minecraft:cobblestone"
+  },
+  {
+   "id": "sc_b93",
+   "type": "store",
+   "label": "Cliff City store",
+   "x": 30,
+   "z": -271,
+   "w": 11,
+   "d": 9,
+   "facing": "north",
+   "floors": 1,
+   "beds": 1,
+   "wall": "minecraft:stone_bricks",
+   "frame": "minecraft:stripped_dark_oak_log",
+   "roof": "deepslate",
+   "foundation": "minecraft:cobbled_deepslate"
+  },
+  {
+   "id": "sc_b94",
+   "type": "smithy",
+   "label": "Cliff City smithy",
+   "x": 46,
+   "z": -271,
+   "w": 11,
+   "d": 9,
+   "facing": "north",
+   "floors": 1,
+   "beds": 1,
+   "wall": "minecraft:white_terracotta",
+   "frame": "minecraft:stripped_spruce_log",
+   "roof": "spruce",
+   "foundation": "minecraft:stone_bricks",
+   "floor": "minecraft:stone_bricks"
+  },
+  {
+   "id": "sc_b95",
+   "type": "house",
+   "label": "Cliff City house",
+   "x": 59,
+   "z": -271,
+   "w": 9,
+   "d": 8,
+   "facing": "north",
+   "floors": 1,
+   "beds": 2,
+   "wall": "minecraft:smooth_sandstone",
+   "frame": "minecraft:stripped_dark_oak_log",
+   "roof": "dark_oak",
+   "foundation": "minecraft:stone_bricks"
+  },
+  {
+   "id": "sc_b96",
+   "type": "hall",
+   "label": "Citadel Hall",
+   "x": 0,
+   "z": -330,
+   "w": 21,
+   "d": 13,
+   "facing": "south",
+   "floors": 2,
+   "beds": 1,
+   "wall": "minecraft:stone_bricks",
+   "frame": "minecraft:stripped_dark_oak_log",
+   "roof": "deepslate",
+   "foundation": "minecraft:cobbled_deepslate"
+  },
+  {
+   "id": "sc_b97",
+   "type": "tower",
+   "label": "West Tower",
+   "x": -40,
+   "z": -326,
+   "w": 7,
+   "d": 7,
+   "facing": "south",
+   "floors": 4,
+   "beds": 1,
+   "wall": "minecraft:stone_bricks",
+   "frame": "minecraft:stripped_dark_oak_log",
+   "roof": "deepslate",
+   "foundation": "minecraft:cobbled_deepslate",
+   "floor": "minecraft:stone_bricks"
+  },
+  {
+   "id": "sc_b98",
+   "type": "tower",
+   "label": "East Tower",
+   "x": 40,
+   "z": -326,
+   "w": 7,
+   "d": 7,
+   "facing": "south",
+   "floors": 4,
+   "beds": 1,
+   "wall": "minecraft:stone_bricks",
+   "frame": "minecraft:stripped_dark_oak_log",
+   "roof": "deepslate",
+   "foundation": "minecraft:cobbled_deepslate",
+   "floor": "minecraft:stone_bricks"
+  },
+  {
+   "id": "sc_b99",
+   "type": "inn",
+   "label": "Willowmere inn",
+   "x": -220,
+   "z": 309,
+   "w": 15,
+   "d": 11,
+   "facing": "south",
+   "floors": 2,
+   "beds": 2,
+   "wall": "minecraft:oak_planks",
+   "frame": "minecraft:stripped_spruce_log",
+   "roof": "spruce",
+   "foundation": "minecraft:cobblestone"
+  },
+  {
+   "id": "sc_b100",
+   "type": "bakery",
+   "label": "Willowmere bakery",
+   "x": -198,
+   "z": 310,
+   "w": 11,
+   "d": 9,
+   "facing": "south",
+   "floors": 1,
+   "beds": 2,
+   "wall": "minecraft:birch_planks",
+   "frame": "minecraft:stripped_dark_oak_log",
+   "roof": "dark_oak",
+   "foundation": "minecraft:cobblestone"
+  },
+  {
+   "id": "sc_b101",
+   "type": "store",
+   "label": "Willowmere store",
+   "x": -148,
+   "z": 310,
+   "w": 11,
+   "d": 9,
+   "facing": "south",
+   "floors": 1,
+   "beds": 2,
+   "wall": "minecraft:white_terracotta",
+   "frame": "minecraft:stripped_spruce_log",
+   "roof": "spruce",
+   "foundation": "minecraft:stone_bricks"
+  },
+  {
+   "id": "sc_b102",
+   "type": "house",
+   "label": "Willowmere house",
+   "x": -126,
+   "z": 311,
+   "w": 9,
+   "d": 8,
+   "facing": "south",
+   "floors": 1,
+   "beds": 2,
+   "wall": "minecraft:oak_planks",
+   "frame": "minecraft:stripped_spruce_log",
+   "roof": "spruce",
+   "foundation": "minecraft:cobblestone"
+  },
+  {
+   "id": "sc_b103",
+   "type": "smithy",
+   "label": "Willowmere smithy",
+   "x": -220,
+   "z": 329,
+   "w": 11,
+   "d": 9,
+   "facing": "north",
+   "floors": 1,
+   "beds": 2,
+   "wall": "minecraft:birch_planks",
+   "frame": "minecraft:stripped_dark_oak_log",
+   "roof": "dark_oak",
+   "foundation": "minecraft:cobblestone",
+   "floor": "minecraft:stone_bricks"
+  },
+  {
+   "id": "sc_b104",
+   "type": "house",
+   "label": "Willowmere house",
+   "x": -198,
+   "z": 328,
+   "w": 9,
+   "d": 7,
+   "facing": "north",
+   "floors": 1,
+   "beds": 2,
+   "wall": "minecraft:white_terracotta",
+   "frame": "minecraft:stripped_spruce_log",
+   "roof": "spruce",
+   "foundation": "minecraft:stone_bricks"
+  },
+  {
+   "id": "sc_b105",
+   "type": "hall",
+   "label": "Willowmere hall",
+   "x": -148,
+   "z": 331,
+   "w": 17,
+   "d": 13,
+   "facing": "north",
+   "floors": 1,
+   "beds": 2,
+   "wall": "minecraft:oak_planks",
+   "frame": "minecraft:stripped_spruce_log",
+   "roof": "spruce",
+   "foundation": "minecraft:cobblestone"
+  },
+  {
+   "id": "sc_b106",
+   "type": "house",
+   "label": "Willowmere house",
+   "x": -126,
+   "z": 329,
+   "w": 9,
+   "d": 8,
+   "facing": "north",
+   "floors": 1,
+   "beds": 2,
+   "wall": "minecraft:birch_planks",
+   "frame": "minecraft:stripped_dark_oak_log",
+   "roof": "dark_oak",
+   "foundation": "minecraft:cobblestone"
+  },
+  {
+   "id": "sc_b107",
+   "type": "house",
+   "label": "Willowmere house",
+   "x": -182,
+   "z": 286,
+   "w": 9,
+   "d": 8,
+   "facing": "east",
+   "floors": 1,
+   "beds": 1,
+   "wall": "minecraft:birch_planks",
+   "frame": "minecraft:stripped_dark_oak_log",
+   "roof": "dark_oak",
+   "foundation": "minecraft:cobblestone"
+  },
+  {
+   "id": "sc_b108",
+   "type": "house",
+   "label": "Willowmere house",
+   "x": -182,
+   "z": 356,
+   "w": 9,
+   "d": 8,
+   "facing": "east",
+   "floors": 1,
+   "beds": 1,
+   "wall": "minecraft:white_terracotta",
+   "frame": "minecraft:stripped_spruce_log",
+   "roof": "spruce",
+   "foundation": "minecraft:stone_bricks"
+  },
+  {
+   "id": "sc_b109",
+   "type": "house",
+   "label": "Willowmere house",
+   "x": -158,
+   "z": 286,
+   "w": 9,
+   "d": 8,
+   "facing": "west",
+   "floors": 1,
+   "beds": 1,
+   "wall": "minecraft:oak_planks",
+   "frame": "minecraft:stripped_spruce_log",
+   "roof": "spruce",
+   "foundation": "minecraft:cobblestone"
+  },
+  {
+   "id": "sc_b110",
+   "type": "house",
+   "label": "Willowmere house",
+   "x": -158,
+   "z": 356,
+   "w": 9,
+   "d": 8,
+   "facing": "west",
+   "floors": 1,
+   "beds": 1,
+   "wall": "minecraft:birch_planks",
+   "frame": "minecraft:stripped_dark_oak_log",
+   "roof": "dark_oak",
+   "foundation": "minecraft:cobblestone"
+  },
+  {
+   "id": "sc_b111",
+   "type": "mill",
+   "label": "Willowmere Mill",
+   "x": 60,
+   "z": 300,
+   "w": 11,
+   "d": 11,
+   "facing": "west",
+   "floors": 1,
+   "beds": 1,
+   "wall": "minecraft:oak_planks",
+   "frame": "minecraft:stripped_spruce_log",
+   "roof": "spruce",
+   "foundation": "minecraft:cobblestone"
+  },
+  {
+   "id": "sc_b112",
+   "type": "farmhouse",
+   "label": "Westfield Farm",
+   "x": -300,
+   "z": 250,
+   "w": 13,
+   "d": 9,
+   "facing": "south",
+   "floors": 1,
+   "beds": 2,
+   "wall": "minecraft:white_terracotta",
+   "frame": "minecraft:stripped_spruce_log",
+   "roof": "spruce",
+   "foundation": "minecraft:stone_bricks"
+  },
+  {
+   "id": "sc_b113",
+   "type": "barn",
+   "label": "Westfield Barn",
+   "x": -320,
+   "z": 290,
+   "w": 13,
+   "d": 11,
+   "facing": "east",
+   "floors": 1,
+   "beds": 1,
+   "wall": "minecraft:red_terracotta",
+   "frame": "minecraft:stripped_oak_log",
+   "roof": "dark_oak",
+   "foundation": "minecraft:cobblestone"
+  },
+  {
+   "id": "sc_b114",
+   "type": "farmhouse",
+   "label": "Brookside Farm",
+   "x": -30,
+   "z": 430,
+   "w": 13,
+   "d": 9,
+   "facing": "west",
+   "floors": 1,
+   "beds": 2,
+   "wall": "minecraft:birch_planks",
+   "frame": "minecraft:stripped_dark_oak_log",
+   "roof": "dark_oak",
+   "foundation": "minecraft:cobblestone"
+  },
+  {
+   "id": "sc_b115",
+   "type": "house",
+   "label": "Petalshore house",
+   "x": 306,
+   "z": 511,
+   "w": 9,
+   "d": 8,
+   "facing": "south",
+   "floors": 1,
+   "beds": 2,
+   "wall": "minecraft:cherry_planks",
+   "frame": "minecraft:stripped_cherry_log",
+   "roof": "cherry",
+   "foundation": "minecraft:stone_bricks"
+  },
+  {
+   "id": "sc_b116",
+   "type": "bakery",
+   "label": "Petalshore bakery",
+   "x": 328,
+   "z": 511,
+   "w": 11,
+   "d": 9,
+   "facing": "south",
+   "floors": 1,
+   "beds": 2,
+   "wall": "minecraft:white_terracotta",
+   "frame": "minecraft:stripped_cherry_log",
+   "roof": "dark_oak",
+   "foundation": "minecraft:stone_bricks"
+  },
+  {
+   "id": "sc_b117",
+   "type": "house",
+   "label": "Petalshore house",
+   "x": 354,
+   "z": 512,
+   "w": 9,
+   "d": 7,
+   "facing": "south",
+   "floors": 1,
+   "beds": 2,
+   "wall": "minecraft:cherry_planks",
+   "frame": "minecraft:stripped_cherry_log",
+   "roof": "cherry",
+   "foundation": "minecraft:stone_bricks"
+  },
+  {
+   "id": "sc_b118",
+   "type": "inn",
+   "label": "Petalshore inn",
+   "x": 376,
+   "z": 510,
+   "w": 15,
+   "d": 11,
+   "facing": "south",
+   "floors": 1,
+   "beds": 2,
+   "wall": "minecraft:white_terracotta",
+   "frame": "minecraft:stripped_cherry_log",
+   "roof": "dark_oak",
+   "foundation": "minecraft:stone_bricks"
+  },
+  {
+   "id": "sc_b119",
+   "type": "store",
+   "label": "Petalshore store",
+   "x": 310,
+   "z": 529,
+   "w": 11,
+   "d": 9,
+   "facing": "north",
+   "floors": 1,
+   "beds": 2,
+   "wall": "minecraft:cherry_planks",
+   "frame": "minecraft:stripped_cherry_log",
+   "roof": "cherry",
+   "foundation": "minecraft:stone_bricks"
+  },
+  {
+   "id": "sc_b120",
+   "type": "house",
+   "label": "Petalshore house",
+   "x": 332,
+   "z": 528,
+   "w": 9,
+   "d": 8,
+   "facing": "north",
+   "floors": 1,
+   "beds": 2,
+   "wall": "minecraft:white_terracotta",
+   "frame": "minecraft:stripped_cherry_log",
+   "roof": "dark_oak",
+   "foundation": "minecraft:stone_bricks"
+  },
+  {
+   "id": "sc_b121",
+   "type": "house",
+   "label": "Petalshore house",
+   "x": 358,
+   "z": 528,
+   "w": 9,
+   "d": 7,
+   "facing": "north",
+   "floors": 1,
+   "beds": 2,
+   "wall": "minecraft:cherry_planks",
+   "frame": "minecraft:stripped_cherry_log",
+   "roof": "cherry",
+   "foundation": "minecraft:stone_bricks"
+  },
+  {
+   "id": "sc_b122",
+   "type": "house",
+   "label": "Petalshore house",
+   "x": 378,
+   "z": 528,
+   "w": 9,
+   "d": 8,
+   "facing": "north",
+   "floors": 1,
+   "beds": 2,
+   "wall": "minecraft:white_terracotta",
+   "frame": "minecraft:stripped_cherry_log",
+   "roof": "dark_oak",
+   "foundation": "minecraft:stone_bricks"
+  },
+  {
+   "id": "sc_b123",
+   "type": "tower",
+   "label": "Mesa Watch",
+   "x": 560,
+   "z": 282,
+   "w": 7,
+   "d": 7,
+   "facing": "south",
+   "floors": 4,
+   "beds": 1,
+   "wall": "minecraft:cut_red_sandstone",
+   "frame": "minecraft:stripped_acacia_log",
+   "roof": "mud_brick",
+   "foundation": "minecraft:red_sandstone",
+   "floor": "minecraft:stone_bricks"
+  },
+  {
+   "id": "sc_b124",
+   "type": "store",
+   "label": "Outpost Trading Post",
+   "x": 540,
+   "z": 304,
+   "w": 11,
+   "d": 9,
+   "facing": "east",
+   "floors": 1,
+   "beds": 1,
+   "wall": "minecraft:cut_red_sandstone",
+   "frame": "minecraft:stripped_acacia_log",
+   "roof": "mud_brick",
+   "foundation": "minecraft:red_sandstone"
+  },
+  {
+   "id": "sc_b125",
+   "type": "house",
+   "label": "Outpost house",
+   "x": 580,
+   "z": 302,
+   "w": 9,
+   "d": 8,
+   "facing": "west",
+   "floors": 1,
+   "beds": 1,
+   "wall": "minecraft:cut_red_sandstone",
+   "frame": "minecraft:stripped_acacia_log",
+   "roof": "mud_brick",
+   "foundation": "minecraft:red_sandstone"
+  },
+  {
+   "id": "sc_b126",
+   "type": "smithy",
+   "label": "Outpost Forge",
+   "x": 564,
+   "z": 320,
+   "w": 11,
+   "d": 9,
+   "facing": "north",
+   "floors": 1,
+   "beds": 1,
+   "wall": "minecraft:cut_red_sandstone",
+   "frame": "minecraft:stripped_acacia_log",
+   "roof": "mud_brick",
+   "foundation": "minecraft:red_sandstone",
+   "floor": "minecraft:stone_bricks"
+  },
+  {
+   "id": "sc_b127",
+   "type": "hall",
+   "label": "Monastery Hall",
+   "x": -330,
+   "z": -482,
+   "w": 17,
+   "d": 13,
+   "facing": "south",
+   "floors": 2,
+   "beds": 1,
+   "wall": "minecraft:polished_andesite",
+   "frame": "minecraft:stripped_dark_oak_log",
+   "roof": "deepslate",
+   "foundation": "minecraft:cobbled_deepslate"
+  },
+  {
+   "id": "sc_b128",
+   "type": "tower",
+   "label": "Bell Tower",
+   "x": -354,
+   "z": -464,
+   "w": 7,
+   "d": 7,
+   "facing": "east",
+   "floors": 5,
+   "beds": 1,
+   "wall": "minecraft:polished_andesite",
+   "frame": "minecraft:stripped_dark_oak_log",
+   "roof": "deepslate",
+   "foundation": "minecraft:cobbled_deepslate",
+   "floor": "minecraft:stone_bricks"
+  },
+  {
+   "id": "sc_b129",
+   "type": "house",
+   "label": "Monastery cells",
+   "x": -308,
+   "z": -462,
+   "w": 9,
+   "d": 8,
+   "facing": "west",
+   "floors": 1,
+   "beds": 2,
+   "wall": "minecraft:polished_andesite",
+   "frame": "minecraft:stripped_dark_oak_log",
+   "roof": "deepslate",
+   "foundation": "minecraft:cobbled_deepslate"
+  },
+  {
+   "id": "sc_b130",
+   "type": "tower",
+   "label": "Ash Observatory",
+   "x": 470,
+   "z": -416,
+   "w": 7,
+   "d": 7,
+   "facing": "south",
+   "floors": 5,
+   "beds": 1,
+   "wall": "minecraft:polished_blackstone_bricks",
+   "frame": "minecraft:stripped_crimson_stem",
+   "roof": "deepslate",
+   "foundation": "minecraft:blackstone",
+   "floor": "minecraft:stone_bricks"
+  },
+  {
+   "id": "sc_b131",
+   "type": "relay",
+   "label": "Observatory workshop",
+   "x": 482,
+   "z": -402,
+   "w": 9,
+   "d": 7,
+   "facing": "west",
+   "floors": 1,
+   "beds": 1,
+   "wall": "minecraft:polished_blackstone",
+   "frame": "minecraft:stripped_dark_oak_log",
+   "roof": "deepslate",
+   "foundation": "minecraft:blackstone",
+   "floor": "minecraft:stone_bricks"
+  }
+ ],
+ "caves": [],
+ "features": [
+  {
+   "id": "sc_citadel_statue",
+   "type": "statue",
+   "x": 0,
+   "z": -311
+  },
+  {
+   "id": "sc_village_well",
+   "type": "statue",
+   "x": -160,
+   "z": 329
+  },
+  {
+   "id": "sc_petal_jetty",
+   "type": "jetty",
+   "x": 268,
+   "z": 588,
+   "facing": "south"
+  },
+  {
+   "id": "sc_petal_statue",
+   "type": "statue",
+   "x": 340,
+   "z": 554
+  },
+  {
+   "id": "sc_summit",
+   "type": "summit_cairn",
+   "x": 0,
+   "z": -532
+  },
+  {
+   "id": "sc_isle0",
+   "type": "sky_island",
+   "x": -560,
+   "z": 520,
+   "y": 152,
+   "size": 18
+  },
+  {
+   "id": "sc_isle1",
+   "type": "sky_island",
+   "x": -700,
+   "z": 640,
+   "y": 176,
+   "size": 24
+  },
+  {
+   "id": "sc_isle2",
+   "type": "sky_island",
+   "x": -470,
+   "z": 720,
+   "y": 140,
+   "size": 14
+  },
+  {
+   "id": "sc_isle3",
+   "type": "sky_island",
+   "x": -640,
+   "z": 800,
+   "y": 196,
+   "size": 16
+  },
+  {
+   "id": "sc_isle4",
+   "type": "sky_island",
+   "x": -780,
+   "z": 480,
+   "y": 165,
+   "size": 13
+  },
+  {
+   "id": "sc_isle5",
+   "type": "sky_island",
+   "x": 170,
+   "z": 650,
+   "y": 132,
+   "size": 15
+  },
+  {
+   "id": "sc_arch_red1",
+   "type": "rock_arch",
+   "x": 760,
+   "z": 420,
+   "y": 66,
+   "size": 34
+  },
+  {
+   "id": "sc_arch_red2",
+   "type": "rock_arch",
+   "x": 500,
+   "z": 180,
+   "y": 66,
+   "size": 24
+  },
+  {
+   "id": "sc_arch_gorge",
+   "type": "rock_arch",
+   "x": -400,
+   "z": 330,
+   "y": 70,
+   "size": 30
+  },
+  {
+   "id": "sc_ruin1",
+   "type": "ruin",
+   "x": -440,
+   "z": -40,
+   "size": 9
+  },
+  {
+   "id": "sc_ruin2",
+   "type": "ruin",
+   "x": 220,
+   "z": 150,
+   "size": 7
+  },
+  {
+   "id": "sc_ruin3",
+   "type": "ruin",
+   "x": -60,
+   "z": 820,
+   "size": 11
+  },
+  {
+   "id": "sc_ruin4",
+   "type": "ruin",
+   "x": 420,
+   "z": -210,
+   "size": 8
+  },
+  {
+   "id": "sc_shrine1",
+   "type": "shrine",
+   "x": -640,
+   "z": -120
+  },
+  {
+   "id": "sc_overlook1",
+   "type": "overlook",
+   "x": -230,
+   "z": 180
+  },
+  {
+   "id": "sc_wagon1",
+   "type": "wagon",
+   "x": -40,
+   "z": 640
+  },
+  {
+   "id": "sc_camp1",
+   "type": "camp",
+   "x": 700,
+   "z": 600
+  },
+  {
+   "id": "sc_mirror_jetty",
+   "type": "jetty",
+   "x": -420,
+   "z": 520,
+   "facing": "west"
+  }
+ ],
+ "anchors": {
+  "sc_arrival": [
+   0,
+   0,
+   940
+  ],
+  "sc_city_gate": [
+   0,
+   0,
+   -75
+  ],
+  "sc_citadel": [
+   0,
+   0,
+   -305
+  ],
+  "sc_village": [
+   -170,
+   0,
+   326
+  ],
+  "sc_petalshore": [
+   340,
+   0,
+   526
+  ],
+  "sc_mesa_top": [
+   560,
+   0,
+   298
+  ],
+  "sc_monastery": [
+   -330,
+   0,
+   -462
+  ],
+  "sc_observatory": [
+   470,
+   0,
+   -398
+  ],
+  "sc_gorge_view": [
+   -300,
+   0,
+   60
+  ],
+  "sc_lake_view": [
+   -520,
+   0,
+   330
+  ],
+  "sc_volcano_rim": [
+   600,
+   0,
+   -640
+  ],
+  "sc_badlands_view": [
+   700,
+   0,
+   520
+  ],
+  "sc_summit_view": [
+   0,
+   0,
+   -528
+  ]
+ }
+}

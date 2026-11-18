@@ -27,6 +27,9 @@ public final class FeaturePlanner {
             case "arena" -> arena(p);
             case "rock_arch" -> rockArch(p, f.size > 0 ? f.size : 24);
             case "summit_cairn" -> summitCairn(p);
+            case "sky_island" -> skyIsland(p, f.size > 0 ? f.size : 14, f.x * 31L + f.z);
+            case "ruin" -> ruin(p, f.size > 0 ? f.size : 9, f.x * 17L + f.z);
+            case "statue" -> statue(p);
             default -> { /* reeds and others are procedural in the builder */ }
         }
         return p;
@@ -219,6 +222,68 @@ public final class FeaturePlanner {
         }
         p.anchor("under", 0, 0, 0);
         p.anchor("top", 0, (int) b + 1, 0);
+    }
+
+    /**
+     * A floating rock island (use an absolute y: the grass top). Grass and dirt over a jagged stone underside that
+     * tapers to a point, a small tree and hanging roots.
+     */
+    private static void skyIsland(BuildingPlanner.Plan p, int R, long seed) {
+        java.util.Random r = new java.util.Random(seed);
+        double[] lobes = {r.nextDouble() * 6.28, r.nextDouble() * 6.28, r.nextDouble() * 6.28};
+        for (int x = -R - 3; x <= R + 3; x++) for (int z = -R - 3; z <= R + 3; z++) {
+            double ang = Math.atan2(z, x);
+            double edge = R * (0.82 + 0.1 * Math.sin(ang * 3 + lobes[0]) + 0.08 * Math.sin(ang * 5 + lobes[1]));
+            double d = Math.hypot(x, z);
+            if (d > edge) continue;
+            double t = d / edge;
+            int depth = (int) Math.round(R * 1.35 * Math.pow(1 - t, 0.75) + 1 + 2 * Math.sin(x * 0.7 + lobes[2]) * Math.cos(z * 0.6));
+            p.set(x, 0, z, "minecraft:grass_block");
+            p.set(x, -1, z, "minecraft:dirt");
+            if (depth > 2) p.set(x, -2, z, "minecraft:dirt");
+            for (int y = -3; y > -depth; y--) {
+                int k = Math.floorMod(y + (int) (x * 0.3), 7);
+                p.set(x, y, z, k == 0 ? "minecraft:andesite" : k == 3 ? "minecraft:tuff" : k == 5 ? "minecraft:mossy_cobblestone" : "minecraft:stone");
+            }
+            if (t > 0.6 && r.nextDouble() < 0.06) for (int y = -2; y > -2 - r.nextInt(5); y--) p.set(x, y - depth + 2, z, "minecraft:hanging_roots");
+            else if (t < 0.8 && r.nextDouble() < 0.10) p.set(x, 1, z, r.nextDouble() < 0.5 ? "minecraft:short_grass" : "minecraft:poppy");
+        }
+        // a small persistent tree
+        int tx = (int) Math.round(R * 0.2), tz = (int) Math.round(-R * 0.15);
+        for (int y = 1; y <= 5; y++) p.set(tx, y, tz, "minecraft:oak_log[axis=y]");
+        for (int x = -2; x <= 2; x++) for (int z = -2; z <= 2; z++) for (int y = 4; y <= 6; y++) {
+            if (Math.abs(x) + Math.abs(z) + (y - 4) > 4 || (x == 0 && z == 0 && y < 6)) continue;
+            p.set(tx + x, y, tz + z, "minecraft:oak_leaves[persistent=true]");
+        }
+        p.anchor("top", 0, 1, 0);
+    }
+
+    /** Broken stone walls of an old building, overgrown. */
+    private static void ruin(BuildingPlanner.Plan p, int s, long seed) {
+        java.util.Random r = new java.util.Random(seed);
+        for (int x = -s; x <= s; x++) for (int z = -s; z <= s; z++) {
+            boolean wall = Math.abs(x) == s || Math.abs(z) == s;
+            if (!wall) { if (r.nextDouble() < 0.3) p.set(x, -1, z, r.nextBoolean() ? "minecraft:mossy_cobblestone" : "minecraft:cobblestone"); continue; }
+            int hgt = (int) (Math.max(0, 5 - Math.abs(x + z) * 0.25) + r.nextInt(3));
+            for (int y = 0; y < hgt; y++) {
+                double q = r.nextDouble();
+                p.set(x, y, z, q < 0.4 ? "minecraft:mossy_stone_bricks" : q < 0.7 ? "minecraft:cracked_stone_bricks" : "minecraft:stone_bricks");
+            }
+            if (hgt > 0 && r.nextDouble() < 0.25) p.set(x, hgt, z, "minecraft:mossy_cobblestone_wall");
+        }
+        p.set(0, 0, 0, "minecraft:chiseled_stone_bricks");
+        p.anchor("center", 0, 0, 0);
+    }
+
+    /** A weathered stone figure on a plinth. */
+    private static void statue(BuildingPlanner.Plan p) {
+        for (int x = -2; x <= 2; x++) for (int z = -2; z <= 2; z++) p.set(x, 0, z, "minecraft:stone_bricks");
+        for (int x = -1; x <= 1; x++) for (int z = -1; z <= 1; z++) p.set(x, 1, z, "minecraft:polished_andesite");
+        p.set(0, 2, 0, "minecraft:polished_andesite"); p.set(0, 3, 0, "minecraft:polished_andesite"); p.set(0, 4, 0, "minecraft:polished_andesite");
+        p.set(-1, 4, 0, "minecraft:andesite_wall"); p.set(1, 4, 0, "minecraft:andesite_wall"); p.set(1, 5, 0, "minecraft:andesite_wall");
+        p.set(0, 5, 0, "minecraft:chiseled_stone_bricks");
+        p.set(0, 6, 0, "minecraft:mossy_cobblestone_wall");
+        p.anchor("front", 0, 0, 3);
     }
 
     private static void summitCairn(BuildingPlanner.Plan p) {

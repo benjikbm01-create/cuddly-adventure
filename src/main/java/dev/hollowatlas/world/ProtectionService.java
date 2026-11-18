@@ -55,6 +55,8 @@ public final class ProtectionService {
     private ProtectionService() {}
 
     public static boolean isBuilder(PlayerEntity player) {
+        // the scenery showcase world is a free-roam sandbox: fly, build, break
+        if (player.getServer() != null && dev.hollowatlas.state.WorldMode.showcase(player.getServer())) return true;
         return BUILDERS.contains(player.getUuid()) && player.hasPermissionLevel(2);
     }
 
@@ -70,6 +72,11 @@ public final class ProtectionService {
 
     /** Called on join/respawn: everyone who is not an active builder plays in adventure mode. */
     public static void enforceMode(ServerPlayerEntity player) {
+        if (dev.hollowatlas.state.WorldMode.showcase(player.getServer())) {
+            if (player.interactionManager.getGameMode() == GameMode.SURVIVAL || player.interactionManager.getGameMode() == GameMode.ADVENTURE)
+                player.changeGameMode(GameMode.CREATIVE);
+            return;
+        }
         if (isBuilder(player)) return;
         if (player.interactionManager.getGameMode() != GameMode.ADVENTURE && !player.isSpectator()) {
             player.changeGameMode(GameMode.ADVENTURE);

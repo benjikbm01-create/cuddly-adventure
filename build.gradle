@@ -43,6 +43,25 @@ loom {
             vmArg "-Dhollowatlas.mode=devtest"
             vmArg "-Xmx4G"
         }
+        // Builds the 2000 x 2000 scenery SHOWCASE world (terrain + buildings only) in its own run folder.
+        buildShowcaseWorld {
+            server()
+            name "Build Showcase World"
+            runDir "run-showcase"
+            vmArg "-Dhollowatlas.autobuild=true"
+            vmArg "-Dhollowatlas.autobuild.stop=true"
+            vmArg "-Dhollowatlas.mode=showcase"
+            vmArg "-Xmx8G"
+        }
+        // Creates an EMPTY showcase world that builds itself the first time a player opens it (small download).
+        prepareShowcaseWorld {
+            server()
+            name "Prepare Showcase Seed World"
+            runDir "run-showcase-seed"
+            vmArg "-Dhollowatlas.prepare=true"
+            vmArg "-Dhollowatlas.mode=showcase"
+            vmArg "-Xmx2G"
+        }
         // Renders <world>/hollowatlas/region_map.png from the built world, then stops.
         renderMap {
             server()
@@ -86,6 +105,8 @@ java {
 
 test {
     useJUnitPlatform()
+    maxHeapSize = "3g"
+    testLogging { showStandardStreams = true }
 }
 
 jar {

@@ -118,6 +118,11 @@ public final class RegionBuilder {
 
     public static boolean isRunning() { return active != null; }
 
+    public static int percent() {
+        RegionBuilder a = active;
+        return a == null || a.totalTasks == 0 ? 100 : (int) (100L * a.done / a.totalTasks);
+    }
+
     public static String status() {
         if (active == null) return "idle";
         return String.format("building: %d/%d steps", active.done, active.totalTasks);
@@ -163,23 +168,23 @@ public final class RegionBuilder {
             tasks.add(() -> terrainChunk(fcx, fcz));
         }
         tasks.add(this::bridges);
-        tasks.add(this::roadSteps);
         tasks.add(this::falls);
         tasks.add(this::caves);
         tasks.add(this::fields);
         for (RegionModel.PlacedBuilding b : model.buildings) tasks.add(() -> building(b));
         for (RegionModel.PlacedFeature f : model.features) tasks.add(() -> feature(f));
         tasks.add(this::lampPosts);
-        tasks.add(this::pondReeds);
         tasks.add(this::orchard);
         tasks.add(this::pasture);
-        for (int cz = c0z; cz <= c1z; cz += 2) {
-            final int fcz = cz;
-            tasks.add(() -> trees(fcz * 16, fcz * 16 + 31));
-        }
-        for (int cz = c0z; cz <= c1z; cz++) {
-            final int fcz = cz;
-            tasks.add(() -> flora(fcz * 16, fcz * 16 + 15));
+        // decoration, one chunk per step: each step only ever touches (and reloads) a single chunk
+        for (int cz = c0z; cz <= c1z; cz++) for (int cx = c0x; cx <= c1x; cx++) {
+            final int lx0 = cx * 16 - ox, lz0 = cz * 16 - oz, wz0 = cz * 16;
+            tasks.add(() -> {
+                roadSteps(lx0, lx0 + 15, lz0, lz0 + 15);
+                pondReeds(lx0, lx0 + 15, lz0, lz0 + 15);
+                trees(wz0, wz0 + 15, lx0, lx0 + 15);
+                flora(wz0, wz0 + 15, lx0, lx0 + 15);
+            });
         }
         planConnectPass();
         tasks.add(this::animals);
@@ -225,16 +230,18 @@ public final class RegionBuilder {
 
     private void terrainChunk(int cx, int cz) {
         BlockState stone = Blocks.STONE.getDefaultState(), dirt = Blocks.DIRT.getDefaultState(),
-                air = Blocks.AIR.getDefaultState(), water = Blocks.WATER.getDefaultState();
+                air = Blocks.AIR.getDefaultState(), waterState = Blocks.WATER.getDefaultState(), lava = Blocks.LAVA.getDefaultState();
         for (int wz = cz * 16; wz < cz * 16 + 16; wz++) for (int wx = cx * 16; wx < cx * 16 + 16; wx++) {
             int lx = wx - ox, lz = wz - oz;
             if (!model.inside(lx, lz)) continue;
             int i = model.idx(lx, lz);
             int H = model.height[i];
             int W = model.water[i];
+            BlockState water = model.fluid[i] == RegionModel.FLUID_LAVA ? lava : waterState;
             byte surf = model.surface[i];
+            String pal = model.paletteAt(lx, lz);
             BlockState top = surfaceBlock(lx, lz, surf, H, W);
-            BlockState sub = subBlock(surf);
+            BlockState sub = subBlock(surf, pal);
             int yTop = Math.max(Math.max(64, H), W == Integer.MIN_VALUE ? 0 : W) + 1;
             int yLow = Math.min(H - 4, 60);
             BlockPos.Mutable m = new BlockPos.Mutable();
@@ -243,8 +250,8 @@ public final class RegionBuilder {
             for (int y = yLow; y <= yTop; y++) {
                 BlockState want;
                 if (wall && y < H && y > H - 14) want = wallBlock(lx, y, lz);
-                else if (y <= H - 4) want = bands ? band(lx, y, lz) : stone;
-                else if (y < H) want = y >= H - 1 ? (bands && sub == stone ? band(lx, y, lz) : sub) : (sub == stone ? (bands ? band(lx, y, lz) : stone) : dirt);
+                else if (y <= H - 4) want = bands || !pal.isEmpty() ? band(lx, y, lz) : stone;
+                else if (y < H) want = y >= H - 1 ? (bands && sub == stone ? band(lx, y, lz) : sub) : (sub == stone ? (bands ? band(lx, y, lz) : stone) : subDeep(pal, dirt));
                 else if (y == H) want = top;
                 else if (W != Integer.MIN_VALUE && y <= W) want = water;
                 else want = air;
@@ -255,8 +262,23 @@ public final class RegionBuilder {
     }
 
     /** Coloured rock strata, gently warped so the layers aren't perfectly flat. */
+    private static final BlockState[] BADLANDS = {Blocks.TERRACOTTA.getDefaultState(), Blocks.ORANGE_TERRACOTTA.getDefaultState(),
+            Blocks.TERRACOTTA.getDefaultState(), Blocks.YELLOW_TERRACOTTA.getDefaultState(), Blocks.RED_TERRACOTTA.getDefaultState(),
+            Blocks.RED_TERRACOTTA.getDefaultState(), Blocks.WHITE_TERRACOTTA.getDefaultState(), Blocks.BROWN_TERRACOTTA.getDefaultState(),
+            Blocks.TERRACOTTA.getDefaultState(), Blocks.LIGHT_GRAY_TERRACOTTA.getDefaultState(), Blocks.ORANGE_TERRACOTTA.getDefaultState(),
+            Blocks.RED_SANDSTONE.getDefaultState()};
+    private static final BlockState[] VOLCANIC = {Blocks.BLACKSTONE.getDefaultState(), Blocks.BASALT.getDefaultState(),
+            Blocks.SMOOTH_BASALT.getDefaultState(), Blocks.BLACKSTONE.getDefaultState(), Blocks.TUFF.getDefaultState(),
+            Blocks.DEEPSLATE.getDefaultState(), Blocks.BASALT.getDefaultState(), Blocks.MAGMA_BLOCK.getDefaultState(), Blocks.BLACKSTONE.getDefaultState()};
+
     private BlockState band(int x, int y, int z) {
         double warp = model.noise(x / 37.0 + 11, z / 37.0 - 7) * 3.5 + model.noise(x / 9.0, z / 9.0) * 0.8;
+        String pal = model.paletteAt(x, z);
+        if (pal.equals("badlands")) return BADLANDS[Math.floorMod((int) Math.floor((y + warp * 0.5) / 2.0), BADLANDS.length)];
+        if (pal.equals("volcanic")) {
+            BlockState b = VOLCANIC[Math.floorMod((int) Math.floor((y + warp) / 3.0), VOLCANIC.length)];
+            return b.isOf(Blocks.MAGMA_BLOCK) && rnd(x * 7 + y, z, 55) > 0.35 ? Blocks.BLACKSTONE.getDefaultState() : b;
+        }
         int layer = Math.floorMod((int) Math.floor((y + warp) / 3.0), 11);
         return switch (layer) {
             case 1, 6 -> Blocks.ANDESITE.getDefaultState();
@@ -283,14 +305,23 @@ public final class RegionBuilder {
             case RegionModel.SURF_LANE -> r < 0.08 ? Blocks.COARSE_DIRT.getDefaultState() : r < 0.20 ? Blocks.GRASS_BLOCK.getDefaultState() : Blocks.DIRT_PATH.getDefaultState();
             case RegionModel.SURF_COBBLE -> r < 0.45 ? Blocks.STONE_BRICKS.getDefaultState() : r < 0.65 ? Blocks.COBBLESTONE.getDefaultState()
                     : r < 0.8 ? Blocks.ANDESITE.getDefaultState() : r < 0.9 ? Blocks.MOSSY_STONE_BRICKS.getDefaultState() : Blocks.CRACKED_STONE_BRICKS.getDefaultState();
-            case RegionModel.SURF_BANK -> r < 0.5 ? Blocks.SAND.getDefaultState() : r < 0.78 ? Blocks.GRAVEL.getDefaultState() : Blocks.COARSE_DIRT.getDefaultState();
-            case RegionModel.SURF_BED -> r < 0.45 ? Blocks.GRAVEL.getDefaultState() : r < 0.78 ? Blocks.SAND.getDefaultState() : Blocks.CLAY.getDefaultState();
+            case RegionModel.SURF_BANK -> model.paletteAt(x, z).equals("volcanic") ? (r < 0.5 ? Blocks.BASALT.getDefaultState() : Blocks.MAGMA_BLOCK.getDefaultState())
+                    : model.paletteAt(x, z).equals("badlands") ? Blocks.RED_SAND.getDefaultState()
+                    : r < 0.5 ? Blocks.SAND.getDefaultState() : r < 0.78 ? Blocks.GRAVEL.getDefaultState() : Blocks.COARSE_DIRT.getDefaultState();
+            case RegionModel.SURF_BED -> model.paletteAt(x, z).equals("volcanic") ? (r < 0.6 ? Blocks.MAGMA_BLOCK.getDefaultState() : Blocks.BASALT.getDefaultState())
+                    : r < 0.45 ? Blocks.GRAVEL.getDefaultState() : r < 0.78 ? Blocks.SAND.getDefaultState() : Blocks.CLAY.getDefaultState();
             case RegionModel.SURF_ROCK -> snowy && r < 0.55 ? Blocks.SNOW_BLOCK.getDefaultState()
                     : model.layout.rock_bands && r < 0.7 ? band(x, H, z)
                     : r < 0.55 ? Blocks.STONE.getDefaultState() : r < 0.8 ? Blocks.ANDESITE.getDefaultState()
                     : r < 0.92 ? Blocks.COBBLESTONE.getDefaultState() : Blocks.MOSSY_COBBLESTONE.getDefaultState();
             default -> {
                 if (model.layout.snow_line > 0 && H >= model.layout.snow_line) yield Blocks.SNOW_BLOCK.getDefaultState();
+                String pal = model.paletteAt(x, z);
+                if (pal.equals("badlands")) yield r < 0.7 ? Blocks.RED_SAND.getDefaultState() : r < 0.85 ? Blocks.COARSE_DIRT.getDefaultState()
+                        : r < 0.93 ? Blocks.TERRACOTTA.getDefaultState() : Blocks.GRASS_BLOCK.getDefaultState();
+                if (pal.equals("volcanic")) yield r < 0.35 ? Blocks.BLACKSTONE.getDefaultState() : r < 0.6 ? Blocks.BASALT.getDefaultState()
+                        : r < 0.8 ? Blocks.COARSE_DIRT.getDefaultState() : r < 0.83 ? Blocks.MAGMA_BLOCK.getDefaultState() : Blocks.TUFF.getDefaultState();
+                if (pal.equals("taiga") && r < 0.35) yield Blocks.PODZOL.getDefaultState();
                 double wd = woodsDensity(x, z);
                 if (wd > 0.25 && r < 0.10) yield Blocks.PODZOL.getDefaultState();
                 if (wd > 0.25 && r < 0.14) yield Blocks.COARSE_DIRT.getDefaultState();
@@ -300,7 +331,15 @@ public final class RegionBuilder {
         };
     }
 
-    private BlockState subBlock(byte surf) {
+    private BlockState subDeep(String pal, BlockState dirt) {
+        return pal.equals("badlands") ? Blocks.TERRACOTTA.getDefaultState() : pal.equals("volcanic") ? Blocks.BLACKSTONE.getDefaultState() : dirt;
+    }
+
+    private BlockState subBlock(byte surf, String pal) {
+        if (surf == RegionModel.SURF_GRASS || surf == RegionModel.SURF_FIELD) {
+            if (pal.equals("badlands")) return Blocks.RED_SAND.getDefaultState();
+            if (pal.equals("volcanic")) return Blocks.BLACKSTONE.getDefaultState();
+        }
         return switch (surf) {
             case RegionModel.SURF_BANK, RegionModel.SURF_BED -> Blocks.SAND.getDefaultState();
             case RegionModel.SURF_ROCK, RegionModel.SURF_COBBLE -> Blocks.STONE.getDefaultState();
@@ -388,10 +427,10 @@ public final class RegionBuilder {
     // ------------------------------------------------------------- road steps
 
     /** Half-slab steps where a road rises by one block, so climbing roads need no jumping. */
-    private void roadSteps() {
+    private void roadSteps(int x0, int x1, int z0, int z1) {
         if (!model.layout.road_steps) return;
         int h = model.half;
-        for (int z = -h + 1; z < h; z++) for (int x = -h + 1; x < h; x++) {
+        for (int z = Math.max(-h + 1, z0); z <= Math.min(h - 1, z1); z++) for (int x = Math.max(-h + 1, x0); x <= Math.min(h - 1, x1); x++) {
             int i = model.idx(x, z);
             if (!model.roadMask[i] || model.bridge[i] != 0 || model.water[i] != Integer.MIN_VALUE || model.surface[i] == RegionModel.SURF_PAD) continue;
             int H = model.height[i];
@@ -399,6 +438,18 @@ public final class RegionBuilder {
             for (int[] d : new int[][]{{1, 0}, {-1, 0}, {0, 1}, {0, -1}}) {
                 int j = model.idx(x + d[0], z + d[1]);
                 if ((model.roadMask[j] || model.surface[j] == RegionModel.SURF_PAD) && model.bridge[j] == 0 && model.height[j] == H + 1) up = true;
+            }
+            // railings where a raised road stands well above the ground beside it
+            boolean drop = false;
+            for (int[] d : new int[][]{{1, 0}, {-1, 0}, {0, 1}, {0, -1}}) {
+                int j = model.idx(x + d[0], z + d[1]);
+                if (!model.roadMask[j] && model.surface[j] != RegionModel.SURF_PAD && model.bridge[j] == 0 && model.height[j] <= H - 3) drop = true;
+            }
+            if (drop && !up) {
+                BlockPos rail = wpos(x, H + 1, z);
+                if (world.getBlockState(rail).isAir())
+                    world.setBlockState(rail, model.surface[i] == RegionModel.SURF_COBBLE ? Blocks.STONE_BRICK_WALL.getDefaultState() : Blocks.SPRUCE_FENCE.getDefaultState(), FLAGS);
+                continue;
             }
             if (!up) continue;
             BlockPos above = wpos(x, H + 1, z);
@@ -600,7 +651,7 @@ public final class RegionBuilder {
                 double nx = -(b[1] - a[1]) / len, nz = (b[0] - a[0]) / len;
                 for (double t = 14 - carry; t < len; t += 14) {
                     double px = a[0] + (b[0] - a[0]) * t / len, pz = a[1] + (b[1] - a[1]) * t / len;
-                    if (Math.hypot(px, pz) > 90) continue;
+                    if (!inTown(px, pz)) continue;
                     int side = ((int) t / 14) % 2 == 0 ? 1 : -1;
                     int x = (int) Math.round(px + nx * (road.width / 2 + 1.5) * side);
                     int z = (int) Math.round(pz + nz * (road.width / 2 + 1.5) * side);
@@ -618,12 +669,21 @@ public final class RegionBuilder {
         }
     }
 
-    private void pondReeds() {
+    private boolean inTown(double x, double z) {
+        int[] vc = model.layout.village_center;
+        if (Math.hypot(x - vc[0], z - vc[1]) <= model.layout.village_radius) return true;
+        for (RegionLayout.Flat f : model.layout.flats) if (f.town && RegionModel.flatDist(f, x, z) <= 2) return true;
+        return false;
+    }
+
+    private void pondReeds(int x0, int x1, int z0, int z1) {
         for (RegionLayout.Pond p : model.layout.ponds) {
-            for (int z = p.z - p.r - 3; z <= p.z + p.r + 3; z++) for (int x = p.x - p.r - 3; x <= p.x + p.r + 3; x++) {
+            int reach = p.r + 3 + (p.r > 30 ? (int) (p.r * 0.3) : 0);
+            for (int z = Math.max(z0, p.z - reach); z <= Math.min(z1, p.z + reach); z++) for (int x = Math.max(x0, p.x - reach); x <= Math.min(x1, p.x + reach); x++) {
                 if (!model.inside(x, z)) continue;
                 int i = model.idx(x, z);
                 double r = rnd(x, z, 77);
+                if ("lava".equals(p.fluid)) continue;
                 if (model.water[i] != Integer.MIN_VALUE) {
                     if (r < 0.12) set(x, model.water[i] + 1, z, Blocks.LILY_PAD.getDefaultState());
                     continue;
@@ -672,6 +732,16 @@ public final class RegionBuilder {
             case "fancy_oak" -> TreeConfiguredFeatures.FANCY_OAK;
             case "dark_oak" -> TreeConfiguredFeatures.DARK_OAK;
             case "spruce" -> TreeConfiguredFeatures.SPRUCE;
+            case "pine" -> TreeConfiguredFeatures.PINE;
+            case "mega_spruce" -> TreeConfiguredFeatures.MEGA_SPRUCE;
+            case "mega_pine" -> TreeConfiguredFeatures.MEGA_PINE;
+            case "cherry" -> TreeConfiguredFeatures.CHERRY;
+            case "acacia" -> TreeConfiguredFeatures.ACACIA;
+            case "jungle" -> TreeConfiguredFeatures.JUNGLE_TREE_NO_VINE;
+            case "mega_jungle" -> TreeConfiguredFeatures.MEGA_JUNGLE_TREE;
+            case "azalea" -> TreeConfiguredFeatures.AZALEA_TREE;
+            case "swamp_oak" -> TreeConfiguredFeatures.SWAMP_OAK;
+            case "super_birch" -> TreeConfiguredFeatures.SUPER_BIRCH_BEES;
             default -> TreeConfiguredFeatures.OAK;
         };
     }
@@ -688,10 +758,10 @@ public final class RegionBuilder {
         return true;
     }
 
-    private void trees(int wz0, int wz1) {
+    private void trees(int wz0, int wz1, int lx0, int lx1) {
         int cell = 6;
-        for (int wz = wz0; wz <= wz1; wz += cell) {
-            for (int lx = -model.half; lx <= model.half; lx += cell) {
+        for (int wz = wz0 + Math.floorMod(-wz0, cell); wz <= wz1; wz += cell) {
+            for (int lx = lx0 + Math.floorMod(-(lx0 + model.half), cell); lx <= lx1; lx += cell) {
                 int lz0 = wz - oz;
                 double r = rnd(lx, lz0, 101);
                 int jx = lx + (int) (rnd(lx, lz0, 102) * cell);
@@ -706,6 +776,9 @@ public final class RegionBuilder {
                 if (!clearForTree(jx, jz, density > 0.2 ? 2 : 3)) continue;
                 int i = model.idx(jx, jz);
                 if (model.surface[i] == RegionModel.SURF_ROCK) continue;
+                String tpal = model.paletteAt(jx, jz);
+                if (tpal.equals("volcanic") || (tpal.equals("badlands") && rnd(jx, jz, 106) > 0.08)) continue;
+                if (model.layout.snow_line > 0 && model.height[i] > model.layout.snow_line + 8) continue;
                 String kind = "oak";
                 for (RegionLayout.Woods w : model.layout.woods) {
                     if (Math.hypot(jx - w.x, jz - w.z) < w.r && !w.mix.isEmpty()) {
@@ -714,9 +787,14 @@ public final class RegionBuilder {
                     }
                 }
                 if (density < 0.05 && rnd(jx, jz, 105) < 0.4) kind = "fancy_oak";
+                if (tpal.equals("cherry")) kind = "cherry";
+                else if (tpal.equals("badlands")) kind = "acacia";
+                else if (tpal.equals("taiga") && density < 0.05) kind = rnd(jx, jz, 107) < 0.5 ? "spruce" : "pine";
                 int y = model.height[i] + 1;
-                if (kind.equals("dark_oak")) {
-                    if (!clearForTree(jx + 1, jz + 1, 2)) kind = "oak";
+                if (kind.equals("dark_oak") || kind.startsWith("mega_")) {
+                    if (!clearForTree(jx + 1, jz + 1, 2)) kind = kind.equals("dark_oak") ? "oak" : "spruce";
+                    else for (int dz = 0; dz <= 1; dz++) for (int dx = 0; dx <= 1; dx++)
+                        if (dx + dz > 0) world.setBlockState(wpos(jx + dx, model.height[model.idx(jx + dx, jz + dz)], jz + dz), Blocks.PODZOL.getDefaultState(), FLAGS);
                 }
                 growTree(treeKey(kind), jx, y, jz, (long) jx * 7919 + jz);
                 for (int dz = -1; dz <= 1; dz++) for (int dx = -1; dx <= 1; dx++)
@@ -730,11 +808,11 @@ public final class RegionBuilder {
     private static final String[] MEADOW_FLOWERS = {"minecraft:dandelion", "minecraft:poppy", "minecraft:oxeye_daisy",
             "minecraft:cornflower", "minecraft:azure_bluet", "minecraft:allium"};
 
-    private void flora(int wz0, int wz1) {
+    private void flora(int wz0, int wz1, int lx0, int lx1) {
         BlockState air = Blocks.AIR.getDefaultState();
         for (int wz = wz0; wz <= wz1; wz++) {
             int lz = wz - oz;
-            for (int lx = -model.half; lx <= model.half; lx++) {
+            for (int lx = Math.max(-model.half, lx0); lx <= Math.min(model.half, lx1); lx++) {
                 if (!model.inside(lx, lz)) continue;
                 int i = model.idx(lx, lz);
                 if (model.occupied[i] || model.roadMask[i] || model.water[i] != Integer.MIN_VALUE || model.bridge[i] != 0) continue;
@@ -742,8 +820,22 @@ public final class RegionBuilder {
                 int H = model.height[i];
                 BlockPos above = wpos(lx, H + 1, lz);
                 if (world.getBlockState(above) != air) continue;
-                if (!world.getBlockState(above.down()).isOf(Blocks.GRASS_BLOCK)) continue;
                 double r = rnd(lx, lz, 201);
+                String pal = model.paletteAt(lx, lz);
+                if (pal.equals("badlands")) {
+                    if (r < 0.025 && world.getBlockState(above.down()).isOf(Blocks.RED_SAND)) world.setBlockState(above, Blocks.DEAD_BUSH.getDefaultState(), FLAGS);
+                    continue;
+                }
+                if (pal.equals("volcanic")) continue;
+                if (!world.getBlockState(above.down()).isOf(Blocks.GRASS_BLOCK)) continue;
+                if (pal.equals("cherry") && r < 0.22) {
+                    world.setBlockState(above, state("minecraft:pink_petals[facing=" + (r < 0.1 ? "north" : "east") + ",flower_amount=" + (1 + (int) (r * 18) % 4) + "]"), FLAGS);
+                    continue;
+                }
+                if (pal.equals("taiga") && r < 0.2) {
+                    world.setBlockState(above, r < 0.12 ? Blocks.FERN.getDefaultState() : Blocks.SWEET_BERRY_BUSH.getDefaultState(), FLAGS);
+                    continue;
+                }
                 double wd = woodsDensity(lx, lz);
                 double village = Math.hypot(lx, lz) < 60 ? 0.4 : 1.0;
                 boolean mountain = "mountain".equals(model.layout.surface_style);

@@ -31,3 +31,5 @@ run-world/
 dist/
 run-devworld/
 logs/
+run-showcase/
+run-showcase-seed/

@@ -14,6 +14,8 @@ import java.util.Map;
 public final class RegionModel {
     public static final byte SURF_GRASS = 0, SURF_ROAD = 1, SURF_LANE = 2, SURF_BANK = 3, SURF_BED = 4,
             SURF_ROCK = 5, SURF_BRIDGE = 6, SURF_COBBLE = 7, SURF_FIELD = 8, SURF_PAD = 9, SURF_WALL = 10;
+    public static final byte ZONE_NONE = -1;
+    public static final byte FLUID_WATER = 0, FLUID_LAVA = 1;
     public static final byte BRIDGE_AUTO = 0, BRIDGE_STONE = 1, BRIDGE_WOOD = 2, BRIDGE_ROPE = 3;
 
     public final RegionLayout layout;
@@ -26,6 +28,10 @@ public final class RegionModel {
     public final byte[] surface;
     /** Bridge deck Y per column (0 if none). */
     public final int[] bridge;
+    /** Index into layout.zones per column, or ZONE_NONE. */
+    public final byte[] zone;
+    /** Fluid per wet column (FLUID_*). */
+    public final byte[] fluid;
     /** Bridge style per bridge column (BRIDGE_*). */
     public final byte[] bridgeStyle;
     public final boolean[] occupied;     // building footprints (+ small margin)
@@ -96,6 +102,8 @@ public final class RegionModel {
         surface = new byte[n];
         bridge = new int[n];
         bridgeStyle = new byte[n];
+        zone = new byte[n];
+        fluid = new byte[n];
         occupied = new boolean[n];
         roadMask = new boolean[n];
         java.util.Arrays.fill(water, Integer.MIN_VALUE);
@@ -180,6 +188,11 @@ public final class RegionModel {
                 + 3.0 * noise(x / 64.0, z / 64.0)
                 + 1.4 * noise(x / 23.0 + 50, z / 23.0 - 20)
                 + 0.6 * noise(x / 9.0 - 7, z / 9.0 + 3);
+        if (layout.relief > 1) {
+            // broad hills and dales; only ever raises the ground so lakes and rivers keep their levels
+            double big = noise(x / 230.0 + 300, z / 230.0 - 300) * 0.65 + noise(x / 110.0 - 90, z / 110.0 + 40) * 0.35;
+            h += (layout.relief - 1) * 4.0 * (big + 1);
+        }
         for (RegionLayout.Hill hill : layout.hills) {
             double d = Math.hypot(x - hill.x, z - hill.z);
             if (d < hill.r) {
@@ -204,18 +217,24 @@ public final class RegionModel {
                         + 0.25 * ridged(Math.cos(wa) * 2.9 + 40 + d / 90.0, Math.sin(wa) * 2.9 - 40);
                 double shape = 1 + pk.crag * (spur - 0.55) * Math.min(1, (1 - t) * 2.2);
                 double rough = noise(x / 7.0 + pk.x, z / 7.0 - pk.z) * 3.5 * pk.crag * t;
-                h += pk.h * cone * shape + rough;
+                double add = pk.h * cone * shape + rough;
+                if (pk.crater > 0 && d < pk.crater * 1.25) {
+                    double c = 1 - d / (pk.crater * 1.25);
+                    add -= pk.crater_depth * smooth(c * 1.4) ;            // the bowl inside the rim
+                }
+                h += add;
             }
         }
         for (RegionLayout.Range rg : layout.ranges) {
             double d = distToPolyline(rg.points, x, z);
             if (d < rg.width) {
                 double t = smooth(1 - d / rg.width);
-                h += rg.h * t * (0.55 + 0.6 * ridged(x / 34.0 + 5, z / 34.0 - 5));
+                h += rg.h * t * (0.55 + 0.6 * ridged(x / rg.scale + 5, z / rg.scale - 5));
             }
         }
         for (RegionLayout.Spire sp : layout.spires) {
-            double d = Math.hypot(x - sp.x, z - sp.z) + noise(x / 3.0 + sp.x, z / 3.0 - sp.z) * 1.2;
+            double d = Math.hypot(x - sp.x, z - sp.z) + noise(x / 3.0 + sp.x, z / 3.0 - sp.z) * 1.2
+                    + (sp.r > 12 ? noise(x / 11.0 - sp.x, z / 11.0 + sp.z) * sp.r * 0.22 : 0);
             if (d < sp.r) {
                 double t = d / sp.r;
                 h += sp.h * (1 - t * t * t * t) * (0.9 + 0.1 * noise(x / 4.0, z / 4.0));
@@ -251,16 +270,26 @@ public final class RegionModel {
         double[] h = new double[n];
         for (int z = -half; z <= half; z++) for (int x = -half; x <= half; x++) h[idx(x, z)] = rawHeight(x, z);
 
+        // zones
+        java.util.Arrays.fill(zone, ZONE_NONE);
+        for (int z = -half; z <= half; z++) for (int x = -half; x <= half; x++) {
+            for (int k = 0; k < layout.zones.size() && k < 127; k++) {
+                RegionLayout.Zone zn = layout.zones.get(k);
+                double d = Math.hypot(x - zn.x, z - zn.z) + noise(x / 23.0 + k * 31, z / 23.0 - k * 17) * zn.r * 0.12;
+                if (d < zn.r) { zone[idx(x, z)] = (byte) k; break; }
+            }
+        }
+
         // flats
         double[] pre = h.clone();
         for (RegionLayout.Flat f : layout.flats) {
-            double target = f.y != 0 ? f.y : Math.round(pre[idx(f.x, f.z)]);
-            int R = f.r + f.blend;
+            double target = f.y != 0 ? f.y : Math.round(pre[idx(Math.max(-half, Math.min(half, f.x)), Math.max(-half, Math.min(half, f.z)))]);
+            int R = flatReach(f) + f.blend;
             for (int z = f.z - R; z <= f.z + R; z++) for (int x = f.x - R; x <= f.x + R; x++) {
                 if (!inside(x, z)) continue;
-                double d = Math.hypot(x - f.x, z - f.z);
-                if (d > R) continue;
-                double w = d <= f.r ? 1 : 1 - smooth((d - f.r) / Math.max(1, f.blend));
+                double d = flatDist(f, x, z);
+                if (d > f.blend) continue;
+                double w = d <= 0 ? 1 : 1 - smooth(d / Math.max(1, f.blend));
                 int i = idx(x, z);
                 h[i] = h[i] * (1 - w) + target * w;
             }
@@ -319,16 +348,20 @@ public final class RegionModel {
             }
         }
         for (RegionLayout.Pond p : layout.ponds) {
-            int wy = (int) Math.round(h[idx(p.x, p.z)]) - 1;
-            for (int z = p.z - p.r - 4; z <= p.z + p.r + 4; z++) for (int x = p.x - p.r - 4; x <= p.x + p.r + 4; x++) {
+            int wy = p.y != 0 ? p.y : (int) Math.round(h[idx(p.x, p.z)]) - 1;
+            byte fl = "lava".equals(p.fluid) ? FLUID_LAVA : FLUID_WATER;
+            int reach = p.r + 4 + (p.r > 30 ? (int) (p.r * 0.3) : 0);
+            for (int z = p.z - reach; z <= p.z + reach; z++) for (int x = p.x - reach; x <= p.x + reach; x++) {
                 if (!inside(x, z)) continue;
-                double d = Math.hypot(x - p.x, z - p.z) + noise(x / 5.0, z / 5.0) * 1.3;
+                double d = Math.hypot(x - p.x, z - p.z) + noise(x / 5.0, z / 5.0) * 1.3
+                        + (p.r > 30 ? noise(x / 45.0 + p.x, z / 45.0 - p.z) * p.r * 0.22 + noise(x / 14.0, z / 14.0 + 9) * p.r * 0.05 : 0);
                 int i = idx(x, z);
                 if (d < p.r) {
                     h[i] = Math.min(h[i], wy - p.depth * (1 - (d / p.r) * (d / p.r)) - 0.6);
                     water[i] = wy;
+                    fluid[i] = fl;
                     surface[i] = SURF_BED;
-                } else if (d < p.r + 3) {
+                } else if (d < p.r + 3 && (p.y == 0 || h[i] < wy + 6)) {   // absolute-level lakes keep their cliffs
                     h[i] = Math.min(h[i], wy + 0.4 + (d - p.r) * 0.5);
                     surface[i] = SURF_BANK;
                 }
@@ -462,7 +495,8 @@ public final class RegionModel {
                 }
         }
 
-        for (int i = 0; i < n; i++) height[i] = (int) Math.round(h[i]);
+        int cap = layout.max_height;
+        for (int i = 0; i < n; i++) height[i] = (int) Math.round(Math.min(cap, h[i]));
         // water must sit above bed
         for (int i = 0; i < n; i++) if (water[i] != Integer.MIN_VALUE && height[i] >= water[i]) height[i] = water[i] - 1;
         if (layout.road_steps) limitRoadGrade();   // opt-in: existing worlds keep the exact heights they were built with
@@ -498,17 +532,17 @@ public final class RegionModel {
         // retaining walls along walled terraces
         for (RegionLayout.Flat f : layout.flats) {
             if (!f.wall) continue;
-            int R = f.r + 3;
+            int R = flatReach(f) + 3;
             for (int z = f.z - R; z <= f.z + R; z++) for (int x = f.x - R; x <= f.x + R; x++) {
                 if (x <= -half || z <= -half || x >= half || z >= half) continue;
-                double d = Math.hypot(x - f.x, z - f.z);
-                if (d < f.r - 2 || d > f.r + 3) continue;
+                double d = flatDist(f, x, z);
+                if (d < -2 || d > 3) continue;
                 int i = idx(x, z);
                 if (roadMask[i] || water[i] != Integer.MIN_VALUE || surface[i] == SURF_PAD || occupied[i]) continue;
                 int c = height[i];
                 int lowest = Math.min(Math.min(height[idx(x + 1, z)], height[idx(x - 1, z)]), Math.min(height[idx(x, z + 1)], height[idx(x, z - 1)]));
                 // on the terrace edge: a built retaining wall; outside it (dug into the slope): a natural rock cut
-                if (c - lowest >= 2) surface[i] = d <= f.r + 0.5 ? SURF_WALL : SURF_ROCK;
+                if (c - lowest >= 2) surface[i] = d <= 0.5 ? SURF_WALL : SURF_ROCK;
             }
         }
 
@@ -568,22 +602,58 @@ public final class RegionModel {
      * the road bed is cut down into the slope (repeated until stable). Bridge and water cells are left alone.
      */
     private void limitRoadGrade() {
+        // only road cells matter: collect them once (the showcase map has 4 million columns)
+        int[] cells = new int[1024];
+        boolean[] fixed = new boolean[1024];
+        int count = 0;
+        for (int i = 0; i < roadMask.length; i++) {
+            if (!roadMask[i] || bridge[i] != 0 || water[i] != Integer.MIN_VALUE || surface[i] == SURF_PAD) continue;
+            if (count == cells.length) { cells = java.util.Arrays.copyOf(cells, count * 2); fixed = java.util.Arrays.copyOf(fixed, count * 2); }
+            int x = i % size - half, z = i / size - half;
+            boolean onTerrace = false;
+            for (RegionLayout.Flat f : layout.flats) if (f.y != 0 && flatDist(f, x, z) <= -1) { onTerrace = true; break; }
+            fixed[count] = onTerrace;           // streets on terraces keep the terrace height
+            cells[count++] = i;
+        }
+        int[][] nb = {{1, 0}, {-1, 0}, {0, 1}, {0, -1}};
         boolean changed = true;
-        for (int pass = 0; pass < 400 && changed; pass++) {
+        for (int pass = 0; pass < 1500 && changed; pass++) {
             changed = false;
-            for (int z = -half; z <= half; z++) for (int x = -half; x <= half; x++) {
-                int i = idx(x, z);
-                if (!roadMask[i] || bridge[i] != 0 || water[i] != Integer.MIN_VALUE || surface[i] == SURF_PAD) continue;
-                int[][] nb = {{1, 0}, {-1, 0}, {0, 1}, {0, -1}};
+            for (int c = 0; c < count; c++) {
+                if (fixed[c]) continue;
+                int i = cells[c];
+                int x = i % size - half, z = i / size - half;
+                int lo = Integer.MIN_VALUE, hi = Integer.MAX_VALUE;
                 for (int[] d : nb) {
                     int xx = x + d[0], zz = z + d[1];
                     if (!inside(xx, zz)) continue;
                     int j = idx(xx, zz);
                     if (!roadMask[j] || bridge[j] != 0 || water[j] != Integer.MIN_VALUE) continue;
-                    if (height[i] > height[j] + 1) { height[i] = height[j] + 1; changed = true; }
+                    lo = Math.max(lo, height[j] - 1);
+                    hi = Math.min(hi, height[j] + 1);
                 }
+                if (lo == Integer.MIN_VALUE) continue;
+                // the road bed is raised (embankment) or cut down until no step is more than one block
+                int want = lo > hi ? (lo + hi + 1) / 2 : Math.max(lo, Math.min(hi, height[i]));
+                if (want != height[i]) { height[i] = want; changed = true; }
             }
         }
+    }
+
+    /** Signed distance from a flat's edge: negative inside, 0 on the edge. */
+    public static double flatDist(RegionLayout.Flat f, double x, double z) {
+        if ("rect".equals(f.shape)) return Math.max(Math.abs(x - f.x) - f.w / 2.0, Math.abs(z - f.z) - f.d / 2.0);
+        return Math.hypot(x - f.x, z - f.z) - f.r;
+    }
+
+    static int flatReach(RegionLayout.Flat f) {
+        return "rect".equals(f.shape) ? (int) Math.ceil(Math.max(f.w, f.d) / 2.0) + 1 : f.r;
+    }
+
+    public String paletteAt(int x, int z) {
+        if (!inside(x, z)) return "alpine";
+        byte k = zone[idx(x, z)];
+        return k == ZONE_NONE ? "" : layout.zones.get(k).palette;
     }
 
     /** Largest height step between neighbouring dry road cells (for tests): 1 means fully walkable. */

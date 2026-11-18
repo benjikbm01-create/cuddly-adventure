@@ -14,12 +14,19 @@ import static org.junit.jupiter.api.Assertions.*;
 class RegionModelTest {
 
     /** Every region file shipped with the mod (story and developer test). */
-    static java.util.List<RegionModel> all() {
+    private static java.util.List<RegionModel> ALL;
+
+    static synchronized java.util.List<RegionModel> all() {
+        if (ALL != null) return ALL;
         java.util.List<RegionModel> out = new java.util.ArrayList<>();
-        for (String id : java.util.List.of("westreach_brindlecross", "devtest_grounds", "devtest_heights", "boreal_sableforge")) {
-            if (RegionLayout.class.getResource("/data/hollowatlas/region/" + id + ".json") != null)
+        for (String id : java.util.List.of("westreach_brindlecross", "devtest_grounds", "devtest_heights", "boreal_sableforge", "showcase_wilds")) {
+            if (RegionLayout.class.getResource("/data/hollowatlas/region/" + id + ".json") != null) {
+                long t0 = System.currentTimeMillis();
                 out.add(new RegionModel(RegionLayout.loadBuiltin(id)));
+                System.out.println("model " + id + " in " + (System.currentTimeMillis() - t0) + " ms");
+            }
         }
+        ALL = out;
         return out;
     }
 

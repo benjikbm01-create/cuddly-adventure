@@ -87,6 +87,10 @@ public final class HollowAtlas implements ModInitializer {
         ServerLifecycleEvents.SERVER_STOPPING.register(server -> NpcDirector.onServerStopping());
         ServerTickEvents.END_SERVER_TICK.register(server -> {
             RegionBuilder.tick(server);
+            if (RegionBuilder.isRunning() && server.getTicks() % 20 == 0 && dev.hollowatlas.state.WorldMode.showcase(server)) {
+                Text bar = Text.literal("Building showcase map: " + RegionBuilder.percent() + "%  (you can fly around meanwhile)").formatted(Formatting.YELLOW);
+                for (ServerPlayerEntity p : server.getPlayerManager().getPlayerList()) p.sendMessage(bar, true);
+            }
             BoundaryService.tick(server);
             if (!RegionBuilder.isRunning() && GameState.get(server).flag(RegionBuilder.BUILT_FLAG)) {
                 NpcDirector.tick(server);
@@ -107,6 +111,17 @@ public final class HollowAtlas implements ModInitializer {
     }
 
     private void onServerStarted(MinecraftServer server) {
+        boolean newShowcase = Boolean.getBoolean("hollowatlas.autobuild") && "showcase".equals(System.getProperty("hollowatlas.mode"))
+                || Boolean.getBoolean("hollowatlas.prepare") && "showcase".equals(System.getProperty("hollowatlas.mode"));
+        if (newShowcase) GameState.get(server).setFlag(dev.hollowatlas.state.WorldMode.SHOWCASE_FLAG, true);
+        LocationIndex.configure(dev.hollowatlas.state.WorldMode.showcase(server));
+        if (Boolean.getBoolean("hollowatlas.prepare")) {
+            // packaging: an empty showcase world that builds itself the first time it is opened
+            LOGGER.info("Prepared an empty showcase world; stopping.");
+            server.saveAll(false, true, true);
+            server.stop(false);
+            return;
+        }
         LocationIndex.model();
         WorldRules.apply(server);
         if (GameState.get(server).flag(RegionBuilder.BUILT_FLAG)) {
@@ -134,6 +149,12 @@ public final class HollowAtlas implements ModInitializer {
             }
             if (Boolean.getBoolean("hollowatlas.autobuild")) {
                 RegionBuilder.buildMissing(server, afterBuild);
+            } else if (dev.hollowatlas.state.WorldMode.showcase(server)) {
+                LOGGER.info("Showcase world opened for the first time: building the map in place.");
+                RegionBuilder.buildMissing(server, () -> {
+                    for (ServerPlayerEntity p : server.getPlayerManager().getPlayerList())
+                        p.sendMessage(Text.literal("The showcase map is finished. Explore!").formatted(Formatting.GREEN), false);
+                });
             } else {
                 LOGGER.warn("This world does not contain the Hollow Atlas region. Use the bundled world, "
                         + "or run '/atlas build' as an operator on a superflat world.");
@@ -170,6 +191,23 @@ public final class HollowAtlas implements ModInitializer {
     private void onJoin(ServerPlayerEntity player, MinecraftServer server) {
         ProtectionService.enforceMode(player);
         GameState state = GameState.get(server);
+        if (dev.hollowatlas.state.WorldMode.showcase(server)) {
+            boolean first = !state.players.containsKey(player.getUuid());
+            state.profile(player.getUuid());
+            state.markDirty();
+            if (first) {
+                BlockPos a = LocationIndex.has("sc_arrival") ? LocationIndex.pos("sc_arrival") : player.getBlockPos();
+                player.teleport(server.getOverworld(), a.getX() + 0.5, a.getY() + 30, a.getZ() + 0.5, 180f, 20f);
+                player.setSpawnPoint(server.getOverworld().getRegistryKey(), a, 180f, true, false);
+                player.getAbilities().flying = true;
+                player.sendAbilitiesUpdate();
+            }
+            player.sendMessage(Text.literal("Hollow Atlas showcase map: terrain and buildings only. You're in creative mode: fly with double-tap Space.").formatted(Formatting.AQUA), false);
+            if (!state.flag(RegionBuilder.BUILT_FLAG))
+                player.sendMessage(Text.literal("The map is being built around you (a few minutes). Progress shows above your hotbar.").formatted(Formatting.YELLOW), false);
+            HudSync.send(player);
+            return;
+        }
         if (!state.flag(RegionBuilder.BUILT_FLAG)) {
             player.sendMessage(Text.translatable("message.hollowatlas.no_region").formatted(Formatting.RED), false);
             return;

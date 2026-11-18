@@ -110,6 +110,7 @@ public final class Interactions {
 
     /** True if this interaction belongs to the kind of world currently loaded (story vs. developer testing). */
     public static boolean allowed(MinecraftServer server, Def d) {
+        if (dev.hollowatlas.state.WorldMode.showcase(server)) return false;
         return DEVTEST_DEFS.contains(d) == dev.hollowatlas.state.WorldMode.devtest(server);
     }
 

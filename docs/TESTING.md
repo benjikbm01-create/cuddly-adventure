@@ -44,7 +44,8 @@ Teleports only skip walking between test points.
 ### Story world (`tools/client_test.sh`)
 Plays the real opening and the main systems and relaunches to check persistence. It also checks that **developer mode
 is off** in the story world: the dev menu won't open, developer actions are refused, and no test residents appear
-(4/4 pass). Detailed story results are kept private.
+(4/4 pass). Latest full run (18 Nov 2026, this build): **launch 1: 80 passed, 0 failed; relaunch: 10 passed, 0 failed.**
+Detailed story results are kept private.
 
 ### Known gaps the scripts do NOT prove
 - **Real melee feel:** the harness ends fights directly. Enemy wind-up readability, parry timing and damage balance need a person.

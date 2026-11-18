@@ -1,0 +1,8 @@
+{
+  "message.hollowatlas.protected.break": "The land here isn't yours to dig up.",
+  "message.hollowatlas.protected.place": "There's no reason to build here.",
+  "message.hollowatlas.protected.use": "That belongs to someone else.",
+  "message.hollowatlas.protected.item": "Better not use that here.",
+  "message.hollowatlas.boundary": "The road beyond is not yet charted.",
+  "message.hollowatlas.no_region": "This world does not contain The Hollow Atlas region. Open the bundled 'The Hollow Atlas' world instead."
+}

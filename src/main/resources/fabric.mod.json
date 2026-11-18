@@ -4,18 +4,27 @@
   "version": "${version}",
   "name": "The Hollow Atlas",
   "description": "An open-world fantasy action RPG adventure for Minecraft Java 1.21.1.",
-  "authors": ["The Hollow Atlas team"],
+  "authors": [
+    "The Hollow Atlas team"
+  ],
   "license": "All-Rights-Reserved",
   "icon": "assets/hollowatlas/icon.png",
   "environment": "*",
   "entrypoints": {
-    "main": ["dev.hollowatlas.HollowAtlas"],
-    "client": ["dev.hollowatlas.client.HollowAtlasClient"]
+    "main": [
+      "dev.hollowatlas.HollowAtlas"
+    ],
+    "client": [
+      "dev.hollowatlas.client.HollowAtlasClient"
+    ]
   },
   "depends": {
     "fabricloader": ">=0.16.0",
     "minecraft": "~1.21.1",
     "java": ">=21",
     "fabric-api": "*"
-  }
+  },
+  "mixins": [
+    "hollowatlas.mixins.json"
+  ]
 }

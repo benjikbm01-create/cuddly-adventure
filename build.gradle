@@ -22,6 +22,27 @@ loom {
             sourceSet sourceSets.client
         }
     }
+
+    runs {
+        // Generates the playable world from the region source data (see tools/build_world.sh).
+        buildWorld {
+            server()
+            name "Build World"
+            runDir "run-world"
+            vmArg "-Dhollowatlas.autobuild=true"
+            vmArg "-Dhollowatlas.autobuild.stop=true"
+            vmArg "-Xmx6G"
+        }
+        // Renders <world>/hollowatlas/region_map.png from the built world, then stops.
+        renderMap {
+            server()
+            name "Render Map"
+            runDir "run-world"
+            vmArg "-Dhollowatlas.rendermap=true"
+            vmArg "-Dhollowatlas.autobuild.stop=true"
+            vmArg "-Xmx6G"
+        }
+    }
 }
 
 dependencies {
@@ -30,8 +51,9 @@ dependencies {
     modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
     modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 
-    testImplementation "org.junit.jupiter:junit-jupiter:5.10.2"
-    testRuntimeOnly "org.junit.platform:junit-platform-launcher"
+    testImplementation("org.junit.jupiter:junit-jupiter-api:5.10.2") { exclude group: "org.apiguardian" }
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.10.2") { exclude group: "org.apiguardian" }
+    testRuntimeOnly("org.junit.platform:junit-platform-launcher:1.10.2") { exclude group: "org.apiguardian" }
 }
 
 processResources {
@@ -59,5 +81,12 @@ test {
 jar {
     from("LICENSE") {
         rename { "${it}_${project.base.archivesName.get()}" }
+    }
+}
+
+// Dev QA hooks: pass -Phollowatlas.autoshot=... / -Phollowatlas.autotest=... through to the client JVM.
+tasks.matching { it.name == "runClient" }.configureEach {
+    ["hollowatlas.autoshot", "hollowatlas.autotest"].each { key ->
+        if (project.hasProperty(key)) jvmArgs "-D${key}=" + project.property(key)
     }
 }

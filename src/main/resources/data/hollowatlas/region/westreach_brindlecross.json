@@ -1,0 +1,173 @@
+{
+  "id": "westreach_brindlecross",
+  "name": "Brindlecross and the Westreach Meadows",
+  "origin": [-3000, 400],
+  "half_size": 375,
+  "base_y": 66,
+  "water_y": 62,
+  "seed": 1171,
+  "border_size": 742,
+
+  "hills": [
+    {"id": "lark_hill",   "x": 215,  "z": -205, "r": 115, "h": 40},
+    {"id": "hobs_knoll",  "x": -55,  "z": 268,  "r": 95,  "h": 30},
+    {"id": "west_downs",  "x": -270, "z": -60,  "r": 120, "h": 12},
+    {"id": "south_rise",  "x": 170,  "z": 310,  "r": 110, "h": 14},
+    {"id": "north_swell", "x": -40,  "z": -300, "r": 100, "h": 10}
+  ],
+
+  "flats": [
+    {"id": "village",  "x": 0,    "z": 0,    "r": 82, "blend": 35, "y": 66},
+    {"id": "orchard",  "x": 5,    "z": -118, "r": 52, "blend": 25, "y": 66},
+    {"id": "farmyard", "x": 48,   "z": -120, "r": 24, "blend": 12, "y": 66},
+    {"id": "mill",     "x": -114, "z": -40,  "r": 9,  "blend": 8,  "y": 64},
+    {"id": "relay",    "x": 250,  "z": 22,   "r": 16, "blend": 14, "y": 0},
+    {"id": "toll",     "x": 324,  "z": 22,   "r": 10, "blend": 8,  "y": 0},
+    {"id": "shrine",   "x": -255, "z": -150, "r": 6,  "blend": 6,  "y": 0}
+  ],
+
+  "edge_ridge": {
+    "width": 55,
+    "height": 28,
+    "gaps": [
+      {"edge": "west", "at": 30, "half": 14},
+      {"edge": "east", "at": 34, "half": 14}
+    ]
+  },
+
+  "rivers": [
+    {"id": "brindle_water", "width": 9, "depth": 4,
+     "points": [[-150,-380],[-140,-260],[-118,-160],[-136,-60],[-126,20],[-148,120],[-172,240],[-160,380]]},
+    {"id": "eastfall_gorge", "width": 12, "depth": 5, "water_y": 56, "gorge": true,
+     "points": [[352,-380],[348,-200],[356,-40],[350,40],[355,200],[350,380]]},
+    {"id": "north_brook", "width": 3, "depth": 1.5,
+     "points": [[175,-150],[120,-120],[60,-70],[20,-62],[-30,-66],[-90,-80],[-131,-100]]}
+  ],
+
+  "ponds": [
+    {"id": "heron_pool", "x": 130, "z": 120, "r": 11, "depth": 3}
+  ],
+
+  "roads": [
+    {"id": "west_road", "width": 5, "points": [[-376,30],[-300,30],[-240,27],[-180,22],[-128,18],[-80,16],[-40,14],[-14,6]]},
+    {"id": "plaza", "width": 17, "surface": "cobble", "points": [[-6,0],[6,0]]},
+    {"id": "east_road", "width": 5, "points": [[13,6],[40,10],[90,14],[150,20],[200,26],[250,30],[300,33],[338,34]]},
+    {"id": "gorge_bridge", "width": 5, "broken_bridge": true, "points": [[338,34],[366,34]]},
+    {"id": "north_lane", "width": 3, "points": [[8,-8],[14,-20],[14,-60],[10,-90],[6,-150]]},
+    {"id": "south_lane", "width": 3, "points": [[0,8],[0,30],[-4,60],[-25,130],[-45,180],[-55,197]]},
+    {"id": "lark_trail", "width": 2, "surface": "lane", "points": [[110,15],[130,-40],[160,-110],[195,-165],[212,-198]]},
+    {"id": "shrine_trail", "width": 2, "surface": "lane", "points": [[-205,23],[-225,-40],[-250,-140]]},
+    {"id": "wood_trail", "width": 2, "surface": "lane", "points": [[180,24],[160,70],[140,106]]},
+    {"id": "old_trail", "width": 2, "surface": "lane", "points": [[165,80],[230,130],[258,148]]}
+  ],
+
+  "woods": [
+    {"id": "mossgate_wood", "x": 215, "z": 190,  "r": 150, "density": 0.5,  "mix": ["oak","oak","birch","fancy_oak","dark_oak"]},
+    {"id": "birch_copse",   "x": -250,"z": -235, "r": 95,  "density": 0.38, "mix": ["birch","birch","oak"]},
+    {"id": "knoll_trees",   "x": -60, "z": 270,  "r": 70,  "density": 0.22, "mix": ["oak","spruce","oak"]},
+    {"id": "riverside",     "x": -150,"z": 160,  "r": 60,  "density": 0.18, "mix": ["oak","birch"]}
+  ],
+
+  "fields": [
+    {"id": "wheat_field",   "crop": "wheat",    "x1": 30,  "z1": -105, "x2": 70,  "z2": -82},
+    {"id": "carrot_field",  "crop": "carrots",  "x1": -50, "z1": -105, "x2": -22, "z2": -86},
+    {"id": "potato_field",  "crop": "potatoes", "x1": 72,  "z1": -152, "x2": 95,  "z2": -132},
+    {"id": "orchard_rows",  "crop": "orchard",  "x1": -16, "z1": -152, "x2": 24,  "z2": -100}
+  ],
+
+  "buildings": [
+    {"id": "inn",        "type": "inn",       "label": "The Rain & Lantern", "x": -24, "z": -2,  "w": 15, "d": 11, "facing": "east",  "floors": 2,
+     "wall": "minecraft:white_terracotta", "frame": "minecraft:stripped_dark_oak_log", "floor": "minecraft:spruce_planks", "roof": "dark_oak"},
+    {"id": "store",      "type": "store",     "label": "Hobb & Daughters General Goods", "x": 24, "z": -4, "w": 11, "d": 9, "facing": "west",
+     "wall": "minecraft:spruce_planks", "frame": "minecraft:stripped_oak_log", "roof": "spruce"},
+    {"id": "smithy",     "type": "smithy",    "label": "Brindlecross Smithy", "x": 24, "z": 24, "w": 11, "d": 9, "facing": "north",
+     "wall": "minecraft:cobblestone", "frame": "minecraft:stripped_spruce_log", "floor": "minecraft:stone_bricks", "roof": "deepslate"},
+    {"id": "hall",       "type": "hall",      "label": "Brindle Hall", "x": 0, "z": -24, "w": 13, "d": 11, "facing": "south",
+     "wall": "minecraft:stone_bricks", "frame": "minecraft:stripped_oak_log", "floor": "minecraft:oak_planks", "roof": "stone_brick"},
+    {"id": "bakery",     "type": "bakery",    "label": "The Bakehouse", "x": -26, "z": -26, "w": 9, "d": 9, "facing": "east",
+     "wall": "minecraft:bricks", "frame": "minecraft:stripped_spruce_log", "roof": "spruce"},
+    {"id": "weaver_house","type": "house",    "label": "Weaver's Cottage", "x": -48, "z": -12, "w": 9, "d": 7, "facing": "east",
+     "wall": "minecraft:birch_planks", "frame": "minecraft:stripped_birch_log", "roof": "spruce", "beds": 1},
+    {"id": "house_reed", "type": "house",     "label": "Reed House", "x": -44, "z": 28, "w": 9, "d": 8, "facing": "north",
+     "wall": "minecraft:oak_planks", "frame": "minecraft:stripped_spruce_log", "roof": "dark_oak", "beds": 2},
+    {"id": "house_fenn", "type": "house",     "label": "Fenn House", "x": 34, "z": -28, "w": 9, "d": 7, "facing": "south",
+     "wall": "minecraft:white_terracotta", "frame": "minecraft:stripped_oak_log", "roof": "brick", "beds": 2},
+    {"id": "old_cottage","type": "house",     "label": "Old Courier's Cottage", "x": -8, "z": 40, "w": 7, "d": 7, "facing": "north",
+     "wall": "minecraft:mossy_cobblestone", "frame": "minecraft:stripped_oak_log", "roof": "spruce", "beds": 1},
+    {"id": "smith_house","type": "house",     "label": "Smith's House", "x": 44, "z": 30, "w": 8, "d": 7, "facing": "west",
+     "wall": "minecraft:spruce_planks", "frame": "minecraft:stripped_dark_oak_log", "roof": "deepslate", "beds": 1},
+    {"id": "herb_house", "type": "house",     "label": "Herbalist's House", "x": -30, "z": 46, "w": 7, "d": 7, "facing": "east",
+     "wall": "minecraft:mud_bricks", "frame": "minecraft:stripped_oak_log", "roof": "mud_brick", "beds": 1},
+    {"id": "watchtower", "type": "tower",     "label": "East Watchtower", "x": 58, "z": -4, "w": 7, "d": 7, "facing": "south", "floors": 3,
+     "wall": "minecraft:stone_bricks", "frame": "minecraft:stripped_spruce_log", "floor": "minecraft:spruce_planks", "foundation": "minecraft:mossy_stone_bricks"},
+    {"id": "farmhouse",  "type": "farmhouse", "label": "Ashby Farm", "x": 40, "z": -128, "w": 11, "d": 9, "facing": "west",
+     "wall": "minecraft:oak_planks", "frame": "minecraft:stripped_oak_log", "roof": "spruce", "beds": 2},
+    {"id": "barn",       "type": "barn",      "label": "Ashby Barn", "x": 60, "z": -108, "w": 11, "d": 13, "facing": "west",
+     "wall": "minecraft:spruce_planks", "frame": "minecraft:stripped_dark_oak_log", "floor": "minecraft:coarse_dirt", "roof": "dark_oak"},
+    {"id": "mill",       "type": "mill",      "label": "Brindle Mill", "x": -112, "z": -40, "w": 9, "d": 9, "facing": "east",
+     "wall": "minecraft:cobblestone", "frame": "minecraft:stripped_oak_log", "roof": "spruce"},
+    {"id": "relay",      "type": "relay",     "label": "East Road Relay", "x": 250, "z": 18, "w": 9, "d": 7, "facing": "south",
+     "wall": "minecraft:spruce_planks", "frame": "minecraft:stripped_spruce_log", "roof": "dark_oak"},
+    {"id": "toll_hut",   "type": "house",     "label": "Bridgewarden's Hut", "x": 324, "z": 20, "w": 7, "d": 7, "facing": "south",
+     "wall": "minecraft:cobblestone", "frame": "minecraft:stripped_spruce_log", "roof": "spruce", "beds": 1},
+    {"id": "stall_a",    "type": "stall",     "label": "Market Stall", "x": -7, "z": -5, "w": 5, "d": 3, "facing": "south", "wall": "minecraft:red_wool"},
+    {"id": "stall_b",    "type": "stall",     "label": "Empty Stall", "x": 7, "z": -5, "w": 5, "d": 3, "facing": "south", "wall": "minecraft:light_gray_wool"},
+    {"id": "well",       "type": "well",      "label": "Village Well", "x": 0, "z": 3, "w": 3, "d": 3, "facing": "south"}
+  ],
+
+  "caves": [
+    {"id": "hobs_hollow",
+     "nodes": [[-55,67,197,2,1],[-55,67,202,2,1],[-55,67,207,2],[-54,67,213,3],[-52,68,220,3],[-49,68,228,4],
+               [-50,69,237,6],[-57,68,245,3],[-65,67,251,3],[-72,67,258,5]]}
+  ],
+
+  "features": [
+    {"id": "overlook_cairn",  "type": "overlook",   "x": 214, "z": -203},
+    {"id": "old_shrine",      "type": "shrine",     "x": -255,"z": -150, "facing": "south"},
+    {"id": "abandoned_wagon", "type": "wagon",      "x": 262, "z": 150},
+    {"id": "lone_oak",        "type": "lone_oak",   "x": -40, "z": -262},
+    {"id": "notice_board",    "type": "notice",     "x": -6,  "z": -14, "facing": "south"},
+    {"id": "orchard_pump",    "type": "pump",       "x": 8,   "z": -124},
+    {"id": "bridge_out",      "type": "bridge_out", "x": 340, "z": 34},
+    {"id": "milestone_west",  "type": "milestone",  "x": -338,"z": 25},
+    {"id": "heron_reeds",     "type": "reeds",      "x": 130, "z": 120},
+    {"id": "cave_camp",       "type": "camp",       "x": -50, "z": 237, "y": 69},
+    {"id": "cave_cache",      "type": "cache",      "x": -73, "z": 259, "y": 67},
+    {"id": "fishing_jetty",   "type": "jetty",      "x": -124,"z": -24, "y": 63}
+  ],
+
+  "anchors": {
+    "arrival":        [-345, 0, 30],
+    "plaza":          [0, 0, -3],
+    "plaza_east":     [9, 0, 4],
+    "plaza_west":     [-9, 0, 4],
+    "well_side":      [3, 0, 6],
+    "notice_board":   [-6, 0, -12],
+    "orchard_pump":   [8, 0, -121],
+    "orchard_rows":   [4, 0, -135],
+    "field_wheat":    [50, 0, -93],
+    "field_carrots":  [-36, 0, -95],
+    "field_potatoes": [84, 0, -142],
+    "overlook":       [214, 0, -200],
+    "shrine":         [-255, 0, -146],
+    "wagon":          [258, 0, 147],
+    "lone_oak":       [-37, 0, -258],
+    "heron_pool":     [140, 0, 112],
+    "fox_den":        [146, 0, 132],
+    "cave_mouth":     [-55, 0, 193],
+    "cave_camp":      [-50, 69, 236, 1],
+    "cave_cache":     [-71, 67, 257, 1],
+    "east_gate":      [334, 0, 34],
+    "relay_yard":     [252, 0, 26],
+    "patrol_east":    [44, 0, 9],
+    "patrol_west":    [-62, 0, 16],
+    "patrol_north":   [14, 0, -48],
+    "patrol_south":   [-2, 0, 58],
+    "river_bank":     [-120, 0, -24],
+    "mill_pond_bank": [-118, 0, -55],
+    "brook_crossing": [14, 0, -66],
+    "road_rest_east": [150, 0, 24],
+    "meadow_west":    [-200, 0, 40],
+    "pasture":        [78, 0, -114]
+  }
+}

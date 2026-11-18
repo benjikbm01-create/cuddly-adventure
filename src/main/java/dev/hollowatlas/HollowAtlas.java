@@ -154,6 +154,8 @@ public final class HollowAtlas implements ModInitializer {
                 RegionBuilder.buildMissing(server, () -> {
                     for (ServerPlayerEntity p : server.getPlayerManager().getPlayerList())
                         p.sendMessage(Text.literal("The showcase map is finished. Explore!").formatted(Formatting.GREEN), false);
+                    server.saveAll(false, true, true);
+                    if (stopAfter) server.stop(false);   // QA runs only
                 });
             } else {
                 LOGGER.warn("This world does not contain the Hollow Atlas region. Use the bundled world, "

@@ -62,6 +62,14 @@ loom {
             vmArg "-Dhollowatlas.mode=showcase"
             vmArg "-Xmx2G"
         }
+        // QA: opens a copy of the seed world with NO build flags (the player's path) and stops once it has built itself.
+        testShowcaseSeed {
+            server()
+            name "Test Showcase Seed World"
+            runDir "run-showcase-seedtest"
+            vmArg "-Dhollowatlas.autobuild.stop=true"
+            vmArg "-Xmx2G"
+        }
         // Renders <world>/hollowatlas/region_map.png from the built world, then stops.
         renderMap {
             server()

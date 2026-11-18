@@ -145,7 +145,7 @@ public class SatchelScreen extends Screen {
             int ry = y + 11 + r * 18;
             if (slot == selected) c.fill(lx + 1, ry - 1, lx + lw - 1, ry + 17, Ui.SELECT);
             c.drawItem(s, lx + 4, ry);
-            String name = textRenderer.trimToWidth(s.getName().getString(), lw - 50);
+            String name = textRenderer.trimToWidth(s.getName().getString(), lw - 74);
             c.drawText(textRenderer, Text.literal(name), lx + 24, ry + 4, ModItems.isKeyItem(s) ? Ui.TITLE : Ui.TEXT, false);
             if (s.getCount() > 1) c.drawText(textRenderer, Text.literal("x" + s.getCount()), lx + lw - 24, ry + 4, Ui.MUTED, false);
             String where = slot < 9 ? "[" + (slot + 1) + "]" : slot >= 36 && slot < 40 ? "worn" : slot == 40 ? "off" : "";

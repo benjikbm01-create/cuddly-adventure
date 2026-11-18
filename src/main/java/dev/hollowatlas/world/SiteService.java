@@ -38,6 +38,9 @@ public final class SiteService {
 
     private SiteService() {}
 
+    /** Forces class init so the content kind is registered before the first data reload. */
+    public static void init() { }
+
     public static void tick(MinecraftServer server) {
         if (server.getTicks() % 20 != 17) return;
         GameState gs = GameState.get(server);

@@ -52,6 +52,9 @@ public final class WorldChanges {
 
     private WorldChanges() {}
 
+    /** Forces class init so the content kind is registered before the first data reload. */
+    public static void init() { }
+
     public static void apply(MinecraftServer server) {
         ServerWorld world = server.getOverworld();
         GameState state = GameState.get(server);

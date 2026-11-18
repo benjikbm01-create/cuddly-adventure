@@ -1,0 +1,49 @@
+THE HOLLOW ATLAS v0.1 - QUICK START (Windows)
+=============================================
+
+You need: Minecraft Java Edition 1.21.1 with the Fabric Loader installed
+(Fabric Loader 0.16.0 or newer). You said you already have this.
+
+1. Open the release folder (TheHollowAtlas-v0.1). It contains:
+     mods\hollowatlas-0.1.0.jar
+     mods\fabric-api-0.116.6+1.21.1.jar      (only needed if you don't have Fabric API already)
+     TheHollowAtlas-world.zip
+
+2. Press Win+R, type   %APPDATA%\.minecraft   and press Enter.
+
+3. Copy BOTH jars from the release "mods" folder into the "mods" folder there.
+   (Create the "mods" folder if it doesn't exist. If you already have a Fabric API
+   jar for 1.21.1, keep just one copy of it.)
+
+4. Unzip TheHollowAtlas-world.zip into the "saves" folder there, so you end up with:
+     %APPDATA%\.minecraft\saves\hollow_atlas\level.dat
+
+5. Start the Minecraft Launcher, pick your "fabric-loader-1.21.1" profile, Play.
+   Singleplayer -> "hollow_atlas" -> Play Selected World.
+
+FIRST STEPS
+- You arrive on a road in the rain. Your journal (J) tells you what you're doing.
+- Talk to people by right-clicking them. Pick replies with the mouse or keys 1-9.
+- Some things in the world can be examined: right-click them.
+
+CONTROLS (all remappable: Options > Controls > "The Hollow Atlas")
+  Left click ........ light attack (normal Minecraft attack)
+  R ................. heavy attack (costs stamina, breaks guards)
+  Left Alt .......... dodge (direction of movement; backwards if standing still)
+  V (hold) .......... guard; tap it just before a hit lands to PARRY and counter
+  Z / X ............. abilities 1 and 2 (once learned)
+  J ................. journal (quests, case board, settings)
+  I ................. satchel (inventory by category)
+  M ................. atlas (map of places you've found)
+  E ................. normal Minecraft inventory still works
+
+GOOD TO KNOW
+- It's an adventure map: you can't dig or build, but doors, beds, and anything
+  meant to be used can be used.
+- Dying returns you to your last rest point with your gear. It costs a few coins.
+- Difficulty (Story / Normal / Hard / Expert) is in Journal > Settings.
+- Progress saves with the world, like normal Minecraft.
+- For a second playthrough, copy the original world zip in again (it's a separate save).
+
+SPOILERS: the game's story files are inside the mod and in the project repository.
+Opening them will spoil the plot.

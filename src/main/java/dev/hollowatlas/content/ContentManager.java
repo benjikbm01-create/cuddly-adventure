@@ -58,7 +58,14 @@ public final class ContentManager implements SimpleSynchronousResourceReloadList
     public void reload(ResourceManager manager) {
         LAST_REPORT.clear();
         int total = 0;
-        for (Kind<?> kind : KINDS) total += load(manager, kind);
+        StringBuilder counts = new StringBuilder();
+        for (Kind<?> kind : KINDS) {
+            int n = load(manager, kind);
+            total += n;
+            counts.append(kind.folder()).append('=').append(n).append(' ');
+            if (n == 0) LAST_REPORT.add("content kind '" + kind.folder() + "' loaded no files");
+        }
+        HollowAtlas.LOGGER.info("Content by kind: {}", counts.toString().trim());
         for (BiConsumer<ContentManager, List<String>> v : VALIDATORS) {
             try {
                 v.accept(this, LAST_REPORT);

@@ -135,7 +135,19 @@ public class DialogueScreen extends Screen {
         };
     }
 
-    private void choose(int index) {
+    /** Test/accessibility helper: index of the first offered choice containing the text, or -1. */
+    public int indexOf(String part) {
+        for (int i = 0; i < choices.size(); i++) if (choices.get(i).text.contains(part)) return i;
+        return -1;
+    }
+
+    public List<String> choiceTexts() {
+        List<String> out = new ArrayList<>();
+        for (Choice c : choices) out.add(c.text);
+        return out;
+    }
+
+    public void choose(int index) {
         if (sent || index < 0 || index >= choices.size() || !choices.get(index).enabled) return;
         if (!textDone()) { shownAt = 0; return; }
         sent = true;   // guard against double activation until the server answers

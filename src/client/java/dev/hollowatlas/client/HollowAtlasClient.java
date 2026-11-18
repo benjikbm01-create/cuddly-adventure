@@ -26,5 +26,6 @@ public final class HollowAtlasClient implements ClientModInitializer {
         EntityRendererRegistry.register(CombatRegistry.ENEMY, EnemyRenderer::new);
         EntityRendererRegistry.register(CombatRegistry.SLING_STONE, FlyingItemEntityRenderer::new);
         AutoShot.init();
+        dev.hollowatlas.client.dev.AutoTest.init();
     }
 }

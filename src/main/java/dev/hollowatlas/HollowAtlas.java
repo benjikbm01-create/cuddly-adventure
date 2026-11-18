@@ -74,6 +74,8 @@ public final class HollowAtlas implements ModInitializer {
         ShopService.init();
         CraftingService.init();
         dev.hollowatlas.inventory.InventoryActions.init();
+        WorldChanges.init();
+        dev.hollowatlas.world.SiteService.init();
         Interactions.init();          // must register before protection so designated interactions win
         ProtectionService.register();
         dev.hollowatlas.command.DevCommands.init();

@@ -4,6 +4,25 @@
   "entries": [
     {
       "when": {
+        "quest_stage": {
+          "quest": "sq04",
+          "stage": "back"
+        }
+      },
+      "node": "buns_back"
+    },
+    {
+      "when": {
+        "quest_done": "m01",
+        "quest_not_started": "sq04",
+        "not": {
+          "quest_active": "sq01"
+        }
+      },
+      "node": "buns_offer"
+    },
+    {
+      "when": {
         "quest_active": "sq01",
         "hypothesis": {
           "case": "ribbon_case",
@@ -143,6 +162,74 @@
           "text": "Goodbye.",
           "go": "end",
           "tag": "leave"
+        }
+      ]
+    },
+    "buns_offer": {
+      "text": "You've got legs that work. Mine stopped working at the third bake. Lom at the bridge gets a basket every week; he's alone out there and he eats like a heron. Would you?",
+      "choices": [
+        {
+          "text": "I'll take it to him.",
+          "go": "buns_go",
+          "tag": "quest"
+        },
+        {
+          "text": "Let's see the bread first.",
+          "go": "end",
+          "tag": "trade",
+          "actions": [
+            {
+              "shop": "bakery",
+              "type": "open_shop"
+            }
+          ]
+        },
+        {
+          "text": "Goodbye.",
+          "go": "end",
+          "tag": "leave"
+        }
+      ]
+    },
+    "buns_go": {
+      "text": "Don't eat any. I counted them. I didn't, but act as if I did.",
+      "choices": [
+        {
+          "text": "Goodbye.",
+          "go": "end",
+          "tag": "leave"
+        }
+      ],
+      "actions": [
+        {
+          "quest": "sq04",
+          "type": "start_quest"
+        }
+      ]
+    },
+    "buns_back": {
+      "text": "Well? Did he eat them? Did he say anything about the honey?",
+      "choices": [
+        {
+          "text": "He said they were better than last week's.",
+          "go": "buns_done"
+        }
+      ]
+    },
+    "buns_done": {
+      "text": "Last week's were perfect. ...He's a liar and a good man. Here, for your trouble.",
+      "choices": [
+        {
+          "text": "Goodbye.",
+          "go": "end",
+          "tag": "leave"
+        }
+      ],
+      "actions": [
+        {
+          "event": "talk",
+          "target": "buns_reported",
+          "type": "quest_event"
         }
       ]
     }

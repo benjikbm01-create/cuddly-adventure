@@ -1,0 +1,24 @@
+{
+  "id": "morning_bread",
+  "speakers": [
+    "maren",
+    "ada"
+  ],
+  "from": 11,
+  "to": 15,
+  "radius": 24,
+  "lines": [
+    [
+      "ada",
+      "Two loaves for the shop, Maren."
+    ],
+    [
+      "maren",
+      "Three. You always run out by four."
+    ],
+    [
+      "ada",
+      "...Three."
+    ]
+  ]
+}

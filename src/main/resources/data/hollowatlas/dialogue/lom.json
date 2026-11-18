@@ -12,6 +12,15 @@
       "node": "bridge"
     },
     {
+      "when": {
+        "quest_stage": {
+          "quest": "sq04",
+          "stage": "deliver"
+        }
+      },
+      "node": "buns"
+    },
+    {
       "node": "main"
     }
   ],
@@ -62,6 +71,32 @@
     },
     "cross": {
       "text": "Not unless you've wings or a death wish. There's a ladder down by the old stub, if you fall in. People fall in.",
+      "choices": [
+        {
+          "text": "Goodbye.",
+          "go": "end",
+          "tag": "leave"
+        }
+      ]
+    },
+    "buns": {
+      "text": "Is that Maren's basket? It is. It is! Hand it over before the river smells it.",
+      "choices": [
+        {
+          "text": "She says don't eat them all at once.",
+          "go": "buns2"
+        }
+      ],
+      "actions": [
+        {
+          "event": "talk",
+          "target": "buns_delivered",
+          "type": "quest_event"
+        }
+      ]
+    },
+    "buns2": {
+      "text": "Too late. Tell her they're better than last week's. Don't tell her I said that every week.",
       "choices": [
         {
           "text": "Goodbye.",

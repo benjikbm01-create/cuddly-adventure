@@ -1,0 +1,29 @@
+{
+  "id": "rainy_inn",
+  "speakers": [
+    "nella",
+    "sabine"
+  ],
+  "from": 19,
+  "to": 22,
+  "weather": "rain",
+  "radius": 8,
+  "lines": [
+    [
+      "sabine",
+      "You've a leak by the window again."
+    ],
+    [
+      "nella",
+      "I've a leak by every window. It's called weather."
+    ],
+    [
+      "sabine",
+      "I could weave you a curtain."
+    ],
+    [
+      "nella",
+      "You could weave me a roof."
+    ]
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "id": "hester_elsie",
+  "speakers": [
+    "hester",
+    "elsie"
+  ],
+  "from": 17,
+  "to": 20,
+  "radius": 10,
+  "lines": [
+    [
+      "hester",
+      "How's the hip?"
+    ],
+    [
+      "elsie",
+      "Still attached."
+    ],
+    [
+      "hester",
+      "Drink the tea."
+    ],
+    [
+      "elsie",
+      "The tea tastes like a pond."
+    ],
+    [
+      "hester",
+      "Drink the pond, then."
+    ]
+  ]
+}

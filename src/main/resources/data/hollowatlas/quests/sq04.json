@@ -1,0 +1,63 @@
+{
+  "id": "sq04",
+  "title": "Bread for the Watch",
+  "category": "side",
+  "giver": "maren",
+  "prereq": {
+    "quest_done": "m01"
+  },
+  "summary": "Maren sends a basket of buns up the east road every week. This week her legs have opinions about it.",
+  "stages": [
+    {
+      "id": "deliver",
+      "text": "Take Maren's basket to Lom Perrin, the bridgewarden at the end of the east road.",
+      "hint": "Follow the east road past the watchtower and the relay to the bridge barrier.",
+      "objectives": [
+        {
+          "id": "lom",
+          "type": "talk",
+          "target": "buns_delivered",
+          "text": "Deliver the buns to Lom",
+          "marker": "east_gate"
+        }
+      ],
+      "next": "back"
+    },
+    {
+      "id": "back",
+      "text": "Lom sent something back with you. Maren will want to know he ate.",
+      "objectives": [
+        {
+          "id": "maren",
+          "type": "talk",
+          "target": "buns_reported",
+          "text": "Tell Maren",
+          "marker": "bakery.door_out"
+        }
+      ],
+      "next": "complete"
+    }
+  ],
+  "rewards": [
+    {
+      "amount": 8,
+      "type": "coins"
+    },
+    {
+      "item": "hollowatlas:honey_bun",
+      "count": 2,
+      "type": "give_item"
+    },
+    {
+      "npc": "maren",
+      "delta": 6,
+      "type": "relationship"
+    },
+    {
+      "npc": "lom",
+      "delta": 4,
+      "type": "relationship"
+    }
+  ],
+  "completion_text": "Lom has his buns. Maren pretended not to care how he was."
+}

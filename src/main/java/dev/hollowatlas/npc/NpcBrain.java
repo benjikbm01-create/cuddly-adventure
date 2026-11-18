@@ -117,7 +117,7 @@ public final class NpcBrain {
         }
         if (timer % 20 == 0) {
             if (dist < bestDist - 0.5) { bestDist = dist; noProgress = 0; }
-            else if (++noProgress >= 10) { recover(goal); }
+            else if (++noProgress >= 6) { recover(goal); }
         }
     }
 

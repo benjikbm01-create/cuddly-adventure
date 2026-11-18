@@ -1,0 +1,33 @@
+{
+  "id": "mill_and_farm",
+  "speakers": [
+    "oswin",
+    "tobin"
+  ],
+  "from": 17,
+  "to": 21,
+  "radius": 20,
+  "cooldown_minutes": 30,
+  "lines": [
+    [
+      "tobin",
+      "River's low."
+    ],
+    [
+      "oswin",
+      "Mm."
+    ],
+    [
+      "tobin",
+      "Wheel still turning?"
+    ],
+    [
+      "oswin",
+      "Slower."
+    ],
+    [
+      "tobin",
+      "...Aye."
+    ]
+  ]
+}

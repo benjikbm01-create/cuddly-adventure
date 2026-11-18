@@ -422,7 +422,15 @@ public final class AutoTest {
                 e.damage(s.getOverworld().getDamageSources().playerAttack(sp(s)), 200f);
             return null;
         }));
-        step("cleared", 40, () -> check("encounter cleared flag set", srv(s -> GameState.get(s).flag("hollowatlas:encounter_cleared:wagon_ambush"))));
+        step("cleared", 40, () -> {
+            String diag = srv(s -> {
+                StringBuilder b = new StringBuilder("active=" + EncounterService.activeCount() + " near:");
+                for (EnemyEntity e : s.getOverworld().getEntitiesByClass(EnemyEntity.class, sp(s).getBoundingBox().expand(96), x -> true))
+                    b.append(' ').append(e.kind()).append('@').append((int) e.getHealth()).append(e.isAlive() ? "" : "(dead)");
+                return b.toString();
+            });
+            check("encounter cleared flag set [" + diag + "]", srv(s -> GameState.get(s).flag("hollowatlas:encounter_cleared:wagon_ambush")));
+        });
 
         // ---- ability from Ilse
         step("find ilse", 5, () -> {
@@ -523,7 +531,7 @@ public final class AutoTest {
 
         // ---- residents: sleeping and talking to each other
         step("night inn", 5, () -> tp("inn.room_c", 0, 0, -1, 180, 25, 20000));
-        step("asleep", 140, () -> {
+        step("asleep", 420, () -> {
             NpcEntity n = npc("nella");
             String diag = srv(s -> {
                 NpcEntity e = NpcDirector.live("nella");

@@ -203,6 +203,22 @@ QUESTS = [
                   A("relationship", npc="hester", delta=8), A("relationship", npc="elsie", delta=5)],
          completion_text="Elsie's hip is better. Hester taught you how to make a trail tonic."),
 
+    dict(id="sq04", title="Bread for the Watch", category="side", giver="maren",
+         prereq={"quest_done": "m01"},
+         summary="Maren sends a basket of buns up the east road every week. This week her legs have opinions about it.",
+         stages=[
+             dict(id="deliver", text="Take Maren's basket to Lom Perrin, the bridgewarden at the end of the east road.",
+                  hint="Follow the east road past the watchtower and the relay to the bridge barrier.",
+                  objectives=[dict(id="lom", type="talk", target="buns_delivered", text="Deliver the buns to Lom", marker="east_gate")],
+                  next="back"),
+             dict(id="back", text="Lom sent something back with you. Maren will want to know he ate.",
+                  objectives=[dict(id="maren", type="talk", target="buns_reported", text="Tell Maren", marker="bakery.door_out")],
+                  next="complete"),
+         ],
+         rewards=[A("coins", amount=8), A("give_item", item="hollowatlas:honey_bun", count=2), A("relationship", npc="maren", delta=6),
+                  A("relationship", npc="lom", delta=4)],
+         completion_text="Lom has his buns. Maren pretended not to care how he was."),
+
     dict(id="tst01", title="Sandbox: Errand Test", category="sandbox", giver="tester", abandonable=True,
          summary="Non-canonical test quest for checking quest mechanics. Not part of the story.",
          stages=[
@@ -394,6 +410,8 @@ D["ada"] = dict(id="ada", npc="ada", entries=[
 })
 
 D["maren"] = dict(id="maren", npc="maren", entries=[
+    dict(when=stage("sq04", "back"), node="buns_back"),
+    dict(when={"quest_done": "m01", "quest_not_started": "sq04", "not": {"quest_active": "sq01"}}, node="buns_offer"),
     dict(when={"quest_active": "sq01", "hypothesis": {"case": "ribbon_case", "id": "maren_took_it"}}, node="accused"),
     dict(when=stage("sq01", "look"), node="ribbon"),
     dict(node="main"),
@@ -411,6 +429,15 @@ D["maren"] = dict(id="maren", npc="maren", entries=[
     "sorry": N("...Hmph. Apology noted. Not accepted. Noted.", [BYE]),
     "main": N("Bread, buns, and opinions. The first two cost money.",
               [CH("Let's see the bread.", "end", tag="trade", actions=[A("open_shop", shop="bakery")]), BYE]),
+    "buns_offer": N("You've got legs that work. Mine stopped working at the third bake. Lom at the bridge gets a basket every week; he's alone out there and he eats like a heron. Would you?",
+                    [CH("I'll take it to him.", "buns_go", tag="quest"),
+                     CH("Let's see the bread first.", "end", tag="trade", actions=[A("open_shop", shop="bakery")]), BYE]),
+    "buns_go": N("Don't eat any. I counted them. I didn't, but act as if I did.", [BYE],
+                 actions=[A("start_quest", quest="sq04")]),
+    "buns_back": N("Well? Did he eat them? Did he say anything about the honey?",
+                   [CH("He said they were better than last week's.", "buns_done")]),
+    "buns_done": N("Last week's were perfect. ...He's a liar and a good man. Here, for your trouble.", [BYE],
+                   actions=[A("quest_event", event="talk", target="buns_reported")]),
 })
 
 D["sabine"] = dict(id="sabine", npc="sabine", entries=[
@@ -526,6 +553,7 @@ D["jory"] = dict(id="jory", npc="jory", entries=[
 
 D["lom"] = dict(id="lom", npc="lom", entries=[
     dict(when=stage("m04", "bridge"), node="bridge"),
+    dict(when=stage("sq04", "deliver"), node="buns"),
     dict(node="main"),
 ], nodes={
     "asleep": ASLEEP,
@@ -535,6 +563,10 @@ D["lom"] = dict(id="lom", npc="lom", entries=[
                  actions=[A("quest_event", event="talk", target="lom_bridge")]),
     "main": N("Bridge is out. Has been since the melt.", [CH("Can I cross anyway?", "cross"), BYE]),
     "cross": N("Not unless you've wings or a death wish. There's a ladder down by the old stub, if you fall in. People fall in.", [BYE]),
+    "buns": N("Is that Maren's basket? It is. It is! Hand it over before the river smells it.",
+              [CH("She says don't eat them all at once.", "buns2")],
+              actions=[A("quest_event", event="talk", target="buns_delivered")]),
+    "buns2": N("Too late. Tell her they're better than last week's. Don't tell her I said that every week.", [BYE]),
 })
 
 for tree in D.values():

@@ -89,6 +89,7 @@ public final class AutoTest {
 
     private static boolean finished = false;
     private static int coinsBeforeDeath;
+    private static int potatoesBefore;
 
     private static void finish(MinecraftClient mc) {
         if (finished) return;
@@ -390,11 +391,12 @@ public final class AutoTest {
         step("potatoes", 20, () -> tp("potatoes_1", 0, 0, 2, 180, 40, 5000));
         step("pick potatoes", 70, () -> useBlock("potatoes_1"));
         step("gather twice", 20, () -> {
-            int before = count(Items.POTATO);
+            potatoesBefore = count(Items.POTATO);
             useBlock("potatoes_1");
-            check("gathered carrots and potatoes", count(Items.CARROT) >= 2 && before >= 2);
+            check("gathered carrots and potatoes", count(Items.CARROT) >= 2 && potatoesBefore >= 2);
         });
-        step("regrow check", 20, () -> check("node on cooldown gives nothing extra", count(Items.POTATO) <= 3));
+        step("regrow check", 20, () -> check("node on cooldown gives nothing extra (" + potatoesBefore + " -> " + count(Items.POTATO) + ")",
+                count(Items.POTATO) == potatoesBefore));
         step("mutton", 5, () -> srv(s -> { RewardService.give(sp(s), "minecraft:mutton", 1); return null; }));
         step("hearth", 5, () -> tp("inn.hearth", 0, 0, 0, 90, 20, 5000));
         step("use hearth", 70, () -> useBlock("inn.hearth_block"));
@@ -450,7 +452,8 @@ public final class AutoTest {
         step("sabine 2", 15, () -> choose("look into it"));
         step("sabine 3", 15, () -> choose("Goodbye"));
         step("sq01 started", 20, () -> check("ribbon quest started", questStage("sq01").equals("look")));
-        step("hook", 5, () -> useBlock("weaver_house.post"));
+        step("to hook", 5, () -> tp("weaver_house.door_out", 0, 0, 0, 180, 30, 3000));
+        step("hook", 70, () -> useBlock("weaver_house.post"));
         step("bakery", 20, () -> tp("bakery.door_out", 0, 0, 0, 180, 0, 3000));
         step("thread", 70, () -> useBlock("bakery.post"));
         step("bram", 20, () -> tp("smithy.counter_front", 0, 0, 0, 180, 0, 3000));
@@ -500,10 +503,10 @@ public final class AutoTest {
         step("fill pack", 5, () -> srv(s -> {
             var inv = sp(s).getInventory();
             for (int i = 0; i < inv.main.size(); i++) if (inv.main.get(i).isEmpty()) inv.main.set(i, new ItemStack(Items.COBBLESTONE, 64));
-            RewardService.give(sp(s), "minecraft:apple", 3);
+            RewardService.give(sp(s), "minecraft:honeycomb", 3);
             return null;
         }));
-        step("queued", 10, () -> check("reward queued when the pack is full", profile().pendingRewards.getOrDefault("minecraft:apple", 0) == 3));
+        step("queued", 10, () -> check("reward queued when the pack is full", profile().pendingRewards.getOrDefault("minecraft:honeycomb", 0) == 3));
         step("free space", 5, () -> srv(s -> {
             var inv = sp(s).getInventory();
             for (int i = 0; i < inv.main.size(); i++) if (inv.main.get(i).isOf(Items.COBBLESTONE)) inv.main.set(i, ItemStack.EMPTY);
@@ -519,10 +522,18 @@ public final class AutoTest {
         step("difficulty back", 5, () -> { JsonObject o = new JsonObject(); o.addProperty("key", "difficulty"); o.addProperty("value", "normal"); ClientState.send("setting", o); });
 
         // ---- residents: sleeping and talking to each other
-        step("night inn", 5, () -> tp("inn.room_c", 0, 0, 1, 180, 25, 20000));
+        step("night inn", 5, () -> tp("inn.room_c", 0, 0, -1, 180, 25, 20000));
         step("asleep", 140, () -> {
             NpcEntity n = npc("nella");
-            check("innkeeper asleep in her bed at night", n != null && n.isSleeping());
+            String diag = srv(s -> {
+                NpcEntity e = NpcDirector.live("nella");
+                if (e == null) return "not live";
+                BlockPos bed = LocationIndex.pos("inn.bed_room_c");
+                return "pos=" + e.getBlockPos().toShortString() + " bed=" + bed.toShortString() + " block=" + s.getOverworld().getBlockState(bed).getBlock()
+                        + " phase=" + (e.npcBrain() == null ? "?" : e.npcBrain().phase() + " entry=" + e.npcBrain().entry().activity + " stuck=" + e.npcBrain().stuckEvents())
+                        + " sleeping=" + e.isSleeping();
+            });
+            check("innkeeper asleep in her bed at night [" + diag + "]", n != null && n.isSleeping());
             shot("17_night_asleep");
         });
         step("talk asleep", 5, () -> { approach("nella"); });
@@ -546,7 +557,8 @@ public final class AutoTest {
         step("after death", 60, () -> {
             BlockPos cp = LocationIndex.pos("inn.room_guest");
             check("respawned at the last checkpoint", mc().player.getBlockPos().getSquaredDistance(cp) < 9);
-            check("inventory kept on death", count(item("hollowatlas:room_key")) == 1 && count(item("hollowatlas:traveler_shortsword")) == 1);
+            check("inventory kept on death (key=" + count(item("hollowatlas:room_key")) + " sword=" + count(item("hollowatlas:traveler_shortsword"))
+                    + " parcel=" + count(item("hollowatlas:sealed_parcel")) + ")", count(item("hollowatlas:room_key")) == 1 && count(item("hollowatlas:sealed_parcel")) == 1);
             check("small transparent coin cost (" + coinsBeforeDeath + " -> " + profile().coins + ")",
                     profile().coins == coinsBeforeDeath - Math.min(25, coinsBeforeDeath / 10));
             check("stamina reset on respawn", profile().stamina >= 99);

@@ -67,9 +67,25 @@ public final class NpcBrain {
         equip();
     }
 
+    /** Entrance / stair-landing waypoints so residents take the real route into buildings and upstairs. */
+    private final java.util.ArrayDeque<BlockPos> waypoints = new java.util.ArrayDeque<>();
+
     private void retarget() {
         target = anchor != null && LocationIndex.has(anchor) ? LocationIndex.pos(anchor) : npc.getBlockPos();
         subTarget = null;
+        waypoints.clear();
+        if (anchor != null && anchor.contains(".")) {
+            String b = anchor.substring(0, anchor.indexOf('.'));
+            String insideKey = b + ".inside", landingKey = b + ".landing";
+            if (LocationIndex.has(insideKey)) {
+                BlockPos inside = LocationIndex.pos(insideKey);
+                boolean far = npc.getBlockPos().getSquaredDistance(target) > 5 * 5;
+                boolean upstairs = LocationIndex.has(landingKey) && target.getY() >= inside.getY() + 4;
+                boolean alreadyUp = upstairs && Math.abs(npc.getBlockY() - target.getY()) <= 1;
+                if (far && !alreadyUp && npc.getBlockPos().getSquaredDistance(inside) > 3 * 3) waypoints.add(inside);
+                if (upstairs && !alreadyUp) waypoints.add(LocationIndex.pos(landingKey));
+            }
+        }
         phase = Phase.TRAVEL;
         bestDist = Double.MAX_VALUE;
         noProgress = 0;
@@ -94,7 +110,7 @@ public final class NpcBrain {
             if (!"sleep".equals(entry.activity)) npc.wakeUp();
             else return;
         }
-        BlockPos goal = subTarget != null ? subTarget : target;
+        BlockPos goal = subTarget != null ? subTarget : !waypoints.isEmpty() && phase == Phase.TRAVEL ? waypoints.peek() : target;
         double dist = Math.sqrt(npc.getBlockPos().getSquaredDistance(goal));
         if (phase == Phase.TRAVEL) travel(goal, dist);
         else perform(dist);
@@ -102,6 +118,14 @@ public final class NpcBrain {
 
     private void travel(BlockPos goal, double dist) {
         double arrive = "sleep".equals(entry.activity) ? 1.6 : 1.8;
+        if (!waypoints.isEmpty() && goal.equals(waypoints.peek()) && dist <= 2.2) {
+            waypoints.poll();               // reached the entrance/landing: continue to the real target
+            npc.getNavigation().stop();
+            bestDist = Double.MAX_VALUE;
+            noProgress = 0;
+            pathCooldown = 0;
+            return;
+        }
         if (dist <= arrive) {
             npc.getNavigation().stop();
             if (subTarget != null) { subTarget = null; timer = 0; phase = Phase.ARRIVED; onSubArrive(); return; }

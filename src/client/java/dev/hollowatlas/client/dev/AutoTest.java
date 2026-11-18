@@ -172,7 +172,18 @@ public final class AutoTest {
         NpcEntity n = npc(id);
         if (n == null) return;
         Vec3d at = n.getPos();
-        srv(s -> { sp(s).teleport(s.getOverworld(), at.x + 1.2, at.y, at.z + 0.4, 0, 0); return null; });
+        double[][] offs = {{1.2, 0}, {-1.2, 0}, {0, 1.2}, {0, -1.2}, {1.2, 1.2}, {-1.2, -1.2}, {1.2, -1.2}, {-1.2, 1.2}};
+        Vec3d spot = at;
+        for (double[] o : offs) {
+            BlockPos feet = BlockPos.ofFloored(at.x + o[0], at.y, at.z + o[1]);
+            if (mc().world.getBlockState(feet).getCollisionShape(mc().world, feet).isEmpty()
+                    && mc().world.getBlockState(feet.up()).getCollisionShape(mc().world, feet.up()).isEmpty()) {
+                spot = new Vec3d(at.x + o[0], at.y, at.z + o[1]);
+                break;
+            }
+        }
+        Vec3d go = spot;
+        srv(s -> { sp(s).teleport(s.getOverworld(), go.x, go.y, go.z, 0, 0); return null; });
     }
 
     private static void interactNpc(String id) {

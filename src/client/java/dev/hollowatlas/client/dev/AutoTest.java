@@ -236,6 +236,7 @@ public final class AutoTest {
         if (!(mc().currentScreen instanceof DialogueScreen ds)) { check("dialogue open for '" + part + "'", false); return; }
         int i = ds.indexOf(part);
         if (i < 0) { check("choice '" + part + "' offered (have " + ds.choiceTexts() + ")", false); return; }
+        ds.choose(i);   // if the text is still typing, this first press skips it (the path that once crashed)
         ds.choose(i);
     }
 
@@ -262,7 +263,7 @@ public final class AutoTest {
 
     private static void phase1() {
         step("setup", 0, () -> {
-            ClientConfig.get().dialogueSpeed = 0;
+            ClientConfig.get().dialogueSpeed = 2;   // normal typewriter speed, like a real player
             check("opening quest started on first join", questStage("m01").equals("arrive"));
             check("starting coins are 12", profile().coins == 12);
             check("starting weapon in pack", count(item("hollowatlas:traveler_shortsword")) == 1);
@@ -302,6 +303,10 @@ public final class AutoTest {
             check("dialogue screen opens on talking to the innkeeper", mc().currentScreen instanceof DialogueScreen);
             shot("02_dialogue");
         });
+        step("skip typing", 3, () -> {
+            if (mc().currentScreen instanceof DialogueScreen ds) ds.keyPressed(org.lwjgl.glfw.GLFW.GLFW_KEY_SPACE, 0, 0);
+        });
+        step("render after skip", 10, () -> check("dialogue survives skipping the typing text", mc().currentScreen instanceof DialogueScreen));
         step("ask room", 5, () -> choose("I need a room"));
         step("background", 15, () -> choose("From the coast"));
         step("work", 15, () -> choose("Is there work"));

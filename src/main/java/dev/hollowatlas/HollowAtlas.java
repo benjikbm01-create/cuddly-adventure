@@ -108,7 +108,11 @@ public final class HollowAtlas implements ModInitializer {
     private void onServerStarted(MinecraftServer server) {
         LocationIndex.model();
         WorldRules.apply(server);
-        if (GameState.get(server).flag(RegionBuilder.BUILT_FLAG)) WorldChanges.apply(server);
+        if (GameState.get(server).flag(RegionBuilder.BUILT_FLAG)) {
+            WorldChanges.apply(server);
+            // one-time repair for worlds generated before panes/fences were connected
+            if (!GameState.get(server).flag(RegionBuilder.CONNECT_FIX_FLAG)) RegionBuilder.startConnectFix(server.getOverworld(), LocationIndex.model());
+        }
         GameState state = GameState.get(server);
         boolean stopAfter = Boolean.getBoolean("hollowatlas.autobuild.stop");
         Runnable afterBuild = () -> {

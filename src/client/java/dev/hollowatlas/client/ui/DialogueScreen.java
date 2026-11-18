@@ -47,6 +47,7 @@ public class DialogueScreen extends Screen {
         focus = 0;
         while (focus < choices.size() - 1 && !choices.get(focus).enabled) focus++;
         shownAt = System.currentTimeMillis();
+        skipped = false;
         sent = false;
     }
 
@@ -56,11 +57,14 @@ public class DialogueScreen extends Screen {
 
     private String fullText() { return localized(ClientState.s(node, "key", ""), ClientState.s(node, "text", "")); }
 
+    private boolean skipped = false;
+
     private int visibleChars() {
         int speed = ClientConfig.get().dialogueSpeed;
-        if (speed == 0) return Integer.MAX_VALUE;
-        int cps = speed == 1 ? 90 : speed == 2 ? 45 : 25;
-        return (int) ((System.currentTimeMillis() - shownAt) * cps / 1000);
+        if (speed == 0 || skipped) return Integer.MAX_VALUE;
+        long cps = speed == 1 ? 90 : speed == 2 ? 45 : 25;
+        long elapsed = Math.max(0L, System.currentTimeMillis() - shownAt);
+        return (int) Math.min(Integer.MAX_VALUE, elapsed * cps / 1000L);   // long math: never overflows to negative
     }
 
     private boolean textDone() { return visibleChars() >= fullText().length(); }
@@ -82,7 +86,7 @@ public class DialogueScreen extends Screen {
         int px = panelX(), pw = panelW();
         int textW = (int) ((pw - 100) / scale);
         String full = fullText();
-        String shown = full.substring(0, Math.min(full.length(), visibleChars()));
+        String shown = full.substring(0, Math.max(0, Math.min(full.length(), visibleChars())));
         int textH = (int) (Ui.wrappedHeight(textRenderer, full, textW) * scale);
         int choiceH = choices.size() * 16 + 6;
         int ph = Math.max(90, textH + choiceH + 38);
@@ -149,7 +153,7 @@ public class DialogueScreen extends Screen {
 
     public void choose(int index) {
         if (sent || index < 0 || index >= choices.size() || !choices.get(index).enabled) return;
-        if (!textDone()) { shownAt = 0; return; }
+        if (!textDone()) { skipped = true; return; }
         sent = true;   // guard against double activation until the server answers
         JsonObject o = new JsonObject();
         o.addProperty("seq", ClientState.i(node, "seq", -1));
@@ -159,7 +163,7 @@ public class DialogueScreen extends Screen {
 
     @Override
     public boolean mouseClicked(double mx, double my, int button) {
-        if (!textDone()) { shownAt = 0; return true; }
+        if (!textDone()) { skipped = true; return true; }
         float scale = ClientConfig.get().dialogueTextScale;
         int px = panelX(), pw = panelW();
         int textW = (int) ((pw - 100) / scale);
@@ -176,7 +180,7 @@ public class DialogueScreen extends Screen {
     @Override
     public boolean keyPressed(int key, int scan, int mods) {
         if (key == GLFW.GLFW_KEY_ESCAPE) { close(); return true; }
-        if (key == GLFW.GLFW_KEY_SPACE && !textDone()) { shownAt = 0; return true; }
+        if (key == GLFW.GLFW_KEY_SPACE && !textDone()) { skipped = true; return true; }
         if (key >= GLFW.GLFW_KEY_1 && key <= GLFW.GLFW_KEY_9) { choose(key - GLFW.GLFW_KEY_1); return true; }
         if (key == GLFW.GLFW_KEY_DOWN) { do { focus = (focus + 1) % choices.size(); } while (!choices.get(focus).enabled && choices.size() > 1); return true; }
         if (key == GLFW.GLFW_KEY_UP) { do { focus = (focus - 1 + choices.size()) % choices.size(); } while (!choices.get(focus).enabled && choices.size() > 1); return true; }

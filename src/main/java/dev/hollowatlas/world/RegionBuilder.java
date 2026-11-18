@@ -54,14 +54,66 @@ public final class RegionBuilder {
     private long started;
     private final Runnable onComplete;
 
+    public static final String CONNECT_FIX_FLAG = "hollowatlas:fix_connections_v1";
+
     private RegionBuilder(ServerWorld world, RegionModel model, Runnable onComplete) {
+        this(world, model, onComplete, false);
+    }
+
+    private RegionBuilder(ServerWorld world, RegionModel model, Runnable onComplete, boolean connectOnly) {
         this.world = world;
         this.model = model;
         this.ox = model.layout.origin[0];
         this.oz = model.layout.origin[1];
         this.onComplete = onComplete;
-        plan();
+        if (connectOnly) planConnectPass(); else plan();
         totalTasks = tasks.size();
+    }
+
+    /** Repairs already-generated worlds: connects panes/fences/walls/stairs that were placed without neighbour updates. */
+    public static boolean startConnectFix(ServerWorld world, RegionModel model) {
+        if (active != null) return false;
+        active = new RegionBuilder(world, model, () -> {
+            dev.hollowatlas.state.GameState.get(world.getServer()).setFlag(CONNECT_FIX_FLAG, true);
+            HollowAtlas.LOGGER.info("Connected panes, fences, walls and stairs in the existing world.");
+        }, true);
+        active.started = System.currentTimeMillis();
+        HollowAtlas.LOGGER.info("World repair started: connecting panes/fences/walls ({} steps)", active.totalTasks);
+        return true;
+    }
+
+    private void planConnectPass() {
+        int h = model.half;
+        int c0x = Math.floorDiv(ox - h, 16), c1x = Math.floorDiv(ox + h, 16);
+        int c0z = Math.floorDiv(oz - h, 16), c1z = Math.floorDiv(oz + h, 16);
+        for (int cz = c0z; cz <= c1z; cz++) for (int cx = c0x; cx <= c1x; cx++) {
+            final int fcx = cx, fcz = cz;
+            tasks.add(() -> connectChunk(fcx, fcz));
+        }
+    }
+
+    private static boolean connectable(BlockState st) {
+        net.minecraft.block.Block b = st.getBlock();
+        return b instanceof net.minecraft.block.PaneBlock || b instanceof net.minecraft.block.FenceBlock
+                || b instanceof net.minecraft.block.WallBlock || b instanceof net.minecraft.block.StairsBlock
+                || b instanceof net.minecraft.block.FenceGateBlock;
+    }
+
+    /** Recompute shape/connection properties for connectable blocks in one chunk column of the region. */
+    private void connectChunk(int cx, int cz) {
+        BlockPos.Mutable m = new BlockPos.Mutable();
+        for (int wz = cz * 16; wz < cz * 16 + 16; wz++) for (int wx = cx * 16; wx < cx * 16 + 16; wx++) {
+            int lx = wx - ox, lz = wz - oz;
+            if (!model.inside(lx, lz)) continue;
+            int base = model.height[model.idx(lx, lz)];
+            for (int y = Math.max(world.getBottomY(), base - 6); y <= base + 26; y++) {
+                m.set(wx, y, wz);
+                BlockState st = world.getBlockState(m);
+                if (!connectable(st)) continue;
+                BlockState fixed = Block.postProcessState(st, world, m);
+                if (fixed != st) world.setBlockState(m, fixed, FLAGS);
+            }
+        }
     }
 
     public static boolean isRunning() { return active != null; }
@@ -127,6 +179,7 @@ public final class RegionBuilder {
             final int fcz = cz;
             tasks.add(() -> flora(fcz * 16, fcz * 16 + 15));
         }
+        planConnectPass();
         tasks.add(this::animals);
         tasks.add(this::finish);
     }
@@ -657,6 +710,7 @@ public final class RegionBuilder {
         world.setSpawnPos(wpos(arrival[0], arrival[1], arrival[2]), -90f);
         WorldRules.apply(server);
         GameState.get(server).setFlag(BUILT_FLAG, true);
+        GameState.get(server).setFlag(CONNECT_FIX_FLAG, true);
         server.saveAll(false, true, true);
     }
 }

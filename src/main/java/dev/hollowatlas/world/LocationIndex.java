@@ -39,7 +39,7 @@ public final class LocationIndex {
         Map<String, int[]> all = new LinkedHashMap<>();
         for (String id : REGIONS) {
             if (LocationIndex.class.getResource("/data/hollowatlas/region/" + id + ".json") == null) {
-                HollowAtlas.LOGGER.warn("Region layout {} not present; skipping", id);
+                HollowAtlas.LOGGER.warn("Region layout #{} not present; skipping", REGIONS.indexOf(id) + 1);
                 continue;
             }
             RegionModel m = new RegionModel(RegionLayout.loadBuiltin(id));
@@ -49,7 +49,7 @@ public final class LocationIndex {
                 own.put(e.getKey(), m);
                 all.put(e.getKey(), e.getValue());
             }
-            for (String w : m.warnings) HollowAtlas.LOGGER.warn("Region data ({}): {}", id, w);
+            for (String w : m.warnings) HollowAtlas.LOGGER.warn("Region data ({}): {}", logLabel(m), w);
         }
         models = Collections.unmodifiableList(ms);
         owner = own;
@@ -59,6 +59,11 @@ public final class LocationIndex {
 
     /** The first (starting) region. */
     public static RegionModel model() { ensure(); return models.get(0); }
+
+    /** Spoiler-safe name for logs: test regions by id, story regions only by number. */
+    public static String logLabel(RegionModel m) {
+        return "devtest".equals(m.layout.mode) ? m.layout.id : "story region #" + (REGIONS.indexOf(m.layout.id) + 1);
+    }
 
     public static List<RegionModel> models() { ensure(); return models; }
 

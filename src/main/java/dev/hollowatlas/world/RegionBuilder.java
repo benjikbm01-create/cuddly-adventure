@@ -127,7 +127,7 @@ public final class RegionBuilder {
         if (active != null) return false;
         active = new RegionBuilder(world, model, onComplete);
         active.started = System.currentTimeMillis();
-        HollowAtlas.LOGGER.info("Region build started: {} ({} steps)", model.layout.id, active.totalTasks);
+        HollowAtlas.LOGGER.info("Region build started: {} ({} steps)", LocationIndex.logLabel(model), active.totalTasks);
         return true;
     }
 
@@ -734,7 +734,7 @@ public final class RegionBuilder {
         for (RegionModel m : LocationIndex.modelsFor(server)) {
             if (!GameState.get(server).flag(builtFlag(m))) {
                 if (!ATTEMPTED.add(m.layout.id)) {
-                    HollowAtlas.LOGGER.error("Region {} failed to build; not retrying this session.", m.layout.id);
+                    HollowAtlas.LOGGER.error("Region {} failed to build; not retrying this session.", LocationIndex.logLabel(m));
                     continue;
                 }
                 start(server.getOverworld(), m, () -> buildMissing(server, after));

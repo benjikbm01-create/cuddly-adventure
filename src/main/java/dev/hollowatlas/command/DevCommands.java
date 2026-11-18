@@ -45,7 +45,15 @@ public final class DevCommands {
                         PlayerProfile prof = GameState.get(p.getServer()).profile(p.getUuid());
                         StringBuilder sb = new StringBuilder();
                         for (Map.Entry<String, PlayerProfile.QuestProgress> e : prof.quests.entrySet()) {
-                            sb.append(e.getKey()).append(" ").append(e.getValue().status).append(" stage=").append(e.getValue().stage)
+                            // Spoiler-safe: story quests show only their opaque id and stage number, never stage names.
+                            QuestDef def = QuestEngine.QUESTS.get(e.getKey());
+                            String stage = e.getValue().stage;
+                            if (def != null && !dev.hollowatlas.content.ContentManager.isDevtest(def)) {
+                                int idx = 0;
+                                for (int i = 0; i < def.stages.size(); i++) if (def.stages.get(i).id.equals(stage)) idx = i + 1;
+                                stage = "#" + idx + "/" + def.stages.size();
+                            }
+                            sb.append(e.getKey()).append(" ").append(e.getValue().status).append(" stage=").append(stage)
                                     .append(" counters=").append(e.getValue().counters.size()).append('\n');
                         }
                         ctx.getSource().sendFeedback(() -> Text.literal(sb.isEmpty() ? "no quests" : sb.toString()), false);

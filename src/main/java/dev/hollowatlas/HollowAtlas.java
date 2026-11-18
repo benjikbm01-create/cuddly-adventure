@@ -1,6 +1,10 @@
 package dev.hollowatlas;
 
 import dev.hollowatlas.command.AtlasCommands;
+import dev.hollowatlas.content.ContentManager;
+import dev.hollowatlas.npc.AmbientChatter;
+import dev.hollowatlas.npc.NpcDirector;
+import dev.hollowatlas.npc.NpcRegistry;
 import dev.hollowatlas.state.GameState;
 import dev.hollowatlas.state.PlayerProfile;
 import dev.hollowatlas.state.StateBackup;
@@ -39,14 +43,23 @@ public final class HollowAtlas implements ModInitializer {
     @Override
     public void onInitialize() {
         LOGGER.info("The Hollow Atlas initializing (common)");
+        ContentManager.init();
+        NpcRegistry.init();
+        NpcDirector.init();
+        AmbientChatter.init();
         ProtectionService.register();
         CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, env) -> AtlasCommands.register(dispatcher));
 
         ServerLifecycleEvents.SERVER_STARTING.register(StateBackup::backupIfMigrating);
         ServerLifecycleEvents.SERVER_STARTED.register(this::onServerStarted);
+        ServerLifecycleEvents.SERVER_STOPPING.register(server -> NpcDirector.onServerStopping());
         ServerTickEvents.END_SERVER_TICK.register(server -> {
             RegionBuilder.tick(server);
             BoundaryService.tick(server);
+            if (!RegionBuilder.isRunning() && GameState.get(server).flag(RegionBuilder.BUILT_FLAG)) {
+                NpcDirector.tick(server);
+                AmbientChatter.tick(server);
+            }
         });
         ServerPlayConnectionEvents.JOIN.register((handler, sender, server) -> onJoin(handler.getPlayer(), server));
         ServerPlayerEvents.AFTER_RESPAWN.register((oldPlayer, newPlayer, alive) -> ProtectionService.enforceMode(newPlayer));

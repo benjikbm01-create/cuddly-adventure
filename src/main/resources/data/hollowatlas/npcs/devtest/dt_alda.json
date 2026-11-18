@@ -1,0 +1,66 @@
+{
+  "id": "dt_alda",
+  "name": "Alda Quill",
+  "title": "Test Clerk",
+  "skin": "dt_alda",
+  "home": "dt_house_a",
+  "work": "dt_square_west",
+  "dialogue": "dt_alda",
+  "traits": [
+    "helpful"
+  ],
+  "fallback_anchor": "dt_square_west",
+  "schedule": [
+    {
+      "from": 0,
+      "to": 7,
+      "activity": "sleep",
+      "anchor": "dt_house_a.bed0"
+    },
+    {
+      "from": 7,
+      "to": 8,
+      "activity": "eat",
+      "anchor": "dt_hall.table_a"
+    },
+    {
+      "from": 8,
+      "to": 18,
+      "activity": "work",
+      "anchor": "dt_square_west",
+      "style": "read",
+      "outdoors": true
+    },
+    {
+      "from": 18,
+      "to": 21,
+      "activity": "social",
+      "anchor": "dt_house_a.door_out",
+      "radius": 2,
+      "outdoors": true
+    },
+    {
+      "from": 21,
+      "to": 24,
+      "activity": "sleep",
+      "anchor": "dt_house_a.bed0"
+    }
+  ],
+  "rain": [
+    {
+      "from": 8,
+      "to": 18,
+      "activity": "work",
+      "anchor": "dt_hall.common_room",
+      "style": "read"
+    }
+  ],
+  "barks": {
+    "greet": [
+      "Test quests are at my desk. Well, my spot by the square."
+    ],
+    "rain": [
+      "Rain test passed: I'm indoors."
+    ]
+  }
+}

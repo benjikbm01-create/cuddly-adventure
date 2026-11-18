@@ -59,6 +59,10 @@ public final class ClientState {
             case "craft" -> {
                 if (mc.currentScreen instanceof CraftScreen s) s.update(o); else mc.setScreen(new CraftScreen(o));
             }
+            case "dev_info" -> {
+                dev.hollowatlas.client.ui.DevMenuScreen.update(o);
+                if (mc.currentScreen instanceof dev.hollowatlas.client.ui.DevMenuScreen d) d.rebuild();
+            }
             case "hint" -> { hintKey = o.get("key").getAsString(); hintUntil = System.currentTimeMillis() + 9000; }
             default -> { }
         }

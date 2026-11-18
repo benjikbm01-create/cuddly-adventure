@@ -1,0 +1,81 @@
+{
+  "id": "dtq_branch",
+  "title": "Test: Branching Choice",
+  "category": "test",
+  "giver": "dt_alda",
+  "abandonable": true,
+  "summary": "Exercises a dialogue branch that changes the world or a resident's routine, persistently.",
+  "stages": [
+    {
+      "id": "choose",
+      "text": "Ask Alda for the branch test and pick an option.",
+      "objectives": [
+        {
+          "id": "c",
+          "type": "talk",
+          "target": "dt_branch_choice",
+          "text": "Choose A or B",
+          "marker": "dt_square_west"
+        }
+      ],
+      "next": [
+        {
+          "when": {
+            "choice": {
+              "quest": "dtq_branch",
+              "key": "path",
+              "value": "a"
+            }
+          },
+          "stage": "a_cross"
+        },
+        {
+          "when": {
+            "choice": {
+              "quest": "dtq_branch",
+              "key": "path",
+              "value": "b"
+            }
+          },
+          "stage": "b_visit"
+        }
+      ]
+    },
+    {
+      "id": "a_cross",
+      "text": "Option A: cross the new footbridge to the far bank.",
+      "objectives": [
+        {
+          "id": "x",
+          "type": "reach",
+          "target": "dt_gap_south",
+          "radius": 4,
+          "text": "Cross the brook",
+          "marker": "dt_gap_south"
+        }
+      ],
+      "next": "complete"
+    },
+    {
+      "id": "b_visit",
+      "text": "Option B: find Juno at the pond (daytime) and talk to her.",
+      "objectives": [
+        {
+          "id": "v",
+          "type": "talk",
+          "target": "dt_branch_juno",
+          "text": "Talk to Juno at the pond",
+          "marker": "dt_pond"
+        }
+      ],
+      "next": "complete"
+    }
+  ],
+  "rewards": [
+    {
+      "amount": 10,
+      "type": "coins"
+    }
+  ],
+  "completion_text": "Branch test complete. Reload the world: the result should still be there."
+}

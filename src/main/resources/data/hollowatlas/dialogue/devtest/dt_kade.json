@@ -1,0 +1,73 @@
+{
+  "id": "dt_kade",
+  "npc": "dt_kade",
+  "entries": [
+    {
+      "node": "main"
+    }
+  ],
+  "nodes": {
+    "asleep": {
+      "text": "(Asleep. This is the sleeping-resident test response.)",
+      "speaker": "narrator"
+    },
+    "main": {
+      "text": "Drill time.",
+      "choices": [
+        {
+          "text": "Teach me Windstep.",
+          "go": "learn",
+          "when": {
+            "not": {
+              "ability": "windstep"
+            }
+          }
+        },
+        {
+          "text": "Explain combat controls.",
+          "go": "controls",
+          "tag": "ask"
+        },
+        {
+          "text": "Goodbye.",
+          "go": "end",
+          "tag": "leave"
+        }
+      ],
+      "variants": [
+        {
+          "when": {
+            "weather": "rain"
+          },
+          "text": "Rain variant of my greeting (weather condition test)."
+        }
+      ]
+    },
+    "learn": {
+      "text": "Weight forward. Push. Done. That called the real unlock code.",
+      "choices": [
+        {
+          "text": "Goodbye.",
+          "go": "end",
+          "tag": "leave"
+        }
+      ],
+      "actions": [
+        {
+          "ability": "windstep",
+          "type": "unlock_ability"
+        }
+      ]
+    },
+    "controls": {
+      "text": "Left click light. R heavy. Left Alt dodge. Hold V to guard; tap it as a hit lands to parry. Use the arena for practice.",
+      "choices": [
+        {
+          "text": "Goodbye.",
+          "go": "end",
+          "tag": "leave"
+        }
+      ]
+    }
+  }
+}

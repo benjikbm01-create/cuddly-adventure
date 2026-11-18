@@ -1,0 +1,48 @@
+{
+  "id": "dt_shop",
+  "title": "Test Store",
+  "npc": "dt_bertram",
+  "anchor": "dt_store.counter_front",
+  "restock_days": 1,
+  "sells": [
+    {
+      "item": "minecraft:bread",
+      "price": 2,
+      "stock": 5
+    },
+    {
+      "item": "minecraft:mutton",
+      "price": 2,
+      "stock": 5
+    },
+    {
+      "item": "hollowatlas:honey_bun",
+      "price": 3,
+      "stock": 3
+    },
+    {
+      "item": "minecraft:shield",
+      "price": 20,
+      "stock": 1
+    },
+    {
+      "item": "minecraft:leather_chestplate",
+      "price": 12,
+      "stock": 1
+    },
+    {
+      "item": "minecraft:apple",
+      "price": 1,
+      "stock": 1
+    }
+  ],
+  "buys": {
+    "hollowatlas:yarrow": 2,
+    "hollowatlas:feverfew": 2,
+    "minecraft:sweet_berries": 1,
+    "minecraft:carrot": 1,
+    "minecraft:potato": 1,
+    "hollowatlas:old_coin": 6
+  },
+  "buy_back_rate": 0.5
+}

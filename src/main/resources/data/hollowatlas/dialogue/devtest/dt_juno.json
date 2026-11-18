@@ -1,0 +1,78 @@
+{
+  "id": "dt_juno",
+  "npc": "dt_juno",
+  "entries": [
+    {
+      "when": {
+        "quest_stage": {
+          "quest": "dtq_branch",
+          "stage": "b_visit"
+        }
+      },
+      "node": "moved"
+    },
+    {
+      "when": {
+        "quest_active": "dtq_case"
+      },
+      "node": "testimony"
+    },
+    {
+      "node": "main"
+    }
+  ],
+  "nodes": {
+    "asleep": {
+      "text": "(Asleep. This is the sleeping-resident test response.)",
+      "speaker": "narrator"
+    },
+    "main": {
+      "text": "Just tending test crops.",
+      "choices": [
+        {
+          "text": "Goodbye.",
+          "go": "end",
+          "tag": "leave"
+        }
+      ]
+    },
+    "testimony": {
+      "text": "Testimony: I saw someone carry a bucket toward the cart. Could've been anyone.",
+      "choices": [
+        {
+          "text": "Goodbye.",
+          "go": "end",
+          "tag": "leave"
+        }
+      ],
+      "actions": [
+        {
+          "id": "dt_ev_testimony",
+          "type": "evidence"
+        },
+        {
+          "event": "talk",
+          "target": "dt_case_testimony",
+          "type": "quest_event"
+        }
+      ]
+    },
+    "moved": {
+      "text": "My routine moved to the pond. Variant test passed.",
+      "choices": [
+        {
+          "text": "Goodbye.",
+          "go": "end",
+          "tag": "leave"
+        }
+      ],
+      "actions": [
+        {
+          "event": "talk",
+          "target": "dt_branch_juno",
+          "type": "quest_event"
+        }
+      ]
+    }
+  }
+}

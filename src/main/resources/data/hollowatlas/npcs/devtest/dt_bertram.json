@@ -1,0 +1,66 @@
+{
+  "id": "dt_bertram",
+  "name": "Bertram Ode",
+  "title": "Test Merchant",
+  "skin": "dt_bertram",
+  "home": "dt_house_b",
+  "work": "dt_store",
+  "dialogue": "dt_bertram",
+  "traits": [
+    "cheerful"
+  ],
+  "fallback_anchor": "dt_store.counter_front",
+  "schedule": [
+    {
+      "from": 0,
+      "to": 7,
+      "activity": "sleep",
+      "anchor": "dt_house_b.bed0"
+    },
+    {
+      "from": 7,
+      "to": 8,
+      "activity": "eat",
+      "anchor": "dt_house_b.table"
+    },
+    {
+      "from": 8,
+      "to": 18,
+      "activity": "work",
+      "anchor": "dt_store.work",
+      "style": "serve",
+      "radius": 2
+    },
+    {
+      "from": 18,
+      "to": 21,
+      "activity": "social",
+      "anchor": "dt_square_east",
+      "radius": 3,
+      "outdoors": true
+    },
+    {
+      "from": 21,
+      "to": 24,
+      "activity": "sleep",
+      "anchor": "dt_house_b.bed0"
+    }
+  ],
+  "rain": [
+    {
+      "from": 18,
+      "to": 21,
+      "activity": "social",
+      "anchor": "dt_hall.common_room",
+      "radius": 2
+    }
+  ],
+  "barks": {
+    "greet": [
+      "Everything's for sale. It's a test shop."
+    ],
+    "night": [
+      "Shop's closed. Schedules work!"
+    ]
+  }
+}

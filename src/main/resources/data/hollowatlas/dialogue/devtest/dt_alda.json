@@ -1,0 +1,258 @@
+{
+  "id": "dt_alda",
+  "npc": "dt_alda",
+  "entries": [
+    {
+      "when": {
+        "quest_stage": {
+          "quest": "dtq_errand",
+          "stage": "return"
+        }
+      },
+      "node": "errand_done"
+    },
+    {
+      "when": {
+        "quest_stage": {
+          "quest": "dtq_branch",
+          "stage": "choose"
+        }
+      },
+      "node": "branch"
+    },
+    {
+      "node": "menu"
+    }
+  ],
+  "nodes": {
+    "asleep": {
+      "text": "(Asleep. This is the sleeping-resident test response.)",
+      "speaker": "narrator"
+    },
+    "menu": {
+      "text": "Hello, tester. Pick a test quest, or ask me about this place.",
+      "choices": [
+        {
+          "text": "Start: Errand Chain",
+          "go": "end",
+          "tag": "quest",
+          "when": {
+            "quest_not_started": "dtq_errand"
+          },
+          "actions": [
+            {
+              "quest": "dtq_errand",
+              "type": "start_quest"
+            }
+          ]
+        },
+        {
+          "text": "Start: Branching Choice",
+          "go": "end",
+          "tag": "quest",
+          "when": {
+            "quest_not_started": "dtq_branch"
+          },
+          "actions": [
+            {
+              "quest": "dtq_branch",
+              "type": "start_quest"
+            }
+          ]
+        },
+        {
+          "text": "Start: Case Board",
+          "go": "end",
+          "tag": "quest",
+          "when": {
+            "quest_not_started": "dtq_case"
+          },
+          "actions": [
+            {
+              "quest": "dtq_case",
+              "type": "start_quest"
+            }
+          ]
+        },
+        {
+          "text": "Start: Arena Trial",
+          "go": "end",
+          "tag": "quest",
+          "when": {
+            "quest_not_started": "dtq_arena"
+          },
+          "actions": [
+            {
+              "quest": "dtq_arena",
+              "type": "start_quest"
+            }
+          ]
+        },
+        {
+          "text": "Start: Cooking",
+          "go": "end",
+          "tag": "quest",
+          "when": {
+            "quest_not_started": "dtq_kitchen"
+          },
+          "actions": [
+            {
+              "quest": "dtq_kitchen",
+              "type": "start_quest"
+            }
+          ]
+        },
+        {
+          "text": "Start: Lever Puzzle",
+          "go": "end",
+          "tag": "quest",
+          "when": {
+            "quest_not_started": "dtq_puzzle"
+          },
+          "actions": [
+            {
+              "quest": "dtq_puzzle",
+              "type": "start_quest"
+            }
+          ]
+        },
+        {
+          "text": "What is this place?",
+          "go": "place",
+          "tag": "ask"
+        },
+        {
+          "text": "Test a once-only choice.",
+          "go": "once",
+          "tag": "ask",
+          "once": true
+        },
+        {
+          "text": "Test a locked choice (needs 1000 coins).",
+          "go": "end",
+          "enabled_when": {
+            "coins_min": 1000
+          },
+          "disabled_hint": "Locked choice test: needs 1000 coins."
+        },
+        {
+          "text": "Goodbye.",
+          "go": "end",
+          "tag": "leave"
+        }
+      ]
+    },
+    "place": {
+      "text": "The Proving Grounds: a test world. Nothing here belongs to any story. Break things. Report them.",
+      "choices": [
+        {
+          "text": "Back.",
+          "go": "menu"
+        },
+        {
+          "text": "Goodbye.",
+          "go": "end",
+          "tag": "leave"
+        }
+      ]
+    },
+    "once": {
+      "text": "This choice disappears after you pick it once. If you see it again, that's a bug.",
+      "choices": [
+        {
+          "text": "Back.",
+          "go": "menu"
+        },
+        {
+          "text": "Goodbye.",
+          "go": "end",
+          "tag": "leave"
+        }
+      ]
+    },
+    "errand_done": {
+      "text": "You did every step of the errand chain. Reward incoming.",
+      "choices": [
+        {
+          "text": "Thanks.",
+          "go": "end",
+          "actions": [
+            {
+              "event": "talk",
+              "target": "dt_errand_done",
+              "type": "quest_event"
+            }
+          ]
+        }
+      ]
+    },
+    "branch": {
+      "text": "Branch test. Choose one; the result should persist after saving and reloading.",
+      "choices": [
+        {
+          "text": "Option A: build the footbridge over the brook.",
+          "go": "branch_a",
+          "actions": [
+            {
+              "quest": "dtq_branch",
+              "key": "path",
+              "value": "a",
+              "type": "choice"
+            },
+            {
+              "flag": "hollowatlas:dt_gap_bridged",
+              "type": "world_flag"
+            },
+            {
+              "event": "talk",
+              "target": "dt_branch_choice",
+              "type": "quest_event"
+            }
+          ]
+        },
+        {
+          "text": "Option B: move Juno's work to the pond.",
+          "go": "branch_b",
+          "actions": [
+            {
+              "quest": "dtq_branch",
+              "key": "path",
+              "value": "b",
+              "type": "choice"
+            },
+            {
+              "npc": "dt_juno",
+              "variant": "moved",
+              "type": "set_variant"
+            },
+            {
+              "event": "talk",
+              "target": "dt_branch_choice",
+              "type": "quest_event"
+            }
+          ]
+        }
+      ]
+    },
+    "branch_a": {
+      "text": "The footbridge should now exist north of the square. Walk across it.",
+      "choices": [
+        {
+          "text": "Goodbye.",
+          "go": "end",
+          "tag": "leave"
+        }
+      ]
+    },
+    "branch_b": {
+      "text": "Juno's schedule changed. Find her at the pond during the day.",
+      "choices": [
+        {
+          "text": "Goodbye.",
+          "go": "end",
+          "tag": "leave"
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "id": "dt_square_talk",
+  "speakers": [
+    "dt_bertram",
+    "dt_kade"
+  ],
+  "from": 18,
+  "to": 21,
+  "radius": 10,
+  "cooldown_minutes": 5,
+  "lines": [
+    [
+      "dt_kade",
+      "Sales today?"
+    ],
+    [
+      "dt_bertram",
+      "All test sales."
+    ],
+    [
+      "dt_kade",
+      "Good."
+    ]
+  ]
+}

@@ -35,6 +35,12 @@ CHARACTERS = {
     # enemies
     "brigand": dict(skin="olive", hair=(40, 30, 24),  style="hood",  shirt=(74, 60, 48),   pants=(54, 46, 40),  hood=(56, 58, 52), mask=(40, 40, 40)),
     "slinger": dict(skin="tan",   hair=(70, 50, 30),  style="hood",  shirt=(92, 84, 60),   pants=(60, 54, 46),  hood=(110, 70, 40), mask=(80, 40, 30), satchel=True),
+    # developer test world residents (noncanonical)
+    "dt_alda":    dict(skin="fair",  hair=(40, 40, 40),   style="bun",   shirt=(230, 200, 60),  pants=(60, 60, 60)),
+    "dt_bertram": dict(skin="tan",   hair=(90, 60, 30),   style="short", shirt=(60, 160, 220),  pants=(60, 60, 60), apron=(240, 240, 240)),
+    "dt_kade":    dict(skin="brown", hair=(20, 20, 20),   style="short", shirt=(200, 60, 60),   pants=(40, 40, 40)),
+    "dt_juno":    dict(skin="olive", hair=(180, 120, 60), style="long",  shirt=(90, 200, 90),   pants=(60, 60, 60)),
+    "dt_remy":    dict(skin="light", hair=(120, 120, 120),style="bald",  shirt=(200, 120, 200), pants=(60, 60, 60), beard=(120, 120, 120)),
     # neutral sandbox test resident
     "tester":  dict(skin="light", hair=(80, 80, 80),  style="short", shirt=(200, 200, 60), pants=(60, 60, 60)),
 }

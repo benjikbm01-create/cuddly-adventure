@@ -33,6 +33,16 @@ loom {
             vmArg "-Dhollowatlas.autobuild.stop=true"
             vmArg "-Xmx6G"
         }
+        // Generates the separate DEVELOPER TESTING world (no story content) in its own run folder.
+        buildDevWorld {
+            server()
+            name "Build Dev Test World"
+            runDir "run-devworld"
+            vmArg "-Dhollowatlas.autobuild=true"
+            vmArg "-Dhollowatlas.autobuild.stop=true"
+            vmArg "-Dhollowatlas.mode=devtest"
+            vmArg "-Xmx4G"
+        }
         // Renders <world>/hollowatlas/region_map.png from the built world, then stops.
         renderMap {
             server()

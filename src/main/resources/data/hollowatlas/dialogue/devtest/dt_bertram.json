@@ -1,0 +1,101 @@
+{
+  "id": "dt_bertram",
+  "npc": "dt_bertram",
+  "entries": [
+    {
+      "node": "main"
+    }
+  ],
+  "nodes": {
+    "asleep": {
+      "text": "(Asleep. This is the sleeping-resident test response.)",
+      "speaker": "narrator"
+    },
+    "main": {
+      "text": "Test shop open.",
+      "choices": [
+        {
+          "text": "Trade.",
+          "go": "end",
+          "tag": "trade",
+          "actions": [
+            {
+              "shop": "dt_shop",
+              "type": "open_shop"
+            }
+          ]
+        },
+        {
+          "text": "Heard any rumors?",
+          "go": "rumor",
+          "tag": "ask",
+          "when": {
+            "quest_active": "dtq_case"
+          }
+        },
+        {
+          "text": "Raise our relationship (+5).",
+          "go": "main",
+          "actions": [
+            {
+              "delta": 5,
+              "type": "relationship"
+            }
+          ]
+        },
+        {
+          "text": "Relationship-gated line.",
+          "go": "friend",
+          "enabled_when": {
+            "relationship": {
+              "min": 10
+            }
+          },
+          "disabled_hint": "Needs relationship 10 with Bertram."
+        },
+        {
+          "text": "Goodbye.",
+          "go": "end",
+          "tag": "leave"
+        }
+      ],
+      "variants": [
+        {
+          "when": {
+            "time": {
+              "from": 18,
+              "to": 24
+            }
+          },
+          "text": "Evening variant of my greeting (time condition test)."
+        }
+      ]
+    },
+    "rumor": {
+      "text": "A rumor: the bucket was never real. Unconfirmed, of course.",
+      "choices": [
+        {
+          "text": "Goodbye.",
+          "go": "end",
+          "tag": "leave"
+        }
+      ],
+      "actions": [
+        {
+          "id": "dt_ev_rumor",
+          "type": "evidence"
+        }
+      ]
+    },
+    "friend": {
+      "text": "Relationship check passed.",
+      "choices": [
+        {
+          "text": "Goodbye.",
+          "go": "end",
+          "tag": "leave"
+        }
+      ]
+    }
+  }
+}

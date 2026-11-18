@@ -13,19 +13,35 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class RegionModelTest {
 
+    /** Every region file shipped with the mod (story and developer test). */
+    static java.util.List<RegionModel> all() {
+        java.util.List<RegionModel> out = new java.util.ArrayList<>();
+        for (String id : java.util.List.of("westreach_brindlecross", "devtest_grounds", "boreal_sableforge")) {
+            if (RegionLayout.class.getResource("/data/hollowatlas/region/" + id + ".json") != null)
+                out.add(new RegionModel(RegionLayout.loadBuiltin(id)));
+        }
+        return out;
+    }
+
     static RegionModel model() {
         return new RegionModel(RegionLayout.loadBuiltin("westreach_brindlecross"));
     }
 
     @Test
     void layoutHasNoWarnings() {
-        RegionModel m = model();
-        assertTrue(m.warnings.isEmpty(), "warnings: " + m.warnings);
+        for (RegionModel m : all()) layoutHasNoWarnings(m);
+    }
+
+    private void layoutHasNoWarnings(RegionModel m) {
+        assertTrue(m.warnings.isEmpty(), m.layout.id + " warnings: " + m.warnings);
     }
 
     @Test
     void buildingsDoNotOverlapAndStayDry() {
-        RegionModel m = model();
+        for (RegionModel m : all()) buildingsDoNotOverlapAndStayDry(m);
+    }
+
+    private void buildingsDoNotOverlapAndStayDry(RegionModel m) {
         List<String> problems = new ArrayList<>();
         int[] owner = new int[m.size * m.size];
         for (int bi = 0; bi < m.buildings.size(); bi++) {
@@ -41,12 +57,15 @@ class RegionModelTest {
                 if (m.water[i] != Integer.MIN_VALUE) problems.add(pb.def.id + " footprint in water at " + l[0] + "," + l[1]);
             }
         }
-        assertTrue(problems.isEmpty(), String.join("\n", problems.stream().distinct().toList()));
+        assertTrue(problems.isEmpty(), m.layout.id + ": " + String.join("\n", problems.stream().distinct().toList()));
     }
 
     @Test
     void doorsOpenOntoFreeGround() {
-        RegionModel m = model();
+        for (RegionModel m : all()) doorsOpenOntoFreeGround(m);
+    }
+
+    private void doorsOpenOntoFreeGround(RegionModel m) {
         List<String> problems = new ArrayList<>();
         for (RegionModel.PlacedBuilding pb : m.buildings) {
             int[] door = m.anchor(pb.def.id + ".door_out");
@@ -68,7 +87,10 @@ class RegionModelTest {
 
     @Test
     void groundAnchorsAreOnLand() {
-        RegionModel m = model();
+        for (RegionModel m : all()) groundAnchorsAreOnLand(m);
+    }
+
+    private void groundAnchorsAreOnLand(RegionModel m) {
         List<String> problems = new ArrayList<>();
         for (Map.Entry<String, int[]> e : m.layout.anchors.entrySet()) {
             int[] a = e.getValue();

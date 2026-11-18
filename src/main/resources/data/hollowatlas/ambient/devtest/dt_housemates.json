@@ -1,0 +1,25 @@
+{
+  "id": "dt_housemates",
+  "speakers": [
+    "dt_alda",
+    "dt_juno"
+  ],
+  "from": 17,
+  "to": 21,
+  "radius": 6,
+  "cooldown_minutes": 5,
+  "lines": [
+    [
+      "dt_alda",
+      "Ambient talk test, line one."
+    ],
+    [
+      "dt_juno",
+      "Line two. Do you hear us?"
+    ],
+    [
+      "dt_alda",
+      "If so, it works."
+    ]
+  ]
+}

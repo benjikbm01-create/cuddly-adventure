@@ -1,0 +1,44 @@
+{
+  "id": "dtq_puzzle",
+  "title": "Test: Lever Puzzle",
+  "category": "test",
+  "giver": "dt_alda",
+  "abandonable": true,
+  "summary": "Exercises a lever puzzle, a world change and a one-time cache.",
+  "stages": [
+    {
+      "id": "solve",
+      "text": "Pull the levers in the order on the sign (west of the square).",
+      "objectives": [
+        {
+          "id": "p",
+          "type": "solve",
+          "target": "dt_levers",
+          "text": "Solve the lever puzzle",
+          "marker": "dt_levers.stand"
+        }
+      ],
+      "next": "loot"
+    },
+    {
+      "id": "loot",
+      "text": "Open the hatch cache.",
+      "objectives": [
+        {
+          "id": "l",
+          "type": "inspect",
+          "target": "dt_lever_cache",
+          "text": "Take the cache"
+        }
+      ],
+      "next": "complete"
+    }
+  ],
+  "rewards": [
+    {
+      "amount": 10,
+      "type": "coins"
+    }
+  ],
+  "completion_text": "Puzzle test complete."
+}

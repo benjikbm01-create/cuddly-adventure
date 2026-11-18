@@ -1,0 +1,42 @@
+{
+  "id": "dtq_arena",
+  "title": "Test: Arena Trial",
+  "category": "test",
+  "giver": "dt_alda",
+  "abandonable": true,
+  "summary": "Exercises kill objectives with one melee and one ranged enemy.",
+  "stages": [
+    {
+      "id": "fight",
+      "text": "Enter the test arena (south). One melee brigand and one slinger appear.",
+      "objectives": [
+        {
+          "id": "m",
+          "type": "kill",
+          "target": "hollowatlas:brigand",
+          "text": "Defeat the brigand",
+          "marker": "dt_arena.center"
+        },
+        {
+          "id": "s",
+          "type": "kill",
+          "target": "hollowatlas:slinger",
+          "text": "Defeat the slinger"
+        }
+      ],
+      "next": "complete"
+    }
+  ],
+  "rewards": [
+    {
+      "item": "hollowatlas:trail_tonic",
+      "count": 2,
+      "type": "give_item"
+    },
+    {
+      "amount": 10,
+      "type": "coins"
+    }
+  ],
+  "completion_text": "Arena test complete."
+}

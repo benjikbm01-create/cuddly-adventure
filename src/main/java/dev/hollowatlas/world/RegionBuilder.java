@@ -551,6 +551,7 @@ public final class RegionBuilder {
     }
 
     private void pasture() {
+        if (!"westreach_brindlecross".equals(model.layout.id)) return;   // authored for the starting region only
         int x0 = 70, x1 = 86, z0 = -124, z1 = -104;
         for (int z = z0; z <= z1; z++) for (int x = x0; x <= x1; x++) {
             boolean edge = x == x0 || x == x1 || z == z0 || z == z1;
@@ -717,7 +718,7 @@ public final class RegionBuilder {
         MinecraftServer server = world.getServer();
         BoundaryService.applyWorldBorder(server);
         if (LocationIndex.isFirstOfMode(model)) {
-            int[] arrival = model.anchor("arrival");
+            int[] arrival = model.anchor(model.layout.arrival_anchor);
             world.setSpawnPos(wpos(arrival[0], arrival[1], arrival[2]), -90f);
             GameState.get(server).setFlag(CONNECT_FIX_FLAG, true);
         }
@@ -727,9 +728,15 @@ public final class RegionBuilder {
     }
 
     /** Build every region that hasn't been generated yet, one after another, then run {@code after}. */
+    private static final java.util.Set<String> ATTEMPTED = new java.util.HashSet<>();
+
     public static void buildMissing(MinecraftServer server, Runnable after) {
         for (RegionModel m : LocationIndex.modelsFor(server)) {
             if (!GameState.get(server).flag(builtFlag(m))) {
+                if (!ATTEMPTED.add(m.layout.id)) {
+                    HollowAtlas.LOGGER.error("Region {} failed to build; not retrying this session.", m.layout.id);
+                    continue;
+                }
                 start(server.getOverworld(), m, () -> buildMissing(server, after));
                 return;
             }

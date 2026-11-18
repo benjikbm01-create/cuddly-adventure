@@ -1,0 +1,22 @@
+{
+  "id": "dt_arena_trial",
+  "anchor": "dt_arena.center",
+  "trigger_radius": 12,
+  "daily": true,
+  "when": {
+    "quest_active": "dtq_arena"
+  },
+  "spawns": [
+    {
+      "kind": "brigand",
+      "dx": -3,
+      "dz": -3
+    },
+    {
+      "kind": "slinger",
+      "dx": 4,
+      "dz": -5
+    }
+  ],
+  "start_text": "Arena test: two enemies enter."
+}

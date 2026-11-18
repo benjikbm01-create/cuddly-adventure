@@ -1,0 +1,40 @@
+{
+  "id": "dt_remy",
+  "name": "Remy Tallow",
+  "title": "Test Innkeeper",
+  "skin": "dt_remy",
+  "home": "dt_hall",
+  "work": "dt_hall",
+  "dialogue": "dt_remy",
+  "traits": [
+    "warm"
+  ],
+  "fallback_anchor": "dt_hall.counter_front",
+  "schedule": [
+    {
+      "from": 0,
+      "to": 6,
+      "activity": "sleep",
+      "anchor": "dt_hall.bed_room_c"
+    },
+    {
+      "from": 6,
+      "to": 23,
+      "activity": "work",
+      "anchor": "dt_hall.work",
+      "style": "serve",
+      "radius": 3
+    },
+    {
+      "from": 23,
+      "to": 24,
+      "activity": "sleep",
+      "anchor": "dt_hall.bed_room_c"
+    }
+  ],
+  "barks": {
+    "greet": [
+      "The hearth works. So do the stairs, mostly."
+    ]
+  }
+}

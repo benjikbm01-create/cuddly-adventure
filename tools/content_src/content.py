@@ -219,18 +219,6 @@ QUESTS = [
                   A("relationship", npc="lom", delta=4)],
          completion_text="Lom has his buns. Maren pretended not to care how he was."),
 
-    dict(id="tst01", title="Sandbox: Errand Test", category="sandbox", giver="tester", abandonable=True,
-         summary="Non-canonical test quest for checking quest mechanics. Not part of the story.",
-         stages=[
-             dict(id="a", text="Test stage A: reach the plaza and read the notice board.",
-                  objectives=[dict(id="reach", type="reach", target="plaza", radius=10, text="Reach the plaza"),
-                              dict(id="board", type="inspect", target="notice_board", text="Read the notice board")],
-                  next="b"),
-             dict(id="b", text="Test stage B: hold two apples.",
-                  objectives=[dict(id="apples", type="gather", target="minecraft:apple", count=2, text="Hold 2 apples")],
-                  next="complete"),
-         ],
-         rewards=[A("message", text="Sandbox test quest complete.")]),
 ]
 
 # =====================================================================================  DIALOGUE

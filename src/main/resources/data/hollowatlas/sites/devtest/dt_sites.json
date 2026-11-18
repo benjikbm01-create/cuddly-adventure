@@ -1,0 +1,35 @@
+{
+  "id": "dt_sites",
+  "sites": [
+    {
+      "id": "dt_square",
+      "name": "Test Square",
+      "anchor": "dt_plaza",
+      "radius": 15
+    },
+    {
+      "id": "dt_arena_site",
+      "name": "Test Arena",
+      "anchor": "dt_arena.center",
+      "radius": 12
+    },
+    {
+      "id": "dt_pond_site",
+      "name": "Test Pond",
+      "anchor": "dt_pond",
+      "radius": 10
+    },
+    {
+      "id": "dt_puzzle_site",
+      "name": "Test Puzzle",
+      "anchor": "dt_levers.stand",
+      "radius": 8
+    },
+    {
+      "id": "dt_brook_site",
+      "name": "Test Brook",
+      "anchor": "dt_gap_north",
+      "radius": 8
+    }
+  ]
+}

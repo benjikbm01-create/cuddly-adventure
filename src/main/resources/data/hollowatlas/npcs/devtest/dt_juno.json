@@ -1,0 +1,110 @@
+{
+  "id": "dt_juno",
+  "name": "Juno Pike",
+  "title": "Test Farmer",
+  "skin": "dt_juno",
+  "home": "dt_house_a",
+  "work": "dt_garden",
+  "dialogue": "dt_juno",
+  "held": "minecraft:iron_hoe",
+  "traits": [
+    "calm"
+  ],
+  "fallback_anchor": "dt_house_a.door_out",
+  "schedule": [
+    {
+      "from": 0,
+      "to": 6,
+      "activity": "sleep",
+      "anchor": "dt_house_a.bed1"
+    },
+    {
+      "from": 6,
+      "to": 12,
+      "activity": "work",
+      "anchor": "dt_garden",
+      "style": "tend",
+      "radius": 7,
+      "outdoors": true
+    },
+    {
+      "from": 12,
+      "to": 13,
+      "activity": "eat",
+      "anchor": "dt_house_a.table"
+    },
+    {
+      "from": 13,
+      "to": 17,
+      "activity": "work",
+      "anchor": "dt_farm",
+      "style": "tend",
+      "radius": 7,
+      "outdoors": true
+    },
+    {
+      "from": 17,
+      "to": 21,
+      "activity": "social",
+      "anchor": "dt_house_a.door_out",
+      "radius": 2,
+      "outdoors": true
+    },
+    {
+      "from": 21,
+      "to": 24,
+      "activity": "sleep",
+      "anchor": "dt_house_a.bed1"
+    }
+  ],
+  "rain": [
+    {
+      "from": 6,
+      "to": 17,
+      "activity": "work",
+      "anchor": "dt_workshop.counter_front",
+      "style": "pack",
+      "radius": 2
+    }
+  ],
+  "variants": {
+    "moved": [
+      {
+        "from": 0,
+        "to": 6,
+        "activity": "sleep",
+        "anchor": "dt_house_a.bed1"
+      },
+      {
+        "from": 6,
+        "to": 17,
+        "activity": "work",
+        "anchor": "dt_pond",
+        "style": "fish",
+        "outdoors": true
+      },
+      {
+        "from": 17,
+        "to": 21,
+        "activity": "social",
+        "anchor": "dt_house_a.door_out",
+        "radius": 2,
+        "outdoors": true
+      },
+      {
+        "from": 21,
+        "to": 24,
+        "activity": "sleep",
+        "anchor": "dt_house_a.bed1"
+      }
+    ]
+  },
+  "barks": {
+    "greet": [
+      "Rows are straight today."
+    ],
+    "rain": [
+      "Rain routine: I go indoors."
+    ]
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "id": "dt_notice",
+  "npc": null,
+  "entries": [
+    {
+      "node": "board"
+    }
+  ],
+  "nodes": {
+    "board": {
+      "text": "TEST NOTICE BOARD\n- Reading this counts for the Errand Chain test.\n- Report bugs with what you did and what happened.",
+      "choices": [
+        {
+          "text": "(Done reading.)",
+          "go": "end",
+          "tag": "leave"
+        }
+      ],
+      "speaker": "narrator"
+    }
+  }
+}

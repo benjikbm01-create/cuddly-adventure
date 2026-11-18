@@ -1,0 +1,67 @@
+{
+  "id": "dt_case",
+  "title": "Test Case: The Missing Bucket",
+  "summary": "Noncanonical case for testing the board.",
+  "visible_when": {
+    "any": [
+      {
+        "quest_active": "dtq_case"
+      },
+      {
+        "quest_done": "dtq_case"
+      }
+    ]
+  },
+  "evidence": [
+    {
+      "id": "dt_ev_cart",
+      "title": "Empty hook",
+      "text": "The cart's bucket hook is empty.",
+      "kind": "fact",
+      "source": "Test cart"
+    },
+    {
+      "id": "dt_ev_testimony",
+      "title": "Juno's account",
+      "text": "Juno saw someone carry a bucket toward the cart.",
+      "kind": "testimony",
+      "source": "Juno"
+    },
+    {
+      "id": "dt_ev_rumor",
+      "title": "Bertram's rumor",
+      "text": "The bucket never existed.",
+      "kind": "rumor",
+      "source": "Bertram"
+    }
+  ],
+  "hypotheses": [
+    {
+      "id": "taken",
+      "text": "Someone took it",
+      "needs": [
+        "dt_ev_cart",
+        "dt_ev_testimony"
+      ],
+      "reaction": "Test theory recorded."
+    },
+    {
+      "id": "never",
+      "text": "It never existed",
+      "needs": [
+        "dt_ev_rumor"
+      ],
+      "reaction": "Test theory recorded (rumor-based)."
+    },
+    {
+      "id": "all",
+      "text": "Needs all three clues",
+      "needs": [
+        "dt_ev_cart",
+        "dt_ev_testimony",
+        "dt_ev_rumor"
+      ],
+      "reaction": "Test theory recorded."
+    }
+  ]
+}

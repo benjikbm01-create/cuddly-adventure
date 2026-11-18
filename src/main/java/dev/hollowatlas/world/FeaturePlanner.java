@@ -23,6 +23,8 @@ public final class FeaturePlanner {
             case "camp" -> camp(p);
             case "cache" -> cache(p);
             case "jetty" -> jetty(p);
+            case "lever_test" -> leverTest(p);
+            case "arena" -> arena(p);
             default -> { /* reeds and others are procedural in the builder */ }
         }
         return p;
@@ -166,6 +168,43 @@ public final class FeaturePlanner {
         p.set(-1, 0, 1, "minecraft:lantern[hanging=false]");
         p.set(0, 0, -1, "minecraft:cobweb");
         p.anchor("box", 0, 0, 0);
+    }
+
+    /** Noncanonical test puzzle: three coloured pedestals with levers, order printed on the sign. */
+    private static void leverTest(BuildingPlanner.Plan p) {
+        for (int x = -3; x <= 3; x++) for (int z = -3; z <= 3; z++) p.set(x, -1, z, "minecraft:smooth_stone");
+        String[][] peds = {{"-2", "minecraft:red_concrete", "red"}, {"0", "minecraft:blue_concrete", "blue"}, {"2", "minecraft:lime_concrete", "green"}};
+        for (String[] ped : peds) {
+            int x = Integer.parseInt(ped[0]);
+            p.set(x, 0, -2, "minecraft:stone_bricks");
+            p.set(x, 1, -2, "minecraft:stone_bricks");
+            p.set(x, 2, -2, ped[1]);
+            p.set(x, 1, -1, "minecraft:lever[face=wall,facing=south,powered=false]");
+            p.anchor("lever_" + ped[2], x, 1, -1);
+        }
+        p.set(0, -1, 1, "minecraft:iron_trapdoor[facing=north,half=top,open=false,powered=false,waterlogged=false]");
+        p.set(0, -2, 1, "minecraft:air");
+        p.set(0, -3, 1, "minecraft:barrel[facing=up,open=false]");
+        p.anchor("hatch", 0, -1, 1);
+        p.anchor("cache", 0, -3, 1);
+        p.set(0, 0, 3, "minecraft:oak_sign[rotation=0]|TEST PUZZLE|Pull levers:|red, green,|then blue.");
+        p.anchor("stand", 0, 0, 4);
+    }
+
+    /** Fenced ring for combat tests. */
+    private static void arena(BuildingPlanner.Plan p) {
+        int r = 12;
+        for (int x = -r; x <= r; x++) for (int z = -r; z <= r; z++) {
+            double d = Math.sqrt(x * x + z * z);
+            if (d <= r) p.set(x, -1, z, (x + z) % 3 == 0 ? "minecraft:coarse_dirt" : "minecraft:dirt_path");
+            if (d > r - 0.7 && d <= r + 0.3) {
+                boolean gate = z > r - 2 && Math.abs(x) <= 1;
+                if (!gate) p.set(x, 0, z, Math.abs(x) % 4 == 0 && Math.abs(z) % 4 == 0 ? "minecraft:spruce_log[axis=y]" : "minecraft:spruce_fence");
+            }
+        }
+        p.set(2, 0, r + 1, "minecraft:oak_sign[rotation=0]|TEST ARENA|Combat testing|area");
+        p.anchor("center", 0, 0, 0);
+        p.anchor("gate", 0, 0, r + 2);
     }
 
     private static void jetty(BuildingPlanner.Plan p) {

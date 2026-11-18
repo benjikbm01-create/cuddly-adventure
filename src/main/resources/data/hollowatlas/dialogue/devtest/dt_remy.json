@@ -1,0 +1,62 @@
+{
+  "id": "dt_remy",
+  "npc": "dt_remy",
+  "entries": [
+    {
+      "when": {
+        "quest_stage": {
+          "quest": "dtq_errand",
+          "stage": "talk"
+        }
+      },
+      "node": "errand"
+    },
+    {
+      "node": "main"
+    }
+  ],
+  "nodes": {
+    "asleep": {
+      "text": "(Asleep. This is the sleeping-resident test response.)",
+      "speaker": "narrator"
+    },
+    "main": {
+      "text": "Hall's open. Hearth's warm. Rooms upstairs.",
+      "choices": [
+        {
+          "text": "Trade.",
+          "go": "end",
+          "tag": "trade",
+          "actions": [
+            {
+              "shop": "dt_shop",
+              "type": "open_shop"
+            }
+          ]
+        },
+        {
+          "text": "Goodbye.",
+          "go": "end",
+          "tag": "leave"
+        }
+      ]
+    },
+    "errand": {
+      "text": "Alda sent you? Errand step one complete. Next: read the notice board.",
+      "choices": [
+        {
+          "text": "Goodbye.",
+          "go": "end",
+          "tag": "leave"
+        }
+      ],
+      "actions": [
+        {
+          "event": "talk",
+          "target": "dt_errand_talk",
+          "type": "quest_event"
+        }
+      ]
+    }
+  }
+}

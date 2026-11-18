@@ -1,0 +1,449 @@
+{
+  "id": "dt_changes",
+  "changes": [
+    {
+      "id": "dt_footbridge",
+      "flag": "hollowatlas:dt_gap_bridged",
+      "blocks": [
+        {
+          "anchor": "dt_gap",
+          "dx": -1,
+          "dy": 0,
+          "dz": -7,
+          "state": "minecraft:spruce_planks"
+        },
+        {
+          "anchor": "dt_gap",
+          "dx": 0,
+          "dy": 0,
+          "dz": -7,
+          "state": "minecraft:spruce_planks"
+        },
+        {
+          "anchor": "dt_gap",
+          "dx": 1,
+          "dy": 0,
+          "dz": -7,
+          "state": "minecraft:spruce_planks"
+        },
+        {
+          "anchor": "dt_gap",
+          "dx": -1,
+          "dy": 0,
+          "dz": -6,
+          "state": "minecraft:spruce_planks"
+        },
+        {
+          "anchor": "dt_gap",
+          "dx": 0,
+          "dy": 0,
+          "dz": -6,
+          "state": "minecraft:spruce_planks"
+        },
+        {
+          "anchor": "dt_gap",
+          "dx": 1,
+          "dy": 0,
+          "dz": -6,
+          "state": "minecraft:spruce_planks"
+        },
+        {
+          "anchor": "dt_gap",
+          "dx": -1,
+          "dy": 0,
+          "dz": -5,
+          "state": "minecraft:spruce_planks"
+        },
+        {
+          "anchor": "dt_gap",
+          "dx": 0,
+          "dy": 0,
+          "dz": -5,
+          "state": "minecraft:spruce_planks"
+        },
+        {
+          "anchor": "dt_gap",
+          "dx": 1,
+          "dy": 0,
+          "dz": -5,
+          "state": "minecraft:spruce_planks"
+        },
+        {
+          "anchor": "dt_gap",
+          "dx": -1,
+          "dy": 0,
+          "dz": -4,
+          "state": "minecraft:spruce_planks"
+        },
+        {
+          "anchor": "dt_gap",
+          "dx": 0,
+          "dy": 0,
+          "dz": -4,
+          "state": "minecraft:spruce_planks"
+        },
+        {
+          "anchor": "dt_gap",
+          "dx": 1,
+          "dy": 0,
+          "dz": -4,
+          "state": "minecraft:spruce_planks"
+        },
+        {
+          "anchor": "dt_gap",
+          "dx": -1,
+          "dy": 0,
+          "dz": -3,
+          "state": "minecraft:spruce_planks"
+        },
+        {
+          "anchor": "dt_gap",
+          "dx": 0,
+          "dy": 0,
+          "dz": -3,
+          "state": "minecraft:spruce_planks"
+        },
+        {
+          "anchor": "dt_gap",
+          "dx": 1,
+          "dy": 0,
+          "dz": -3,
+          "state": "minecraft:spruce_planks"
+        },
+        {
+          "anchor": "dt_gap",
+          "dx": -1,
+          "dy": 0,
+          "dz": -2,
+          "state": "minecraft:spruce_planks"
+        },
+        {
+          "anchor": "dt_gap",
+          "dx": 0,
+          "dy": 0,
+          "dz": -2,
+          "state": "minecraft:spruce_planks"
+        },
+        {
+          "anchor": "dt_gap",
+          "dx": 1,
+          "dy": 0,
+          "dz": -2,
+          "state": "minecraft:spruce_planks"
+        },
+        {
+          "anchor": "dt_gap",
+          "dx": -1,
+          "dy": 0,
+          "dz": -1,
+          "state": "minecraft:spruce_planks"
+        },
+        {
+          "anchor": "dt_gap",
+          "dx": 0,
+          "dy": 0,
+          "dz": -1,
+          "state": "minecraft:spruce_planks"
+        },
+        {
+          "anchor": "dt_gap",
+          "dx": 1,
+          "dy": 0,
+          "dz": -1,
+          "state": "minecraft:spruce_planks"
+        },
+        {
+          "anchor": "dt_gap",
+          "dx": -1,
+          "dy": 0,
+          "dz": 0,
+          "state": "minecraft:spruce_planks"
+        },
+        {
+          "anchor": "dt_gap",
+          "dx": 0,
+          "dy": 0,
+          "dz": 0,
+          "state": "minecraft:spruce_planks"
+        },
+        {
+          "anchor": "dt_gap",
+          "dx": 1,
+          "dy": 0,
+          "dz": 0,
+          "state": "minecraft:spruce_planks"
+        },
+        {
+          "anchor": "dt_gap",
+          "dx": -1,
+          "dy": 0,
+          "dz": 1,
+          "state": "minecraft:spruce_planks"
+        },
+        {
+          "anchor": "dt_gap",
+          "dx": 0,
+          "dy": 0,
+          "dz": 1,
+          "state": "minecraft:spruce_planks"
+        },
+        {
+          "anchor": "dt_gap",
+          "dx": 1,
+          "dy": 0,
+          "dz": 1,
+          "state": "minecraft:spruce_planks"
+        },
+        {
+          "anchor": "dt_gap",
+          "dx": -1,
+          "dy": 0,
+          "dz": 2,
+          "state": "minecraft:spruce_planks"
+        },
+        {
+          "anchor": "dt_gap",
+          "dx": 0,
+          "dy": 0,
+          "dz": 2,
+          "state": "minecraft:spruce_planks"
+        },
+        {
+          "anchor": "dt_gap",
+          "dx": 1,
+          "dy": 0,
+          "dz": 2,
+          "state": "minecraft:spruce_planks"
+        },
+        {
+          "anchor": "dt_gap",
+          "dx": -1,
+          "dy": 0,
+          "dz": 3,
+          "state": "minecraft:spruce_planks"
+        },
+        {
+          "anchor": "dt_gap",
+          "dx": 0,
+          "dy": 0,
+          "dz": 3,
+          "state": "minecraft:spruce_planks"
+        },
+        {
+          "anchor": "dt_gap",
+          "dx": 1,
+          "dy": 0,
+          "dz": 3,
+          "state": "minecraft:spruce_planks"
+        },
+        {
+          "anchor": "dt_gap",
+          "dx": -1,
+          "dy": 0,
+          "dz": 4,
+          "state": "minecraft:spruce_planks"
+        },
+        {
+          "anchor": "dt_gap",
+          "dx": 0,
+          "dy": 0,
+          "dz": 4,
+          "state": "minecraft:spruce_planks"
+        },
+        {
+          "anchor": "dt_gap",
+          "dx": 1,
+          "dy": 0,
+          "dz": 4,
+          "state": "minecraft:spruce_planks"
+        },
+        {
+          "anchor": "dt_gap",
+          "dx": -1,
+          "dy": 0,
+          "dz": 5,
+          "state": "minecraft:spruce_planks"
+        },
+        {
+          "anchor": "dt_gap",
+          "dx": 0,
+          "dy": 0,
+          "dz": 5,
+          "state": "minecraft:spruce_planks"
+        },
+        {
+          "anchor": "dt_gap",
+          "dx": 1,
+          "dy": 0,
+          "dz": 5,
+          "state": "minecraft:spruce_planks"
+        },
+        {
+          "anchor": "dt_gap",
+          "dx": -1,
+          "dy": 0,
+          "dz": 6,
+          "state": "minecraft:spruce_planks"
+        },
+        {
+          "anchor": "dt_gap",
+          "dx": 0,
+          "dy": 0,
+          "dz": 6,
+          "state": "minecraft:spruce_planks"
+        },
+        {
+          "anchor": "dt_gap",
+          "dx": 1,
+          "dy": 0,
+          "dz": 6,
+          "state": "minecraft:spruce_planks"
+        },
+        {
+          "anchor": "dt_gap",
+          "dx": -1,
+          "dy": 0,
+          "dz": 7,
+          "state": "minecraft:spruce_planks"
+        },
+        {
+          "anchor": "dt_gap",
+          "dx": 0,
+          "dy": 0,
+          "dz": 7,
+          "state": "minecraft:spruce_planks"
+        },
+        {
+          "anchor": "dt_gap",
+          "dx": 1,
+          "dy": 0,
+          "dz": 7,
+          "state": "minecraft:spruce_planks"
+        }
+      ],
+      "otherwise": [
+        {
+          "anchor": "dt_gap",
+          "dx": -1,
+          "dy": 0,
+          "dz": -2,
+          "state": "minecraft:air"
+        },
+        {
+          "anchor": "dt_gap",
+          "dx": 0,
+          "dy": 0,
+          "dz": -2,
+          "state": "minecraft:air"
+        },
+        {
+          "anchor": "dt_gap",
+          "dx": 1,
+          "dy": 0,
+          "dz": -2,
+          "state": "minecraft:air"
+        },
+        {
+          "anchor": "dt_gap",
+          "dx": -1,
+          "dy": 0,
+          "dz": -1,
+          "state": "minecraft:air"
+        },
+        {
+          "anchor": "dt_gap",
+          "dx": 0,
+          "dy": 0,
+          "dz": -1,
+          "state": "minecraft:air"
+        },
+        {
+          "anchor": "dt_gap",
+          "dx": 1,
+          "dy": 0,
+          "dz": -1,
+          "state": "minecraft:air"
+        },
+        {
+          "anchor": "dt_gap",
+          "dx": -1,
+          "dy": 0,
+          "dz": 0,
+          "state": "minecraft:air"
+        },
+        {
+          "anchor": "dt_gap",
+          "dx": 0,
+          "dy": 0,
+          "dz": 0,
+          "state": "minecraft:air"
+        },
+        {
+          "anchor": "dt_gap",
+          "dx": 1,
+          "dy": 0,
+          "dz": 0,
+          "state": "minecraft:air"
+        },
+        {
+          "anchor": "dt_gap",
+          "dx": -1,
+          "dy": 0,
+          "dz": 1,
+          "state": "minecraft:air"
+        },
+        {
+          "anchor": "dt_gap",
+          "dx": 0,
+          "dy": 0,
+          "dz": 1,
+          "state": "minecraft:air"
+        },
+        {
+          "anchor": "dt_gap",
+          "dx": 1,
+          "dy": 0,
+          "dz": 1,
+          "state": "minecraft:air"
+        },
+        {
+          "anchor": "dt_gap",
+          "dx": -1,
+          "dy": 0,
+          "dz": 2,
+          "state": "minecraft:air"
+        },
+        {
+          "anchor": "dt_gap",
+          "dx": 0,
+          "dy": 0,
+          "dz": 2,
+          "state": "minecraft:air"
+        },
+        {
+          "anchor": "dt_gap",
+          "dx": 1,
+          "dy": 0,
+          "dz": 2,
+          "state": "minecraft:air"
+        }
+      ]
+    },
+    {
+      "id": "dt_hatch",
+      "flag": "hollowatlas:dt_levers_solved",
+      "blocks": [
+        {
+          "anchor": "dt_levers.hatch",
+          "state": "minecraft:iron_trapdoor[facing=north,half=top,open=true,powered=false,waterlogged=false]"
+        }
+      ],
+      "otherwise": [
+        {
+          "anchor": "dt_levers.hatch",
+          "state": "minecraft:iron_trapdoor[facing=north,half=top,open=false,powered=false,waterlogged=false]"
+        }
+      ]
+    }
+  ]
+}

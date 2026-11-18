@@ -1,0 +1,56 @@
+{
+  "id": "dtq_case",
+  "title": "Test: Case Board",
+  "category": "test",
+  "giver": "dt_alda",
+  "abandonable": true,
+  "summary": "Exercises evidence of each kind and theories on the case board.",
+  "stages": [
+    {
+      "id": "look",
+      "text": "Collect a fact (the cart), a testimony (Juno) and a rumor (Bertram).",
+      "objectives": [
+        {
+          "id": "f",
+          "type": "inspect",
+          "target": "dt_cart_clue",
+          "text": "Inspect the cart",
+          "marker": "dt_cart.clue"
+        },
+        {
+          "id": "t",
+          "type": "talk",
+          "target": "dt_case_testimony",
+          "text": "Ask Juno"
+        },
+        {
+          "id": "r",
+          "type": "evidence",
+          "target": "dt_ev_rumor",
+          "text": "Hear Bertram's rumor"
+        }
+      ],
+      "next": "think"
+    },
+    {
+      "id": "think",
+      "text": "Open the Case Board (J) and pick any theory. Then try changing it.",
+      "objectives": [
+        {
+          "id": "h",
+          "type": "hypothesis",
+          "target": "dt_case",
+          "text": "Pick a theory"
+        }
+      ],
+      "next": "complete"
+    }
+  ],
+  "rewards": [
+    {
+      "amount": 10,
+      "type": "coins"
+    }
+  ],
+  "completion_text": "Case board test complete."
+}

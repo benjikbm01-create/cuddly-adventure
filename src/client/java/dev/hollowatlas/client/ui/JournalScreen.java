@@ -179,7 +179,7 @@ public class JournalScreen extends Screen {
         Ui.title(c, textRenderer, ClientState.s(q, "title", ""), dx, dy);
         dy += 12;
         String cat = ClientState.s(q, "category", "side");
-        c.drawText(textRenderer, Text.literal(cat.equals("main") ? "Main story" : cat.equals("sandbox") ? "Test (non-canonical)" : "Side errand"), dx, dy, Ui.MUTED, false);
+        c.drawText(textRenderer, Text.literal(cat.equals("main") ? "Main story" : cat.equals("sandbox") || cat.equals("test") ? "Developer test (non-canonical)" : "Side errand"), dx, dy, Ui.MUTED, false);
         dy += 14;
         String summary = ClientState.s(q, "summary", "");
         if (!summary.isEmpty()) dy += Ui.wrapped(c, textRenderer, summary, dx, dy, dw, Ui.MUTED) + 4;

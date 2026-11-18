@@ -30,6 +30,8 @@ public final class RegionLayout {
     public int border_size = 740;
     /** World flag that must be set before players may enter this region (null/empty = always open). */
     public String open_flag;
+    /** Anchor where new players arrive (first region of each mode). */
+    public String arrival_anchor = "arrival";
     /** "story" (real game) or "devtest" (noncanonical developer testing world). */
     public String mode = "story";
     /** Snow cover on terrain at or above this Y (0 = none). */

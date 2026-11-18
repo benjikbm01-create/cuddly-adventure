@@ -1,0 +1,59 @@
+{
+  "id": "dt_kade",
+  "name": "Kade Halvard",
+  "title": "Drill Sergeant",
+  "skin": "dt_kade",
+  "home": "dt_hall",
+  "work": "dt_patrol_a",
+  "dialogue": "dt_kade",
+  "held": "minecraft:iron_sword",
+  "traits": [
+    "strict"
+  ],
+  "fallback_anchor": "dt_square_east",
+  "schedule": [
+    {
+      "from": 0,
+      "to": 6,
+      "activity": "sleep",
+      "anchor": "dt_hall.bed_room_b"
+    },
+    {
+      "from": 6,
+      "to": 7,
+      "activity": "eat",
+      "anchor": "dt_hall.table_b"
+    },
+    {
+      "from": 7,
+      "to": 19,
+      "activity": "patrol",
+      "outdoors": true,
+      "route": [
+        "dt_patrol_a",
+        "dt_patrol_d",
+        "dt_square_east",
+        "dt_patrol_b",
+        "dt_patrol_c"
+      ]
+    },
+    {
+      "from": 19,
+      "to": 22,
+      "activity": "social",
+      "anchor": "dt_hall.common_room",
+      "radius": 3
+    },
+    {
+      "from": 22,
+      "to": 24,
+      "activity": "sleep",
+      "anchor": "dt_hall.bed_room_b"
+    }
+  ],
+  "barks": {
+    "greet": [
+      "Feet apart. Guard up. Again."
+    ]
+  }
+}

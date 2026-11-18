@@ -1,0 +1,240 @@
+{
+  "id": "dt_interactions",
+  "interactions": [
+    {
+      "id": "dt_board",
+      "anchor": "dt_board.sign",
+      "type": "read",
+      "text": "",
+      "actions": [
+        {
+          "tree": "dt_notice",
+          "node": "board",
+          "type": "open_dialogue"
+        }
+      ]
+    },
+    {
+      "id": "dt_rest",
+      "anchor": "dt_hall.bed_room_guest",
+      "type": "rest",
+      "text": "Rest test: you sleep until morning (if it's night)."
+    },
+    {
+      "id": "dt_hearth",
+      "anchor": "dt_hall.hearth_block",
+      "type": "station",
+      "station": "hearth",
+      "text": "Test hearth."
+    },
+    {
+      "id": "dt_cart_clue",
+      "anchor": "dt_cart.clue",
+      "type": "inspect",
+      "once": true,
+      "evidence": "dt_ev_cart",
+      "text": "FACT TEST: an empty bucket hook on the cart. Inspecting again must not duplicate the evidence."
+    },
+    {
+      "id": "dt_lever_red",
+      "anchor": "dt_levers.lever_red",
+      "type": "puzzle",
+      "puzzle": "dt_levers",
+      "symbol": "red",
+      "text": "Red lever."
+    },
+    {
+      "id": "dt_lever_green",
+      "anchor": "dt_levers.lever_green",
+      "type": "puzzle",
+      "puzzle": "dt_levers",
+      "symbol": "green",
+      "text": "Green lever."
+    },
+    {
+      "id": "dt_lever_blue",
+      "anchor": "dt_levers.lever_blue",
+      "type": "puzzle",
+      "puzzle": "dt_levers",
+      "symbol": "blue",
+      "text": "Blue lever."
+    },
+    {
+      "id": "dt_lever_cache",
+      "anchor": "dt_levers.cache",
+      "type": "cache",
+      "when": {
+        "world_flag": "hollowatlas:dt_levers_solved"
+      },
+      "locked_text": "Closed hatch.",
+      "text": "Test cache: one-time loot. Opening it again should say it's empty.",
+      "loot": [
+        {
+          "item": "hollowatlas:old_coin",
+          "min": 2,
+          "max": 2
+        },
+        {
+          "item": "hollowatlas:trail_tonic"
+        }
+      ]
+    },
+    {
+      "id": "dt_herb_1",
+      "anchor": "dt_herb_1",
+      "type": "gather",
+      "text": "Gathered yarrow (test node).",
+      "loot": [
+        {
+          "item": "hollowatlas:yarrow",
+          "min": 1,
+          "max": 1
+        }
+      ],
+      "regrow_minutes": 2,
+      "depleted_state": "minecraft:air",
+      "ripe_state": "minecraft:azure_bluet"
+    },
+    {
+      "id": "dt_herb_2",
+      "anchor": "dt_herb_2",
+      "type": "gather",
+      "text": "Gathered yarrow (test node).",
+      "loot": [
+        {
+          "item": "hollowatlas:yarrow",
+          "min": 1,
+          "max": 1
+        }
+      ],
+      "regrow_minutes": 2,
+      "depleted_state": "minecraft:air",
+      "ripe_state": "minecraft:azure_bluet"
+    },
+    {
+      "id": "dt_herb_3",
+      "anchor": "dt_herb_3",
+      "type": "gather",
+      "text": "Gathered yarrow (test node).",
+      "loot": [
+        {
+          "item": "hollowatlas:yarrow",
+          "min": 1,
+          "max": 1
+        }
+      ],
+      "regrow_minutes": 2,
+      "depleted_state": "minecraft:air",
+      "ripe_state": "minecraft:azure_bluet"
+    },
+    {
+      "id": "dt_daisy_1",
+      "anchor": "dt_daisy_1",
+      "type": "gather",
+      "text": "Gathered feverfew (test node).",
+      "loot": [
+        {
+          "item": "hollowatlas:feverfew",
+          "min": 1,
+          "max": 1
+        }
+      ],
+      "regrow_minutes": 2,
+      "depleted_state": "minecraft:air",
+      "ripe_state": "minecraft:oxeye_daisy"
+    },
+    {
+      "id": "dt_daisy_2",
+      "anchor": "dt_daisy_2",
+      "type": "gather",
+      "text": "Gathered feverfew (test node).",
+      "loot": [
+        {
+          "item": "hollowatlas:feverfew",
+          "min": 1,
+          "max": 1
+        }
+      ],
+      "regrow_minutes": 2,
+      "depleted_state": "minecraft:air",
+      "ripe_state": "minecraft:oxeye_daisy"
+    },
+    {
+      "id": "dt_berry_1",
+      "anchor": "dt_berry_1",
+      "type": "gather",
+      "text": "Gathered berries (test node).",
+      "loot": [
+        {
+          "item": "minecraft:sweet_berries",
+          "min": 2,
+          "max": 2
+        }
+      ],
+      "regrow_minutes": 2,
+      "depleted_state": "minecraft:sweet_berry_bush[age=1]",
+      "ripe_state": "minecraft:sweet_berry_bush[age=3]"
+    },
+    {
+      "id": "dt_berry_2",
+      "anchor": "dt_berry_2",
+      "type": "gather",
+      "text": "Gathered berries (test node).",
+      "loot": [
+        {
+          "item": "minecraft:sweet_berries",
+          "min": 2,
+          "max": 2
+        }
+      ],
+      "regrow_minutes": 2,
+      "depleted_state": "minecraft:sweet_berry_bush[age=1]",
+      "ripe_state": "minecraft:sweet_berry_bush[age=3]"
+    },
+    {
+      "id": "dt_carrots_1",
+      "anchor": "dt_carrots_1",
+      "type": "gather",
+      "text": "Pulled a carrot (test node).",
+      "loot": [
+        {
+          "item": "minecraft:carrot",
+          "min": 1,
+          "max": 1
+        }
+      ],
+      "regrow_minutes": 2,
+      "depleted_state": "minecraft:carrots[age=0]",
+      "ripe_state": "minecraft:carrots[age=7]"
+    },
+    {
+      "id": "dt_potatoes_1",
+      "anchor": "dt_potatoes_1",
+      "type": "gather",
+      "text": "Dug a potato (test node).",
+      "loot": [
+        {
+          "item": "minecraft:potato",
+          "min": 1,
+          "max": 1
+        }
+      ],
+      "regrow_minutes": 2,
+      "depleted_state": "minecraft:potatoes[age=0]",
+      "ripe_state": "minecraft:potatoes[age=7]"
+    }
+  ],
+  "puzzles": [
+    {
+      "id": "dt_levers",
+      "sequence": [
+        "red",
+        "green",
+        "blue"
+      ],
+      "solved_flag": "hollowatlas:dt_levers_solved",
+      "reset_text": "Wrong order: levers reset (this is the failure path).",
+      "solved_text": "Correct order: the hatch opens."
+    }
+  ]
+}

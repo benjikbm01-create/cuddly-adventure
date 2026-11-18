@@ -1,0 +1,31 @@
+{
+  "id": "dtq_kitchen",
+  "title": "Test: Cooking",
+  "category": "test",
+  "giver": "dt_alda",
+  "abandonable": true,
+  "summary": "Exercises gathering nodes, buying, and station crafting.",
+  "stages": [
+    {
+      "id": "cook",
+      "text": "Gather a carrot and a potato from the test fields, buy mutton from Bertram, then cook Hearth Stew at the Test Hall hearth.",
+      "objectives": [
+        {
+          "id": "c",
+          "type": "craft",
+          "target": "hearth_stew",
+          "text": "Cook Hearth Stew",
+          "marker": "dt_hall.hearth"
+        }
+      ],
+      "next": "complete"
+    }
+  ],
+  "rewards": [
+    {
+      "amount": 10,
+      "type": "coins"
+    }
+  ],
+  "completion_text": "Cooking test complete."
+}

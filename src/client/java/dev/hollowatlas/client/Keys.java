@@ -23,7 +23,7 @@ import java.util.List;
  */
 public final class Keys {
     public static final String CATEGORY = "key.categories.hollowatlas";
-    public static KeyBinding HEAVY, DODGE, GUARD, ABILITY_1, ABILITY_2, JOURNAL, SATCHEL, ATLAS;
+    public static KeyBinding HEAVY, DODGE, GUARD, ABILITY_1, ABILITY_2, JOURNAL, SATCHEL, ATLAS, DEV_MENU;
     private static final List<KeyBinding> OURS = new ArrayList<>();
     private static boolean guardHeld = false;
     private static int conflictCheckIn = 100;
@@ -45,6 +45,7 @@ public final class Keys {
         JOURNAL = reg("journal", GLFW.GLFW_KEY_J);
         SATCHEL = reg("satchel", GLFW.GLFW_KEY_I);
         ATLAS = reg("atlas", GLFW.GLFW_KEY_M);
+        DEV_MENU = reg("dev_menu", GLFW.GLFW_KEY_F7);
         ClientTickEvents.END_CLIENT_TICK.register(Keys::tick);
         ClientPlayConnectionEvents.JOIN.register((h, s, c) -> conflictCheckIn = 100);
     }
@@ -71,6 +72,10 @@ public final class Keys {
         while (JOURNAL.wasPressed()) { ClientState.send("journal_request"); mc.setScreen(new JournalScreen(0)); }
         while (SATCHEL.wasPressed()) mc.setScreen(new SatchelScreen());
         while (ATLAS.wasPressed()) { ClientState.send("journal_request"); mc.setScreen(new AtlasScreen()); }
+        while (DEV_MENU.wasPressed()) {
+            // only in developer testing worlds; the server re-checks every action anyway
+            if (ClientState.b(ClientState.hud, "devtest")) mc.setScreen(new dev.hollowatlas.client.ui.DevMenuScreen());
+        }
     }
 
     private static void ability(int slot) {

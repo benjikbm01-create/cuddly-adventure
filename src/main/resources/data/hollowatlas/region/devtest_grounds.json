@@ -1,0 +1,96 @@
+{
+  "id": "devtest_grounds",
+  "name": "Proving Grounds (developer test world)",
+  "mode": "devtest",
+  "arrival_anchor": "dt_arrival",
+  "origin": [0, 0],
+  "half_size": 140,
+  "base_y": 66,
+  "water_y": 62,
+  "seed": 4242,
+  "border_size": 282,
+
+  "hills": [
+    {"id": "dt_mound", "x": 95, "z": 95, "r": 40, "h": 10}
+  ],
+  "flats": [
+    {"id": "dt_village", "x": 0, "z": 0, "r": 72, "blend": 22, "y": 66},
+    {"id": "dt_arena_flat", "x": 0, "z": 80, "r": 18, "blend": 10, "y": 66}
+  ],
+  "edge_ridge": {"width": 22, "height": 14, "gaps": []},
+
+  "rivers": [
+    {"id": "dt_brook", "width": 4, "depth": 1.5, "points": [[-115, -60], [-20, -60]]}
+  ],
+  "ponds": [
+    {"id": "dt_pond", "x": 70, "z": 58, "r": 9, "depth": 2}
+  ],
+
+  "roads": [
+    {"id": "dt_plaza", "width": 15, "surface": "cobble", "points": [[-6, 0], [6, 0]]},
+    {"id": "dt_south", "width": 4, "points": [[0, 8], [0, 66]]},
+    {"id": "dt_east", "width": 4, "points": [[13, 2], [60, 4], [80, 30]]},
+    {"id": "dt_west", "width": 4, "points": [[-13, 2], [-60, 6], [-70, 36]]},
+    {"id": "dt_north", "width": 3, "points": [[0, -8], [-20, -30], [-60, -40], [-60, -51]]},
+    {"id": "dt_north_far", "width": 3, "surface": "lane", "points": [[-60, -69], [-60, -100]]},
+    {"id": "dt_farm_lane", "width": 3, "points": [[13, -4], [50, -28]]}
+  ],
+
+  "woods": [
+    {"id": "dt_grove", "x": 95, "z": -90, "r": 40, "density": 0.4, "mix": ["oak", "birch"]}
+  ],
+
+  "fields": [
+    {"id": "dt_carrots", "crop": "carrots", "x1": -72, "z1": -45, "x2": -45, "z2": -30},
+    {"id": "dt_potatoes", "crop": "potatoes", "x1": 38, "z1": -45, "x2": 62, "z2": -32}
+  ],
+
+  "buildings": [
+    {"id": "dt_hall", "type": "inn", "label": "Test Hall", "x": -24, "z": -2, "w": 15, "d": 11, "facing": "east", "floors": 2,
+     "wall": "minecraft:white_terracotta", "frame": "minecraft:stripped_dark_oak_log", "floor": "minecraft:spruce_planks", "roof": "dark_oak"},
+    {"id": "dt_store", "type": "store", "label": "Test Store", "x": 22, "z": -4, "w": 11, "d": 9, "facing": "west",
+     "wall": "minecraft:spruce_planks", "frame": "minecraft:stripped_oak_log", "roof": "spruce"},
+    {"id": "dt_workshop", "type": "smithy", "label": "Test Workshop", "x": 24, "z": 24, "w": 11, "d": 9, "facing": "north",
+     "wall": "minecraft:cobblestone", "frame": "minecraft:stripped_spruce_log", "floor": "minecraft:stone_bricks", "roof": "deepslate"},
+    {"id": "dt_house_a", "type": "house", "label": "Test House A", "x": -24, "z": 32, "w": 9, "d": 8, "facing": "north",
+     "wall": "minecraft:oak_planks", "frame": "minecraft:stripped_spruce_log", "roof": "spruce", "beds": 2},
+    {"id": "dt_house_b", "type": "house", "label": "Test House B", "x": 34, "z": -26, "w": 9, "d": 7, "facing": "south",
+     "wall": "minecraft:birch_planks", "frame": "minecraft:stripped_birch_log", "roof": "spruce", "beds": 1},
+    {"id": "dt_stall", "type": "stall", "label": "Test Stall", "x": 0, "z": -10, "w": 5, "d": 3, "facing": "south", "wall": "minecraft:yellow_wool"}
+  ],
+
+  "caves": [],
+
+  "features": [
+    {"id": "dt_board", "type": "notice", "x": 9, "z": 12, "facing": "south"},
+    {"id": "dt_levers", "type": "lever_test", "x": -70, "z": 44},
+    {"id": "dt_arena", "type": "arena", "x": 0, "z": 80},
+    {"id": "dt_cart", "type": "wagon", "x": 60, "z": -55}
+  ],
+
+  "anchors": {
+    "dt_arrival":     [0, 0, 20],
+    "dt_plaza":       [0, 0, -3],
+    "dt_square_east": [9, 0, 4],
+    "dt_square_west": [-9, 0, 4],
+    "dt_garden":      [-58, 0, -38],
+    "dt_farm":        [50, 0, -38],
+    "dt_pond":        [70, 0, 46],
+    "dt_gap":         [-60, 63, -60, 1],
+    "dt_gap_north":   [-60, 0, -51],
+    "dt_gap_south":   [-60, 0, -69],
+    "dt_patrol_a":    [20, 0, 10],
+    "dt_patrol_b":    [-20, 0, 14],
+    "dt_patrol_c":    [0, 0, 44],
+    "dt_patrol_d":    [40, 0, -12],
+    "dt_herb_1":      [-90, 0, 10],
+    "dt_herb_2":      [-95, 0, 20],
+    "dt_herb_3":      [-86, 0, 26],
+    "dt_daisy_1":     [-30, 0, -52],
+    "dt_daisy_2":     [-48, 0, -52],
+    "dt_berry_1":     [90, 0, -80],
+    "dt_berry_2":     [84, 0, -96],
+    "dt_carrots_1":   [-58, 0, -40],
+    "dt_potatoes_1":  [50, 0, -40]
+  }
+}

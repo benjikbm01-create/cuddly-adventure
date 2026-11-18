@@ -1,0 +1,89 @@
+{
+  "id": "dtq_errand",
+  "title": "Test: Errand Chain",
+  "category": "test",
+  "giver": "dt_alda",
+  "abandonable": true,
+  "summary": "Exercises talk, inspect, reach and gather objectives in sequence.",
+  "stages": [
+    {
+      "id": "talk",
+      "text": "Talk to Remy in the Test Hall.",
+      "objectives": [
+        {
+          "id": "t",
+          "type": "talk",
+          "target": "dt_errand_talk",
+          "text": "Talk to Remy",
+          "marker": "dt_hall.counter_front"
+        }
+      ],
+      "next": "board"
+    },
+    {
+      "id": "board",
+      "text": "Read the test notice board.",
+      "objectives": [
+        {
+          "id": "b",
+          "type": "inspect",
+          "target": "dt_board",
+          "text": "Read the board",
+          "marker": "dt_board.read"
+        }
+      ],
+      "next": "reach"
+    },
+    {
+      "id": "reach",
+      "text": "Walk to the pond.",
+      "objectives": [
+        {
+          "id": "r",
+          "type": "reach",
+          "target": "dt_pond",
+          "radius": 6,
+          "text": "Reach the pond",
+          "marker": "dt_pond"
+        }
+      ],
+      "next": "gather"
+    },
+    {
+      "id": "gather",
+      "text": "Pick two yarrow at the west herb spots.",
+      "objectives": [
+        {
+          "id": "g",
+          "type": "gather",
+          "target": "hollowatlas:yarrow",
+          "count": 2,
+          "text": "Yarrow",
+          "marker": "dt_herb_1"
+        }
+      ],
+      "next": "return"
+    },
+    {
+      "id": "return",
+      "text": "Report to Alda.",
+      "objectives": [
+        {
+          "id": "a",
+          "type": "talk",
+          "target": "dt_errand_done",
+          "text": "Talk to Alda",
+          "marker": "dt_square_west"
+        }
+      ],
+      "next": "complete"
+    }
+  ],
+  "rewards": [
+    {
+      "amount": 20,
+      "type": "coins"
+    }
+  ],
+  "completion_text": "Errand chain test complete."
+}

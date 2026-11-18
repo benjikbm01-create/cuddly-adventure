@@ -28,6 +28,8 @@ public class DialogueScreen extends Screen {
     private int focus = 0;
     private long shownAt;
     private boolean sent = false;
+    private String lockedMsg = null;      // shown after trying a locked choice
+    private long lockedUntil = 0;
 
     private record Choice(String text, String tag, boolean enabled, String hint) {}
 
@@ -49,6 +51,7 @@ public class DialogueScreen extends Screen {
         shownAt = System.currentTimeMillis();
         skipped = false;
         sent = false;
+        lockedMsg = null;
     }
 
     private static String localized(String key, String fallback) {
@@ -118,14 +121,24 @@ public class DialogueScreen extends Screen {
             boolean hover = Ui.inside(mouseX, mouseY, tx - 2, y - 2, pw - 104, 14);
             if (hover && ch.enabled) focus = i;
             if (i == focus) c.fill(tx - 2, y - 2, px + pw - 8, y + 12, Ui.SELECT);
-            String prefix = (i + 1) + ". " + tagLabel(ch.tag);
-            int color = !ch.enabled ? 0xFF6C6458 : i == focus ? Ui.TITLE : Ui.TEXT;
+            String prefix = keyLabel(i) + ". " + (ch.enabled ? "" : "[Locked] ") + tagLabel(ch.tag);
+            int color = !ch.enabled ? 0xFF8A8070 : i == focus ? Ui.TITLE : Ui.TEXT;
             c.drawText(textRenderer, Text.literal(prefix + ch.text), tx, y, color, false);
             if (!ch.enabled && ch.hint != null && hover) c.drawTooltip(textRenderer, Text.literal(ch.hint), mouseX, mouseY);
         }
+        if (lockedMsg != null && System.currentTimeMillis() < lockedUntil)
+            c.drawText(textRenderer, Text.literal(lockedMsg), tx, py + ph - 12, 0xFFE0A050, false);
         String help = (ClientState.b(node, "can_back") ? "[Backspace] Back   " : "") + "[Esc] Leave";
         c.drawText(textRenderer, Text.literal(help), px + pw - 8 - textRenderer.getWidth(help), py + ph - 12, Ui.MUTED, false);
     }
+
+    private static String keyLabel(int i) { return i < 9 ? String.valueOf(i + 1) : i == 9 ? "0" : "-"; }
+
+    /** Test/accessibility helper. */
+    public boolean isEnabled(int index) { return index >= 0 && index < choices.size() && choices.get(index).enabled; }
+
+    /** Test helper: the message currently shown for a locked choice, or null. */
+    public String lockedMessage() { return System.currentTimeMillis() < lockedUntil ? lockedMsg : null; }
 
     private static String tagLabel(String tag) {
         return switch (tag) {
@@ -152,8 +165,17 @@ public class DialogueScreen extends Screen {
     }
 
     public void choose(int index) {
-        if (sent || index < 0 || index >= choices.size() || !choices.get(index).enabled) return;
+        if (sent || index < 0 || index >= choices.size()) return;
         if (!textDone()) { skipped = true; return; }
+        if (!choices.get(index).enabled) {
+            // say why instead of silently ignoring the click/key
+            Choice ch = choices.get(index);
+            lockedMsg = "Locked: " + (ch.hint != null ? ch.hint : "you can't choose this yet.");
+            lockedUntil = System.currentTimeMillis() + 3000;
+            MinecraftClient mc = MinecraftClient.getInstance();
+            if (mc.player != null) mc.player.playSound(net.minecraft.sound.SoundEvents.BLOCK_CHEST_LOCKED, 0.6f, 1.2f);
+            return;
+        }
         sent = true;   // guard against double activation until the server answers
         JsonObject o = new JsonObject();
         o.addProperty("seq", ClientState.i(node, "seq", -1));
@@ -182,6 +204,7 @@ public class DialogueScreen extends Screen {
         if (key == GLFW.GLFW_KEY_ESCAPE) { close(); return true; }
         if (key == GLFW.GLFW_KEY_SPACE && !textDone()) { skipped = true; return true; }
         if (key >= GLFW.GLFW_KEY_1 && key <= GLFW.GLFW_KEY_9) { choose(key - GLFW.GLFW_KEY_1); return true; }
+        if (key == GLFW.GLFW_KEY_0) { choose(9); return true; }
         if (key == GLFW.GLFW_KEY_DOWN) { do { focus = (focus + 1) % choices.size(); } while (!choices.get(focus).enabled && choices.size() > 1); return true; }
         if (key == GLFW.GLFW_KEY_UP) { do { focus = (focus - 1 + choices.size()) % choices.size(); } while (!choices.get(focus).enabled && choices.size() > 1); return true; }
         if (key == GLFW.GLFW_KEY_ENTER || key == GLFW.GLFW_KEY_KP_ENTER || key == GLFW.GLFW_KEY_E) { choose(focus); return true; }

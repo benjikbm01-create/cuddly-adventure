@@ -129,11 +129,11 @@
         },
         {
           "text": "Test a locked choice (needs 1000 coins).",
-          "go": "end",
+          "go": "unlocked",
           "enabled_when": {
             "coins_min": 1000
           },
-          "disabled_hint": "Locked choice test: needs 1000 coins."
+          "disabled_hint": "needs 1000 coins (Developer Menu > Items > +1000 coins)."
         },
         {
           "text": "Goodbye.",
@@ -144,6 +144,20 @@
     },
     "place": {
       "text": "The Proving Grounds: a test world. Nothing here belongs to any story. Break things. Report them.",
+      "choices": [
+        {
+          "text": "Back.",
+          "go": "menu"
+        },
+        {
+          "text": "Goodbye.",
+          "go": "end",
+          "tag": "leave"
+        }
+      ]
+    },
+    "unlocked": {
+      "text": "Locked choice test passed: it unlocked because you have 1000 or more coins.",
       "choices": [
         {
           "text": "Back.",

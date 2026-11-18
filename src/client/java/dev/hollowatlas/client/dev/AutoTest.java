@@ -820,7 +820,23 @@ public final class AutoTest {
             check("once-only choice is gone after use", mc().currentScreen instanceof DialogueScreen ds && ds.indexOf("once-only") < 0);
             check("completed quest no longer offered", mc().currentScreen instanceof DialogueScreen ds && ds.indexOf("Start: Errand Chain") < 0);
         });
+        step("locked", 5, () -> {
+            if (!(mc().currentScreen instanceof DialogueScreen ds)) { check("dialogue open for locked choice", false); return; }
+            int i = ds.indexOf("locked choice");
+            check("locked choice is shown but disabled", i >= 0 && !ds.isEnabled(i));
+            ds.choose(i);   // first press finishes the typing text
+            ds.choose(i);
+        });
+        step("locked feedback", 10, () -> check("picking a locked choice explains why",
+                mc().currentScreen instanceof DialogueScreen ds && ds.lockedMessage() != null && ds.lockedMessage().contains("1000")));
         step("bye", 5, () -> choose("Goodbye"));
+        step("rich", 15, () -> dev("coins", "1000"));
+        talkSteps("dt_alda", 20);
+        step("unlocked", 20, () -> choose("locked choice"));
+        step("unlocked result", 15, () -> {
+            check("locked choice unlocks with 1000 coins", mc().currentScreen instanceof DialogueScreen ds && ds.indexOf("Back.") >= 0);
+            choose("Goodbye");
+        });
 
         // ---- test quest: branching choice (option A builds the footbridge)
         talkSteps("dt_alda", 20);

@@ -49,6 +49,7 @@ public class DevMenuScreen extends Screen {
                 b.add(new Btn("Give test key item", "give_token", ""));
                 b.add(new Btn("+50 coins", "coins", "50"));
                 b.add(new Btn("+500 coins", "coins", "500"));
+                b.add(new Btn("+1000 coins", "coins", "1000"));
                 b.add(new Btn("Fill pack (overflow test)", "fill_pack", ""));
                 b.add(new Btn("Clear pack (keeps key items)", "clear_pack", ""));
                 b.add(new Btn("Reset shop stock", "reset_shops", ""));

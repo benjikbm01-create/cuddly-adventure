@@ -416,9 +416,9 @@ public final class AutoTest {
         step("guard", 20, () -> { JsonObject o = new JsonObject(); o.addProperty("on", true); ClientState.send("guard", o); });
         step("guard shot", 20, () -> { check("guard state active", ClientState.b(ClientState.hud, "guarding")); shot("11_combat_hud"); });
         step("unguard", 5, () -> { JsonObject o = new JsonObject(); o.addProperty("on", false); ClientState.send("guard", o); });
-        step("defeat (harness)", 10, () -> srv(s -> {
+        for (int k = 0; k < 2; k++) step("defeat (harness) " + k, 10, () -> srv(s -> {
             // NOTE: the harness ends the fight directly; real melee is a manual QA item.
-            for (EnemyEntity e : s.getOverworld().getEntitiesByClass(EnemyEntity.class, sp(s).getBoundingBox().expand(40), x -> true))
+            for (EnemyEntity e : s.getOverworld().getEntitiesByClass(EnemyEntity.class, sp(s).getBoundingBox().expand(96), x -> true))
                 e.damage(s.getOverworld().getDamageSources().playerAttack(sp(s)), 200f);
             return null;
         }));

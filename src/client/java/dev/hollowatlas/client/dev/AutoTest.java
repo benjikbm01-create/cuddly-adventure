@@ -176,6 +176,7 @@ public final class AutoTest {
     }
 
     private static void interactNpc(String id) {
+        if (mc().currentScreen != null) mc().currentScreen.close();   // never talk "through" a leftover screen
         NpcEntity n = npc(id);
         if (n == null) { check("resident present: " + id, false); return; }
         mc().player.lookAt(net.minecraft.command.argument.EntityAnchorArgumentType.EntityAnchor.EYES, n.getEyePos());
@@ -441,7 +442,8 @@ public final class AutoTest {
         talkSteps("ilse", 100);
         step("ilse train", 20, () -> choose("teach me"));
         step("ilse pay", 15, () -> choose("They're dealt with"));
-        step("windstep", 20, () -> {
+        step("ilse bye", 20, () -> choose("Goodbye"));
+        step("windstep", 15, () -> {
             check("learned Windstep from Ilse", profile().abilities.contains("windstep"));
             check("ability token added", count(item("hollowatlas:technique_windstep")) == 1);
         });

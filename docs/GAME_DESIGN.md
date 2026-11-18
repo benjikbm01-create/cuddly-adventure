@@ -13,7 +13,7 @@ You are an ordinary traveler. There is no prophecy and nothing you are obliged t
 
 ## v0.1 slice
 The first region of the western meadows: a market village with an inn, smithy, store, bakery, hall, mill, farms, an
-orchard, woods, a hill overlook, a river, a cave, an old shrine and a closed road east. Fifteen named residents, an
+orchard, woods, a hill overlook, a river, a cave, an old shrine and roads leading on. Fifteen named residents, an
 opening story segment, three side quests, gathering, cooking, a merchant economy, two abilities and the first enemies.
 
 ## Systems the full game will grow from

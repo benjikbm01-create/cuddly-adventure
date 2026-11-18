@@ -1,28 +1,33 @@
-THE HOLLOW ATLAS v0.1 - QUICK START (Windows)
+THE HOLLOW ATLAS v0.1.2 - QUICK START (Windows)
 =============================================
 
 You need: Minecraft Java Edition 1.21.1 with the Fabric Loader installed
 (Fabric Loader 0.16.0 or newer). You said you already have this.
 
-1. Open the release folder (TheHollowAtlas-v0.1). It contains:
-     mods\hollowatlas-0.1.0.jar
+1. Open the release folder (TheHollowAtlas-v0.1.2). It contains:
+     mods\hollowatlas-0.1.2.jar
      mods\fabric-api-0.116.6+1.21.1.jar      (only needed if you don't have Fabric API already)
      TheHollowAtlas-world.zip
+     TheHollowAtlas-DevTest-world.zip        (optional: spoiler-free test world)
+     DEV_TESTING.md                          (testing checklist)
 
 2. Press Win+R, type   %APPDATA%\.minecraft   and press Enter.
 
 3. Copy BOTH jars from the release "mods" folder into the "mods" folder there.
    (Create the "mods" folder if it doesn't exist. If you already have a Fabric API
    jar for 1.21.1, keep just one copy of it.)
+   UPDATING? Delete the old hollowatlas-0.1.0.jar from "mods" first: only one
+   hollowatlas jar may be there. Your existing save keeps working.
 
-4. Unzip TheHollowAtlas-world.zip into the "saves" folder there, so you end up with:
+4. Unzip TheHollowAtlas-world.zip into the "saves" folder there (skip this if you
+   already have a game going and want to keep it), so you end up with:
      %APPDATA%\.minecraft\saves\hollow_atlas\level.dat
 
 5. Start the Minecraft Launcher, pick your "fabric-loader-1.21.1" profile, Play.
    Singleplayer -> "hollow_atlas" -> Play Selected World.
 
 FIRST STEPS
-- You arrive on a road in the rain. Your journal (J) tells you what you're doing.
+- Your journal (J) tells you what you're doing.
 - Talk to people by right-clicking them. Pick replies with the mouse or keys 1-9.
 - Some things in the world can be examined: right-click them.
 
@@ -44,6 +49,12 @@ GOOD TO KNOW
 - Difficulty (Story / Normal / Hard / Expert) is in Journal > Settings.
 - Progress saves with the world, like normal Minecraft.
 - For a second playthrough, copy the original world zip in again (it's a separate save).
+
+BUG TESTING WITHOUT SPOILERS
+- TheHollowAtlas-DevTest-world.zip is a separate test world with no story in it.
+  Unzip it into "saves" too (you get saves\hollow_atlas_devtest). It can't touch
+  your real save. In it, press F7 for the Developer Menu.
+- Full checklist: DEV_TESTING.md (in this folder).
 
 SPOILERS: the game's story files are inside the mod and in the project repository.
 Opening them will spoil the plot.

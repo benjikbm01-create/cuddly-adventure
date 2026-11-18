@@ -7,7 +7,7 @@ Server-authoritative Fabric mod (`hollowatlas`), Minecraft 1.21.1, Yarn mappings
 | State | Owner | Persistence |
 |---|---|---|
 | Quests, flags, evidence, theories, coins, abilities, cooldowns, checkpoint, settings | `state.PlayerProfile` (per player) inside `state.GameState` | `<world>/data/hollowatlas_state.dat` (vanilla PersistentState, autosaves with the world) |
-| World flags (pump repaired, stall reopened...), resident records, gathering cooldowns, shop stock, difficulty | `state.GameState` | same file |
+| World flags (repairs, reopened places, puzzle states...), resident records, gathering cooldowns, shop stock, difficulty | `state.GameState` | same file |
 | Items | vanilla player inventory (the satchel is a view, not a second inventory) | vanilla player data |
 | Terrain/buildings | the world save, generated from `data/hollowatlas/region/*.json` | region files |
 
@@ -34,7 +34,15 @@ Client screens never mutate state: they send intents over `net.Net` (one C2S and
 
 `src/main/resources/data/hollowatlas/<kind>/*.json` where kind is one of
 `region, npcs, ambient, dialogue, quests, interactions, cases, shops, recipes, encounters, world_changes, sites, abilities`.
-Authoring sources that generate these live in `tools/content_src/` (spoilers). `/atlas validate` reports problems.
+Authoring sources that generate these live in `tools/content_src/` (story, spoilers) and `tools/devtest_src/` (developer test
+content, spoiler-free; output under `<kind>/devtest/`). `/atlas validate` reports problems.
+
+## World modes
+
+A world is either a story world or the developer test world (`state.WorldMode`, world flag `hollowatlas:mode_devtest`).
+Content files under a `devtest/` folder are tagged as test content; every service (residents, ambient talk, quests,
+encounters, interactions, world changes, sites, case board) only runs content of the current world's mode. The developer
+menu (`client.ui.DevMenuScreen`, F7) and `/devtest` (`devtest.DevTestService`) refuse to act outside the test world.
 
 ## Performance design
 

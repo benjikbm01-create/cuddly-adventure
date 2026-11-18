@@ -4,7 +4,8 @@
 - Starting region (~750 x 750) generated from source data; adventure-map protection; soft boundary
 - 15 residents with daily schedules, rain routines, routine variants, ambient talk, tiered simulation
 - Branching dialogue, quest engine, journal, case board, clue inspection
-- Opening main-story segment, 3 side quests, 1 non-canonical sandbox test quest
+- Opening main-story segment, 3 side quests
+- v0.1.2: separate spoiler-free developer test world (5 test residents, 6 test quests, F7 developer menu)
 - Stamina combat (light/heavy/dodge/guard/parry/counter/guard break), 2 enemy patterns, 2 encounters, checkpoints
 - 2 abilities (movement technique, investigation instrument) with stamina/focus pools and cooldowns
 - Category satchel, nine-slot hotbar with ability tokens, shops (buy/sell/restock), hearth cooking, gathering nodes

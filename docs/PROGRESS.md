@@ -13,10 +13,12 @@ Status legend
 | M0 Environment + build | BUILD-PASSING | Pinned toolchain, checksum-verified wrapper, server smoke launch. |
 | M1 Starting region + protection | CLIENT-AUTOTESTED | ~750x750 region generated from source data; village with 17 enterable buildings, farms, orchard, river, gorge, woods, hill, cave, 5+ discoverables, road out, soft boundary. Break/place blocked in client test. |
 | M2 Living residents | CLIENT-AUTOTESTED | 15 residents with full schedules. Client test: residents present in the village, asleep in their beds at night, talk to each other, routines change after a quest, records persist across relaunch. |
-| M3 Dialogue, quests, journal, investigation | CLIENT-AUTOTESTED | Opening quest, the pump quest, the courier offer and the ribbon side quest (clues, witness, case board theories, persistent stall change) run end-to-end; journal/case board screens render. Later story steps and the other three side quests: content validated only, NOT played by the script. |
+| M3 Dialogue, quests, journal, investigation | CLIENT-AUTOTESTED | Part of the story and one side quest are played end-to-end by the private story script; all six test quests are played in the developer test world. Every quest (story and test) passes the content-graph and condition checks. Later story steps: validated as data only, NOT played by the script. |
 | M4 Combat + abilities | CLIENT-AUTOTESTED (inputs only) | Encounter spawns, heavy/dodge/guard intents change server state, ability cooldowns, death/checkpoint. The harness ends fights directly; **real melee feel, parry timing and enemy telegraphs need a human playtest.** |
 | M5 Inventory, hotbar, shop, crafting, gathering | CLIENT-AUTOTESTED | Satchel renders real inventory; buy/sell/stock validation; key items can't be sold/dropped; gathering with cooldown; hearth cooking; reward overflow queue. |
 | M6 Integration, save/reload, packaging | CLIENT-AUTOTESTED, PACKAGED | Two-launch test: 10/10 persistence checks. Release: `release/TheHollowAtlas-v0.1.zip` (mod + Fabric API + world + QUICKSTART). Awaiting your playtest. |
+
+| DT Developer Testing Mode | CLIENT-AUTOTESTED | Separate test world, five test residents, six test quests, F7 developer menu and `/devtest` commands, switched off in the story world. Dev-world client test 70/70 + 8/8 after relaunch. See [DEV_TESTING.md](DEV_TESTING.md). |
 
 ## Known limitations (v0.1)
 - World art is procedurally assembled from authored data: coherent, but less detailed than a hand-built map. Interiors are simple.

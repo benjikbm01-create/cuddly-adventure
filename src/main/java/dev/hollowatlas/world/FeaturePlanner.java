@@ -25,6 +25,8 @@ public final class FeaturePlanner {
             case "jetty" -> jetty(p);
             case "lever_test" -> leverTest(p);
             case "arena" -> arena(p);
+            case "rock_arch" -> rockArch(p, f.size > 0 ? f.size : 24);
+            case "summit_cairn" -> summitCairn(p);
             default -> { /* reeds and others are procedural in the builder */ }
         }
         return p;
@@ -192,6 +194,40 @@ public final class FeaturePlanner {
     }
 
     /** Fenced ring for combat tests. */
+    /**
+     * A natural stone arch spanning {@code span} blocks along X. Use an absolute feature y (the base of the legs);
+     * the legs reach 14 blocks further down so they meet uneven ground.
+     */
+    private static void rockArch(BuildingPlanner.Plan p, int span) {
+        double a = span / 2.0, b = span * 0.55, thick = Math.max(3, span / 7.0);
+        String[] rock = {"minecraft:stone", "minecraft:andesite", "minecraft:tuff", "minecraft:stone", "minecraft:calcite", "minecraft:andesite"};
+        for (int x = (int) -a - 2; x <= (int) a + 2; x++) for (int y = -14; y <= (int) b + 2; y++) for (int z = -3; z <= 3; z++) {
+            double yy = Math.max(0, y);
+            double r = Math.hypot(x / a, yy / b);                    // 1.0 on the outer curve
+            double inner = Math.hypot(x / (a - thick), yy / (b - thick));
+            double rough = ((x * 73856093 ^ y * 19349663 ^ z * 83492791) & 7) / 28.0;
+            double zw = 2.2 + (y > b * 0.6 ? -0.6 : 0.6) + rough;
+            if (Math.abs(z) > zw) continue;
+            boolean solid = r <= 1.0 + rough * 0.08 && inner >= 1.0 - rough * 0.1;
+            if (y < 0) solid = Math.abs(x) >= a - thick - rough && Math.abs(x) <= a + 0.5 + rough * 4;
+            if (!solid) continue;
+            int band = Math.floorMod(y / 3 + (x * 31 + z * 17 & 1), rock.length);
+            p.set(x, y, z, rock[band]);
+        }
+        p.anchor("under", 0, 0, 0);
+        p.anchor("top", 0, (int) b + 1, 0);
+    }
+
+    private static void summitCairn(BuildingPlanner.Plan p) {
+        for (int x = -1; x <= 1; x++) for (int z = -1; z <= 1; z++) p.set(x, 0, z, "minecraft:cobblestone");
+        p.set(0, 1, 0, "minecraft:mossy_cobblestone");
+        p.set(0, 2, 0, "minecraft:cobblestone_wall");
+        p.set(0, 3, 0, "minecraft:lantern[hanging=false]");
+        p.set(1, 1, 0, "minecraft:cobblestone_slab[type=bottom]");
+        p.set(0, 0, 2, "minecraft:spruce_sign[rotation=0]|TEST SUMMIT|Highest point|of the test|mountain");
+        p.anchor("stand", 0, 0, 3);
+    }
+
     private static void arena(BuildingPlanner.Plan p) {
         int r = 12;
         for (int x = -r; x <= r; x++) for (int z = -r; z <= r; z++) {

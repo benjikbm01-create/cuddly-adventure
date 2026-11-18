@@ -13,7 +13,8 @@ import java.util.Map;
  */
 public final class RegionModel {
     public static final byte SURF_GRASS = 0, SURF_ROAD = 1, SURF_LANE = 2, SURF_BANK = 3, SURF_BED = 4,
-            SURF_ROCK = 5, SURF_BRIDGE = 6, SURF_COBBLE = 7, SURF_FIELD = 8, SURF_PAD = 9;
+            SURF_ROCK = 5, SURF_BRIDGE = 6, SURF_COBBLE = 7, SURF_FIELD = 8, SURF_PAD = 9, SURF_WALL = 10;
+    public static final byte BRIDGE_AUTO = 0, BRIDGE_STONE = 1, BRIDGE_WOOD = 2, BRIDGE_ROPE = 3;
 
     public final RegionLayout layout;
     public final int half;
@@ -25,6 +26,8 @@ public final class RegionModel {
     public final byte[] surface;
     /** Bridge deck Y per column (0 if none). */
     public final int[] bridge;
+    /** Bridge style per bridge column (BRIDGE_*). */
+    public final byte[] bridgeStyle;
     public final boolean[] occupied;     // building footprints (+ small margin)
     public final boolean[] roadMask;     // any road/lane cell including bridge cells
     public final List<PlacedBuilding> buildings = new ArrayList<>();
@@ -92,6 +95,7 @@ public final class RegionModel {
         water = new int[n];
         surface = new byte[n];
         bridge = new int[n];
+        bridgeStyle = new byte[n];
         occupied = new boolean[n];
         roadMask = new boolean[n];
         java.util.Arrays.fill(water, Integer.MIN_VALUE);
@@ -124,6 +128,13 @@ public final class RegionModel {
 
     public double noise(double x, double z) { return valueNoise(x, z) * 2 - 1; }
 
+    /** Ridged noise 0..1: sharp creases where plain noise crosses zero (crags, ridgelines). */
+    private double ridged(double x, double z) {
+        double a = 1 - Math.abs(noise(x, z));
+        double b = 1 - Math.abs(noise(x * 2.1 + 17, z * 2.1 - 9));
+        return a * a * 0.7 + b * b * 0.3;
+    }
+
     private static double smooth(double t) {
         t = Math.max(0, Math.min(1, t));
         return t * t * (3 - 2 * t);
@@ -132,6 +143,21 @@ public final class RegionModel {
     // ---------------------------------------------------------------- geometry
 
     /** Distance from point to polyline, and parametric info. */
+    /** Distance to a polyline plus the interpolated height along it, for graded roads: {distance, y}. */
+    static double[] gradedAt(List<int[]> pts, double[] vy, double px, double pz) {
+        double best = Double.MAX_VALUE, y = vy[0];
+        for (int i = 0; i + 1 < pts.size(); i++) {
+            int[] a = pts.get(i), b = pts.get(i + 1);
+            double dx = b[0] - a[0], dz = b[1] - a[1];
+            double len2 = dx * dx + dz * dz;
+            double t = len2 == 0 ? 0 : ((px - a[0]) * dx + (pz - a[1]) * dz) / len2;
+            t = Math.max(0, Math.min(1, t));
+            double d = Math.hypot(px - (a[0] + t * dx), pz - (a[1] + t * dz));
+            if (d < best) { best = d; y = vy[i] + (vy[i + 1] - vy[i]) * t; }
+        }
+        return new double[]{best, y};
+    }
+
     static double distToPolyline(List<int[]> pts, double px, double pz) {
         double best = Double.MAX_VALUE;
         for (int i = 0; i + 1 < pts.size(); i++) {
@@ -160,6 +186,39 @@ public final class RegionModel {
                 double t = 1 - d / hill.r;
                 double shape = smooth(t) * (0.85 + 0.15 * noise(x / 17.0 + hill.x, z / 17.0 + hill.z));
                 h += hill.h * shape;
+            }
+        }
+        for (RegionLayout.Peak pk : layout.peaks) {
+            double dx = x - pk.x, dz = z - pk.z;
+            double d = Math.hypot(dx, dz);
+            double ang = Math.atan2(dz, dx);
+            // ragged outline so the mountain isn't a perfect circle
+            double rr = pk.r * (0.82 + 0.18 * noise(Math.cos(ang) * 1.7 + pk.x * 0.01, Math.sin(ang) * 1.7 + pk.z * 0.01));
+            if (d < rr) {
+                double t = 1 - d / rr;
+                // concave flanks steepening to a pointed summit
+                double cone = 0.55 * t * t * (3 - 2 * t) + 0.45 * Math.pow(t, 2.4);
+                // spurs and gullies radiating from the summit (ridged noise in angle, stretched along the radius)
+                double wa = ang + 0.5 * noise(d / 45.0 + pk.x, pk.z * 0.01);   // spurs curve as they run downhill
+                double spur = 0.75 * ridged(Math.cos(wa) * 1.15 + pk.x * 0.01 + d / 160.0, Math.sin(wa) * 1.15 + pk.z * 0.01)
+                        + 0.25 * ridged(Math.cos(wa) * 2.9 + 40 + d / 90.0, Math.sin(wa) * 2.9 - 40);
+                double shape = 1 + pk.crag * (spur - 0.55) * Math.min(1, (1 - t) * 2.2);
+                double rough = noise(x / 7.0 + pk.x, z / 7.0 - pk.z) * 3.5 * pk.crag * t;
+                h += pk.h * cone * shape + rough;
+            }
+        }
+        for (RegionLayout.Range rg : layout.ranges) {
+            double d = distToPolyline(rg.points, x, z);
+            if (d < rg.width) {
+                double t = smooth(1 - d / rg.width);
+                h += rg.h * t * (0.55 + 0.6 * ridged(x / 34.0 + 5, z / 34.0 - 5));
+            }
+        }
+        for (RegionLayout.Spire sp : layout.spires) {
+            double d = Math.hypot(x - sp.x, z - sp.z) + noise(x / 3.0 + sp.x, z / 3.0 - sp.z) * 1.2;
+            if (d < sp.r) {
+                double t = d / sp.r;
+                h += sp.h * (1 - t * t * t * t) * (0.9 + 0.1 * noise(x / 4.0, z / 4.0));
             }
         }
         // natural edge ridge, with gaps for roads
@@ -283,6 +342,7 @@ public final class RegionModel {
             if (door == null || pb.def.type.equals("well")) continue;
             int[] dl = pb.toLocal(door[0], door[2]);
             double best = Double.MAX_VALUE; int bx = 0, bz = 0;
+            RegionLayout.Road bestRoad = null;
             for (RegionLayout.Road r : layout.roads) {
                 for (int s = 0; s + 1 < r.points.size(); s++) {
                     int[] a = r.points.get(s), b2 = r.points.get(s + 1);
@@ -291,7 +351,7 @@ public final class RegionModel {
                         double t = k / (double) steps;
                         int px = (int) Math.round(a[0] + (b2[0] - a[0]) * t), pz = (int) Math.round(a[1] + (b2[1] - a[1]) * t);
                         double dd = Math.hypot(px - dl[0], pz - dl[1]);
-                        if (dd < best) { best = dd; bx = px; bz = pz; }
+                        if (dd < best) { best = dd; bx = px; bz = pz; bestRoad = r; }
                     }
                 }
             }
@@ -302,9 +362,26 @@ public final class RegionModel {
                 lane.surface = "lane";
                 // a short straight run out of the door, then toward the road
                 int[] step = pb.toLocal(door[0], door[2] + 2);
-                lane.points.add(new int[]{dl[0], dl[1]});
-                lane.points.add(new int[]{step[0], step[1]});
-                lane.points.add(new int[]{bx, bz});
+                if (layout.road_steps) {
+                    // graded from the doorstep down/up to the road's own height at the junction
+                    lane.graded = true;
+                    int junctionY = (int) Math.round(h[idx(bx, bz)]);
+                    if (bestRoad != null && bestRoad.graded) {
+                        double[] vy = new double[bestRoad.points.size()];
+                        for (int k = 0; k < vy.length; k++) {
+                            int[] p = bestRoad.points.get(k);
+                            vy[k] = p.length >= 3 ? p[2] : Math.round(h[idx(Math.max(-half, Math.min(half, p[0])), Math.max(-half, Math.min(half, p[1])))]);
+                        }
+                        junctionY = (int) Math.round(gradedAt(bestRoad.points, vy, bx, bz)[1]);
+                    }
+                    lane.points.add(new int[]{dl[0], dl[1], pb.padY});
+                    lane.points.add(new int[]{step[0], step[1], pb.padY});
+                    lane.points.add(new int[]{bx, bz, junctionY});
+                } else {
+                    lane.points.add(new int[]{dl[0], dl[1]});
+                    lane.points.add(new int[]{step[0], step[1]});
+                    lane.points.add(new int[]{bx, bz});
+                }
                 allRoads.add(lane);
             }
         }
@@ -321,9 +398,20 @@ public final class RegionModel {
             int minX = Integer.MAX_VALUE, maxX = Integer.MIN_VALUE, minZ = Integer.MAX_VALUE, maxZ = Integer.MIN_VALUE;
             for (int[] p : road.points) { minX = Math.min(minX, p[0]); maxX = Math.max(maxX, p[0]); minZ = Math.min(minZ, p[1]); maxZ = Math.max(maxZ, p[1]); }
             int pad = (int) Math.ceil(hw + 4);
+            double[] vy = null;
+            if (road.graded) {
+                vy = new double[road.points.size()];
+                for (int k = 0; k < vy.length; k++) {
+                    int[] p = road.points.get(k);
+                    vy[k] = p.length >= 3 ? p[2] : Math.round(carved[idx(Math.max(-half, Math.min(half, p[0])), Math.max(-half, Math.min(half, p[1])))]);
+                }
+            }
             for (int z = Math.max(-half, minZ - pad); z <= Math.min(half, maxZ + pad); z++) {
                 for (int x = Math.max(-half, minX - pad); x <= Math.min(half, maxX + pad); x++) {
-                    double d = distToPolyline(road.points, x, z);
+                    double gradedY = 0;
+                    double d;
+                    if (vy != null) { double[] g = gradedAt(road.points, vy, x, z); d = g[0]; gradedY = g[1]; }
+                    else d = distToPolyline(road.points, x, z);
                     if (d > hw + 3) continue;
                     int i = idx(x, z);
                     if (surface[i] == SURF_PAD) continue;
@@ -336,12 +424,18 @@ public final class RegionModel {
                         double v = water[j] != Integer.MIN_VALUE ? Math.max(carved[j], water[j] + 1) : carved[j];
                         sum += v; cnt++;
                     }
-                    double smoothH = sum / cnt;
+                    double smoothH = vy != null ? gradedY : sum / cnt;
                     double w = d <= hw ? 1 : 1 - smooth((d - hw) / 3);
                     if (d <= hw + 0.5) roadMask[i] = true;
                     if (water[i] != Integer.MIN_VALUE) {
                         if (d <= hw + 0.5) {
                             int deck = water[i] + 2;
+                            bridgeStyle[i] = switch (road.bridge) {
+                                case "stone" -> BRIDGE_STONE;
+                                case "wood" -> BRIDGE_WOOD;
+                                case "rope" -> BRIDGE_ROPE;
+                                default -> BRIDGE_AUTO;
+                            };
                             if (road.broken_bridge) {
                                 // only the first stretch of deck survives near the western bank
                                 bridge[i] = -deck; // negative = broken bridge cell
@@ -371,6 +465,7 @@ public final class RegionModel {
         for (int i = 0; i < n; i++) height[i] = (int) Math.round(h[i]);
         // water must sit above bed
         for (int i = 0; i < n; i++) if (water[i] != Integer.MIN_VALUE && height[i] >= water[i]) height[i] = water[i] - 1;
+        if (layout.road_steps) limitRoadGrade();   // opt-in: existing worlds keep the exact heights they were built with
 
         // bridge decks: each connected bridge span sits at the height of the road on its banks
         boolean[] seen = new boolean[n];
@@ -398,6 +493,22 @@ public final class RegionModel {
             }
             int deck = Math.max(maxWater + 2, cnt > 0 ? (int) Math.round(sum / cnt) : maxWater + 2);
             for (int c : span) bridge[c] = bridge[c] < 0 ? -deck : deck;
+        }
+
+        // retaining walls along walled terraces
+        for (RegionLayout.Flat f : layout.flats) {
+            if (!f.wall) continue;
+            int R = f.r + 3;
+            for (int z = f.z - R; z <= f.z + R; z++) for (int x = f.x - R; x <= f.x + R; x++) {
+                if (x <= -half || z <= -half || x >= half || z >= half) continue;
+                double d = Math.hypot(x - f.x, z - f.z);
+                if (d < f.r - 2 || d > f.r + 3) continue;
+                int i = idx(x, z);
+                if (roadMask[i] || water[i] != Integer.MIN_VALUE || surface[i] == SURF_PAD || occupied[i]) continue;
+                int c = height[i];
+                int lowest = Math.min(Math.min(height[idx(x + 1, z)], height[idx(x - 1, z)]), Math.min(height[idx(x, z + 1)], height[idx(x, z - 1)]));
+                if (c - lowest >= 2) surface[i] = SURF_WALL;
+            }
         }
 
         // steep rock
@@ -449,6 +560,43 @@ public final class RegionModel {
                 anchors.put(pb.def.id + "." + e.getKey(), pb.toLocal(e.getValue()));
             }
         }
+    }
+
+    /**
+     * Roads never rise more than one block between neighbouring road cells: where the terrain is steeper,
+     * the road bed is cut down into the slope (repeated until stable). Bridge and water cells are left alone.
+     */
+    private void limitRoadGrade() {
+        boolean changed = true;
+        for (int pass = 0; pass < 400 && changed; pass++) {
+            changed = false;
+            for (int z = -half; z <= half; z++) for (int x = -half; x <= half; x++) {
+                int i = idx(x, z);
+                if (!roadMask[i] || bridge[i] != 0 || water[i] != Integer.MIN_VALUE || surface[i] == SURF_PAD) continue;
+                int[][] nb = {{1, 0}, {-1, 0}, {0, 1}, {0, -1}};
+                for (int[] d : nb) {
+                    int xx = x + d[0], zz = z + d[1];
+                    if (!inside(xx, zz)) continue;
+                    int j = idx(xx, zz);
+                    if (!roadMask[j] || bridge[j] != 0 || water[j] != Integer.MIN_VALUE) continue;
+                    if (height[i] > height[j] + 1) { height[i] = height[j] + 1; changed = true; }
+                }
+            }
+        }
+    }
+
+    /** Largest height step between neighbouring dry road cells (for tests): 1 means fully walkable. */
+    public int maxRoadStep() {
+        int worst = 0;
+        for (int z = -half; z < half; z++) for (int x = -half; x < half; x++) {
+            int i = idx(x, z);
+            if (!roadMask[i] || bridge[i] != 0 || water[i] != Integer.MIN_VALUE || surface[i] == SURF_PAD) continue;
+            for (int j : new int[]{idx(x + 1, z), idx(x, z + 1)}) {
+                if (!roadMask[j] || bridge[j] != 0 || water[j] != Integer.MIN_VALUE || surface[j] == SURF_PAD) continue;
+                worst = Math.max(worst, Math.abs(height[i] - height[j]));
+            }
+        }
+        return worst;
     }
 
     /** True if a column is free for vegetation. */

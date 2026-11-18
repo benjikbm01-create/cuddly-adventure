@@ -16,7 +16,7 @@ class RegionModelTest {
     /** Every region file shipped with the mod (story and developer test). */
     static java.util.List<RegionModel> all() {
         java.util.List<RegionModel> out = new java.util.ArrayList<>();
-        for (String id : java.util.List.of("westreach_brindlecross", "devtest_grounds", "boreal_sableforge")) {
+        for (String id : java.util.List.of("westreach_brindlecross", "devtest_grounds", "devtest_heights", "boreal_sableforge")) {
             if (RegionLayout.class.getResource("/data/hollowatlas/region/" + id + ".json") != null)
                 out.add(new RegionModel(RegionLayout.loadBuiltin(id)));
         }
@@ -98,6 +98,52 @@ class RegionModelTest {
             if (m.water[m.idx(a[0], a[2])] != Integer.MIN_VALUE && m.bridge[m.idx(a[0], a[2])] == 0) problems.add(e.getKey() + " is in water");
         }
         assertTrue(problems.isEmpty(), String.join("\n", problems));
+    }
+
+    @Test
+    void steppedRoadsAreWalkable() {
+        for (RegionModel m : all()) {
+            if (!m.layout.road_steps) continue;
+            assertTrue(m.maxRoadStep() <= 1, m.layout.id + ": a road rises more than one block between neighbouring cells (" + m.maxRoadStep() + ")");
+        }
+    }
+
+    /** Shaded relief previews of every region: build/region_preview_<id>.png (for authoring; not shipped). */
+    @Test
+    void renderReliefPreviews() throws Exception {
+        for (RegionModel m : all()) {
+            BufferedImage img = new BufferedImage(m.size, m.size, BufferedImage.TYPE_INT_RGB);
+            for (int z = -m.half; z <= m.half; z++) for (int x = -m.half; x <= m.half; x++) {
+                int i = m.idx(x, z);
+                int h = m.height[i];
+                int west = m.heightAt(x - 1, z), north = m.heightAt(x, z - 1);
+                double shade = Math.max(0.45, Math.min(1.35, 1 + ((h - west) + (h - north)) * 0.12));
+                int base;
+                if (m.bridge[i] != 0) base = m.bridgeStyle[i] == RegionModel.BRIDGE_ROPE ? 0xd09050 : 0x8a6a3a;
+                else if (m.water[i] != Integer.MIN_VALUE) base = 0x3a6fd8;
+                else if (m.occupied[i]) base = 0xb04030;
+                else base = switch (m.surface[i]) {
+                    case RegionModel.SURF_ROAD, RegionModel.SURF_LANE -> 0xd8c090;
+                    case RegionModel.SURF_COBBLE -> 0xa0a0a0;
+                    case RegionModel.SURF_WALL -> 0x5a5a6a;
+                    case RegionModel.SURF_ROCK -> m.layout.snow_line > 0 && h >= m.layout.snow_line ? 0xe8eef4 : 0x8a8478;
+                    case RegionModel.SURF_BANK -> 0xd8cf9a;
+                    case RegionModel.SURF_FIELD -> 0x9a8a30;
+                    default -> m.layout.snow_line > 0 && h >= m.layout.snow_line ? 0xf4f8fc
+                            : h > 100 ? 0x6a8a50 : 0x5a9a40;
+                };
+                int r = (int) Math.min(255, ((base >> 16) & 255) * shade), g = (int) Math.min(255, ((base >> 8) & 255) * shade), b = (int) Math.min(255, (base & 255) * shade);
+                img.setRGB(x + m.half, z + m.half, r << 16 | g << 8 | b);
+            }
+            for (Map.Entry<String, int[]> e : m.anchors.entrySet()) {
+                int[] a = e.getValue();
+                if (m.inside(a[0], a[2])) img.setRGB(a[0] + m.half, a[2] + m.half, 0xffff00);
+            }
+            File out = new File(System.getProperty("hollowatlas.previewDir", "build"), "region_preview_" + m.layout.id + ".png");
+            out.getParentFile().mkdirs();
+            ImageIO.write(img, "png", out);
+            assertTrue(out.exists());
+        }
     }
 
     @Test

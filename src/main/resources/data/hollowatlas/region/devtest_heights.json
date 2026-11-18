@@ -1,0 +1,702 @@
+{
+  "id": "devtest_heights",
+  "name": "Test Heights (developer test world)",
+  "mode": "devtest",
+  "origin": [
+    341,
+    0
+  ],
+  "half_size": 200,
+  "base_y": 66,
+  "water_y": 62,
+  "seed": 9091,
+  "border_size": 402,
+  "snow_line": 150,
+  "surface_style": "mountain",
+  "rock_bands": true,
+  "road_steps": true,
+  "village_center": [
+    -5,
+    10
+  ],
+  "village_radius": 80,
+  "peaks": [
+    {
+      "id": "dt_h_peak",
+      "x": 115,
+      "z": -20,
+      "r": 165,
+      "h": 135,
+      "crag": 0.55
+    },
+    {
+      "id": "dt_h_horn",
+      "x": 150,
+      "z": 148,
+      "r": 62,
+      "h": 80,
+      "crag": 0.65
+    },
+    {
+      "id": "dt_h_needle",
+      "x": -30,
+      "z": -135,
+      "r": 48,
+      "h": 78,
+      "crag": 0.7
+    }
+  ],
+  "ranges": [
+    {
+      "id": "dt_h_northwall",
+      "width": 45,
+      "h": 52,
+      "points": [
+        [
+          -60,
+          -190
+        ],
+        [
+          60,
+          -172
+        ],
+        [
+          190,
+          -140
+        ]
+      ]
+    }
+  ],
+  "spires": [
+    {
+      "id": "dt_h_spire1",
+      "x": -160,
+      "z": 110,
+      "r": 5,
+      "h": 30
+    },
+    {
+      "id": "dt_h_spire2",
+      "x": -140,
+      "z": 132,
+      "r": 4,
+      "h": 22
+    },
+    {
+      "id": "dt_h_spire3",
+      "x": -176,
+      "z": 150,
+      "r": 6,
+      "h": 40
+    },
+    {
+      "id": "dt_h_spire4",
+      "x": -124,
+      "z": 96,
+      "r": 3,
+      "h": 16
+    },
+    {
+      "id": "dt_h_spire5",
+      "x": -150,
+      "z": 168,
+      "r": 5,
+      "h": 27
+    },
+    {
+      "id": "dt_h_spire6",
+      "x": -118,
+      "z": 152,
+      "r": 4,
+      "h": 34
+    },
+    {
+      "id": "dt_h_spire7",
+      "x": -186,
+      "z": 92,
+      "r": 4,
+      "h": 20
+    },
+    {
+      "id": "dt_h_mesa1",
+      "x": -170,
+      "z": -150,
+      "r": 17,
+      "h": 26
+    },
+    {
+      "id": "dt_h_mesa2",
+      "x": -55,
+      "z": 160,
+      "r": 19,
+      "h": 21
+    },
+    {
+      "id": "dt_h_mesa3",
+      "x": -130,
+      "z": -110,
+      "r": 10,
+      "h": 34
+    }
+  ],
+  "flats": [
+    {
+      "id": "dt_h_lower",
+      "x": -35,
+      "z": 10,
+      "r": 24,
+      "blend": 2,
+      "y": 76,
+      "wall": true
+    },
+    {
+      "id": "dt_h_mid",
+      "x": 5,
+      "z": -28,
+      "r": 18,
+      "blend": 2,
+      "y": 90,
+      "wall": true
+    },
+    {
+      "id": "dt_h_upper",
+      "x": 30,
+      "z": 22,
+      "r": 17,
+      "blend": 2,
+      "y": 104,
+      "wall": true
+    },
+    {
+      "id": "dt_h_top",
+      "x": 70,
+      "z": 45,
+      "r": 9,
+      "blend": 2,
+      "y": 128,
+      "wall": true
+    }
+  ],
+  "edge_ridge": {
+    "width": 34,
+    "height": 34,
+    "gaps": [
+      {
+        "edge": "west",
+        "at": 0,
+        "half": 10
+      }
+    ]
+  },
+  "rivers": [
+    {
+      "id": "dt_h_chasm",
+      "width": 8,
+      "depth": 2,
+      "water_y": 40,
+      "gorge": true,
+      "points": [
+        [
+          -100,
+          -200
+        ],
+        [
+          -88,
+          -90
+        ],
+        [
+          -98,
+          0
+        ],
+        [
+          -90,
+          90
+        ],
+        [
+          -104,
+          200
+        ]
+      ]
+    }
+  ],
+  "ponds": [
+    {
+      "id": "dt_h_tarn",
+      "x": -150,
+      "z": -60,
+      "r": 14,
+      "depth": 3
+    },
+    {
+      "id": "dt_h_fallpool",
+      "x": -57,
+      "z": -15,
+      "r": 4,
+      "depth": 2
+    }
+  ],
+  "falls": [
+    {
+      "id": "dt_h_canyon_fall",
+      "x": -90,
+      "z": -42,
+      "w": 3,
+      "axis": "z"
+    },
+    {
+      "id": "dt_h_terrace_fall",
+      "x": -55,
+      "z": -11,
+      "w": 3,
+      "axis": "x"
+    }
+  ],
+  "roads": [
+    {
+      "id": "dt_h_road_in",
+      "width": 4,
+      "surface": "cobble",
+      "graded": true,
+      "bridge": "rope",
+      "points": [
+        [
+          -200,
+          0,
+          66
+        ],
+        [
+          -110,
+          0,
+          66
+        ],
+        [
+          -80,
+          0,
+          66
+        ],
+        [
+          -66,
+          0,
+          66
+        ]
+      ]
+    },
+    {
+      "id": "dt_h_ramp1",
+      "width": 4,
+      "surface": "cobble",
+      "graded": true,
+      "points": [
+        [
+          -66,
+          0,
+          66
+        ],
+        [
+          -66,
+          34,
+          72
+        ],
+        [
+          -46,
+          40,
+          76
+        ],
+        [
+          -40,
+          28,
+          76
+        ]
+      ]
+    },
+    {
+      "id": "dt_h_plaza",
+      "width": 9,
+      "surface": "cobble",
+      "graded": true,
+      "points": [
+        [
+          -46,
+          10,
+          76
+        ],
+        [
+          -24,
+          10,
+          76
+        ]
+      ]
+    },
+    {
+      "id": "dt_h_ramp2",
+      "width": 3,
+      "surface": "cobble",
+      "graded": true,
+      "points": [
+        [
+          -20,
+          0,
+          76
+        ],
+        [
+          10,
+          6,
+          82
+        ],
+        [
+          30,
+          -4,
+          86
+        ],
+        [
+          22,
+          -20,
+          90
+        ],
+        [
+          15,
+          -24,
+          90
+        ]
+      ]
+    },
+    {
+      "id": "dt_h_ramp3",
+      "width": 3,
+      "surface": "cobble",
+      "graded": true,
+      "points": [
+        [
+          18,
+          -28,
+          90
+        ],
+        [
+          50,
+          -40,
+          96
+        ],
+        [
+          62,
+          -10,
+          101
+        ],
+        [
+          45,
+          12,
+          104
+        ],
+        [
+          38,
+          16,
+          104
+        ]
+      ]
+    },
+    {
+      "id": "dt_h_ramp4",
+      "width": 3,
+      "surface": "cobble",
+      "graded": true,
+      "points": [
+        [
+          44,
+          30,
+          104
+        ],
+        [
+          60,
+          62,
+          114
+        ],
+        [
+          64,
+          48,
+          122
+        ],
+        [
+          63,
+          44,
+          128
+        ]
+      ]
+    },
+    {
+      "id": "dt_h_summit_trail",
+      "width": 2,
+      "surface": "lane",
+      "graded": true,
+      "points": [
+        [
+          63,
+          40,
+          128
+        ],
+        [
+          82,
+          30
+        ],
+        [
+          74,
+          12
+        ],
+        [
+          94,
+          4
+        ],
+        [
+          86,
+          -10
+        ],
+        [
+          104,
+          -14
+        ],
+        [
+          112,
+          -18
+        ]
+      ]
+    }
+  ],
+  "woods": [
+    {
+      "id": "dt_h_pines",
+      "x": -140,
+      "z": -120,
+      "r": 55,
+      "density": 0.45,
+      "mix": [
+        "spruce",
+        "spruce",
+        "birch"
+      ]
+    },
+    {
+      "id": "dt_h_highpines",
+      "x": 60,
+      "z": 110,
+      "r": 45,
+      "density": 0.4,
+      "mix": [
+        "spruce"
+      ]
+    }
+  ],
+  "buildings": [
+    {
+      "id": "dt_h_lodge",
+      "type": "inn",
+      "label": "Test Lodge",
+      "x": -36,
+      "z": -4,
+      "w": 15,
+      "d": 11,
+      "facing": "south",
+      "floors": 2,
+      "wall": "minecraft:stone_bricks",
+      "frame": "minecraft:stripped_dark_oak_log",
+      "floor": "minecraft:spruce_planks",
+      "roof": "deepslate",
+      "foundation": "minecraft:cobbled_deepslate"
+    },
+    {
+      "id": "dt_h_store",
+      "type": "store",
+      "label": "Test Outfitter",
+      "x": -24,
+      "z": 22,
+      "w": 11,
+      "d": 9,
+      "facing": "north",
+      "wall": "minecraft:spruce_planks",
+      "frame": "minecraft:stripped_dark_oak_log",
+      "roof": "dark_oak",
+      "foundation": "minecraft:cobblestone"
+    },
+    {
+      "id": "dt_h_forge",
+      "type": "smithy",
+      "label": "Test Forge",
+      "x": 2,
+      "z": -34,
+      "w": 11,
+      "d": 9,
+      "facing": "south",
+      "wall": "minecraft:cobbled_deepslate",
+      "frame": "minecraft:stripped_spruce_log",
+      "floor": "minecraft:stone_bricks",
+      "roof": "deepslate"
+    },
+    {
+      "id": "dt_h_house_a",
+      "type": "house",
+      "label": "Test Cabin A",
+      "x": -4,
+      "z": -22,
+      "w": 9,
+      "d": 8,
+      "facing": "east",
+      "wall": "minecraft:spruce_planks",
+      "frame": "minecraft:stripped_spruce_log",
+      "roof": "spruce",
+      "beds": 2
+    },
+    {
+      "id": "dt_h_house_b",
+      "type": "house",
+      "label": "Test Cabin B",
+      "x": 24,
+      "z": 28,
+      "w": 9,
+      "d": 7,
+      "facing": "north",
+      "wall": "minecraft:dark_oak_planks",
+      "frame": "minecraft:stripped_spruce_log",
+      "roof": "spruce",
+      "beds": 1
+    },
+    {
+      "id": "dt_h_watch",
+      "type": "tower",
+      "label": "Test Lookout",
+      "x": 71,
+      "z": 45,
+      "w": 7,
+      "d": 7,
+      "facing": "west",
+      "floors": 3,
+      "wall": "minecraft:stone_bricks",
+      "frame": "minecraft:stripped_spruce_log",
+      "roof": "deepslate"
+    }
+  ],
+  "caves": [
+    {
+      "id": "dt_h_mine",
+      "nodes": [
+        [
+          44,
+          106,
+          18,
+          3,
+          1
+        ],
+        [
+          58,
+          106,
+          16,
+          3,
+          1
+        ],
+        [
+          74,
+          105,
+          10,
+          4,
+          1
+        ]
+      ]
+    }
+  ],
+  "features": [
+    {
+      "id": "dt_h_arch",
+      "type": "rock_arch",
+      "x": -150,
+      "z": 62,
+      "y": 66,
+      "size": 26
+    },
+    {
+      "id": "dt_h_summit",
+      "type": "summit_cairn",
+      "x": 115,
+      "z": -20
+    }
+  ],
+  "anchors": {
+    "dt_h_entry": [
+      -185,
+      0,
+      0
+    ],
+    "dt_h_bridge_w": [
+      -108,
+      0,
+      0
+    ],
+    "dt_h_bridge_e": [
+      -80,
+      0,
+      0
+    ],
+    "dt_h_plaza": [
+      -35,
+      0,
+      10
+    ],
+    "dt_h_fallview": [
+      -50,
+      0,
+      -16
+    ],
+    "dt_h_mid": [
+      8,
+      0,
+      -22
+    ],
+    "dt_h_upper": [
+      32,
+      0,
+      18
+    ],
+    "dt_h_mine": [
+      70,
+      105,
+      11,
+      1
+    ],
+    "dt_h_lookout": [
+      64,
+      0,
+      44
+    ],
+    "dt_h_spires": [
+      -150,
+      0,
+      125
+    ],
+    "dt_h_arch_view": [
+      -150,
+      0,
+      80
+    ],
+    "dt_h_tarn": [
+      -150,
+      0,
+      -80
+    ],
+    "dt_h_canyon_view": [
+      -80,
+      0,
+      -42
+    ]
+  },
+  "hills": [
+    {
+      "id": "dt_h_knoll",
+      "x": -150,
+      "z": -15,
+      "r": 42,
+      "h": 9
+    },
+    {
+      "id": "dt_h_downs",
+      "x": -30,
+      "z": 125,
+      "r": 55,
+      "h": 14
+    }
+  ]
+}

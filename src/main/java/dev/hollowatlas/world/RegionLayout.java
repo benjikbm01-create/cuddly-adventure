@@ -38,6 +38,18 @@ public final class RegionLayout {
     public int snow_line = 0;
     /** Default building pad style for this region's terrain surface: "grass" or "mountain". */
     public String surface_style = "grass";
+    /** Exposed rock shows coloured strata (stone, andesite, tuff, calcite, deepslate) instead of plain stone. */
+    public boolean rock_bands = false;
+    /** Roads climb with half-slab steps where they rise one block, so players and residents walk up without jumping. */
+    public boolean road_steps = false;
+    /** Village centre (local) used to keep scattered meadow trees out of the streets. */
+    public int[] village_center = {0, 0};
+    public int village_radius = 90;
+
+    public List<Peak> peaks = new ArrayList<>();
+    public List<Range> ranges = new ArrayList<>();
+    public List<Spire> spires = new ArrayList<>();
+    public List<Fall> falls = new ArrayList<>();
 
     public List<Hill> hills = new ArrayList<>();
     public List<Flat> flats = new ArrayList<>();
@@ -55,10 +67,24 @@ public final class RegionLayout {
 
     public static final class Hill { public String id; public int x, z, r; public double h; }
 
+    /** A mountain: steep, craggy cone. crag 0..1 adds ridged noise to the flanks. */
+    public static final class Peak { public String id; public int x, z, r; public double h; public double crag = 0.35; }
+
+    /** A mountain range along a polyline. */
+    public static final class Range { public String id; public double width = 40, h = 40; public List<int[]> points = new ArrayList<>(); }
+
+    /** A narrow rock pillar (hoodoo / sea stack). */
+    public static final class Spire { public String id; public int x, z, r; public double h; }
+
+    /** Waterfall: a curtain of falling water at (x,z) along an axis, from the cliff top (auto) down to the ground. */
+    public static final class Fall { public String id; public int x, z; public int w = 2; public String axis = "x"; public int top = 0; }
+
     public static final class Flat {
         public String id; public int x, z, r, blend;
         /** Target height; 0 means "use the unflattened terrain height at the center". */
         public int y;
+        /** Sharp edge faced with stone-brick retaining walls (use a small blend). */
+        public boolean wall = false;
     }
 
     public static final class EdgeRidge {
@@ -84,6 +110,14 @@ public final class RegionLayout {
         public double width = 4;
         public String surface = "path"; // path | lane | cobble
         public boolean broken_bridge = false;
+        /** auto | stone | wood | rope */
+        public String bridge = "auto";
+        /**
+         * Graded road: the bed follows a straight-line profile between its points instead of the terrain, cutting
+         * into slopes and building up embankments. A point may give its height as a third value [x, z, y];
+         * otherwise the terrain height at that point is used.
+         */
+        public boolean graded = false;
         public List<int[]> points = new ArrayList<>();
     }
 
@@ -127,6 +161,8 @@ public final class RegionLayout {
         /** 0 = blocks are placed relative to local ground; otherwise y=0 of the plan is this absolute Y. */
         public int y = 0;
         public String facing = "south";
+        /** Optional size parameter (e.g. arch span). */
+        public int size = 0;
     }
 
     public static RegionLayout parse(Reader reader) {

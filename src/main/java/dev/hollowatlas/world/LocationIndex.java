@@ -22,7 +22,7 @@ import java.util.Set;
  */
 public final class LocationIndex {
     /** Regions in map order. Their layout files live in data/hollowatlas/region/. */
-    public static final List<String> REGIONS = List.of("westreach_brindlecross", "boreal_sableforge", "devtest_grounds");
+    public static final List<String> REGIONS = List.of("westreach_brindlecross", "boreal_sableforge", "devtest_grounds", "devtest_heights");
     public static final String DEFAULT_REGION = REGIONS.get(0);
 
     private static List<RegionModel> models;

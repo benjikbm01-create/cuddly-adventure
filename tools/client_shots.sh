@@ -3,17 +3,19 @@
 # saves screenshots at named anchors.  Usage: tools/client_shots.sh "<autoshot spec>"
 set -euo pipefail
 cd "$(dirname "$0")/.."
+#   WORLD=dev tools/client_shots.sh "..."   uses the developer test world instead of the story world
 SPEC="$1"
+if [ "${WORLD:-story}" = "dev" ]; then SRC=run-devworld/hollow_atlas_devtest; NAME=hollow_atlas_devtest; else SRC=run-world/hollow_atlas; NAME=hollow_atlas; fi
 mkdir -p run/saves run/screenshots
-rm -rf run/saves/hollow_atlas
-cp -r run-world/hollow_atlas run/saves/hollow_atlas
-rm -f run/saves/hollow_atlas/session.lock
-cat > run/options.txt <<'OPTS'
-renderDistance:8
+rm -rf "run/saves/$NAME"
+cp -r "$SRC" "run/saves/$NAME"
+rm -f "run/saves/$NAME/session.lock"
+cat > run/options.txt <<OPTS
+renderDistance:${RD:-8}
 simulationDistance:6
 maxFps:30
 graphicsMode:0
-renderClouds:"false"
+renderClouds:\"false\"
 particles:2
 entityShadows:false
 fov:0.25
@@ -29,5 +31,5 @@ export LIBGL_ALWAYS_SOFTWARE=1
 export GALLIUM_DRIVER=llvmpipe
 xvfb-run -a -s "-screen 0 1280x720x24" ./gradlew runClient --no-daemon \
   -Dorg.gradle.jvmargs=-Xmx3G \
-  --args="--quickPlaySingleplayer hollow_atlas --width 1280 --height 720" \
+  --args="--username HATester --quickPlaySingleplayer $NAME --width 1280 --height 720" \
   -Phollowatlas.autoshot="$SPEC"

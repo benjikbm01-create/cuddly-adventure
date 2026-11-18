@@ -163,6 +163,8 @@ public final class RegionBuilder {
             tasks.add(() -> terrainChunk(fcx, fcz));
         }
         tasks.add(this::bridges);
+        tasks.add(this::roadSteps);
+        tasks.add(this::falls);
         tasks.add(this::caves);
         tasks.add(this::fields);
         for (RegionModel.PlacedBuilding b : model.buildings) tasks.add(() -> building(b));
@@ -236,10 +238,13 @@ public final class RegionBuilder {
             int yTop = Math.max(Math.max(64, H), W == Integer.MIN_VALUE ? 0 : W) + 1;
             int yLow = Math.min(H - 4, 60);
             BlockPos.Mutable m = new BlockPos.Mutable();
+            boolean wall = surf == RegionModel.SURF_WALL;
+            boolean bands = model.layout.rock_bands;
             for (int y = yLow; y <= yTop; y++) {
                 BlockState want;
-                if (y <= H - 4) want = stone;
-                else if (y < H) want = y >= H - 1 ? sub : (sub == stone ? stone : dirt);
+                if (wall && y < H && y > H - 14) want = wallBlock(lx, y, lz);
+                else if (y <= H - 4) want = bands ? band(lx, y, lz) : stone;
+                else if (y < H) want = y >= H - 1 ? (bands && sub == stone ? band(lx, y, lz) : sub) : (sub == stone ? (bands ? band(lx, y, lz) : stone) : dirt);
                 else if (y == H) want = top;
                 else if (W != Integer.MIN_VALUE && y <= W) want = water;
                 else want = air;
@@ -249,16 +254,40 @@ public final class RegionBuilder {
         }
     }
 
+    /** Coloured rock strata, gently warped so the layers aren't perfectly flat. */
+    private BlockState band(int x, int y, int z) {
+        double warp = model.noise(x / 37.0 + 11, z / 37.0 - 7) * 3.5 + model.noise(x / 9.0, z / 9.0) * 0.8;
+        int layer = Math.floorMod((int) Math.floor((y + warp) / 3.0), 11);
+        return switch (layer) {
+            case 1, 6 -> Blocks.ANDESITE.getDefaultState();
+            case 3 -> Blocks.TUFF.getDefaultState();
+            case 4 -> Blocks.CALCITE.getDefaultState();
+            case 8 -> Blocks.DEEPSLATE.getDefaultState();
+            case 9 -> Blocks.GRANITE.getDefaultState();
+            default -> Blocks.STONE.getDefaultState();
+        };
+    }
+
+    private BlockState wallBlock(int x, int y, int z) {
+        double r = rnd(x * 31 + y, z, 77);
+        return r < 0.62 ? Blocks.STONE_BRICKS.getDefaultState() : r < 0.8 ? Blocks.MOSSY_STONE_BRICKS.getDefaultState()
+                : r < 0.92 ? Blocks.CRACKED_STONE_BRICKS.getDefaultState() : Blocks.COBBLESTONE.getDefaultState();
+    }
+
     private BlockState surfaceBlock(int x, int z, byte surf, int H, int W) {
         double r = rnd(x, z, 7);
+        boolean snowy = model.layout.snow_line > 0 && H >= model.layout.snow_line;
         return switch (surf) {
+            case RegionModel.SURF_WALL -> wallBlock(x, H, z);
             case RegionModel.SURF_ROAD -> r < 0.05 ? Blocks.COARSE_DIRT.getDefaultState() : r < 0.07 ? Blocks.GRAVEL.getDefaultState() : Blocks.DIRT_PATH.getDefaultState();
             case RegionModel.SURF_LANE -> r < 0.08 ? Blocks.COARSE_DIRT.getDefaultState() : r < 0.20 ? Blocks.GRASS_BLOCK.getDefaultState() : Blocks.DIRT_PATH.getDefaultState();
             case RegionModel.SURF_COBBLE -> r < 0.45 ? Blocks.STONE_BRICKS.getDefaultState() : r < 0.65 ? Blocks.COBBLESTONE.getDefaultState()
                     : r < 0.8 ? Blocks.ANDESITE.getDefaultState() : r < 0.9 ? Blocks.MOSSY_STONE_BRICKS.getDefaultState() : Blocks.CRACKED_STONE_BRICKS.getDefaultState();
             case RegionModel.SURF_BANK -> r < 0.5 ? Blocks.SAND.getDefaultState() : r < 0.78 ? Blocks.GRAVEL.getDefaultState() : Blocks.COARSE_DIRT.getDefaultState();
             case RegionModel.SURF_BED -> r < 0.45 ? Blocks.GRAVEL.getDefaultState() : r < 0.78 ? Blocks.SAND.getDefaultState() : Blocks.CLAY.getDefaultState();
-            case RegionModel.SURF_ROCK -> r < 0.55 ? Blocks.STONE.getDefaultState() : r < 0.8 ? Blocks.ANDESITE.getDefaultState()
+            case RegionModel.SURF_ROCK -> snowy && r < 0.55 ? Blocks.SNOW_BLOCK.getDefaultState()
+                    : model.layout.rock_bands && r < 0.7 ? band(x, H, z)
+                    : r < 0.55 ? Blocks.STONE.getDefaultState() : r < 0.8 ? Blocks.ANDESITE.getDefaultState()
                     : r < 0.92 ? Blocks.COBBLESTONE.getDefaultState() : Blocks.MOSSY_COBBLESTONE.getDefaultState();
             default -> {
                 if (model.layout.snow_line > 0 && H >= model.layout.snow_line) yield Blocks.SNOW_BLOCK.getDefaultState();
@@ -295,7 +324,9 @@ public final class RegionBuilder {
             int b = model.bridge[i];
             if (b == 0) continue;
             int deck = Math.abs(b);
-            boolean wood = nearBrook(x, z) || b < 0;
+            byte style = model.bridgeStyle[i];
+            if (style == RegionModel.BRIDGE_ROPE) { ropeBridgeCell(x, z, deck); continue; }
+            boolean wood = style == RegionModel.BRIDGE_WOOD || (style == RegionModel.BRIDGE_AUTO && (nearBrook(x, z) || b < 0));
             boolean broken = b < 0;
             if (broken && x >= 345 && x <= 360) {
                 // the collapsed span: rubble in the water
@@ -329,6 +360,67 @@ public final class RegionBuilder {
                     set(x + 1, y, z, state("minecraft:ladder[facing=east]"));
                 }
                 set(x + 1, deck, z, state("minecraft:ladder[facing=east]"));
+            }
+        }
+    }
+
+    /** Plank deck, rope-and-post rails, lanterns on the posts; no piers (it spans a chasm). */
+    private void ropeBridgeCell(int x, int z, int deck) {
+        set(x, deck, z, rnd(x, z, 41) < 0.12 ? Blocks.STRIPPED_SPRUCE_WOOD.getDefaultState() : Blocks.SPRUCE_PLANKS.getDefaultState());
+        for (int y = deck + 1; y <= deck + 3; y++) set(x, y, z, Blocks.AIR.getDefaultState());
+        boolean edge = false;
+        for (int[] d : new int[][]{{1, 0}, {-1, 0}, {0, 1}, {0, -1}}) {
+            int xx = x + d[0], zz = z + d[1];
+            if (!model.inside(xx, zz)) continue;
+            int j = model.idx(xx, zz);
+            if (model.bridge[j] == 0 && !model.roadMask[j]) edge = true;
+        }
+        if (!edge) return;
+        set(x, deck + 1, z, Blocks.SPRUCE_FENCE.getDefaultState());
+        if (Math.floorMod(x + z, 6) == 0) {
+            set(x, deck + 2, z, Blocks.SPRUCE_FENCE.getDefaultState());
+            set(x, deck + 3, z, Blocks.LANTERN.getDefaultState());
+        }
+        // a few hanging ropes under the deck
+        if (Math.floorMod(x * 3 + z, 5) == 0) for (int y = deck - 1; y >= deck - 3; y--) set(x, y, z, Blocks.CHAIN.getDefaultState());
+    }
+
+    // ------------------------------------------------------------- road steps
+
+    /** Half-slab steps where a road rises by one block, so climbing roads need no jumping. */
+    private void roadSteps() {
+        if (!model.layout.road_steps) return;
+        int h = model.half;
+        for (int z = -h + 1; z < h; z++) for (int x = -h + 1; x < h; x++) {
+            int i = model.idx(x, z);
+            if (!model.roadMask[i] || model.bridge[i] != 0 || model.water[i] != Integer.MIN_VALUE || model.surface[i] == RegionModel.SURF_PAD) continue;
+            int H = model.height[i];
+            boolean up = false;
+            for (int[] d : new int[][]{{1, 0}, {-1, 0}, {0, 1}, {0, -1}}) {
+                int j = model.idx(x + d[0], z + d[1]);
+                if ((model.roadMask[j] || model.surface[j] == RegionModel.SURF_PAD) && model.bridge[j] == 0 && model.height[j] == H + 1) up = true;
+            }
+            if (!up) continue;
+            BlockPos above = wpos(x, H + 1, z);
+            if (!world.getBlockState(above).isAir()) continue;
+            String slab = model.surface[i] == RegionModel.SURF_COBBLE ? "minecraft:stone_brick_slab[type=bottom]" : "minecraft:spruce_slab[type=bottom]";
+            world.setBlockState(above, state(slab), FLAGS);
+        }
+    }
+
+    // ---------------------------------------------------------------- waterfalls
+
+    private void falls() {
+        for (RegionLayout.Fall f : model.layout.falls) {
+            for (int k = 0; k < f.w; k++) {
+                int x = f.axis.equals("x") ? f.x + k : f.x, z = f.axis.equals("x") ? f.z : f.z + k;
+                if (!model.inside(x, z)) continue;
+                int top = f.top;
+                if (top == 0) for (int dz = -3; dz <= 3; dz++) for (int dx = -3; dx <= 3; dx++) top = Math.max(top, model.heightAt(x + dx, z + dz));
+                int ground = model.water[model.idx(x, z)] != Integer.MIN_VALUE ? model.water[model.idx(x, z)] : model.height[model.idx(x, z)];
+                // the source sits level with the cliff top; the curtain below is already-falling water, so it is stable
+                set(x, top, z, Blocks.WATER.getDefaultState());
+                for (int y = top - 1; y > ground; y--) set(x, y, z, state("minecraft:water[level=8]"));
             }
         }
     }
@@ -606,8 +698,9 @@ public final class RegionBuilder {
                 int jz = lz0 + (int) (rnd(lx, lz0, 103) * cell);
                 if (!model.inside(jx, jz)) continue;
                 double density = woodsDensity(jx, jz);
-                double villageDist = Math.hypot(jx, jz);
-                double meadow = villageDist < 90 ? 0.0 : 0.035;
+                int[] vc = model.layout.village_center;
+                double villageDist = Math.hypot(jx - vc[0], jz - vc[1]);
+                double meadow = villageDist < model.layout.village_radius ? 0.0 : 0.035;
                 double p = Math.max(density, meadow);
                 if (r >= p) continue;
                 if (!clearForTree(jx, jz, density > 0.2 ? 2 : 3)) continue;

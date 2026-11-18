@@ -1,0 +1,28 @@
+{
+  "id": "ashby_evening",
+  "speakers": [
+    "tobin",
+    "wenna"
+  ],
+  "from": 18,
+  "to": 21,
+  "weather": "clear",
+  "lines": [
+    [
+      "wenna",
+      "You've got straw in your hair again."
+    ],
+    [
+      "tobin",
+      "It's a look."
+    ],
+    [
+      "wenna",
+      "The pump's still coughing. We'll be hauling buckets by harvest."
+    ],
+    [
+      "tobin",
+      "I know. I know."
+    ]
+  ]
+}

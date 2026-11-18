@@ -1,0 +1,102 @@
+{
+  "id": "corin",
+  "name": "Corin Bell",
+  "title": "Courier",
+  "home": "inn",
+  "work": "plaza",
+  "dialogue": "corin",
+  "traits": [
+    "warm",
+    "talkative",
+    "chronically late"
+  ],
+  "fallback_anchor": "inn.common_room",
+  "relations": {
+    "elsie": "mentor",
+    "nella": "landlady"
+  },
+  "schedule": [
+    {
+      "from": 0,
+      "to": 7,
+      "activity": "sleep",
+      "anchor": "inn.bed_room_b"
+    },
+    {
+      "from": 7,
+      "to": 8,
+      "activity": "eat",
+      "anchor": "inn.table_a"
+    },
+    {
+      "from": 8,
+      "to": 12,
+      "activity": "work",
+      "anchor": "plaza_east",
+      "style": "pack",
+      "radius": 5,
+      "outdoors": true
+    },
+    {
+      "from": 12,
+      "to": 14,
+      "activity": "eat",
+      "anchor": "inn.table_a"
+    },
+    {
+      "from": 14,
+      "to": 18,
+      "activity": "wander",
+      "anchor": "plaza",
+      "radius": 10,
+      "outdoors": true
+    },
+    {
+      "from": 18,
+      "to": 23,
+      "activity": "social",
+      "anchor": "inn.common_room",
+      "radius": 3
+    },
+    {
+      "from": 23,
+      "to": 24,
+      "activity": "sleep",
+      "anchor": "inn.bed_room_b"
+    }
+  ],
+  "rain": [
+    {
+      "from": 8,
+      "to": 12,
+      "activity": "work",
+      "anchor": "inn.common_room",
+      "style": "pack",
+      "radius": 2
+    },
+    {
+      "from": 14,
+      "to": 18,
+      "activity": "social",
+      "anchor": "inn.common_room",
+      "radius": 3
+    }
+  ],
+  "barks": {
+    "greet": [
+      "Oh! Hello. I'm not late. Am I late?",
+      "Corin Bell, courier. Mostly on time."
+    ],
+    "morning": [
+      "If anyone asks, I left an hour ago.",
+      "Strap's broken again. Typical."
+    ],
+    "night": [
+      "One more cup and then I'll pack. Probably."
+    ],
+    "rain": [
+      "Rain makes the roads honest. Slow, but honest."
+    ]
+  },
+  "skin": "corin"
+}

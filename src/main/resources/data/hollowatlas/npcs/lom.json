@@ -1,0 +1,56 @@
+{
+  "id": "lom",
+  "name": "Lom Perrin",
+  "title": "Bridgewarden",
+  "home": "toll_hut",
+  "work": "east_gate",
+  "dialogue": "lom",
+  "held": "minecraft:lantern",
+  "traits": [
+    "weathered",
+    "talkative",
+    "stubborn"
+  ],
+  "fallback_anchor": "toll_hut.door_out",
+  "relations": {
+    "ilse": "colleague"
+  },
+  "schedule": [
+    {
+      "from": 0,
+      "to": 6,
+      "activity": "sleep",
+      "anchor": "toll_hut.bed0"
+    },
+    {
+      "from": 6,
+      "to": 20,
+      "activity": "work",
+      "anchor": "east_gate",
+      "style": "guard",
+      "outdoors": true
+    },
+    {
+      "from": 20,
+      "to": 24,
+      "activity": "sleep",
+      "anchor": "toll_hut.bed0"
+    }
+  ],
+  "rain": [
+    {
+      "from": 6,
+      "to": 20,
+      "activity": "work",
+      "anchor": "toll_hut.door_out",
+      "style": "guard"
+    }
+  ],
+  "barks": {
+    "greet": [
+      "Bridge is out. Has been since the spring melt.",
+      "No crossing. Not unless you've wings."
+    ]
+  },
+  "skin": "lom"
+}

@@ -1,0 +1,105 @@
+{
+  "id": "elsie",
+  "name": "Elsie Varrow",
+  "title": "Retired Courier",
+  "home": "old_cottage",
+  "work": "plaza",
+  "dialogue": "elsie",
+  "traits": [
+    "wry",
+    "nostalgic",
+    "sharp memory"
+  ],
+  "fallback_anchor": "old_cottage.door_out",
+  "speed": 0.42,
+  "relations": {
+    "corin": "prot\u00e9g\u00e9",
+    "nella": "friend"
+  },
+  "schedule": [
+    {
+      "from": 0,
+      "to": 7,
+      "activity": "sleep",
+      "anchor": "old_cottage.bed0"
+    },
+    {
+      "from": 7,
+      "to": 9,
+      "activity": "eat",
+      "anchor": "old_cottage.table"
+    },
+    {
+      "from": 9,
+      "to": 12,
+      "activity": "social",
+      "anchor": "well_side",
+      "radius": 1,
+      "outdoors": true
+    },
+    {
+      "from": 12,
+      "to": 14,
+      "activity": "eat",
+      "anchor": "inn.table_b"
+    },
+    {
+      "from": 14,
+      "to": 17,
+      "activity": "wander",
+      "anchor": "plaza",
+      "radius": 6,
+      "outdoors": true
+    },
+    {
+      "from": 17,
+      "to": 20,
+      "activity": "social",
+      "anchor": "old_cottage.door_out",
+      "radius": 2,
+      "outdoors": true
+    },
+    {
+      "from": 20,
+      "to": 24,
+      "activity": "sleep",
+      "anchor": "old_cottage.bed0"
+    }
+  ],
+  "rain": [
+    {
+      "from": 9,
+      "to": 12,
+      "activity": "social",
+      "anchor": "inn.common_room",
+      "radius": 2
+    },
+    {
+      "from": 14,
+      "to": 17,
+      "activity": "social",
+      "anchor": "inn.common_room",
+      "radius": 2
+    },
+    {
+      "from": 17,
+      "to": 20,
+      "activity": "social",
+      "anchor": "old_cottage.table",
+      "radius": 1
+    }
+  ],
+  "barks": {
+    "greet": [
+      "Forty years on the roads and they still put the milestones wrong.",
+      "Sit, if your knees allow it."
+    ],
+    "rain": [
+      "My hip knew about this rain on Tuesday."
+    ],
+    "night": [
+      "Off you go. Roads are for the young at this hour."
+    ]
+  },
+  "skin": "elsie"
+}

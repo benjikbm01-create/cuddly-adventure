@@ -1,0 +1,75 @@
+{
+  "id": "jory",
+  "name": "Jory Hask",
+  "title": "Relay Keeper",
+  "home": "relay",
+  "work": "relay",
+  "dialogue": "jory",
+  "held": "minecraft:paper",
+  "traits": [
+    "meticulous",
+    "nervous",
+    "honest"
+  ],
+  "fallback_anchor": "relay.door_out",
+  "schedule": [
+    {
+      "from": 0,
+      "to": 6,
+      "activity": "sleep",
+      "anchor": "relay.bed0"
+    },
+    {
+      "from": 6,
+      "to": 12,
+      "activity": "work",
+      "anchor": "relay.desk",
+      "style": "read"
+    },
+    {
+      "from": 12,
+      "to": 14,
+      "activity": "work",
+      "anchor": "relay.crates",
+      "style": "pack",
+      "radius": 3
+    },
+    {
+      "from": 14,
+      "to": 19,
+      "activity": "work",
+      "anchor": "relay.desk",
+      "style": "read"
+    },
+    {
+      "from": 19,
+      "to": 22,
+      "activity": "social",
+      "anchor": "relay_yard",
+      "radius": 4,
+      "outdoors": true
+    },
+    {
+      "from": 22,
+      "to": 24,
+      "activity": "sleep",
+      "anchor": "relay.bed0"
+    }
+  ],
+  "rain": [
+    {
+      "from": 19,
+      "to": 22,
+      "activity": "social",
+      "anchor": "relay.desk",
+      "radius": 1
+    }
+  ],
+  "barks": {
+    "greet": [
+      "Sign here. And here. And- no, here.",
+      "Relay's open. Mind the crates."
+    ]
+  },
+  "skin": "jory"
+}

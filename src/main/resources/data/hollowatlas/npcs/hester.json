@@ -1,0 +1,86 @@
+{
+  "id": "hester",
+  "name": "Hester Wren",
+  "title": "Herbalist",
+  "home": "herb_house",
+  "work": "herb_house",
+  "dialogue": "hester",
+  "held": "minecraft:poppy",
+  "traits": [
+    "calm",
+    "curious",
+    "plain-spoken"
+  ],
+  "fallback_anchor": "herb_house.door_out",
+  "schedule": [
+    {
+      "from": 0,
+      "to": 6,
+      "activity": "sleep",
+      "anchor": "herb_house.bed0"
+    },
+    {
+      "from": 6,
+      "to": 8,
+      "activity": "eat",
+      "anchor": "herb_house.table"
+    },
+    {
+      "from": 8,
+      "to": 13,
+      "activity": "patrol",
+      "outdoors": true,
+      "route": [
+        "herb_house.door_out",
+        "patrol_west",
+        "river_bank",
+        "mill_pond_bank",
+        "patrol_west"
+      ]
+    },
+    {
+      "from": 13,
+      "to": 17,
+      "activity": "work",
+      "anchor": "herb_house.work",
+      "style": "read"
+    },
+    {
+      "from": 17,
+      "to": 20,
+      "activity": "social",
+      "anchor": "plaza",
+      "radius": 4,
+      "outdoors": true
+    },
+    {
+      "from": 20,
+      "to": 24,
+      "activity": "sleep",
+      "anchor": "herb_house.bed0"
+    }
+  ],
+  "rain": [
+    {
+      "from": 8,
+      "to": 13,
+      "activity": "work",
+      "anchor": "herb_house.work",
+      "style": "read"
+    },
+    {
+      "from": 17,
+      "to": 20,
+      "activity": "social",
+      "anchor": "inn.common_room",
+      "radius": 2
+    }
+  ],
+  "barks": {
+    "greet": [
+      "Feverfew's early this year.",
+      "If you find yarrow, leave the roots."
+    ]
+  },
+  "skin": "hester"
+}

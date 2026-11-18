@@ -1,0 +1,91 @@
+{
+  "id": "bram",
+  "name": "Bram Reed",
+  "title": "Apprentice Smith",
+  "home": "house_reed",
+  "work": "smithy",
+  "dialogue": "bram",
+  "held": "minecraft:iron_shovel",
+  "traits": [
+    "eager",
+    "clumsy",
+    "curious"
+  ],
+  "fallback_anchor": "smithy.counter_front",
+  "relations": {
+    "garrick": "mentor",
+    "sabine": "mother"
+  },
+  "schedule": [
+    {
+      "from": 0,
+      "to": 6,
+      "activity": "sleep",
+      "anchor": "house_reed.bed0"
+    },
+    {
+      "from": 6,
+      "to": 7,
+      "activity": "eat",
+      "anchor": "house_reed.table"
+    },
+    {
+      "from": 7,
+      "to": 12,
+      "activity": "work",
+      "anchor": "smithy.counter_front",
+      "style": "pack",
+      "radius": 3
+    },
+    {
+      "from": 12,
+      "to": 13,
+      "activity": "eat",
+      "anchor": "inn.table_a"
+    },
+    {
+      "from": 13,
+      "to": 17,
+      "activity": "work",
+      "anchor": "smithy.counter_front",
+      "style": "sweep",
+      "radius": 3
+    },
+    {
+      "from": 17,
+      "to": 20,
+      "activity": "wander",
+      "anchor": "plaza",
+      "radius": 10,
+      "outdoors": true
+    },
+    {
+      "from": 20,
+      "to": 24,
+      "activity": "sleep",
+      "anchor": "house_reed.bed0"
+    }
+  ],
+  "rain": [
+    {
+      "from": 17,
+      "to": 20,
+      "activity": "social",
+      "anchor": "inn.common_room",
+      "radius": 3
+    }
+  ],
+  "barks": {
+    "greet": [
+      "Did you see that? No? Good.",
+      "Master Holt says I'm improving!"
+    ],
+    "work": [
+      "Sweeping is smithing. Apparently."
+    ],
+    "rain": [
+      "Rain hisses on the forge roof. I like it."
+    ]
+  },
+  "skin": "bram"
+}

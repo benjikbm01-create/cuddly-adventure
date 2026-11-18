@@ -1,0 +1,28 @@
+{
+  "id": "stall_peace",
+  "speakers": [
+    "maren",
+    "sabine"
+  ],
+  "from": 11,
+  "to": 16,
+  "radius": 24,
+  "requires_flags": [
+    "hollowatlas:stall_b_resolved"
+  ],
+  "cooldown_minutes": 40,
+  "lines": [
+    [
+      "sabine",
+      "Your buns are blocking my bolts."
+    ],
+    [
+      "maren",
+      "Your bolts are blocking my customers."
+    ],
+    [
+      "sabine",
+      "...Lend me a bun."
+    ]
+  ]
+}

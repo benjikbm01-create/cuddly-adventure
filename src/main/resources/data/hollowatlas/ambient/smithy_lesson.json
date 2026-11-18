@@ -1,0 +1,27 @@
+{
+  "id": "smithy_lesson",
+  "speakers": [
+    "garrick",
+    "bram"
+  ],
+  "from": 7,
+  "to": 17,
+  "lines": [
+    [
+      "garrick",
+      "Again. Slower."
+    ],
+    [
+      "bram",
+      "It was slow!"
+    ],
+    [
+      "garrick",
+      "It was loud. Loud isn't slow."
+    ],
+    [
+      "bram",
+      "...Yes, Master Holt."
+    ]
+  ]
+}

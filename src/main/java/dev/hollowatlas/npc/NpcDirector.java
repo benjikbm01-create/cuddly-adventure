@@ -48,6 +48,51 @@ public final class NpcDirector {
     private NpcDirector() {}
 
     public static void init() {
+        dev.hollowatlas.command.AtlasCommands.extend(root -> root.then(net.minecraft.server.command.CommandManager.literal("npc")
+                .then(net.minecraft.server.command.CommandManager.literal("list").executes(ctx -> {
+                    GameState st = GameState.get(ctx.getSource().getServer());
+                    double hour = ScheduleService.hour(ctx.getSource().getServer().getOverworld());
+                    StringBuilder sb = new StringBuilder(String.format("Hour %.1f%n", hour));
+                    for (NpcDefinition d : DEFS.values()) {
+                        NpcRecord r = st.npc(d.id);
+                        NpcEntity e = live(d.id);
+                        sb.append(String.format("%s [%s] %s @ %s%s%n", d.id, e != null ? "live" : "abstract", r.task, r.anchor,
+                                r.variant.isEmpty() ? "" : " variant=" + r.variant));
+                    }
+                    ctx.getSource().sendFeedback(() -> Text.literal(sb.toString()), false);
+                    return DEFS.size();
+                }))
+                .then(net.minecraft.server.command.CommandManager.literal("profile").executes(ctx -> {
+                    ctx.getSource().sendFeedback(() -> Text.literal(profile() + " | ambient chats: " + AmbientChatter.played()), false);
+                    return 1;
+                }))
+                .then(net.minecraft.server.command.CommandManager.literal("info")
+                        .then(net.minecraft.server.command.CommandManager.argument("id", com.mojang.brigadier.arguments.StringArgumentType.word())
+                                .suggests((c, b) -> net.minecraft.command.CommandSource.suggestMatching(DEFS.keySet(), b))
+                                .executes(ctx -> {
+                                    String id = com.mojang.brigadier.arguments.StringArgumentType.getString(ctx, "id");
+                                    NpcDefinition d = DEFS.get(id);
+                                    if (d == null) { ctx.getSource().sendError(Text.literal("unknown resident")); return 0; }
+                                    NpcRecord r = GameState.get(ctx.getSource().getServer()).npc(id);
+                                    NpcEntity e = live(id);
+                                    String brain = e != null && e.npcBrain() != null
+                                            ? " phase=" + e.npcBrain().phase() + " stuck=" + e.npcBrain().stuckEvents() : "";
+                                    ctx.getSource().sendFeedback(() -> Text.literal(d.name + " (" + d.title + ") task=" + r.task + " anchor=" + r.anchor
+                                            + String.format(" pos=%.0f,%.0f,%.0f", r.x, r.y, r.z) + brain), false);
+                                    return 1;
+                                })))
+                .then(net.minecraft.server.command.CommandManager.literal("variant")
+                        .then(net.minecraft.server.command.CommandManager.argument("id", com.mojang.brigadier.arguments.StringArgumentType.word())
+                                .then(net.minecraft.server.command.CommandManager.argument("variant", com.mojang.brigadier.arguments.StringArgumentType.word())
+                                        .executes(ctx -> {
+                                            String id = com.mojang.brigadier.arguments.StringArgumentType.getString(ctx, "id");
+                                            String v = com.mojang.brigadier.arguments.StringArgumentType.getString(ctx, "variant");
+                                            GameState st = GameState.get(ctx.getSource().getServer());
+                                            st.npc(id).variant = v.equals("none") ? "" : v;
+                                            st.markDirty();
+                                            ctx.getSource().sendFeedback(() -> Text.literal("variant set"), true);
+                                            return 1;
+                                        }))))));
         ServerEntityEvents.ENTITY_LOAD.register((entity, world) -> {
             if (entity instanceof NpcEntity npc && LIVE.get(npc.npcId()) != npc) {
                 npc.discard(); // stray duplicate (should not happen: residents are never saved to chunks)

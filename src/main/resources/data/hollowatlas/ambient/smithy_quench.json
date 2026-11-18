@@ -1,0 +1,28 @@
+{
+  "id": "smithy_quench",
+  "speakers": [
+    "garrick",
+    "bram"
+  ],
+  "from": 7,
+  "to": 17,
+  "cooldown_minutes": 30,
+  "lines": [
+    [
+      "bram",
+      "Why do we quench in oil and not the trough?"
+    ],
+    [
+      "garrick",
+      "Because the trough's for horses."
+    ],
+    [
+      "bram",
+      "That's not a reason."
+    ],
+    [
+      "garrick",
+      "It's my reason."
+    ]
+  ]
+}

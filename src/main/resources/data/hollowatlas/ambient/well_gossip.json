@@ -1,0 +1,29 @@
+{
+  "id": "well_gossip",
+  "speakers": [
+    "ada",
+    "maren"
+  ],
+  "from": 18,
+  "to": 20,
+  "radius": 6,
+  "weather": "clear",
+  "lines": [
+    [
+      "ada",
+      "Flour's gone up again."
+    ],
+    [
+      "maren",
+      "Everything's gone up. Except the bread. Bread's the same."
+    ],
+    [
+      "ada",
+      "Bread's smaller."
+    ],
+    [
+      "maren",
+      "Bread is the same."
+    ]
+  ]
+}

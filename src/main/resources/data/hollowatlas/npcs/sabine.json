@@ -1,0 +1,193 @@
+{
+  "id": "sabine",
+  "name": "Sabine Reed",
+  "title": "Weaver",
+  "home": "house_reed",
+  "work": "weaver_house",
+  "dialogue": "sabine",
+  "traits": [
+    "artistic",
+    "sharp-tongued",
+    "stubborn"
+  ],
+  "fallback_anchor": "weaver_house.door_out",
+  "relations": {
+    "maren": "rival",
+    "bram": "son"
+  },
+  "schedule": [
+    {
+      "from": 0,
+      "to": 6,
+      "activity": "sleep",
+      "anchor": "house_reed.bed1"
+    },
+    {
+      "from": 6,
+      "to": 7,
+      "activity": "eat",
+      "anchor": "house_reed.table"
+    },
+    {
+      "from": 7,
+      "to": 11,
+      "activity": "work",
+      "anchor": "weaver_house.work",
+      "style": "pack",
+      "radius": 2
+    },
+    {
+      "from": 11,
+      "to": 15,
+      "activity": "work",
+      "anchor": "plaza_west",
+      "style": "vend",
+      "outdoors": true
+    },
+    {
+      "from": 15,
+      "to": 19,
+      "activity": "work",
+      "anchor": "weaver_house.work",
+      "style": "pack",
+      "radius": 2
+    },
+    {
+      "from": 19,
+      "to": 22,
+      "activity": "social",
+      "anchor": "inn.common_room",
+      "radius": 3
+    },
+    {
+      "from": 22,
+      "to": 24,
+      "activity": "sleep",
+      "anchor": "house_reed.bed1"
+    }
+  ],
+  "rain": [
+    {
+      "from": 11,
+      "to": 15,
+      "activity": "work",
+      "anchor": "weaver_house.work",
+      "style": "pack",
+      "radius": 2
+    }
+  ],
+  "variants": {
+    "stall_sabine": [
+      {
+        "from": 0,
+        "to": 6,
+        "activity": "sleep",
+        "anchor": "house_reed.bed1"
+      },
+      {
+        "from": 6,
+        "to": 7,
+        "activity": "eat",
+        "anchor": "house_reed.table"
+      },
+      {
+        "from": 7,
+        "to": 11,
+        "activity": "work",
+        "anchor": "weaver_house.work",
+        "style": "pack",
+        "radius": 2
+      },
+      {
+        "from": 11,
+        "to": 16,
+        "activity": "work",
+        "anchor": "stall_b.work",
+        "style": "vend",
+        "outdoors": true
+      },
+      {
+        "from": 16,
+        "to": 19,
+        "activity": "work",
+        "anchor": "weaver_house.work",
+        "style": "pack",
+        "radius": 2
+      },
+      {
+        "from": 19,
+        "to": 22,
+        "activity": "social",
+        "anchor": "inn.common_room",
+        "radius": 3
+      },
+      {
+        "from": 22,
+        "to": 24,
+        "activity": "sleep",
+        "anchor": "house_reed.bed1"
+      }
+    ],
+    "shared_stall": [
+      {
+        "from": 0,
+        "to": 6,
+        "activity": "sleep",
+        "anchor": "house_reed.bed1"
+      },
+      {
+        "from": 6,
+        "to": 7,
+        "activity": "eat",
+        "anchor": "house_reed.table"
+      },
+      {
+        "from": 7,
+        "to": 13,
+        "activity": "work",
+        "anchor": "weaver_house.work",
+        "style": "pack",
+        "radius": 2
+      },
+      {
+        "from": 13,
+        "to": 16,
+        "activity": "work",
+        "anchor": "stall_b.work",
+        "style": "vend",
+        "outdoors": true
+      },
+      {
+        "from": 16,
+        "to": 19,
+        "activity": "work",
+        "anchor": "weaver_house.work",
+        "style": "pack",
+        "radius": 2
+      },
+      {
+        "from": 19,
+        "to": 22,
+        "activity": "social",
+        "anchor": "inn.common_room",
+        "radius": 3
+      },
+      {
+        "from": 22,
+        "to": 24,
+        "activity": "sleep",
+        "anchor": "house_reed.bed1"
+      }
+    ]
+  },
+  "barks": {
+    "greet": [
+      "Don't lean on the cloth.",
+      "Wool, linen, ribbon. Ask nicely."
+    ],
+    "work": [
+      "Ribbon! Dyed this week, not last season!"
+    ]
+  },
+  "skin": "sabine"
+}

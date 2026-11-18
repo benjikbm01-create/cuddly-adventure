@@ -1,0 +1,113 @@
+{
+  "id": "tobin",
+  "name": "Tobin Ashby",
+  "title": "Farmer",
+  "home": "farmhouse",
+  "work": "farmhouse",
+  "dialogue": "tobin",
+  "held": "minecraft:iron_hoe",
+  "traits": [
+    "steady",
+    "proud",
+    "worried"
+  ],
+  "fallback_anchor": "farmhouse.door_out",
+  "relations": {
+    "wenna": "spouse"
+  },
+  "schedule": [
+    {
+      "from": 0,
+      "to": 5,
+      "activity": "sleep",
+      "anchor": "farmhouse.bed0"
+    },
+    {
+      "from": 5,
+      "to": 6,
+      "activity": "eat",
+      "anchor": "farmhouse.table"
+    },
+    {
+      "from": 6,
+      "to": 12,
+      "activity": "work",
+      "anchor": "field_wheat",
+      "style": "tend",
+      "radius": 8,
+      "outdoors": true
+    },
+    {
+      "from": 12,
+      "to": 13,
+      "activity": "eat",
+      "anchor": "farmhouse.table"
+    },
+    {
+      "from": 13,
+      "to": 17,
+      "activity": "work",
+      "anchor": "orchard_rows",
+      "style": "tend",
+      "radius": 10,
+      "outdoors": true
+    },
+    {
+      "from": 17,
+      "to": 18,
+      "activity": "work",
+      "anchor": "pasture",
+      "style": "tend",
+      "radius": 5,
+      "outdoors": true
+    },
+    {
+      "from": 18,
+      "to": 21,
+      "activity": "social",
+      "anchor": "farmhouse.door_out",
+      "radius": 3,
+      "outdoors": true
+    },
+    {
+      "from": 21,
+      "to": 24,
+      "activity": "sleep",
+      "anchor": "farmhouse.bed0"
+    }
+  ],
+  "rain": [
+    {
+      "from": 6,
+      "to": 18,
+      "activity": "work",
+      "anchor": "barn.work",
+      "style": "pack",
+      "radius": 3
+    },
+    {
+      "from": 18,
+      "to": 21,
+      "activity": "social",
+      "anchor": "farmhouse.table",
+      "radius": 2
+    }
+  ],
+  "barks": {
+    "greet": [
+      "Mind the rows.",
+      "Afternoon."
+    ],
+    "morning": [
+      "Dew's heavy. Good for the wheat."
+    ],
+    "rain": [
+      "The ditches'll fill tonight.",
+      "Rain's welcome. Mud isn't."
+    ],
+    "night": [
+      "Long day. They're all long days."
+    ]
+  },
+  "skin": "tobin"
+}

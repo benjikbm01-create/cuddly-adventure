@@ -1,0 +1,28 @@
+{
+  "id": "watch_chat",
+  "speakers": [
+    "ilse",
+    "garrick"
+  ],
+  "from": 18,
+  "to": 20,
+  "radius": 8,
+  "lines": [
+    [
+      "ilse",
+      "Quiet day."
+    ],
+    [
+      "garrick",
+      "Good."
+    ],
+    [
+      "ilse",
+      "Too quiet."
+    ],
+    [
+      "garrick",
+      "Still good."
+    ]
+  ]
+}

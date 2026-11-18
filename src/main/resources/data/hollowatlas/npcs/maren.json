@@ -1,0 +1,184 @@
+{
+  "id": "maren",
+  "name": "Maren Fenn",
+  "title": "Baker",
+  "home": "bakery",
+  "work": "bakery",
+  "dialogue": "maren",
+  "held": "minecraft:bread",
+  "traits": [
+    "proud",
+    "early riser",
+    "competitive"
+  ],
+  "fallback_anchor": "bakery.door_out",
+  "relations": {
+    "sabine": "rival",
+    "ada": "friend",
+    "wenna": "friend"
+  },
+  "schedule": [
+    {
+      "from": 0,
+      "to": 4,
+      "activity": "sleep",
+      "anchor": "bakery.bed0"
+    },
+    {
+      "from": 4,
+      "to": 11,
+      "activity": "work",
+      "anchor": "bakery.work",
+      "style": "bake"
+    },
+    {
+      "from": 11,
+      "to": 15,
+      "activity": "work",
+      "anchor": "plaza_east",
+      "style": "vend",
+      "outdoors": true
+    },
+    {
+      "from": 15,
+      "to": 18,
+      "activity": "work",
+      "anchor": "bakery.work",
+      "style": "bake"
+    },
+    {
+      "from": 18,
+      "to": 20,
+      "activity": "social",
+      "anchor": "well_side",
+      "radius": 3,
+      "outdoors": true
+    },
+    {
+      "from": 20,
+      "to": 24,
+      "activity": "sleep",
+      "anchor": "bakery.bed0"
+    }
+  ],
+  "rain": [
+    {
+      "from": 11,
+      "to": 15,
+      "activity": "work",
+      "anchor": "inn.common_room",
+      "style": "vend"
+    },
+    {
+      "from": 18,
+      "to": 20,
+      "activity": "social",
+      "anchor": "inn.common_room",
+      "radius": 2
+    }
+  ],
+  "variants": {
+    "stall_maren": [
+      {
+        "from": 0,
+        "to": 4,
+        "activity": "sleep",
+        "anchor": "bakery.bed0"
+      },
+      {
+        "from": 4,
+        "to": 11,
+        "activity": "work",
+        "anchor": "bakery.work",
+        "style": "bake"
+      },
+      {
+        "from": 11,
+        "to": 16,
+        "activity": "work",
+        "anchor": "stall_b.work",
+        "style": "vend",
+        "outdoors": true
+      },
+      {
+        "from": 16,
+        "to": 18,
+        "activity": "work",
+        "anchor": "bakery.work",
+        "style": "bake"
+      },
+      {
+        "from": 18,
+        "to": 20,
+        "activity": "social",
+        "anchor": "well_side",
+        "radius": 3,
+        "outdoors": true
+      },
+      {
+        "from": 20,
+        "to": 24,
+        "activity": "sleep",
+        "anchor": "bakery.bed0"
+      }
+    ],
+    "shared_stall": [
+      {
+        "from": 0,
+        "to": 4,
+        "activity": "sleep",
+        "anchor": "bakery.bed0"
+      },
+      {
+        "from": 4,
+        "to": 11,
+        "activity": "work",
+        "anchor": "bakery.work",
+        "style": "bake"
+      },
+      {
+        "from": 11,
+        "to": 13,
+        "activity": "work",
+        "anchor": "stall_b.work",
+        "style": "vend",
+        "outdoors": true
+      },
+      {
+        "from": 13,
+        "to": 18,
+        "activity": "work",
+        "anchor": "bakery.work",
+        "style": "bake"
+      },
+      {
+        "from": 18,
+        "to": 20,
+        "activity": "social",
+        "anchor": "well_side",
+        "radius": 3,
+        "outdoors": true
+      },
+      {
+        "from": 20,
+        "to": 24,
+        "activity": "sleep",
+        "anchor": "bakery.bed0"
+      }
+    ]
+  },
+  "barks": {
+    "greet": [
+      "Mind the flour.",
+      "You've the look of someone who skipped breakfast."
+    ],
+    "work": [
+      "Rye loaves! Honey buns! Still warm!",
+      "Bread! Better than yesterday's, and yesterday's was good!"
+    ],
+    "morning": [
+      "Been up since the third bell. Don't ask me to smile."
+    ]
+  },
+  "skin": "maren"
+}

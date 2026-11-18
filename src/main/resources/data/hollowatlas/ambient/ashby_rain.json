@@ -1,0 +1,20 @@
+{
+  "id": "ashby_rain",
+  "speakers": [
+    "tobin",
+    "wenna"
+  ],
+  "from": 6,
+  "to": 21,
+  "weather": "rain",
+  "lines": [
+    [
+      "tobin",
+      "Rain's good for the roots."
+    ],
+    [
+      "wenna",
+      "Rain's good for the mud. The roots can fend for themselves."
+    ]
+  ]
+}

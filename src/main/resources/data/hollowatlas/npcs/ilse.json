@@ -1,0 +1,96 @@
+{
+  "id": "ilse",
+  "name": "Ilse Brand",
+  "title": "Village Watch",
+  "home": "house_fenn",
+  "work": "watchtower",
+  "dialogue": "ilse",
+  "held": "minecraft:iron_sword",
+  "traits": [
+    "dutiful",
+    "dry",
+    "suspicious of strangers"
+  ],
+  "fallback_anchor": "watchtower.door_out",
+  "relations": {
+    "lom": "colleague"
+  },
+  "schedule": [
+    {
+      "from": 0,
+      "to": 6,
+      "activity": "sleep",
+      "anchor": "house_fenn.bed1"
+    },
+    {
+      "from": 6,
+      "to": 7,
+      "activity": "eat",
+      "anchor": "inn.table_b"
+    },
+    {
+      "from": 7,
+      "to": 12,
+      "activity": "patrol",
+      "outdoors": true,
+      "route": [
+        "patrol_east",
+        "plaza_east",
+        "plaza_west",
+        "patrol_west",
+        "patrol_south",
+        "well_side",
+        "patrol_north",
+        "notice_board"
+      ]
+    },
+    {
+      "from": 12,
+      "to": 13,
+      "activity": "eat",
+      "anchor": "inn.table_b"
+    },
+    {
+      "from": 13,
+      "to": 19,
+      "activity": "patrol",
+      "outdoors": true,
+      "route": [
+        "patrol_east",
+        "plaza_east",
+        "plaza_west",
+        "patrol_west",
+        "patrol_south",
+        "well_side",
+        "patrol_north",
+        "notice_board"
+      ]
+    },
+    {
+      "from": 19,
+      "to": 22,
+      "activity": "work",
+      "anchor": "watchtower.work",
+      "style": "guard"
+    },
+    {
+      "from": 22,
+      "to": 24,
+      "activity": "sleep",
+      "anchor": "house_fenn.bed1"
+    }
+  ],
+  "barks": {
+    "greet": [
+      "Keep to the roads.",
+      "Name? ...Fine. Don't make trouble."
+    ],
+    "night": [
+      "Lanterns lit. Doors shut. That's the job."
+    ],
+    "rain": [
+      "Wet watch is still a watch."
+    ]
+  },
+  "skin": "ilse"
+}

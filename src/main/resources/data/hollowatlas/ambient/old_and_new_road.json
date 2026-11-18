@@ -1,0 +1,24 @@
+{
+  "id": "old_and_new_road",
+  "speakers": [
+    "elsie",
+    "corin"
+  ],
+  "from": 14,
+  "to": 18,
+  "radius": 12,
+  "lines": [
+    [
+      "elsie",
+      "You're late."
+    ],
+    [
+      "corin",
+      "I haven't said where I'm going yet!"
+    ],
+    [
+      "elsie",
+      "Doesn't matter. You'll be late there too."
+    ]
+  ]
+}

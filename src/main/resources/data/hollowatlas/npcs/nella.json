@@ -1,0 +1,87 @@
+{
+  "id": "nella",
+  "name": "Nella Ash",
+  "title": "Innkeeper",
+  "home": "inn",
+  "work": "inn",
+  "dialogue": "nella",
+  "held": "",
+  "traits": [
+    "witty",
+    "practical",
+    "observant"
+  ],
+  "fallback_anchor": "inn.counter_front",
+  "relations": {
+    "garrick": "friend",
+    "corin": "regular",
+    "elsie": "friend"
+  },
+  "schedule": [
+    {
+      "from": 0,
+      "to": 6,
+      "activity": "sleep",
+      "anchor": "inn.bed_room_c"
+    },
+    {
+      "from": 6,
+      "to": 7,
+      "activity": "work",
+      "anchor": "inn.common_room",
+      "style": "sweep",
+      "radius": 3
+    },
+    {
+      "from": 7,
+      "to": 14,
+      "activity": "work",
+      "anchor": "inn.work",
+      "style": "serve",
+      "radius": 3
+    },
+    {
+      "from": 14,
+      "to": 15,
+      "activity": "eat",
+      "anchor": "inn.table_b"
+    },
+    {
+      "from": 15,
+      "to": 23,
+      "activity": "work",
+      "anchor": "inn.work",
+      "style": "serve",
+      "radius": 3
+    },
+    {
+      "from": 23,
+      "to": 24,
+      "activity": "sleep",
+      "anchor": "inn.bed_room_c"
+    }
+  ],
+  "barks": {
+    "greet": [
+      "Mind the step, it bites.",
+      "Kettle's on if you want it.",
+      "Boots off the benches, love."
+    ],
+    "morning": [
+      "Up early? Bread's still warm.",
+      "Morning. You look like you slept on a fence."
+    ],
+    "night": [
+      "Last orders soon.",
+      "Rooms upstairs if you're staying."
+    ],
+    "rain": [
+      "Shake off by the door, not on my floor.",
+      "Rain like this, half the village ends up in here."
+    ],
+    "work": [
+      "Who ordered the cider? Anyone?"
+    ]
+  },
+  "skin": "nella"
+}

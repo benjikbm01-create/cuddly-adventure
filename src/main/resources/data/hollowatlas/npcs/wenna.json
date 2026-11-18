@@ -1,0 +1,107 @@
+{
+  "id": "wenna",
+  "name": "Wenna Ashby",
+  "title": "Orchard Keeper",
+  "home": "farmhouse",
+  "work": "orchard",
+  "dialogue": "wenna",
+  "held": "minecraft:shears",
+  "traits": [
+    "cheerful",
+    "blunt",
+    "generous"
+  ],
+  "fallback_anchor": "farmhouse.door_out",
+  "relations": {
+    "tobin": "spouse",
+    "maren": "friend"
+  },
+  "schedule": [
+    {
+      "from": 0,
+      "to": 6,
+      "activity": "sleep",
+      "anchor": "farmhouse.bed1"
+    },
+    {
+      "from": 6,
+      "to": 7,
+      "activity": "eat",
+      "anchor": "farmhouse.table"
+    },
+    {
+      "from": 7,
+      "to": 11,
+      "activity": "work",
+      "anchor": "orchard_rows",
+      "style": "tend",
+      "radius": 10,
+      "outdoors": true
+    },
+    {
+      "from": 11,
+      "to": 15,
+      "activity": "work",
+      "anchor": "stall_a.work",
+      "style": "vend",
+      "outdoors": true
+    },
+    {
+      "from": 15,
+      "to": 18,
+      "activity": "work",
+      "anchor": "field_carrots",
+      "style": "tend",
+      "radius": 6,
+      "outdoors": true
+    },
+    {
+      "from": 18,
+      "to": 21,
+      "activity": "social",
+      "anchor": "farmhouse.door_out",
+      "radius": 3,
+      "outdoors": true
+    },
+    {
+      "from": 21,
+      "to": 24,
+      "activity": "sleep",
+      "anchor": "farmhouse.bed1"
+    }
+  ],
+  "rain": [
+    {
+      "from": 7,
+      "to": 18,
+      "activity": "work",
+      "anchor": "barn.work",
+      "style": "pack",
+      "radius": 3
+    },
+    {
+      "from": 18,
+      "to": 21,
+      "activity": "social",
+      "anchor": "farmhouse.table",
+      "radius": 2
+    }
+  ],
+  "barks": {
+    "greet": [
+      "Apples on the left, gossip on the right.",
+      "Hello, stranger!"
+    ],
+    "work": [
+      "Fresh from the orchard! Well. Fresh-ish.",
+      "Carrots! Crisp as a winter morning!"
+    ],
+    "rain": [
+      "Wet apples bruise. Don't squeeze them."
+    ],
+    "night": [
+      "Off home, before Tobin falls asleep at the table."
+    ]
+  },
+  "skin": "wenna"
+}

@@ -1,0 +1,31 @@
+{
+  "id": "stall_rivalry",
+  "speakers": [
+    "maren",
+    "sabine"
+  ],
+  "from": 11,
+  "to": 15,
+  "radius": 24,
+  "forbids_flags": [
+    "hollowatlas:stall_b_resolved"
+  ],
+  "lines": [
+    [
+      "maren",
+      "That empty stall would suit bread. Bread feeds people."
+    ],
+    [
+      "sabine",
+      "Ribbon makes people want to be fed. Different thing."
+    ],
+    [
+      "maren",
+      "Hall's deciding by the festival."
+    ],
+    [
+      "sabine",
+      "Then the Hall had better decide well."
+    ]
+  ]
+}

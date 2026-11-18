@@ -1,0 +1,78 @@
+{
+  "id": "ada",
+  "name": "Ada Hobb",
+  "title": "Shopkeeper",
+  "home": "house_fenn",
+  "work": "store",
+  "dialogue": "ada",
+  "traits": [
+    "shrewd",
+    "fair",
+    "tidy"
+  ],
+  "fallback_anchor": "store.counter_front",
+  "relations": {
+    "maren": "friend"
+  },
+  "schedule": [
+    {
+      "from": 0,
+      "to": 7,
+      "activity": "sleep",
+      "anchor": "house_fenn.bed0"
+    },
+    {
+      "from": 7,
+      "to": 8,
+      "activity": "eat",
+      "anchor": "house_fenn.table"
+    },
+    {
+      "from": 8,
+      "to": 18,
+      "activity": "work",
+      "anchor": "store.work",
+      "style": "serve",
+      "radius": 2
+    },
+    {
+      "from": 18,
+      "to": 20,
+      "activity": "social",
+      "anchor": "well_side",
+      "radius": 3,
+      "outdoors": true
+    },
+    {
+      "from": 20,
+      "to": 21,
+      "activity": "eat",
+      "anchor": "house_fenn.table"
+    },
+    {
+      "from": 21,
+      "to": 24,
+      "activity": "sleep",
+      "anchor": "house_fenn.bed0"
+    }
+  ],
+  "rain": [
+    {
+      "from": 18,
+      "to": 20,
+      "activity": "social",
+      "anchor": "inn.common_room",
+      "radius": 3
+    }
+  ],
+  "barks": {
+    "greet": [
+      "Welcome to Hobb and Daughters. The daughters are elsewhere.",
+      "Looking or buying?"
+    ],
+    "night": [
+      "Shop's shut. The price of candles, you understand."
+    ]
+  },
+  "skin": "ada"
+}

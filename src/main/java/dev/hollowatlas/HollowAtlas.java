@@ -1,6 +1,21 @@
 package dev.hollowatlas;
 
+import dev.hollowatlas.ability.AbilityService;
+import dev.hollowatlas.combat.CombatRegistry;
+import dev.hollowatlas.combat.CombatService;
+import dev.hollowatlas.combat.EncounterService;
 import dev.hollowatlas.command.AtlasCommands;
+import dev.hollowatlas.dialogue.DialogueService;
+import dev.hollowatlas.inventory.CraftingService;
+import dev.hollowatlas.inventory.HudSync;
+import dev.hollowatlas.inventory.ModItems;
+import dev.hollowatlas.inventory.RewardService;
+import dev.hollowatlas.inventory.ShopService;
+import dev.hollowatlas.investigation.CaseService;
+import dev.hollowatlas.investigation.Interactions;
+import dev.hollowatlas.net.Net;
+import dev.hollowatlas.quest.QuestEngine;
+import dev.hollowatlas.world.WorldChanges;
 import dev.hollowatlas.content.ContentManager;
 import dev.hollowatlas.npc.AmbientChatter;
 import dev.hollowatlas.npc.NpcDirector;
@@ -44,10 +59,23 @@ public final class HollowAtlas implements ModInitializer {
     public void onInitialize() {
         LOGGER.info("The Hollow Atlas initializing (common)");
         ContentManager.init();
+        Net.init();
+        ModItems.init();
         NpcRegistry.init();
+        CombatRegistry.init();
         NpcDirector.init();
         AmbientChatter.init();
+        QuestEngine.init();
+        DialogueService.init();
+        CaseService.init();
+        CombatService.init();
+        EncounterService.init();
+        AbilityService.init();
+        ShopService.init();
+        CraftingService.init();
+        Interactions.init();          // must register before protection so designated interactions win
         ProtectionService.register();
+        dev.hollowatlas.command.DevCommands.init();
         CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, env) -> AtlasCommands.register(dispatcher));
 
         ServerLifecycleEvents.SERVER_STARTING.register(StateBackup::backupIfMigrating);
@@ -59,15 +87,24 @@ public final class HollowAtlas implements ModInitializer {
             if (!RegionBuilder.isRunning() && GameState.get(server).flag(RegionBuilder.BUILT_FLAG)) {
                 NpcDirector.tick(server);
                 AmbientChatter.tick(server);
+                QuestEngine.tick(server);
+                EncounterService.tick(server);
+                Interactions.tick(server);
             }
+            CombatService.tick(server);
+            AbilityService.tick(server);
+            RewardService.tick(server);
+            HudSync.tick(server);
         });
         ServerPlayConnectionEvents.JOIN.register((handler, sender, server) -> onJoin(handler.getPlayer(), server));
+        ServerPlayConnectionEvents.DISCONNECT.register((handler, server) -> DialogueService.cancel(handler.getPlayer()));
         ServerPlayerEvents.AFTER_RESPAWN.register((oldPlayer, newPlayer, alive) -> ProtectionService.enforceMode(newPlayer));
     }
 
     private void onServerStarted(MinecraftServer server) {
         LocationIndex.model();
         WorldRules.apply(server);
+        if (GameState.get(server).flag(RegionBuilder.BUILT_FLAG)) WorldChanges.apply(server);
         GameState state = GameState.get(server);
         boolean stopAfter = Boolean.getBoolean("hollowatlas.autobuild.stop");
         Runnable afterBuild = () -> {
@@ -113,7 +150,15 @@ public final class HollowAtlas implements ModInitializer {
             player.teleport(server.getOverworld(), arrival.getX() + 0.5, arrival.getY(), arrival.getZ() + 0.5, -90f, 0f);
             player.setSpawnPoint(server.getOverworld().getRegistryKey(), arrival, -90f, true, false);
             profile.checkpoint = "arrival";
+            profile.coins = 12;
             state.markDirty();
+            // a traveler arrives on the west road in the rain
+            server.getOverworld().setWeather(0, 3600, true, false);
+            RewardService.give(player, "hollowatlas:traveler_shortsword", 1);
+            RewardService.give(player, "minecraft:bread", 3);
+            QuestEngine.start(player, "m01");
         }
+        QuestEngine.sync(player);
+        HudSync.send(player);
     }
 }

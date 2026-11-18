@@ -1,0 +1,99 @@
+{
+  "id": "garrick",
+  "name": "Garrick Holt",
+  "title": "Blacksmith",
+  "home": "smith_house",
+  "work": "smithy",
+  "dialogue": "garrick",
+  "held": "minecraft:iron_pickaxe",
+  "traits": [
+    "gruff",
+    "patient",
+    "exacting"
+  ],
+  "fallback_anchor": "smithy.counter_front",
+  "relations": {
+    "bram": "apprentice",
+    "nella": "friend"
+  },
+  "schedule": [
+    {
+      "from": 0,
+      "to": 6,
+      "activity": "sleep",
+      "anchor": "smith_house.bed0"
+    },
+    {
+      "from": 6,
+      "to": 7,
+      "activity": "eat",
+      "anchor": "smith_house.table"
+    },
+    {
+      "from": 7,
+      "to": 12,
+      "activity": "work",
+      "anchor": "smithy.work",
+      "style": "hammer"
+    },
+    {
+      "from": 12,
+      "to": 13,
+      "activity": "eat",
+      "anchor": "inn.table_a"
+    },
+    {
+      "from": 13,
+      "to": 18,
+      "activity": "work",
+      "anchor": "smithy.work",
+      "style": "hammer"
+    },
+    {
+      "from": 18,
+      "to": 20,
+      "activity": "social",
+      "anchor": "plaza",
+      "radius": 4,
+      "outdoors": true
+    },
+    {
+      "from": 20,
+      "to": 22,
+      "activity": "social",
+      "anchor": "inn.common_room",
+      "radius": 2
+    },
+    {
+      "from": 22,
+      "to": 24,
+      "activity": "sleep",
+      "anchor": "smith_house.bed0"
+    }
+  ],
+  "rain": [
+    {
+      "from": 18,
+      "to": 20,
+      "activity": "social",
+      "anchor": "inn.common_room",
+      "radius": 2
+    }
+  ],
+  "barks": {
+    "greet": [
+      "Don't touch the anvil.",
+      "Hm."
+    ],
+    "work": [
+      "Steady. Steady."
+    ],
+    "morning": [
+      "Forge takes an hour to wake. Same as me."
+    ],
+    "night": [
+      "Iron sleeps. So should you."
+    ]
+  },
+  "skin": "garrick"
+}

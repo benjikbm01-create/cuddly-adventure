@@ -4,7 +4,8 @@
   "package": "dev.hollowatlas.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
-    "FarmlandBlockMixin"
+    "FarmlandBlockMixin",
+    "PlayerEntityMixin"
   ],
   "injectors": {
     "defaultRequire": 1

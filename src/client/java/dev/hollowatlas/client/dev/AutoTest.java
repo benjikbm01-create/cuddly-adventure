@@ -449,7 +449,7 @@ public final class AutoTest {
         // ---- combat
         section("combat");
         step("combat approach", 5, () -> { mode(GameMode.ADVENTURE); tp("abandoned_wagon.ambush", -14, 0, 0, -90, 0, 5000); });
-        step("encounter", 80, () -> {
+        step("encounter", 130, () -> {
             check("road encounter spawns as the player approaches", EncounterService.activeCount() == 2);
             shot("10_encounter");
         });

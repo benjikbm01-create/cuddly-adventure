@@ -12,11 +12,11 @@ Status legend
 |---|---|---|
 | M0 Environment + build | BUILD-PASSING | Pinned toolchain, checksum-verified wrapper, server smoke launch. |
 | M1 Starting region + protection | CLIENT-AUTOTESTED | ~750x750 region generated from source data; village with 17 enterable buildings, farms, orchard, river, gorge, woods, hill, cave, 5+ discoverables, road out, soft boundary. Break/place blocked in client test. |
-| M2 Living residents | CLIENT-AUTOTESTED (partly) | 15 residents with full schedules. Client test: residents present in village, ambient conversations happen, records persist across relaunch. Night sleep check: see TESTING.md. |
-| M3 Dialogue, quests, journal, investigation | CLIENT-AUTOTESTED | Opening segment parts 1-2 and a side quest with case board run end-to-end in the client test; journal/case board screens render. Remaining story steps and the other two side quests: NOT VERIFIED by the script (content validated only). |
+| M2 Living residents | CLIENT-AUTOTESTED | 15 residents with full schedules. Client test: residents present in the village, asleep in their beds at night, talk to each other, routines change after a quest, records persist across relaunch. |
+| M3 Dialogue, quests, journal, investigation | CLIENT-AUTOTESTED | Opening quest, the pump quest, the courier offer and the ribbon side quest (clues, witness, case board theories, persistent stall change) run end-to-end; journal/case board screens render. Later story steps and the other three side quests: content validated only, NOT played by the script. |
 | M4 Combat + abilities | CLIENT-AUTOTESTED (inputs only) | Encounter spawns, heavy/dodge/guard intents change server state, ability cooldowns, death/checkpoint. The harness ends fights directly; **real melee feel, parry timing and enemy telegraphs need a human playtest.** |
 | M5 Inventory, hotbar, shop, crafting, gathering | CLIENT-AUTOTESTED | Satchel renders real inventory; buy/sell/stock validation; key items can't be sold/dropped; gathering with cooldown; hearth cooking; reward overflow queue. |
-| M6 Integration, save/reload, packaging | CLIENT-AUTOTESTED | Two-launch test confirms quests, coins, evidence, theories, abilities, key items, world changes, routine variants and cleared encounters persist. Release folder assembled by `tools/package_release.sh`. |
+| M6 Integration, save/reload, packaging | CLIENT-AUTOTESTED, PACKAGED | Two-launch test: 10/10 persistence checks. Release: `release/TheHollowAtlas-v0.1.zip` (mod + Fabric API + world + QUICKSTART). Awaiting your playtest. |
 
 ## Known limitations (v0.1)
 - World art is procedurally assembled from authored data: coherent, but less detailed than a hand-built map. Interiors are simple.

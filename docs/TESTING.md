@@ -32,9 +32,17 @@ asleep at night, residents talking to each other, third-person combat input, dea
 Phase 2 relaunches the client on the same save and checks persistence of quests, coins, evidence, theories, abilities, key
 items, world changes, routine variants, cleared encounters and resident records.
 
-### Latest results
-See `run/autotest_results_phase1.txt` / `phase2.txt` after running. Summary of the most recent completed run is in
-PROGRESS.md and in the session report.
+### Latest results (18 Nov 2026)
+- Full run (all sections, both launches, 4.6 minutes): **phase 1: 74 passed, 1 failed; phase 2 (relaunch): 10 passed, 0 failed.**
+  The one failure was a test-timing check (it looked for the road encounter about a second before it spawns; the same
+  encounter spawned and was fought later in that run). After lengthening that wait, the combat section re-run: **27/27 passed**.
+- Targeted run of combat + ribbon sections: **39/39 passed** (2 minutes).
+- Bugs found and fixed through these runs: two content kinds (Atlas sites, world changes) were never loaded; the innkeeper
+  could not reach her upstairs bed (residents now route via the building entrance and stair landing); stuck residents now
+  recover after 6 s instead of 10 s.
+
+Run it yourself (Linux with Xvfb): `tools/client_test.sh` (full) or `ONLY=combat,ribbon tools/client_test.sh` (sections:
+courier pump shop gather combat ribbon systems residents death evening).
 
 ### Known gaps the script does NOT prove
 - **Real melee:** the harness ends fights directly. Enemy telegraph readability, parry timing and damage balance need a person.

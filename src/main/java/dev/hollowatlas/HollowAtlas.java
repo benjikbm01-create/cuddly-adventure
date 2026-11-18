@@ -122,15 +122,31 @@ public final class HollowAtlas implements ModInitializer {
                 server.stop(false);
             }
         };
-        if (state.flag(RegionBuilder.BUILT_FLAG) && Boolean.getBoolean("hollowatlas.rendermap")) {
+        if (state.flag(RegionBuilder.BUILT_FLAG) && Boolean.getBoolean("hollowatlas.rendermap")
+                && LocationIndex.models().stream().allMatch(m -> state.flag(RegionBuilder.builtFlag(m)))) {
             afterBuild.run();
+            return;
         }
         if (!state.flag(RegionBuilder.BUILT_FLAG)) {
             if (Boolean.getBoolean("hollowatlas.autobuild")) {
-                RegionBuilder.start(server.getOverworld(), LocationIndex.model(), afterBuild);
+                RegionBuilder.buildMissing(server, afterBuild);
             } else {
                 LOGGER.warn("This world does not contain the Hollow Atlas region. Use the bundled world, "
                         + "or run '/atlas build' as an operator on a superflat world.");
+            }
+        } else {
+            BoundaryService.applyWorldBorder(server);
+            // an existing save from an older version: generate any regions added since, in place
+            boolean missing = LocationIndex.models().stream().anyMatch(m -> !state.flag(RegionBuilder.builtFlag(m)));
+            if (missing) {
+                LOGGER.info("Generating regions added since this world was created...");
+                RegionBuilder.buildMissing(server, () -> {
+                    for (ServerPlayerEntity p : server.getPlayerManager().getPlayerList())
+                        p.sendMessage(Text.translatable("message.hollowatlas.surveyed").formatted(Formatting.GREEN), false);
+                    if (Boolean.getBoolean("hollowatlas.autobuild")) afterBuild.run();
+                });
+            } else if (Boolean.getBoolean("hollowatlas.autobuild")) {
+                afterBuild.run();
             }
         }
     }

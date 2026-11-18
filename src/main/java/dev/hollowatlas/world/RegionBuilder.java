@@ -261,6 +261,7 @@ public final class RegionBuilder {
             case RegionModel.SURF_ROCK -> r < 0.55 ? Blocks.STONE.getDefaultState() : r < 0.8 ? Blocks.ANDESITE.getDefaultState()
                     : r < 0.92 ? Blocks.COBBLESTONE.getDefaultState() : Blocks.MOSSY_COBBLESTONE.getDefaultState();
             default -> {
+                if (model.layout.snow_line > 0 && H >= model.layout.snow_line) yield Blocks.SNOW_BLOCK.getDefaultState();
                 double wd = woodsDensity(x, z);
                 if (wd > 0.25 && r < 0.10) yield Blocks.PODZOL.getDefaultState();
                 if (wd > 0.25 && r < 0.14) yield Blocks.COARSE_DIRT.getDefaultState();
@@ -651,6 +652,13 @@ public final class RegionBuilder {
                 double r = rnd(lx, lz, 201);
                 double wd = woodsDensity(lx, lz);
                 double village = Math.hypot(lx, lz) < 60 ? 0.4 : 1.0;
+                boolean mountain = "mountain".equals(model.layout.surface_style);
+                if (model.layout.snow_line > 0 && H >= model.layout.snow_line - 3) {
+                    if (world.getBlockState(above.down()).isOf(Blocks.GRASS_BLOCK) && r < 0.6)
+                        world.setBlockState(above, Blocks.SNOW.getDefaultState(), FLAGS);
+                    continue;
+                }
+                if (mountain) village *= 0.6;
                 double patch = model.noise(lx / 11.0 + 40, lz / 11.0 - 40);
                 if (patch > 0.55 && r < 0.35 * village && wd < 0.2) {
                     int kind = (int) ((model.noise(lx / 40.0, lz / 40.0) + 1) * 3) % MEADOW_FLOWERS.length;
@@ -700,17 +708,32 @@ public final class RegionBuilder {
 
     // ----------------------------------------------------------------- finish
 
+    /** World flag recording that a region's terrain has been generated. */
+    public static String builtFlag(RegionModel m) {
+        return m == LocationIndex.model() ? BUILT_FLAG : BUILT_FLAG + ":" + m.layout.id;
+    }
+
     private void finish() {
         MinecraftServer server = world.getServer();
-        world.getWorldBorder().setCenter(ox + 0.5, oz + 0.5);
-        world.getWorldBorder().setSize(model.layout.border_size);
-        world.getWorldBorder().setWarningBlocks(8);
-        world.getWorldBorder().setDamagePerBlock(0);
-        int[] arrival = model.anchor("arrival");
-        world.setSpawnPos(wpos(arrival[0], arrival[1], arrival[2]), -90f);
+        BoundaryService.applyWorldBorder(server);
+        if (model == LocationIndex.model()) {
+            int[] arrival = model.anchor("arrival");
+            world.setSpawnPos(wpos(arrival[0], arrival[1], arrival[2]), -90f);
+            GameState.get(server).setFlag(CONNECT_FIX_FLAG, true);
+        }
         WorldRules.apply(server);
-        GameState.get(server).setFlag(BUILT_FLAG, true);
-        GameState.get(server).setFlag(CONNECT_FIX_FLAG, true);
+        GameState.get(server).setFlag(builtFlag(model), true);
         server.saveAll(false, true, true);
+    }
+
+    /** Build every region that hasn't been generated yet, one after another, then run {@code after}. */
+    public static void buildMissing(MinecraftServer server, Runnable after) {
+        for (RegionModel m : LocationIndex.models()) {
+            if (!GameState.get(server).flag(builtFlag(m))) {
+                start(server.getOverworld(), m, () -> buildMissing(server, after));
+                return;
+            }
+        }
+        if (after != null) after.run();
     }
 }

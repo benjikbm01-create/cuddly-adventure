@@ -109,5 +109,8 @@
   "hint.hollowatlas.ability.windstep": "Windstep learned. Press Z/X (or use the technique from your hotbar) to dash forward.",
   "hint.hollowatlas.ability.echo_sight": "Echo Sight learned. Use the lens to reveal nearby traces. It spends focus (purple bar).",
   "dialogue.hollowatlas.continue": "(Continue)",
-  "dialogue.hollowatlas.goodbye": "(Leave)"
+  "dialogue.hollowatlas.goodbye": "(Leave)",
+  "message.hollowatlas.boundary_return": "That way isn't open yet. You turn back.",
+  "message.hollowatlas.surveying": "The lands to the east are being prepared. This takes about a minute...",
+  "message.hollowatlas.surveyed": "The lands to the east are ready."
 }

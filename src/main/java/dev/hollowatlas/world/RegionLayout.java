@@ -28,6 +28,12 @@ public final class RegionLayout {
     public int water_y = 62;
     public long seed = 1;
     public int border_size = 740;
+    /** World flag that must be set before players may enter this region (null/empty = always open). */
+    public String open_flag;
+    /** Snow cover on terrain at or above this Y (0 = none). */
+    public int snow_line = 0;
+    /** Default building pad style for this region's terrain surface: "grass" or "mountain". */
+    public String surface_style = "grass";
 
     public List<Hill> hills = new ArrayList<>();
     public List<Flat> flats = new ArrayList<>();

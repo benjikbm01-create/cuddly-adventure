@@ -1,0 +1,39 @@
+{
+  "id": "smithy",
+  "title": "Brindlecross Smithy",
+  "npc": "garrick",
+  "anchor": "smithy.counter_front",
+  "restock_days": 3,
+  "sells": [
+    {
+      "item": "hollowatlas:ash_quarterstaff",
+      "price": 30,
+      "stock": 1
+    },
+    {
+      "item": "hollowatlas:holt_hatchet",
+      "price": 55,
+      "stock": 1
+    },
+    {
+      "item": "minecraft:leather_chestplate",
+      "price": 18,
+      "stock": 1
+    },
+    {
+      "item": "minecraft:leather_leggings",
+      "price": 14,
+      "stock": 1
+    },
+    {
+      "item": "minecraft:shield",
+      "price": 20,
+      "stock": 1
+    }
+  ],
+  "buys": {
+    "hollowatlas:holt_hatchet": 25,
+    "hollowatlas:ash_quarterstaff": 12,
+    "minecraft:iron_nugget": 1
+  }
+}

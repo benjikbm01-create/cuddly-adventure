@@ -1,0 +1,112 @@
+{
+  "id": "m02",
+  "title": "The Orchard Ledger",
+  "category": "main",
+  "giver": "tobin",
+  "prereq": {
+    "flag": "met_nella"
+  },
+  "summary": "Tobin Ashby's orchard pump has given up, and the summer is getting on.",
+  "stages": [
+    {
+      "id": "look",
+      "text": "Tobin asked you to take a look at the pump in the orchard before he loses another day hauling buckets.",
+      "hint": "The pump stands among the orchard rows north of the village.",
+      "objectives": [
+        {
+          "id": "pump",
+          "type": "inspect",
+          "target": "pump_look",
+          "text": "Examine the pump",
+          "marker": "orchard_pump.body"
+        },
+        {
+          "id": "trough",
+          "type": "inspect",
+          "target": "pump_trough",
+          "text": "Check the trough",
+          "marker": "orchard_pump.trough"
+        },
+        {
+          "id": "ledger",
+          "type": "inspect",
+          "target": "orchard_ledger",
+          "text": "Read the orchard ledger at the farmhouse",
+          "marker": "farmhouse.table"
+        }
+      ],
+      "next": "parts"
+    },
+    {
+      "id": "parts",
+      "text": "The pin is sheared and the valve leather has perished. A smith can make a pin. Leather is another matter.",
+      "hint": "Garrick at the smithy can make a pin. Ada at the general store keeps leather.",
+      "objectives": [
+        {
+          "id": "pin",
+          "type": "gather",
+          "target": "hollowatlas:pump_pin",
+          "text": "Get a new pump pin",
+          "marker": "smithy.counter_front"
+        },
+        {
+          "id": "leather",
+          "type": "gather",
+          "target": "hollowatlas:valve_leather",
+          "text": "Find valve leather"
+        }
+      ],
+      "next": "repair"
+    },
+    {
+      "id": "repair",
+      "text": "You have what the pump needs.",
+      "objectives": [
+        {
+          "id": "fix",
+          "type": "inspect",
+          "target": "pump_fix",
+          "text": "Repair the pump",
+          "marker": "orchard_pump.body"
+        }
+      ],
+      "next": "report"
+    },
+    {
+      "id": "report",
+      "text": "Water's running again. Tobin will want to hear it.",
+      "objectives": [
+        {
+          "id": "tell",
+          "type": "talk",
+          "target": "tobin_pump_done",
+          "text": "Tell Tobin",
+          "marker": "farmhouse.door_out"
+        }
+      ],
+      "next": "complete"
+    }
+  ],
+  "rewards": [
+    {
+      "amount": 20,
+      "type": "coins"
+    },
+    {
+      "item": "minecraft:apple",
+      "count": 6,
+      "type": "give_item"
+    },
+    {
+      "npc": "tobin",
+      "delta": 10,
+      "type": "relationship"
+    },
+    {
+      "npc": "wenna",
+      "delta": 5,
+      "type": "relationship"
+    }
+  ],
+  "completion_text": "The orchard pump runs again. Tobin seemed lighter for it."
+}

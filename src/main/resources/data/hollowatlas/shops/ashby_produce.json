@@ -1,0 +1,32 @@
+{
+  "id": "ashby_produce",
+  "title": "Ashby Produce",
+  "npc": "wenna",
+  "anchor": "stall_a.counter_front",
+  "restock_days": 1,
+  "sells": [
+    {
+      "item": "minecraft:apple",
+      "price": 1,
+      "stock": 12
+    },
+    {
+      "item": "minecraft:carrot",
+      "price": 1,
+      "stock": 10
+    },
+    {
+      "item": "minecraft:potato",
+      "price": 1,
+      "stock": 10
+    },
+    {
+      "item": "minecraft:pumpkin_pie",
+      "price": 4,
+      "stock": 1
+    }
+  ],
+  "buys": {
+    "minecraft:sweet_berries": 1
+  }
+}

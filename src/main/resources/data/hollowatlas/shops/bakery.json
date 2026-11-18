@@ -1,0 +1,34 @@
+{
+  "id": "bakery",
+  "title": "The Bakehouse",
+  "npc": "maren",
+  "anchor": "bakery.inside",
+  "restock_days": 1,
+  "sells": [
+    {
+      "item": "hollowatlas:honey_bun",
+      "price": 3,
+      "stock": 6
+    },
+    {
+      "item": "minecraft:bread",
+      "price": 2,
+      "stock": 10
+    },
+    {
+      "item": "minecraft:cookie",
+      "price": 1,
+      "stock": 8,
+      "count": 2
+    },
+    {
+      "item": "minecraft:pumpkin_pie",
+      "price": 5,
+      "stock": 2
+    }
+  ],
+  "buys": {
+    "minecraft:wheat": 1,
+    "minecraft:sweet_berries": 1
+  }
+}

@@ -1,0 +1,108 @@
+{
+  "id": "hester",
+  "npc": "hester",
+  "entries": [
+    {
+      "when": {
+        "quest_stage": {
+          "quest": "sq03",
+          "stage": "gather"
+        }
+      },
+      "node": "gathering"
+    },
+    {
+      "when": {
+        "quest_not_started": "sq03",
+        "quest_done": "m01"
+      },
+      "node": "offer"
+    },
+    {
+      "node": "main"
+    }
+  ],
+  "nodes": {
+    "asleep": {
+      "text": "(Fast asleep. Best not to wake them.)",
+      "speaker": "narrator"
+    },
+    "offer": {
+      "text": "Elsie Varrow's hip is aching again. She won't say so. She'll just walk slower and glare at the sky.",
+      "choices": [
+        {
+          "text": "Is there anything that helps?",
+          "go": "offer2",
+          "tag": "ask"
+        },
+        {
+          "text": "Goodbye.",
+          "go": "end",
+          "tag": "leave"
+        }
+      ]
+    },
+    "offer2": {
+      "text": "A warming remedy. Yarrow from the meadow south-west of here, feverfew from the riverbank. Three and two. I'd go myself, but my knees are worse than hers. Will you?",
+      "choices": [
+        {
+          "text": "I'll gather them.",
+          "go": "taught",
+          "tag": "quest",
+          "actions": [
+            {
+              "quest": "sq03",
+              "type": "start_quest"
+            }
+          ]
+        },
+        {
+          "text": "Not now.",
+          "go": "end",
+          "tag": "leave"
+        }
+      ]
+    },
+    "taught": {
+      "text": "Then listen: three yarrow, two feverfew, steeped slow at a good hearth. Never boil it. Elsie will pretend it doesn't help.",
+      "choices": [
+        {
+          "text": "Goodbye.",
+          "go": "end",
+          "tag": "leave"
+        }
+      ]
+    },
+    "gathering": {
+      "text": "Yarrow's the white clusters, feverfew's the little daisies. Pick, don't pull. Leave the roots and they'll come back. Then steep them slow at the inn hearth, never boil.",
+      "choices": [
+        {
+          "text": "Goodbye.",
+          "go": "end",
+          "tag": "leave"
+        }
+      ]
+    },
+    "main": {
+      "text": "Feverfew's early this year. Everything's early this year.",
+      "choices": [
+        {
+          "text": "Do you sell anything?",
+          "go": "end",
+          "tag": "trade",
+          "actions": [
+            {
+              "shop": "herbalist",
+              "type": "open_shop"
+            }
+          ]
+        },
+        {
+          "text": "Goodbye.",
+          "go": "end",
+          "tag": "leave"
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,106 @@
+{
+  "id": "sq01",
+  "title": "The Blue Ribbon Stall",
+  "category": "side",
+  "giver": "sabine",
+  "summary": "Sabine's prize ribbon is gone, and the empty market stall has two claimants.",
+  "stages": [
+    {
+      "id": "look",
+      "text": "Sabine says her blue festival ribbon vanished from a hook by her workshop door. She has her suspicions.",
+      "hint": "Look around the Weaver's Cottage door, and the bakery. People in the square might have seen something.",
+      "objectives": [
+        {
+          "id": "hook",
+          "type": "inspect",
+          "target": "ribbon_hook",
+          "text": "Look at the weaver's door",
+          "marker": "weaver_house.door_out"
+        },
+        {
+          "id": "thread",
+          "type": "inspect",
+          "target": "ribbon_thread",
+          "text": "Check the bakery",
+          "marker": "bakery.door_out"
+        },
+        {
+          "id": "ask",
+          "type": "talk",
+          "target": "ribbon_witness",
+          "text": "Ask around the square"
+        }
+      ],
+      "next": "think"
+    },
+    {
+      "id": "think",
+      "text": "Thread, tracks and a boy who saw something. Time to decide what you believe.",
+      "hint": "Open the Case Board in your journal (J).",
+      "objectives": [
+        {
+          "id": "theory",
+          "type": "hypothesis",
+          "target": "ribbon_case",
+          "text": "Pick a theory on the Case Board"
+        }
+      ],
+      "next": "find"
+    },
+    {
+      "id": "find",
+      "text": "Theories are cheap. The ribbon is somewhere.",
+      "hint": "Foxes keep dens in the woods south-east, near the heron pool.",
+      "objectives": [
+        {
+          "id": "ribbon",
+          "type": "gather",
+          "target": "hollowatlas:blue_ribbon",
+          "text": "Find the ribbon",
+          "marker": "fox_den"
+        }
+      ],
+      "next": "return"
+    },
+    {
+      "id": "return",
+      "text": "Muddy, chewed at one end, but whole.",
+      "objectives": [
+        {
+          "id": "give",
+          "type": "talk",
+          "target": "ribbon_returned",
+          "text": "Return the ribbon to Sabine",
+          "marker": "weaver_house.door_out"
+        }
+      ],
+      "next": "stall"
+    },
+    {
+      "id": "stall",
+      "text": "Ada keeps the market roll. She's asked for your view on who should have the empty stall.",
+      "objectives": [
+        {
+          "id": "decide",
+          "type": "talk",
+          "target": "stall_decided",
+          "text": "Give Ada your recommendation",
+          "marker": "store.counter_front"
+        }
+      ],
+      "next": "complete"
+    }
+  ],
+  "rewards": [
+    {
+      "amount": 15,
+      "type": "coins"
+    },
+    {
+      "npc": "ada",
+      "delta": 5,
+      "type": "relationship"
+    }
+  ],
+  "completion_text": "The second market stall is open again."
+}

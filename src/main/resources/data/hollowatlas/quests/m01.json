@@ -1,0 +1,75 @@
+{
+  "id": "m01",
+  "title": "A Room for the Rain",
+  "category": "main",
+  "giver": "nella",
+  "summary": "You came in off the west road with wet boots and no plans beyond a dry bed.",
+  "stages": [
+    {
+      "id": "arrive",
+      "text": "The road east should lead to a village. Somewhere with a roof.",
+      "hint": "Follow the road east from the milestone.",
+      "objectives": [
+        {
+          "id": "reach",
+          "type": "reach",
+          "target": "plaza",
+          "radius": 16,
+          "text": "Reach the village",
+          "marker": "plaza"
+        }
+      ],
+      "next": "inn"
+    },
+    {
+      "id": "inn",
+      "text": "Brindlecross. The building with lanterns and smoke looks like an inn.",
+      "hint": "The inn is the large timbered house on the west side of the square.",
+      "objectives": [
+        {
+          "id": "talk",
+          "type": "talk",
+          "target": "nella_room",
+          "text": "Ask about a room at the inn",
+          "marker": "inn.counter_front"
+        }
+      ],
+      "next": "settle"
+    },
+    {
+      "id": "settle",
+      "text": "A room, a key, and advice you didn't ask for. The notice board by the hall is apparently where work turns up.",
+      "hint": "The notice board stands near the stone hall north of the square.",
+      "objectives": [
+        {
+          "id": "board",
+          "type": "inspect",
+          "target": "notice_board",
+          "text": "Read the notice board",
+          "marker": "notice_board.read"
+        },
+        {
+          "id": "rest",
+          "type": "inspect",
+          "target": "inn_rest",
+          "text": "Rest in your room",
+          "optional": true,
+          "marker": "inn.room_guest"
+        }
+      ],
+      "next": "complete"
+    }
+  ],
+  "rewards": [
+    {
+      "item": "hollowatlas:hearth_stew",
+      "count": 2,
+      "type": "give_item"
+    },
+    {
+      "flag": "visited_brindlecross",
+      "type": "set_flag"
+    }
+  ],
+  "completion_text": "You have a room at the Rain & Lantern for as long as you need it."
+}

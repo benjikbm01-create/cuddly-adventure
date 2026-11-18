@@ -1,0 +1,40 @@
+{
+  "id": "oswin",
+  "npc": "oswin",
+  "entries": [
+    {
+      "node": "main"
+    }
+  ],
+  "nodes": {
+    "asleep": {
+      "text": "(Fast asleep. Best not to wake them.)",
+      "speaker": "narrator"
+    },
+    "main": {
+      "text": "Mm. Hello.",
+      "choices": [
+        {
+          "text": "How's the mill?",
+          "go": "mill",
+          "tag": "ask"
+        },
+        {
+          "text": "Goodbye.",
+          "go": "end",
+          "tag": "leave"
+        }
+      ]
+    },
+    "mill": {
+      "text": "Turning. Water's lower than it should be this time of year. Wheel doesn't mind. I do.",
+      "choices": [
+        {
+          "text": "Goodbye.",
+          "go": "end",
+          "tag": "leave"
+        }
+      ]
+    }
+  }
+}

@@ -336,6 +336,7 @@ public final class QuestEngine {
         root.addProperty("coins", p.coins);
         root.addProperty("guidance", guidance);
         root.add("cases", dev.hollowatlas.investigation.CaseService.journal(player));
+        root.add("sites", dev.hollowatlas.world.SiteService.journal(player));
         Net.send(player, "journal", root);
     }
 }

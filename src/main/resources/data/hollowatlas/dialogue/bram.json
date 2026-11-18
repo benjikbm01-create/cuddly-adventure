@@ -1,0 +1,79 @@
+{
+  "id": "bram",
+  "npc": "bram",
+  "entries": [
+    {
+      "when": {
+        "quest_stage": {
+          "quest": "sq01",
+          "stage": "look"
+        }
+      },
+      "node": "ribbon"
+    },
+    {
+      "node": "main"
+    }
+  ],
+  "nodes": {
+    "asleep": {
+      "text": "(Fast asleep. Best not to wake them.)",
+      "speaker": "narrator"
+    },
+    "ribbon": {
+      "text": "The ribbon? Mum's blue one? ...I didn't take it. I saw a fox by our door the night before last, though. It had something in its mouth. I thought it was a rat. It was a very blue rat.",
+      "choices": [
+        {
+          "text": "Which way did the fox go?",
+          "go": "ribbon2",
+          "tag": "investigate"
+        }
+      ],
+      "actions": [
+        {
+          "id": "bram_saw_fox",
+          "type": "evidence"
+        },
+        {
+          "event": "talk",
+          "target": "ribbon_witness",
+          "type": "quest_event"
+        }
+      ]
+    },
+    "ribbon2": {
+      "text": "South-east, towards the woods. Foxes den out by the heron pool, Hester says. Don't tell Mum I was up that late.",
+      "choices": [
+        {
+          "text": "Goodbye.",
+          "go": "end",
+          "tag": "leave"
+        }
+      ]
+    },
+    "main": {
+      "text": "Hello! Do you want to see a nail I made? It's mostly straight.",
+      "choices": [
+        {
+          "text": "Show me.",
+          "go": "nail"
+        },
+        {
+          "text": "Goodbye.",
+          "go": "end",
+          "tag": "leave"
+        }
+      ]
+    },
+    "nail": {
+      "text": "...See? Mostly. Master Holt says 'mostly' is the most dangerous word in smithing.",
+      "choices": [
+        {
+          "text": "Goodbye.",
+          "go": "end",
+          "tag": "leave"
+        }
+      ]
+    }
+  }
+}

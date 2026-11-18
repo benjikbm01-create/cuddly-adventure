@@ -1,0 +1,58 @@
+{
+  "id": "general_store",
+  "title": "Hobb & Daughters General Goods",
+  "npc": "ada",
+  "anchor": "store.counter_front",
+  "restock_days": 1,
+  "sells": [
+    {
+      "item": "minecraft:bread",
+      "price": 2,
+      "stock": 8
+    },
+    {
+      "item": "minecraft:apple",
+      "price": 1,
+      "stock": 10
+    },
+    {
+      "item": "minecraft:cooked_mutton",
+      "price": 4,
+      "stock": 5
+    },
+    {
+      "item": "minecraft:mutton",
+      "price": 2,
+      "stock": 6
+    },
+    {
+      "item": "minecraft:leather_boots",
+      "price": 8,
+      "stock": 2
+    },
+    {
+      "item": "minecraft:leather_helmet",
+      "price": 10,
+      "stock": 2
+    },
+    {
+      "item": "minecraft:torch",
+      "price": 1,
+      "stock": 12,
+      "count": 2
+    }
+  ],
+  "buys": {
+    "hollowatlas:yarrow": 2,
+    "hollowatlas:feverfew": 2,
+    "minecraft:sweet_berries": 1,
+    "minecraft:apple": 1,
+    "hollowatlas:old_coin": 6,
+    "hollowatlas:silver_locket": 30,
+    "minecraft:carrot": 1,
+    "minecraft:potato": 1,
+    "minecraft:leather": 3,
+    "minecraft:rotten_flesh": 0
+  },
+  "buy_back_rate": 0.4
+}

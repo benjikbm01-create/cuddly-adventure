@@ -1,0 +1,69 @@
+{
+  "id": "ribbon_case",
+  "title": "The Missing Ribbon",
+  "summary": "Sabine's blue festival ribbon vanished from its hook two nights ago.",
+  "evidence": [
+    {
+      "id": "fox_tracks",
+      "title": "Tracks by the hook",
+      "text": "Small four-toed prints in the mud under the empty hook.",
+      "kind": "fact",
+      "source": "Weaver's door"
+    },
+    {
+      "id": "blue_thread",
+      "title": "Blue thread",
+      "text": "Strands of blue silk snagged at knee height on the bakery post.",
+      "kind": "fact",
+      "source": "Bakery"
+    },
+    {
+      "id": "maren_bins",
+      "title": "Knocked-over bins",
+      "text": "Maren says something knocked her bins over in the night; she blamed the cats.",
+      "kind": "testimony",
+      "source": "Maren"
+    },
+    {
+      "id": "bram_saw_fox",
+      "title": "A very blue rat",
+      "text": "Bram saw a fox by Reed House carrying something, heading south-east.",
+      "kind": "testimony",
+      "source": "Bram"
+    },
+    {
+      "id": "ribbon_in_den",
+      "title": "The ribbon",
+      "text": "Found in a fox den near the heron pool.",
+      "kind": "fact",
+      "source": "Mossgate Wood"
+    }
+  ],
+  "hypotheses": [
+    {
+      "id": "maren_took_it",
+      "text": "Maren took it to win the stall",
+      "needs": [
+        "blue_thread"
+      ],
+      "reaction": "It's a theory. The thread was at knee height, though."
+    },
+    {
+      "id": "fox_took_it",
+      "text": "An animal carried it off",
+      "needs": [
+        "fox_tracks",
+        "bram_saw_fox"
+      ],
+      "reaction": "Tracks, a witness, and a trail heading south-east."
+    },
+    {
+      "id": "sabine_lost_it",
+      "text": "Sabine simply misplaced it",
+      "needs": [
+        "fox_tracks"
+      ],
+      "reaction": "Possible. Sabine won't like hearing it."
+    }
+  ]
+}

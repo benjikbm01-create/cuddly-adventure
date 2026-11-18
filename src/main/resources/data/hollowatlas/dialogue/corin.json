@@ -1,0 +1,201 @@
+{
+  "id": "corin",
+  "npc": "corin",
+  "entries": [
+    {
+      "when": {
+        "quest_done": "m01",
+        "quest_not_started": "m03"
+      },
+      "node": "offer"
+    },
+    {
+      "when": {
+        "quest_active": "m03"
+      },
+      "node": "waiting"
+    },
+    {
+      "when": {
+        "quest_active": "sq02"
+      },
+      "node": "elsie"
+    },
+    {
+      "node": "main"
+    }
+  ],
+  "nodes": {
+    "asleep": {
+      "text": "(Fast asleep. Best not to wake them.)",
+      "speaker": "narrator"
+    },
+    "offer": {
+      "text": "You! You're the new one at the inn. Do you walk quickly? You look like you walk quickly.",
+      "choices": [
+        {
+          "text": "Depends where to.",
+          "go": "offer2"
+        },
+        {
+          "text": "Not today.",
+          "go": "end",
+          "tag": "leave"
+        }
+      ]
+    },
+    "offer2": {
+      "text": "I've a parcel for a clinic up in the mountains, at Sableforge. Spare fittings, sealed and paid for. I'm meant to have it on the road already, but I've three other drops west and my strap broke, and, well. I'm late. I'm always late.",
+      "choices": [
+        {
+          "text": "Happy to help. Where does it go first?",
+          "go": "accept",
+          "tag": "quest",
+          "actions": [
+            {
+              "delta": 5,
+              "type": "relationship"
+            }
+          ]
+        },
+        {
+          "text": "Why not take it yourself?",
+          "go": "skeptic",
+          "tag": "ask"
+        },
+        {
+          "text": "What does it pay?",
+          "go": "pay",
+          "tag": "persuade"
+        }
+      ]
+    },
+    "skeptic": {
+      "text": "Because the clinic needs it sooner than I can get there, and because I trust you more than I trust my left boot. Which isn't saying much. Please?",
+      "choices": [
+        {
+          "text": "All right. I'll take it.",
+          "go": "accept",
+          "tag": "quest"
+        },
+        {
+          "text": "Let me think about it.",
+          "go": "end",
+          "tag": "leave"
+        }
+      ]
+    },
+    "pay": {
+      "text": "Ten coins now, ten at the relay when it's logged. That's fair. That's more than fair, actually, don't tell anyone.",
+      "choices": [
+        {
+          "text": "Make it fifteen up front.",
+          "go": "accept_pay",
+          "tag": "persuade",
+          "actions": [
+            {
+              "amount": 15,
+              "type": "coins"
+            },
+            {
+              "delta": -2,
+              "type": "relationship"
+            }
+          ]
+        },
+        {
+          "text": "Ten's fine.",
+          "go": "accept",
+          "tag": "quest",
+          "actions": [
+            {
+              "amount": 10,
+              "type": "coins"
+            }
+          ]
+        }
+      ]
+    },
+    "accept_pay": {
+      "text": "...Fifteen. Fine. You drive a hard bargain for someone who arrived wearing half the river.",
+      "next": "accept"
+    },
+    "accept": {
+      "text": "Take it to the East Road Relay first. Jory logs everything that goes east, and he'll stamp it for the mountain route. Don't open it. Not that you would. It's only pump fittings, or so they tell me.",
+      "choices": [
+        {
+          "text": "I'll see it there.",
+          "go": "end",
+          "tag": "leave"
+        }
+      ],
+      "actions": [
+        {
+          "quest": "m03",
+          "type": "start_quest"
+        },
+        {
+          "item": "hollowatlas:sealed_parcel",
+          "type": "give_item"
+        },
+        {
+          "flag": "accepted_courier_work",
+          "type": "set_flag"
+        }
+      ]
+    },
+    "waiting": {
+      "text": "Still here? The relay's out past the watchtower. Long walk. Nice woods. Mind the woods.",
+      "choices": [
+        {
+          "text": "Goodbye.",
+          "go": "end",
+          "tag": "leave"
+        }
+      ]
+    },
+    "elsie": {
+      "text": "You're walking Elsie's old route? She made me walk it twice when I started. Said I needed to 'learn to be late properly'.",
+      "choices": [
+        {
+          "text": "Goodbye.",
+          "go": "end",
+          "tag": "leave"
+        }
+      ]
+    },
+    "main": {
+      "text": "Hello again!",
+      "choices": [
+        {
+          "text": "Where are you headed?",
+          "go": "where",
+          "tag": "ask"
+        },
+        {
+          "text": "Goodbye.",
+          "go": "end",
+          "tag": "leave"
+        }
+      ],
+      "variants": [
+        {
+          "when": {
+            "quest_done": "m04"
+          },
+          "text": "Bridge is still out, then. I suppose my parcel's having a nice long rest at the relay. Better than me."
+        }
+      ]
+    },
+    "where": {
+      "text": "East. Then west. Then probably east again. The roads don't care where you started.",
+      "choices": [
+        {
+          "text": "Goodbye.",
+          "go": "end",
+          "tag": "leave"
+        }
+      ]
+    }
+  }
+}

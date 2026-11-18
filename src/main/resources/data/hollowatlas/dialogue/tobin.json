@@ -1,0 +1,169 @@
+{
+  "id": "tobin",
+  "npc": "tobin",
+  "entries": [
+    {
+      "when": {
+        "quest_stage": {
+          "quest": "m02",
+          "stage": "report"
+        }
+      },
+      "node": "done"
+    },
+    {
+      "when": {
+        "quest_active": "m02"
+      },
+      "node": "progress"
+    },
+    {
+      "when": {
+        "flag": "met_nella",
+        "quest_not_started": "m02"
+      },
+      "node": "offer"
+    },
+    {
+      "node": "main"
+    }
+  ],
+  "nodes": {
+    "asleep": {
+      "text": "(Fast asleep. Best not to wake them.)",
+      "speaker": "narrator"
+    },
+    "offer": {
+      "text": "You're the one staying at Nella's. She said you'd be by, or she said I should be by, one of those. You any good with machines?",
+      "choices": [
+        {
+          "text": "I can take a look.",
+          "go": "offer2",
+          "tag": "quest"
+        },
+        {
+          "text": "Not really.",
+          "go": "offer_no"
+        }
+      ]
+    },
+    "offer_no": {
+      "text": "Nor me. That's the problem. If you change your mind, the pump's in the orchard.",
+      "choices": [
+        {
+          "text": "Tell me about the pump.",
+          "go": "offer2"
+        },
+        {
+          "text": "Goodbye.",
+          "go": "end",
+          "tag": "leave"
+        }
+      ]
+    },
+    "offer2": {
+      "text": "Orchard pump's dying. Coughs, spits, then nothing. I've hauled buckets from the brook for a week. Ordered a part from the smith weeks back and it never came. Have a look, would you? I keep a ledger at the house if you want the history.",
+      "choices": [
+        {
+          "text": "I'll see what I can find.",
+          "go": "end",
+          "tag": "quest",
+          "actions": [
+            {
+              "quest": "m02",
+              "type": "start_quest"
+            }
+          ]
+        }
+      ]
+    },
+    "progress": {
+      "text": "Any luck with the pump?",
+      "choices": [
+        {
+          "text": "The pin's sheared and the valve leather's gone.",
+          "go": "progress2",
+          "when": {
+            "evidence": [
+              "pump_pin_sheared"
+            ]
+          }
+        },
+        {
+          "text": "Still looking.",
+          "go": "end",
+          "tag": "leave"
+        }
+      ]
+    },
+    "progress2": {
+      "text": "Leather I can understand. Pin's no surprise either. Garrick will make one if you ask him nicely, and if you don't, he'll make one anyway and complain about it.",
+      "choices": [
+        {
+          "text": "Goodbye.",
+          "go": "end",
+          "tag": "leave"
+        }
+      ]
+    },
+    "done": {
+      "text": "I heard it from the house. That sound. Water. You don't know how good that sounds.",
+      "choices": [
+        {
+          "text": "It should hold for a while.",
+          "go": "done2",
+          "actions": [
+            {
+              "event": "talk",
+              "target": "tobin_pump_done",
+              "type": "quest_event"
+            }
+          ]
+        }
+      ]
+    },
+    "done2": {
+      "text": "Here. It's not much, but it's honest, and the apples are this year's. Thank you.",
+      "choices": [
+        {
+          "text": "Goodbye.",
+          "go": "end",
+          "tag": "leave"
+        }
+      ]
+    },
+    "main": {
+      "text": "Afternoon.",
+      "choices": [
+        {
+          "text": "How's the harvest looking?",
+          "go": "harvest",
+          "tag": "ask"
+        },
+        {
+          "text": "Goodbye.",
+          "go": "end",
+          "tag": "leave"
+        }
+      ],
+      "variants": [
+        {
+          "when": {
+            "world_flag": "hollowatlas:repaired_pump"
+          },
+          "text": "Pump's still running. Every morning I check, like it's a sick calf."
+        }
+      ]
+    },
+    "harvest": {
+      "text": "Wheat's fair. Orchard's good if it gets water. Carrots are carrots.",
+      "choices": [
+        {
+          "text": "Goodbye.",
+          "go": "end",
+          "tag": "leave"
+        }
+      ]
+    }
+  }
+}

@@ -168,6 +168,22 @@
     "brook_crossing": [14, 0, -66],
     "road_rest_east": [150, 0, 24],
     "meadow_west":    [-200, 0, 40],
-    "pasture":        [78, 0, -114]
+    "pasture":        [78, 0, -114],
+    "yarrow_1":       [-48, 0, 62],
+    "yarrow_2":       [-54, 0, 58],
+    "yarrow_3":       [-60, 0, 70],
+    "yarrow_4":       [-44, 0, 74],
+    "feverfew_1":     [-108, 0, 4],
+    "feverfew_2":     [-106, 0, -8],
+    "feverfew_3":     [-104, 0, 14],
+    "berries_1":      [150, 0, 80],
+    "berries_2":      [146, 0, 92],
+    "berries_3":      [158, 0, 74],
+    "apple_tree_1":   [-8, 0, -138],
+    "apple_tree_2":   [16, 0, -126],
+    "apple_tree_3":   [-2, 0, -114],
+    "carrots_1":      [-40, 0, -100],
+    "carrots_2":      [-30, 0, -94],
+    "potatoes_1":     [80, 0, -146]
   }
 }

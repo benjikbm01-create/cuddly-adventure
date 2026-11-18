@@ -1,0 +1,29 @@
+{
+  "id": "inn",
+  "title": "The Rain & Lantern",
+  "npc": "nella",
+  "anchor": "inn.counter_front",
+  "restock_days": 1,
+  "sells": [
+    {
+      "item": "hollowatlas:hearth_stew",
+      "price": 5,
+      "stock": 4
+    },
+    {
+      "item": "minecraft:bread",
+      "price": 2,
+      "stock": 6
+    },
+    {
+      "item": "minecraft:baked_potato",
+      "price": 2,
+      "stock": 6
+    }
+  ],
+  "buys": {
+    "minecraft:carrot": 1,
+    "minecraft:potato": 1,
+    "minecraft:mutton": 2
+  }
+}

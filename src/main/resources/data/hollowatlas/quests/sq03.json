@@ -1,0 +1,90 @@
+{
+  "id": "sq03",
+  "title": "Hester's Remedy",
+  "category": "side",
+  "giver": "hester",
+  "on_start": [
+    {
+      "flag": "recipe_remedy",
+      "type": "set_flag"
+    }
+  ],
+  "summary": "Elsie's hip aches in the damp. Hester knows a remedy, if someone fetches the herbs.",
+  "stages": [
+    {
+      "id": "gather",
+      "text": "Hester needs three sprigs of yarrow from the meadow south-west of the village and two heads of feverfew from the riverbank.",
+      "hint": "Yarrow grows in small white clusters; feverfew looks like a daisy. Look for them, then pick them.",
+      "objectives": [
+        {
+          "id": "yarrow",
+          "type": "gather",
+          "target": "hollowatlas:yarrow",
+          "count": 3,
+          "text": "Yarrow",
+          "marker": "yarrow_1"
+        },
+        {
+          "id": "feverfew",
+          "type": "gather",
+          "target": "hollowatlas:feverfew",
+          "count": 2,
+          "text": "Feverfew",
+          "marker": "feverfew_1"
+        }
+      ],
+      "next": "cook"
+    },
+    {
+      "id": "cook",
+      "text": "Hester taught you the remedy. It wants a slow fire, and the inn hearth is the warmest in the village.",
+      "hint": "Use the hearth in the Rain & Lantern's common room.",
+      "objectives": [
+        {
+          "id": "cook",
+          "type": "craft",
+          "target": "herbal_remedy",
+          "text": "Prepare the remedy at the inn hearth",
+          "marker": "inn.hearth"
+        }
+      ],
+      "next": "deliver"
+    },
+    {
+      "id": "deliver",
+      "text": "It smells terrible, which Hester says is a good sign.",
+      "objectives": [
+        {
+          "id": "give",
+          "type": "talk",
+          "target": "remedy_given",
+          "text": "Bring the remedy to Elsie",
+          "marker": "old_cottage.door_out"
+        }
+      ],
+      "next": "complete"
+    }
+  ],
+  "rewards": [
+    {
+      "item": "hollowatlas:trail_tonic",
+      "count": 2,
+      "type": "give_item"
+    },
+    {
+      "flag": "recipe_tonic",
+      "type": "set_flag"
+    },
+    {
+      "npc": "hester",
+      "delta": 8,
+      "type": "relationship"
+    },
+    {
+      "npc": "elsie",
+      "delta": 5,
+      "type": "relationship"
+    }
+  ],
+  "completion_text": "Elsie's hip is better. Hester taught you how to make a trail tonic."
+}

@@ -1,0 +1,163 @@
+{
+  "id": "jory",
+  "npc": "jory",
+  "entries": [
+    {
+      "when": {
+        "quest_stage": {
+          "quest": "m04",
+          "stage": "decide"
+        }
+      },
+      "node": "decide"
+    },
+    {
+      "when": {
+        "quest_active": "m03"
+      },
+      "node": "parcel"
+    },
+    {
+      "node": "main"
+    }
+  ],
+  "nodes": {
+    "asleep": {
+      "text": "(Fast asleep. Best not to wake them.)",
+      "speaker": "narrator"
+    },
+    "parcel": {
+      "text": "Parcel for the eastern route? Let me see. Sealed, paid, mountain clinic... yes. Logged. Stamped. It'll go east as soon as the bridge is up, along with everything else that's been waiting.",
+      "choices": [
+        {
+          "text": "Everything else?",
+          "go": "parcel2",
+          "tag": "ask"
+        }
+      ],
+      "actions": [
+        {
+          "event": "talk",
+          "target": "jory_parcel",
+          "type": "quest_event"
+        },
+        {
+          "item": "hollowatlas:sealed_parcel",
+          "type": "take_item"
+        }
+      ]
+    },
+    "parcel2": {
+      "text": "Six weeks of it. That crate there's been waiting longest. 'Orchard pump fittings', it says. Heavy for pump fittings. Not my business. Everything here is my business, but not that.",
+      "choices": [
+        {
+          "text": "Goodbye.",
+          "go": "end",
+          "tag": "leave"
+        }
+      ]
+    },
+    "decide": {
+      "text": "You've been looking at that crate. I saw you. Something on your mind?",
+      "choices": [
+        {
+          "text": "The crate doesn't match its manifest, and the seal isn't yours.",
+          "go": "report",
+          "tag": "evidence",
+          "actions": [
+            {
+              "quest": "m04",
+              "key": "report",
+              "value": "reported",
+              "type": "choice"
+            },
+            {
+              "flag": "report_choice_reported",
+              "type": "set_flag"
+            },
+            {
+              "event": "talk",
+              "target": "seal_decided",
+              "type": "quest_event"
+            },
+            {
+              "flag": "found_seal_mismatch",
+              "type": "set_flag"
+            }
+          ]
+        },
+        {
+          "text": "Nothing. Just curious.",
+          "go": "quiet",
+          "tag": "ask",
+          "actions": [
+            {
+              "quest": "m04",
+              "key": "report",
+              "value": "noted",
+              "type": "choice"
+            },
+            {
+              "flag": "report_choice_noted",
+              "type": "set_flag"
+            },
+            {
+              "event": "talk",
+              "target": "seal_decided",
+              "type": "quest_event"
+            },
+            {
+              "flag": "found_seal_mismatch",
+              "type": "set_flag"
+            }
+          ]
+        }
+      ]
+    },
+    "report": {
+      "text": "Not my seal? Let me... no. No, that isn't mine. Close, but the notches are wrong. I log what I'm given. I'll write it down. I'll write it down twice.",
+      "choices": [
+        {
+          "text": "Goodbye.",
+          "go": "end",
+          "tag": "leave"
+        }
+      ]
+    },
+    "quiet": {
+      "text": "Curious is fine. Curious is how I ended up keeping a relay. Mind the crates.",
+      "choices": [
+        {
+          "text": "Goodbye.",
+          "go": "end",
+          "tag": "leave"
+        }
+      ]
+    },
+    "main": {
+      "text": "Relay's open. Nothing's moving east, mind.",
+      "choices": [
+        {
+          "text": "Why not?",
+          "go": "why",
+          "tag": "ask"
+        },
+        {
+          "text": "Goodbye.",
+          "go": "end",
+          "tag": "leave"
+        }
+      ]
+    },
+    "why": {
+      "text": "Eastfall bridge washed out in the spring melt. Lom down at the end of the road will tell you all about it. At length.",
+      "choices": [
+        {
+          "text": "Goodbye.",
+          "go": "end",
+          "tag": "leave"
+        }
+      ]
+    }
+  }
+}

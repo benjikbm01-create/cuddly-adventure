@@ -1,0 +1,74 @@
+{
+  "id": "lom",
+  "npc": "lom",
+  "entries": [
+    {
+      "when": {
+        "quest_stage": {
+          "quest": "m04",
+          "stage": "bridge"
+        }
+      },
+      "node": "bridge"
+    },
+    {
+      "node": "main"
+    }
+  ],
+  "nodes": {
+    "asleep": {
+      "text": "(Fast asleep. Best not to wake them.)",
+      "speaker": "narrator"
+    },
+    "bridge": {
+      "text": "When will it reopen? Ha. When the masons come, and the masons come when the money comes, and the money comes from somewhere east of a bridge that isn't there. You see the difficulty.",
+      "choices": [
+        {
+          "text": "So the road east is closed.",
+          "go": "bridge2"
+        }
+      ]
+    },
+    "bridge2": {
+      "text": "For now. They'll fix it. Someone always does, in the end. Until then, Brindlecross is as far east as anyone goes.",
+      "choices": [
+        {
+          "text": "Goodbye.",
+          "go": "end",
+          "tag": "leave"
+        }
+      ],
+      "actions": [
+        {
+          "event": "talk",
+          "target": "lom_bridge",
+          "type": "quest_event"
+        }
+      ]
+    },
+    "main": {
+      "text": "Bridge is out. Has been since the melt.",
+      "choices": [
+        {
+          "text": "Can I cross anyway?",
+          "go": "cross"
+        },
+        {
+          "text": "Goodbye.",
+          "go": "end",
+          "tag": "leave"
+        }
+      ]
+    },
+    "cross": {
+      "text": "Not unless you've wings or a death wish. There's a ladder down by the old stub, if you fall in. People fall in.",
+      "choices": [
+        {
+          "text": "Goodbye.",
+          "go": "end",
+          "tag": "leave"
+        }
+      ]
+    }
+  }
+}

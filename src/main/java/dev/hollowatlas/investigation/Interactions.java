@@ -76,6 +76,17 @@ public final class Interactions {
         public String puzzle;                // puzzle id
         public String symbol;                // puzzle input symbol
         public String station;               // crafting station id
+        /** Context-dependent responses: the first whose condition holds replaces text/actions/evidence. */
+        public List<Variant> variants = new ArrayList<>();
+    }
+
+    public static final class Variant {
+        public String id;
+        public JsonElement when;
+        public String text;
+        public String evidence;
+        public JsonElement actions;
+        public boolean once = true;
     }
 
     public static final class Loot { public String item; public int min = 1, max = 1; public double chance = 1.0; }
@@ -140,6 +151,18 @@ public final class Interactions {
             return;
         }
         String doneKey = "int:" + d.id;
+        for (Variant v : d.variants) {
+            if (!Logic.test(player, v.when, ctx)) continue;
+            String vk = "int:" + v.id;
+            boolean first = p.flags.add(vk);
+            state.markDirty();
+            say(player, v.text, Formatting.WHITE);
+            if (v.evidence != null) CaseService.addEvidence(player, v.evidence);
+            if (first || !v.once) Logic.run(player, v.actions, ctx);
+            QuestEngine.event(player, "inspect", v.id);
+            ((ServerWorld) player.getWorld()).spawnParticles(ParticleTypes.ENCHANT, pos.getX() + 0.5, pos.getY() + 1.1, pos.getZ() + 0.5, 12, 0.3, 0.3, 0.3, 0.2);
+            return;
+        }
         switch (d.type) {
             case "inspect", "read" -> {
                 boolean first = p.flags.add(doneKey);
@@ -268,10 +291,13 @@ public final class Interactions {
             Def d = e.getValue();
             if (!"gather".equals(d.type) || d.ripe_state == null) continue;
             Long ready = state.nodeCooldowns.get(d.id);
-            if (ready != null && ready <= now && server.getOverworld().isChunkLoaded(e.getKey())) {
+            if (!server.getOverworld().isChunkLoaded(e.getKey())) continue;
+            if (ready != null && ready <= now) {
                 setState(server, e.getKey(), d.ripe_state);
                 state.nodeCooldowns.remove(d.id);
                 state.markDirty();
+            } else if (ready == null && server.getOverworld().getBlockState(e.getKey()).isAir()) {
+                setState(server, e.getKey(), d.ripe_state);   // first-time placement of a designated node
             }
         }
     }

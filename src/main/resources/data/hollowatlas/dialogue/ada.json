@@ -1,0 +1,268 @@
+{
+  "id": "ada",
+  "npc": "ada",
+  "entries": [
+    {
+      "when": {
+        "quest_stage": {
+          "quest": "sq01",
+          "stage": "stall"
+        }
+      },
+      "node": "stall"
+    },
+    {
+      "node": "main"
+    }
+  ],
+  "nodes": {
+    "asleep": {
+      "text": "(Fast asleep. Best not to wake them.)",
+      "speaker": "narrator"
+    },
+    "main": {
+      "text": "Welcome to Hobb and Daughters. The daughters are in Veylport, being expensive.",
+      "choices": [
+        {
+          "text": "Let's trade.",
+          "go": "end",
+          "tag": "trade",
+          "actions": [
+            {
+              "shop": "general_store",
+              "type": "open_shop"
+            }
+          ]
+        },
+        {
+          "text": "I need leather for a pump valve.",
+          "go": "leather",
+          "tag": "quest",
+          "when": {
+            "quest_stage": {
+              "quest": "m02",
+              "stage": "parts"
+            },
+            "not": {
+              "has_item": {
+                "item": "hollowatlas:valve_leather"
+              }
+            }
+          }
+        },
+        {
+          "text": "Who decides who gets the empty stall?",
+          "go": "stall_q",
+          "tag": "ask"
+        },
+        {
+          "text": "Goodbye.",
+          "go": "end",
+          "tag": "leave"
+        }
+      ]
+    },
+    "leather": {
+      "text": "Valve leather? Tobin's pump, I'd wager. I've a cut of oiled hide that'll do. Six coins.",
+      "choices": [
+        {
+          "text": "Here's six.",
+          "go": "end",
+          "tag": "trade",
+          "actions": [
+            {
+              "amount": -6,
+              "type": "coins"
+            },
+            {
+              "item": "hollowatlas:valve_leather",
+              "type": "give_item"
+            }
+          ],
+          "enabled_when": {
+            "coins_min": 6
+          },
+          "disabled_hint": "You need 6 coins."
+        },
+        {
+          "text": "Maybe later.",
+          "go": "end",
+          "tag": "leave"
+        }
+      ]
+    },
+    "stall_q": {
+      "text": "I keep the market roll. The Hall says the stall goes to whoever the roll says. The roll says whatever I write. So, me.",
+      "choices": [
+        {
+          "text": "Goodbye.",
+          "go": "end",
+          "tag": "leave"
+        }
+      ]
+    },
+    "stall": {
+      "text": "So. You've been in the middle of the ribbon business. Who should have the empty stall, in your view? I'll listen. I may even agree.",
+      "choices": [
+        {
+          "text": "Sabine. Her cloth deserves the front of the square.",
+          "go": "stall_s",
+          "tag": "persuade"
+        },
+        {
+          "text": "Maren. Bread feeds the whole village.",
+          "go": "stall_m",
+          "tag": "persuade"
+        },
+        {
+          "text": "Both. Split the day: bread in the morning, cloth after.",
+          "go": "stall_b",
+          "tag": "persuade"
+        }
+      ]
+    },
+    "stall_s": {
+      "text": "Sabine, then. Maren will sulk for a week, but she'll live. I'll write it on the roll.",
+      "choices": [
+        {
+          "text": "Goodbye.",
+          "go": "end",
+          "tag": "leave"
+        }
+      ],
+      "actions": [
+        {
+          "npc": "sabine",
+          "variant": "stall_sabine",
+          "type": "set_variant"
+        },
+        {
+          "flag": "hollowatlas:stall_b_sabine",
+          "type": "world_flag"
+        },
+        {
+          "flag": "hollowatlas:stall_b_resolved",
+          "type": "world_flag"
+        },
+        {
+          "quest": "sq01",
+          "key": "stall",
+          "value": "sabine",
+          "type": "choice"
+        },
+        {
+          "npc": "sabine",
+          "delta": 8,
+          "type": "relationship"
+        },
+        {
+          "npc": "maren",
+          "delta": -4,
+          "type": "relationship"
+        },
+        {
+          "event": "talk",
+          "target": "stall_decided",
+          "type": "quest_event"
+        }
+      ]
+    },
+    "stall_m": {
+      "text": "Maren. Sabine will call me a philistine, which is the nicest thing she's called me. I'll write it on the roll.",
+      "choices": [
+        {
+          "text": "Goodbye.",
+          "go": "end",
+          "tag": "leave"
+        }
+      ],
+      "actions": [
+        {
+          "npc": "maren",
+          "variant": "stall_maren",
+          "type": "set_variant"
+        },
+        {
+          "flag": "hollowatlas:stall_b_maren",
+          "type": "world_flag"
+        },
+        {
+          "flag": "hollowatlas:stall_b_resolved",
+          "type": "world_flag"
+        },
+        {
+          "quest": "sq01",
+          "key": "stall",
+          "value": "maren",
+          "type": "choice"
+        },
+        {
+          "npc": "maren",
+          "delta": 8,
+          "type": "relationship"
+        },
+        {
+          "npc": "sabine",
+          "delta": -4,
+          "type": "relationship"
+        },
+        {
+          "event": "talk",
+          "target": "stall_decided",
+          "type": "quest_event"
+        }
+      ]
+    },
+    "stall_b": {
+      "text": "Share it? They'll hate that. ...Which probably means it's fair. Bread until one, cloth after. I'll write it on the roll.",
+      "choices": [
+        {
+          "text": "Goodbye.",
+          "go": "end",
+          "tag": "leave"
+        }
+      ],
+      "actions": [
+        {
+          "npc": "maren",
+          "variant": "shared_stall",
+          "type": "set_variant"
+        },
+        {
+          "npc": "sabine",
+          "variant": "shared_stall",
+          "type": "set_variant"
+        },
+        {
+          "flag": "hollowatlas:stall_b_shared",
+          "type": "world_flag"
+        },
+        {
+          "flag": "hollowatlas:stall_b_resolved",
+          "type": "world_flag"
+        },
+        {
+          "quest": "sq01",
+          "key": "stall",
+          "value": "shared",
+          "type": "choice"
+        },
+        {
+          "npc": "maren",
+          "delta": 3,
+          "type": "relationship"
+        },
+        {
+          "npc": "sabine",
+          "delta": 3,
+          "type": "relationship"
+        },
+        {
+          "event": "talk",
+          "target": "stall_decided",
+          "type": "quest_event"
+        }
+      ]
+    }
+  }
+}

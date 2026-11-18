@@ -1,0 +1,96 @@
+{
+  "id": "garrick",
+  "npc": "garrick",
+  "entries": [
+    {
+      "when": {
+        "quest_stage": {
+          "quest": "m02",
+          "stage": "parts"
+        },
+        "not": {
+          "has_item": {
+            "item": "hollowatlas:pump_pin"
+          }
+        }
+      },
+      "node": "pin"
+    },
+    {
+      "node": "main"
+    }
+  ],
+  "nodes": {
+    "asleep": {
+      "text": "(Fast asleep. Best not to wake them.)",
+      "speaker": "narrator"
+    },
+    "pin": {
+      "text": "Tobin's pump. Pin's sheared, is it. He ordered one from me. I sent the order east to the relay with the rest. Never came back.",
+      "choices": [
+        {
+          "text": "Can you make one now?",
+          "go": "pin2",
+          "tag": "quest"
+        }
+      ]
+    },
+    "pin2": {
+      "text": "Course I can. Give me a minute. ...There. Iron, not the soft brass he had before. That'll outlast the orchard.",
+      "choices": [
+        {
+          "text": "Thank you.",
+          "go": "end",
+          "tag": "leave"
+        }
+      ],
+      "actions": [
+        {
+          "item": "hollowatlas:pump_pin",
+          "type": "give_item"
+        },
+        {
+          "delta": 3,
+          "type": "relationship"
+        }
+      ]
+    },
+    "main": {
+      "text": "Hm. Need something?",
+      "choices": [
+        {
+          "text": "Show me your work.",
+          "go": "end",
+          "tag": "trade",
+          "actions": [
+            {
+              "shop": "smithy",
+              "type": "open_shop"
+            }
+          ]
+        },
+        {
+          "text": "What's the boy's name? Your apprentice.",
+          "go": "bram",
+          "tag": "ask",
+          "once": true
+        },
+        {
+          "text": "Goodbye.",
+          "go": "end",
+          "tag": "leave"
+        }
+      ]
+    },
+    "bram": {
+      "text": "Bram. Good hands, bad ears. He'll do.",
+      "choices": [
+        {
+          "text": "Goodbye.",
+          "go": "end",
+          "tag": "leave"
+        }
+      ]
+    }
+  }
+}

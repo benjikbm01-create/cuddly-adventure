@@ -1,0 +1,27 @@
+{
+  "id": "windstep",
+  "name": "Windstep",
+  "category": "movement",
+  "pool": "stamina",
+  "cost": 30,
+  "cooldown": 60,
+  "token_item": "hollowatlas:technique_windstep",
+  "description": "A trained burst of footwork: a fast step forward, out of trouble or into it.",
+  "unlock": {
+    "comment": "Taught by Ilse Brand at the watch."
+  },
+  "branches": [
+    {
+      "id": "long_stride",
+      "name": "Long Stride",
+      "description": "(Future) Further, at greater cost.",
+      "cost": 1
+    },
+    {
+      "id": "side_step",
+      "name": "Side Step",
+      "description": "(Future) Step in any direction.",
+      "cost": 1
+    }
+  ]
+}

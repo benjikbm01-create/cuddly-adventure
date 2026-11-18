@@ -1,0 +1,20 @@
+{
+  "id": "herbal_remedy",
+  "station": "hearth",
+  "name": "Hester's Warming Remedy",
+  "requires_flag": "recipe_remedy",
+  "inputs": [
+    {
+      "item": "hollowatlas:yarrow",
+      "count": 3
+    },
+    {
+      "item": "hollowatlas:feverfew",
+      "count": 2
+    }
+  ],
+  "output": {
+    "item": "hollowatlas:herbal_remedy",
+    "count": 1
+  }
+}

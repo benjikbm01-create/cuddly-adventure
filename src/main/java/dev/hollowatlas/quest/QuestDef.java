@@ -59,7 +59,7 @@ public final class QuestDef implements ContentManager.Validatable {
             if (s.id == null) problems.add(file + ": stage without id");
             for (Objective o : s.objectives) {
                 if (o.id == null || o.type == null) problems.add(file + ": objective missing id/type in stage " + s.id);
-                if (o.type != null && !List.of("talk", "inspect", "reach", "gather", "kill", "solve", "flag", "hypothesis", "event").contains(o.type))
+                if (o.type != null && !List.of("talk", "inspect", "reach", "gather", "kill", "solve", "flag", "hypothesis", "event", "craft", "discover", "evidence").contains(o.type))
                     problems.add(file + ": unknown objective type " + o.type);
             }
             Logic.validateActions(file + "#" + s.id, s.on_complete, problems);

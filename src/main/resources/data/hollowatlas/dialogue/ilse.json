@@ -1,0 +1,105 @@
+{
+  "id": "ilse",
+  "npc": "ilse",
+  "entries": [
+    {
+      "node": "main"
+    }
+  ],
+  "nodes": {
+    "asleep": {
+      "text": "(Fast asleep. Best not to wake them.)",
+      "speaker": "narrator"
+    },
+    "main": {
+      "text": "Name and business.",
+      "choices": [
+        {
+          "text": "Just passing through.",
+          "go": "pass",
+          "tag": "ask"
+        },
+        {
+          "text": "Could you teach me to fight better?",
+          "go": "train",
+          "tag": "ask",
+          "when": {
+            "not": {
+              "ability": "windstep"
+            }
+          }
+        },
+        {
+          "text": "Goodbye.",
+          "go": "end",
+          "tag": "leave"
+        }
+      ],
+      "variants": [
+        {
+          "when": {
+            "ability": "windstep"
+          },
+          "text": "Keep your feet light. You're getting better at it."
+        }
+      ]
+    },
+    "pass": {
+      "text": "Everyone's passing through until they're not. Keep to the roads after dark.",
+      "choices": [
+        {
+          "text": "Goodbye.",
+          "go": "end",
+          "tag": "leave"
+        }
+      ]
+    },
+    "train": {
+      "text": "I can teach you footwork. A quick step forward, out of trouble or into it. Ten coins for the drills. Free, if you've dealt with the lot camping on the old cart track.",
+      "choices": [
+        {
+          "text": "Here's ten coins.",
+          "go": "learn",
+          "actions": [
+            {
+              "amount": -10,
+              "type": "coins"
+            }
+          ],
+          "enabled_when": {
+            "coins_min": 10
+          },
+          "disabled_hint": "You need 10 coins."
+        },
+        {
+          "text": "They're dealt with.",
+          "go": "learn",
+          "when": {
+            "world_flag": "hollowatlas:encounter_cleared:wagon_ambush"
+          }
+        },
+        {
+          "text": "Another time.",
+          "go": "end",
+          "tag": "leave"
+        }
+      ]
+    },
+    "learn": {
+      "text": "Weight on the front foot. Push, don't jump. Again. Again. ...Good enough. Practise until it's boring.",
+      "choices": [
+        {
+          "text": "Goodbye.",
+          "go": "end",
+          "tag": "leave"
+        }
+      ],
+      "actions": [
+        {
+          "ability": "windstep",
+          "type": "unlock_ability"
+        }
+      ]
+    }
+  }
+}

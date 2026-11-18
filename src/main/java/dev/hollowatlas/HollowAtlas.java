@@ -73,6 +73,7 @@ public final class HollowAtlas implements ModInitializer {
         AbilityService.init();
         ShopService.init();
         CraftingService.init();
+        dev.hollowatlas.inventory.InventoryActions.init();
         Interactions.init();          // must register before protection so designated interactions win
         ProtectionService.register();
         dev.hollowatlas.command.DevCommands.init();
@@ -90,6 +91,7 @@ public final class HollowAtlas implements ModInitializer {
                 QuestEngine.tick(server);
                 EncounterService.tick(server);
                 Interactions.tick(server);
+                dev.hollowatlas.world.SiteService.tick(server);
             }
             CombatService.tick(server);
             AbilityService.tick(server);

@@ -1,0 +1,19 @@
+{
+  "id": "baked_apple_bun",
+  "station": "hearth",
+  "name": "Honey Bun (berry glaze)",
+  "inputs": [
+    {
+      "item": "minecraft:bread",
+      "count": 1
+    },
+    {
+      "item": "minecraft:sweet_berries",
+      "count": 2
+    }
+  ],
+  "output": {
+    "item": "hollowatlas:honey_bun",
+    "count": 1
+  }
+}

@@ -1,0 +1,92 @@
+{
+  "id": "m04",
+  "title": "The Wrong Seal",
+  "category": "main",
+  "giver": "jory",
+  "summary": "A crate at the relay has been waiting on the eastern bridge for weeks.",
+  "stages": [
+    {
+      "id": "look",
+      "text": "Jory mentioned a crate bound east that has been waiting since the bridge went out. Something about it bothers you.",
+      "hint": "The manifest is on the lectern; the crates are stacked on the east side of the relay.",
+      "objectives": [
+        {
+          "id": "manifest",
+          "type": "inspect",
+          "target": "relay_manifest",
+          "text": "Read the manifest",
+          "marker": "relay.desk"
+        },
+        {
+          "id": "crate",
+          "type": "inspect",
+          "target": "relay_crate",
+          "text": "Look over the crate",
+          "marker": "relay.crates"
+        },
+        {
+          "id": "seal",
+          "type": "inspect",
+          "target": "relay_seal",
+          "text": "Look at the seal on the strongbox",
+          "marker": "relay.desk"
+        }
+      ],
+      "next": "think"
+    },
+    {
+      "id": "think",
+      "text": "Three things that don't quite agree. Put them side by side.",
+      "hint": "Open the journal (J) and look at the Case Board.",
+      "objectives": [
+        {
+          "id": "theory",
+          "type": "hypothesis",
+          "target": "relay_case",
+          "text": "Form a theory on the Case Board"
+        }
+      ],
+      "next": "decide"
+    },
+    {
+      "id": "decide",
+      "text": "You could tell Jory what you noticed, or keep it to yourself for now.",
+      "objectives": [
+        {
+          "id": "choice",
+          "type": "talk",
+          "target": "seal_decided",
+          "text": "Decide what to do about it",
+          "marker": "relay.desk"
+        }
+      ],
+      "next": "bridge"
+    },
+    {
+      "id": "bridge",
+      "text": "Whatever the crate is, it isn't going anywhere, and neither is your parcel. The bridgewarden will know when the Eastfall crossing reopens.",
+      "hint": "The Bridgewarden's hut is at the very end of the east road.",
+      "objectives": [
+        {
+          "id": "lom",
+          "type": "talk",
+          "target": "lom_bridge",
+          "text": "Ask the bridgewarden about the crossing",
+          "marker": "east_gate"
+        }
+      ],
+      "next": "complete"
+    }
+  ],
+  "rewards": [
+    {
+      "amount": 10,
+      "type": "coins"
+    },
+    {
+      "flag": "opening_complete",
+      "type": "set_flag"
+    }
+  ],
+  "completion_text": "The Eastfall crossing is still out. The road east will have to wait."
+}

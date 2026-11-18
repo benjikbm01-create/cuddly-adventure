@@ -1,0 +1,38 @@
+{
+  "id": "m03",
+  "title": "A Parcel Bound East",
+  "category": "main",
+  "giver": "corin",
+  "prereq": {
+    "quest_done": "m01"
+  },
+  "summary": "Corin Bell has a parcel that needs to travel east faster than he does.",
+  "stages": [
+    {
+      "id": "relay",
+      "text": "Corin's parcel is meant for a clinic in the mountains. First it has to be logged at the East Road Relay.",
+      "hint": "Follow the east road out of the village. The relay is a long way out, past the watchtower and the woods.",
+      "objectives": [
+        {
+          "id": "log",
+          "type": "talk",
+          "target": "jory_parcel",
+          "text": "Have the parcel logged at the relay",
+          "marker": "relay.desk"
+        }
+      ],
+      "next": "complete"
+    }
+  ],
+  "rewards": [
+    {
+      "amount": 10,
+      "type": "coins"
+    },
+    {
+      "quest": "m04",
+      "type": "start_quest"
+    }
+  ],
+  "completion_text": "The parcel is logged for the eastern route."
+}

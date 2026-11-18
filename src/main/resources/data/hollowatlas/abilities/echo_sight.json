@@ -1,0 +1,21 @@
+{
+  "id": "echo_sight",
+  "name": "Echo Sight",
+  "category": "investigation",
+  "pool": "focus",
+  "cost": 40,
+  "cooldown": 240,
+  "token_item": "hollowatlas:tracer_lens",
+  "description": "Look through the old lens: recent traces and hidden things nearby shimmer for a few moments.",
+  "unlock": {
+    "comment": "Found in the Old Shrine."
+  },
+  "branches": [
+    {
+      "id": "long_echo",
+      "name": "Lingering Echo",
+      "description": "(Future) Traces last longer.",
+      "cost": 1
+    }
+  ]
+}

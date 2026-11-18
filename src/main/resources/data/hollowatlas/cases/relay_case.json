@@ -1,0 +1,81 @@
+{
+  "id": "relay_case",
+  "title": "The Crate at the Relay",
+  "summary": "A crate bound east has waited at the relay since the bridge went out.",
+  "visible_when": {
+    "any": [
+      {
+        "quest_active": "m04"
+      },
+      {
+        "quest_done": "m04"
+      }
+    ]
+  },
+  "evidence": [
+    {
+      "id": "manifest_pump",
+      "title": "The manifest",
+      "text": "Lists the crate as orchard pump fittings, relay seal applied.",
+      "kind": "fact",
+      "source": "Relay ledger"
+    },
+    {
+      "id": "crate_brass",
+      "title": "What's inside",
+      "text": "Heavy, finely threaded brass fittings packed in straw. Not pump parts like Tobin's.",
+      "kind": "fact",
+      "source": "Relay crate"
+    },
+    {
+      "id": "seal_notches",
+      "title": "The seal",
+      "text": "The crate's wax seal has a ring of notches; the relay's own stamp is a plain wheel.",
+      "kind": "fact",
+      "source": "Relay strongbox"
+    },
+    {
+      "id": "ledger_order",
+      "title": "Tobin's order",
+      "text": "Tobin's pin and valve leather were sent east with the relay carter and never came back.",
+      "kind": "fact",
+      "source": "Orchard ledger"
+    },
+    {
+      "id": "pump_pin_sheared",
+      "title": "The pump",
+      "text": "Plain iron pin, leather valve. Ordinary wear.",
+      "kind": "fact",
+      "source": "Orchard pump"
+    }
+  ],
+  "hypotheses": [
+    {
+      "id": "clerical",
+      "text": "A clerical mistake: wrong label, wrong seal",
+      "needs": [
+        "manifest_pump",
+        "crate_brass"
+      ],
+      "reaction": "Mistakes happen. Two at once is less common."
+    },
+    {
+      "id": "false_manifest",
+      "text": "Something is being shipped under a false label",
+      "needs": [
+        "manifest_pump",
+        "crate_brass",
+        "seal_notches"
+      ],
+      "reaction": "A guess. But the label, the contents and the seal all disagree."
+    },
+    {
+      "id": "jory_careless",
+      "text": "Jory is careless with his paperwork",
+      "needs": [
+        "manifest_pump"
+      ],
+      "reaction": "Jory would be mortified to hear it."
+    }
+  ]
+}

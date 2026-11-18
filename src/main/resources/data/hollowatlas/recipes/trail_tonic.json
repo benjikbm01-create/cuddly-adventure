@@ -1,0 +1,24 @@
+{
+  "id": "trail_tonic",
+  "station": "hearth",
+  "name": "Trail Tonic",
+  "requires_flag": "recipe_tonic",
+  "inputs": [
+    {
+      "item": "hollowatlas:yarrow",
+      "count": 1
+    },
+    {
+      "item": "hollowatlas:feverfew",
+      "count": 1
+    },
+    {
+      "item": "minecraft:sweet_berries",
+      "count": 1
+    }
+  ],
+  "output": {
+    "item": "hollowatlas:trail_tonic",
+    "count": 1
+  }
+}

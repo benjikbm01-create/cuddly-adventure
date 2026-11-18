@@ -101,6 +101,7 @@ public final class BuildingPlanner {
             p.set(doorX + 1, 3, d, "minecraft:lantern[hanging=false]");
             p.set(doorX + 1, 2, d, b.frame.replace("stripped_", "").replace("_log", "_fence"));
             p.set(doorX + 1, 1, d, b.frame.replace("stripped_", "").replace("_log", "_fence"));
+            p.anchor("post", doorX + 1, 1, d);
         }
         p.anchor("door_out", doorX, 1, d + 1);
         p.anchor("inside", doorX, 1, d - 3);
@@ -237,6 +238,7 @@ public final class BuildingPlanner {
             table(p, tx, 1, tz, true);
             chair(p, tx, 1, tz + 1, "south");
             p.anchor("table", tx, 1, tz + 1);
+            p.anchor("table_block", tx, 1, tz);
         }
         p.set(w - 2, 1, d - 2 >= 3 ? d - 3 : 2, "minecraft:barrel[facing=up,open=false]");
         p.set(1, 1, d - 2, "minecraft:crafting_table");
@@ -351,6 +353,7 @@ public final class BuildingPlanner {
         int w = b.w, d = b.d;
         p.set(w / 2, 1, 2, "minecraft:lectern[facing=south,has_book=false,powered=false]");
         p.anchor("lectern", w / 2, 1, 3);
+        p.anchor("lectern_block", w / 2, 1, 2);
         for (int z = 4; z <= d - 4; z += 2) {
             for (int x = 2; x < w / 2 - 1; x++) p.set(x, 1, z, "minecraft:spruce_stairs[facing=south,half=bottom]");
             for (int x = w / 2 + 2; x <= w - 3; x++) p.set(x, 1, z, "minecraft:spruce_stairs[facing=south,half=bottom]");
@@ -416,6 +419,9 @@ public final class BuildingPlanner {
         p.set(1, 1, d - 3, "minecraft:cartography_table");
         bed(p, w - 2, 1, d - 4 > 2 ? d - 5 : 3, "gray", "bed0");
         p.anchor("desk", 2, 1, 2);
+        p.anchor("lectern_block", 2, 1, 1);
+        p.anchor("crate_block", w - 3, 1, 2);
+        p.anchor("strongbox", 1, 1, 1);
         p.anchor("work", 2, 1, 2);
         p.anchor("crates", w - 3, 1, 3);
     }

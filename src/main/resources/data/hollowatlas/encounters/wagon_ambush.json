@@ -1,0 +1,25 @@
+{
+  "id": "wagon_ambush",
+  "anchor": "abandoned_wagon.ambush",
+  "trigger_radius": 20,
+  "daily": true,
+  "spawns": [
+    {
+      "kind": "brigand",
+      "dx": 0,
+      "dz": 0
+    },
+    {
+      "kind": "slinger",
+      "dx": 6,
+      "dz": -4
+    }
+  ],
+  "start_text": "Two figures step out from behind the broken cart.",
+  "on_clear": [
+    {
+      "amount": 6,
+      "type": "coins"
+    }
+  ]
+}

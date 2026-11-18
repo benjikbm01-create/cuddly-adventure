@@ -1,0 +1,598 @@
+{
+  "id": "brindlecross",
+  "interactions": [
+    {
+      "id": "notice_board",
+      "anchor": "notice_board.sign",
+      "type": "read",
+      "text": "",
+      "actions": [
+        {
+          "tree": "notice_board",
+          "node": "board",
+          "type": "open_dialogue"
+        }
+      ]
+    },
+    {
+      "id": "inn_rest",
+      "anchor": "inn.bed_room_guest",
+      "type": "rest",
+      "when": {
+        "has_item": {
+          "item": "hollowatlas:room_key"
+        }
+      },
+      "locked_text": "This room is let to someone. Ask Nella about a room.",
+      "text": "You sleep through the night to the sound of rain on the roof.",
+      "actions": [
+        {
+          "anchor": "inn.room_guest",
+          "type": "checkpoint"
+        }
+      ]
+    },
+    {
+      "id": "hearth",
+      "anchor": "inn.hearth_block",
+      "type": "station",
+      "station": "hearth",
+      "text": "The hearth is warm and the pot hook is free."
+    },
+    {
+      "id": "overlook_sign",
+      "anchor": "overlook_cairn.sign",
+      "type": "read",
+      "text": "Someone has carved a little compass rose into the cairn. Brindlecross smokes quietly to the south-west."
+    },
+    {
+      "id": "milestone",
+      "anchor": "milestone_west.sign",
+      "type": "read",
+      "text": "An old milestone, freshly painted. The numbers have been corrected at least twice."
+    },
+    {
+      "id": "bridge_sign",
+      "anchor": "bridge_out.sign",
+      "type": "read",
+      "text": "'BRIDGE OUT'. Beyond the barrier, the gorge drops away to white water."
+    },
+    {
+      "id": "pump",
+      "anchor": "orchard_pump.body",
+      "type": "inspect",
+      "once": true,
+      "text": "An old hand pump. The handle moves freely, far too freely.",
+      "variants": [
+        {
+          "id": "pump_fix",
+          "when": {
+            "quest_stage": {
+              "quest": "m02",
+              "stage": "repair"
+            },
+            "has_item": {
+              "item": "hollowatlas:pump_pin"
+            }
+          },
+          "text": "You seat the new valve leather, drive the iron pin home and work the handle. A cough, a gurgle, and then water.",
+          "actions": [
+            {
+              "item": "hollowatlas:pump_pin",
+              "type": "take_item"
+            },
+            {
+              "item": "hollowatlas:valve_leather",
+              "type": "take_item"
+            },
+            {
+              "flag": "hollowatlas:repaired_pump",
+              "type": "world_flag"
+            },
+            {
+              "sound": "minecraft:item.bucket.empty",
+              "type": "sound"
+            }
+          ]
+        },
+        {
+          "id": "pump_look",
+          "when": {
+            "quest_active": "m02"
+          },
+          "text": "The pin that joins handle to plunger has sheared clean through, and the leather valve inside has dried and cracked like old bark. Simple, honest wear.",
+          "evidence": "pump_pin_sheared"
+        },
+        {
+          "id": "pump_running",
+          "when": {
+            "world_flag": "hollowatlas:repaired_pump"
+          },
+          "once": false,
+          "text": "The pump works smoothly now. Tobin has polished the handle."
+        }
+      ]
+    },
+    {
+      "id": "pump_trough",
+      "anchor": "orchard_pump.trough",
+      "type": "inspect",
+      "once": true,
+      "when": {
+        "quest_active": "m02"
+      },
+      "locked_text": "A stone trough beside the pump.",
+      "text": "Bone dry, with a rim of green where the water used to sit. The orchard's been thirsty for a while.",
+      "evidence": "dry_trough"
+    },
+    {
+      "id": "orchard_ledger",
+      "anchor": "farmhouse.table_block",
+      "type": "inspect",
+      "once": true,
+      "when": {
+        "quest_active": "m02"
+      },
+      "locked_text": "A table with a ledger on it. Not yours to read.",
+      "text": "Tobin's orchard ledger, in a careful hand. 'Pin and valve leather ordered from G. Holt, sent east with the relay carter for brass fittings.' A later line: 'Still waiting.' Then: 'Still waiting.' Then nothing.",
+      "evidence": "ledger_order"
+    },
+    {
+      "id": "ribbon_hook",
+      "anchor": "weaver_house.post",
+      "type": "inspect",
+      "once": true,
+      "when": {
+        "quest_active": "sq01"
+      },
+      "locked_text": "A lantern post by the weaver's door.",
+      "text": "An empty brass hook by the door, polished from years of use. In the mud below: small, four-toed prints, too neat for a dog.",
+      "evidence": "fox_tracks"
+    },
+    {
+      "id": "ribbon_thread",
+      "anchor": "bakery.post",
+      "type": "inspect",
+      "once": true,
+      "when": {
+        "quest_active": "sq01"
+      },
+      "locked_text": "A lantern post by the bakery door.",
+      "text": "A few strands of bright blue silk caught on the splintered post, at about knee height.",
+      "evidence": "blue_thread"
+    },
+    {
+      "id": "fox_den",
+      "anchor": "fox_den",
+      "dy": -1,
+      "type": "inspect",
+      "once": true,
+      "text": "A fox den dug under the roots. It smells exactly like a fox den.",
+      "variants": [
+        {
+          "id": "ribbon_found",
+          "when": {
+            "quest_stage": {
+              "quest": "sq01",
+              "stage": "find"
+            }
+          },
+          "text": "Tucked into the mouth of the den, among feathers and a stolen glove: a long blue silk ribbon, embroidered at the ends.",
+          "actions": [
+            {
+              "item": "hollowatlas:blue_ribbon",
+              "type": "give_item"
+            }
+          ],
+          "evidence": "ribbon_in_den"
+        }
+      ]
+    },
+    {
+      "id": "relay_manifest",
+      "anchor": "relay.lectern_block",
+      "type": "inspect",
+      "once": true,
+      "when": {
+        "quest_active": "m04"
+      },
+      "locked_text": "The relay ledger. Jory guards it like a hen.",
+      "text": "The eastern manifest, in Jory's tidy hand: 'Six crates. Orchard pump fittings, for points east. Relay seal applied.'",
+      "evidence": "manifest_pump"
+    },
+    {
+      "id": "relay_crate",
+      "anchor": "relay.crate_block",
+      "type": "inspect",
+      "once": true,
+      "when": {
+        "quest_active": "m04"
+      },
+      "locked_text": "Barrels and crates waiting for the bridge.",
+      "text": "The crate barely shifts when you lean on it. Through a split slat: polished brass, finely threaded, packed tight in straw. Nothing like the plain iron and leather of Tobin's pump.",
+      "evidence": "crate_brass"
+    },
+    {
+      "id": "relay_seal",
+      "anchor": "relay.strongbox",
+      "type": "inspect",
+      "once": true,
+      "when": {
+        "quest_active": "m04"
+      },
+      "locked_text": "A locked strongbox.",
+      "text": "The strongbox holds spare seals and the crate's paperwork. The crate's wax seal is pressed with a ring of small notches. Jory's relay stamp, on the paper beside it, is a plain wheel.",
+      "evidence": "seal_notches"
+    },
+    {
+      "id": "lone_oak_cache",
+      "anchor": "lone_oak.loose_earth",
+      "type": "cache",
+      "text": "The marker stones point here. The earth is loose. A shallow barrel lid, and inside: a little purse and a locket wrapped in oilcloth.",
+      "repeat_text": "Just loose earth now.",
+      "loot": [
+        {
+          "item": "hollowatlas:old_coin",
+          "min": 3,
+          "max": 5
+        },
+        {
+          "item": "hollowatlas:silver_locket"
+        }
+      ]
+    },
+    {
+      "id": "wagon_clue",
+      "anchor": "abandoned_wagon.clue",
+      "type": "inspect",
+      "once": true,
+      "text": "An overturned barrel from a broken cart. Burnt into the lid: an old courier mark, and a date nearly forty years gone. Someone kept it.",
+      "actions": [
+        {
+          "item": "minecraft:sweet_berries",
+          "count": 3,
+          "type": "give_item"
+        }
+      ]
+    },
+    {
+      "id": "cave_cache",
+      "anchor": "cave_cache.box",
+      "type": "cache",
+      "when": {
+        "world_flag": "hollowatlas:encounter_cleared:cave_camp"
+      },
+      "locked_text": "Something is stored here, but the camp's owners are close by.",
+      "text": "The brigands' stash: some coin, a good hatchet and a few trinkets that were surely someone else's.",
+      "loot": [
+        {
+          "item": "hollowatlas:old_coin",
+          "min": 4,
+          "max": 7
+        },
+        {
+          "item": "hollowatlas:holt_hatchet"
+        },
+        {
+          "item": "minecraft:leather_chestplate"
+        }
+      ]
+    },
+    {
+      "id": "camp_chest",
+      "anchor": "cave_camp.chest",
+      "type": "inspect",
+      "once": true,
+      "text": "Supply lists, a bad map of the east road, and a lot of complaints about the bridge."
+    },
+    {
+      "id": "lever_sun",
+      "anchor": "old_shrine.lever_sun",
+      "type": "puzzle",
+      "puzzle": "old_shrine",
+      "symbol": "sun",
+      "text": "The lever under the bright stone clicks down."
+    },
+    {
+      "id": "lever_river",
+      "anchor": "old_shrine.lever_river",
+      "type": "puzzle",
+      "puzzle": "old_shrine",
+      "symbol": "river",
+      "text": "The lever under the blue tile clicks down."
+    },
+    {
+      "id": "lever_stone",
+      "anchor": "old_shrine.lever_stone",
+      "type": "puzzle",
+      "puzzle": "old_shrine",
+      "symbol": "stone",
+      "text": "The lever under the carved stone clicks down."
+    },
+    {
+      "id": "shrine_cache",
+      "anchor": "old_shrine.cache",
+      "type": "cache",
+      "when": {
+        "world_flag": "hollowatlas:shrine_solved"
+      },
+      "locked_text": "Stone.",
+      "text": "Under the hatch, wrapped in waxed cloth: a brass-rimmed lens on a cord. When you look through it, the world seems to hold its breath.",
+      "actions": [
+        {
+          "ability": "echo_sight",
+          "type": "unlock_ability"
+        }
+      ]
+    },
+    {
+      "id": "yarrow_1",
+      "anchor": "yarrow_1",
+      "type": "gather",
+      "text": "You cut a few sprigs of yarrow.",
+      "loot": [
+        {
+          "item": "hollowatlas:yarrow",
+          "min": 1,
+          "max": 2
+        }
+      ],
+      "regrow_minutes": 8,
+      "depleted_state": "minecraft:air",
+      "ripe_state": "minecraft:azure_bluet"
+    },
+    {
+      "id": "yarrow_2",
+      "anchor": "yarrow_2",
+      "type": "gather",
+      "text": "You cut a few sprigs of yarrow.",
+      "loot": [
+        {
+          "item": "hollowatlas:yarrow",
+          "min": 1,
+          "max": 2
+        }
+      ],
+      "regrow_minutes": 8,
+      "depleted_state": "minecraft:air",
+      "ripe_state": "minecraft:azure_bluet"
+    },
+    {
+      "id": "yarrow_3",
+      "anchor": "yarrow_3",
+      "type": "gather",
+      "text": "You cut a few sprigs of yarrow.",
+      "loot": [
+        {
+          "item": "hollowatlas:yarrow",
+          "min": 1,
+          "max": 2
+        }
+      ],
+      "regrow_minutes": 8,
+      "depleted_state": "minecraft:air",
+      "ripe_state": "minecraft:azure_bluet"
+    },
+    {
+      "id": "yarrow_4",
+      "anchor": "yarrow_4",
+      "type": "gather",
+      "text": "You cut a few sprigs of yarrow.",
+      "loot": [
+        {
+          "item": "hollowatlas:yarrow",
+          "min": 1,
+          "max": 2
+        }
+      ],
+      "regrow_minutes": 8,
+      "depleted_state": "minecraft:air",
+      "ripe_state": "minecraft:azure_bluet"
+    },
+    {
+      "id": "feverfew_1",
+      "anchor": "feverfew_1",
+      "type": "gather",
+      "text": "You pick a few heads of feverfew.",
+      "loot": [
+        {
+          "item": "hollowatlas:feverfew",
+          "min": 1,
+          "max": 2
+        }
+      ],
+      "regrow_minutes": 8,
+      "depleted_state": "minecraft:air",
+      "ripe_state": "minecraft:oxeye_daisy"
+    },
+    {
+      "id": "feverfew_2",
+      "anchor": "feverfew_2",
+      "type": "gather",
+      "text": "You pick a few heads of feverfew.",
+      "loot": [
+        {
+          "item": "hollowatlas:feverfew",
+          "min": 1,
+          "max": 2
+        }
+      ],
+      "regrow_minutes": 8,
+      "depleted_state": "minecraft:air",
+      "ripe_state": "minecraft:oxeye_daisy"
+    },
+    {
+      "id": "feverfew_3",
+      "anchor": "feverfew_3",
+      "type": "gather",
+      "text": "You pick a few heads of feverfew.",
+      "loot": [
+        {
+          "item": "hollowatlas:feverfew",
+          "min": 1,
+          "max": 2
+        }
+      ],
+      "regrow_minutes": 8,
+      "depleted_state": "minecraft:air",
+      "ripe_state": "minecraft:oxeye_daisy"
+    },
+    {
+      "id": "berries_1",
+      "anchor": "berries_1",
+      "type": "gather",
+      "text": "You fill a palm with berries.",
+      "loot": [
+        {
+          "item": "minecraft:sweet_berries",
+          "min": 2,
+          "max": 4
+        }
+      ],
+      "regrow_minutes": 10,
+      "depleted_state": "minecraft:sweet_berry_bush[age=1]",
+      "ripe_state": "minecraft:sweet_berry_bush[age=3]"
+    },
+    {
+      "id": "berries_2",
+      "anchor": "berries_2",
+      "type": "gather",
+      "text": "You fill a palm with berries.",
+      "loot": [
+        {
+          "item": "minecraft:sweet_berries",
+          "min": 2,
+          "max": 4
+        }
+      ],
+      "regrow_minutes": 10,
+      "depleted_state": "minecraft:sweet_berry_bush[age=1]",
+      "ripe_state": "minecraft:sweet_berry_bush[age=3]"
+    },
+    {
+      "id": "berries_3",
+      "anchor": "berries_3",
+      "type": "gather",
+      "text": "You fill a palm with berries.",
+      "loot": [
+        {
+          "item": "minecraft:sweet_berries",
+          "min": 2,
+          "max": 4
+        }
+      ],
+      "regrow_minutes": 10,
+      "depleted_state": "minecraft:sweet_berry_bush[age=1]",
+      "ripe_state": "minecraft:sweet_berry_bush[age=3]"
+    },
+    {
+      "id": "apple_tree_1",
+      "anchor": "apple_tree_1",
+      "type": "gather",
+      "text": "You shake a branch and catch what falls.",
+      "loot": [
+        {
+          "item": "minecraft:apple",
+          "min": 1,
+          "max": 3
+        }
+      ],
+      "regrow_minutes": 12
+    },
+    {
+      "id": "apple_tree_2",
+      "anchor": "apple_tree_2",
+      "type": "gather",
+      "text": "You shake a branch and catch what falls.",
+      "loot": [
+        {
+          "item": "minecraft:apple",
+          "min": 1,
+          "max": 3
+        }
+      ],
+      "regrow_minutes": 12
+    },
+    {
+      "id": "apple_tree_3",
+      "anchor": "apple_tree_3",
+      "type": "gather",
+      "text": "You shake a branch and catch what falls.",
+      "loot": [
+        {
+          "item": "minecraft:apple",
+          "min": 1,
+          "max": 3
+        }
+      ],
+      "regrow_minutes": 12
+    },
+    {
+      "id": "carrots_1",
+      "anchor": "carrots_1",
+      "type": "gather",
+      "text": "You pull a few carrots from the end of the row. Wenna said you could.",
+      "loot": [
+        {
+          "item": "minecraft:carrot",
+          "min": 2,
+          "max": 3
+        }
+      ],
+      "regrow_minutes": 15,
+      "depleted_state": "minecraft:carrots[age=0]",
+      "ripe_state": "minecraft:carrots[age=7]"
+    },
+    {
+      "id": "carrots_2",
+      "anchor": "carrots_2",
+      "type": "gather",
+      "text": "A few more carrots.",
+      "loot": [
+        {
+          "item": "minecraft:carrot",
+          "min": 1,
+          "max": 3
+        }
+      ],
+      "regrow_minutes": 15,
+      "depleted_state": "minecraft:carrots[age=0]",
+      "ripe_state": "minecraft:carrots[age=7]"
+    },
+    {
+      "id": "potatoes_1",
+      "anchor": "potatoes_1",
+      "type": "gather",
+      "text": "You dig up a couple of potatoes.",
+      "loot": [
+        {
+          "item": "minecraft:potato",
+          "min": 2,
+          "max": 3
+        }
+      ],
+      "regrow_minutes": 15,
+      "depleted_state": "minecraft:potatoes[age=0]",
+      "ripe_state": "minecraft:potatoes[age=7]"
+    }
+  ],
+  "puzzles": [
+    {
+      "id": "old_shrine",
+      "sequence": [
+        "sun",
+        "river",
+        "stone"
+      ],
+      "solved_flag": "hollowatlas:shrine_solved",
+      "reset_text": "The levers spring back up with a grinding clunk. Wrong order.",
+      "solved_text": "Deep in the plinth something unlatches. The iron hatch in the floor stands open.",
+      "on_solve": [
+        {
+          "site": "old_shrine",
+          "type": "discover"
+        }
+      ]
+    }
+  ]
+}

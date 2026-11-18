@@ -1,0 +1,23 @@
+{
+  "id": "hearth_stew",
+  "station": "hearth",
+  "name": "Hearth Stew",
+  "inputs": [
+    {
+      "item": "minecraft:mutton",
+      "count": 1
+    },
+    {
+      "item": "minecraft:carrot",
+      "count": 1
+    },
+    {
+      "item": "minecraft:potato",
+      "count": 1
+    }
+  ],
+  "output": {
+    "item": "hollowatlas:hearth_stew",
+    "count": 1
+  }
+}

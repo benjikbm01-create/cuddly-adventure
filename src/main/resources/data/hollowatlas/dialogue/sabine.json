@@ -1,0 +1,139 @@
+{
+  "id": "sabine",
+  "npc": "sabine",
+  "entries": [
+    {
+      "when": {
+        "quest_stage": {
+          "quest": "sq01",
+          "stage": "return"
+        },
+        "has_item": {
+          "item": "hollowatlas:blue_ribbon"
+        }
+      },
+      "node": "returned"
+    },
+    {
+      "when": {
+        "quest_active": "sq01"
+      },
+      "node": "progress"
+    },
+    {
+      "when": {
+        "quest_not_started": "sq01"
+      },
+      "node": "offer"
+    },
+    {
+      "node": "main"
+    }
+  ],
+  "nodes": {
+    "asleep": {
+      "text": "(Fast asleep. Best not to wake them.)",
+      "speaker": "narrator"
+    },
+    "offer": {
+      "text": "Have you seen a blue ribbon? Long, silk, embroidered at the ends? No, of course you haven't. Nobody has. It's simply gone.",
+      "choices": [
+        {
+          "text": "When did it go missing?",
+          "go": "offer2",
+          "tag": "ask"
+        },
+        {
+          "text": "Goodbye.",
+          "go": "end",
+          "tag": "leave"
+        }
+      ]
+    },
+    "offer2": {
+      "text": "Two nights ago. It hung on a hook by my door, where it's hung for six years. The festival's coming, and the empty stall goes to whoever the Hall favours. Without the ribbon I'm just another weaver. And Maren knows it.",
+      "choices": [
+        {
+          "text": "I'll look into it.",
+          "go": "offer3",
+          "tag": "quest"
+        },
+        {
+          "text": "I'm sure it'll turn up.",
+          "go": "end",
+          "tag": "leave"
+        }
+      ]
+    },
+    "offer3": {
+      "text": "Start at my door. And, frankly, at Maren's.",
+      "choices": [
+        {
+          "text": "Goodbye.",
+          "go": "end",
+          "tag": "leave"
+        }
+      ],
+      "actions": [
+        {
+          "quest": "sq01",
+          "type": "start_quest"
+        }
+      ]
+    },
+    "progress": {
+      "text": "Well? Have you found my ribbon or have you found an excuse?",
+      "choices": [
+        {
+          "text": "Still looking.",
+          "go": "end",
+          "tag": "leave"
+        }
+      ]
+    },
+    "returned": {
+      "text": "That's it! That's... chewed. Where on earth was it?",
+      "choices": [
+        {
+          "text": "In a fox den by the heron pool.",
+          "go": "returned2"
+        },
+        {
+          "text": "Does it matter? It's back.",
+          "go": "returned2"
+        }
+      ],
+      "actions": [
+        {
+          "item": "hollowatlas:blue_ribbon",
+          "type": "take_item"
+        },
+        {
+          "event": "talk",
+          "target": "ribbon_returned",
+          "type": "quest_event"
+        }
+      ]
+    },
+    "returned2": {
+      "text": "A fox. Not Maren. ...I'll need to apologise to her, won't I. Ugh. Ada's deciding about the stall now; she wants to hear from you, since you've been in the middle of all this.",
+      "choices": [
+        {
+          "text": "Goodbye.",
+          "go": "end",
+          "tag": "leave"
+        }
+      ]
+    },
+    "main": {
+      "text": "Cloth, ribbon, thread. If you want something plain, go to Ada.",
+      "choices": [
+        {
+          "text": "Goodbye.",
+          "go": "end",
+          "tag": "leave"
+        }
+      ]
+    }
+  }
+}

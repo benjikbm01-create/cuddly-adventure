@@ -1,0 +1,103 @@
+{
+  "id": "westreach",
+  "sites": [
+    {
+      "id": "brindlecross",
+      "name": "Brindlecross",
+      "anchor": "plaza",
+      "kind": "village",
+      "radius": 30
+    },
+    {
+      "id": "rain_lantern",
+      "name": "The Rain & Lantern",
+      "anchor": "inn.door_out",
+      "kind": "inn",
+      "radius": 8
+    },
+    {
+      "id": "west_milestone",
+      "name": "West Milestone",
+      "anchor": "milestone_west.sign",
+      "kind": "landmark",
+      "radius": 10
+    },
+    {
+      "id": "brindle_mill",
+      "name": "Brindle Mill",
+      "anchor": "mill.door_out",
+      "kind": "landmark",
+      "radius": 12
+    },
+    {
+      "id": "ashby_farm",
+      "name": "Ashby Farm & Orchard",
+      "anchor": "farmhouse.door_out",
+      "kind": "farm",
+      "radius": 20
+    },
+    {
+      "id": "east_watch",
+      "name": "East Watchtower",
+      "anchor": "watchtower.door_out",
+      "kind": "landmark",
+      "radius": 10
+    },
+    {
+      "id": "east_relay",
+      "name": "East Road Relay",
+      "anchor": "relay.door_out",
+      "kind": "landmark",
+      "radius": 14
+    },
+    {
+      "id": "eastfall",
+      "name": "Eastfall Crossing (closed)",
+      "anchor": "east_gate",
+      "kind": "landmark",
+      "radius": 14
+    },
+    {
+      "id": "lark_hill",
+      "name": "Lark Hill Overlook",
+      "anchor": "overlook_cairn.view",
+      "kind": "discovery",
+      "radius": 8
+    },
+    {
+      "id": "lone_oak",
+      "name": "The Lone Oak",
+      "anchor": "lone_oak.stand",
+      "kind": "discovery",
+      "radius": 10
+    },
+    {
+      "id": "heron_pool",
+      "name": "Heron Pool",
+      "anchor": "heron_pool",
+      "kind": "discovery",
+      "radius": 12
+    },
+    {
+      "id": "cart_track",
+      "name": "Old Cart Track",
+      "anchor": "wagon",
+      "kind": "discovery",
+      "radius": 12
+    },
+    {
+      "id": "hobs_hollow",
+      "name": "Hob's Hollow",
+      "anchor": "cave_mouth",
+      "kind": "cave",
+      "radius": 10
+    },
+    {
+      "id": "old_shrine",
+      "name": "The Old Shrine",
+      "anchor": "shrine",
+      "kind": "discovery",
+      "radius": 8
+    }
+  ]
+}

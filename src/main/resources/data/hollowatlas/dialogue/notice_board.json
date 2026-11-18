@@ -1,0 +1,22 @@
+{
+  "id": "notice_board",
+  "npc": null,
+  "entries": [
+    {
+      "node": "board"
+    }
+  ],
+  "nodes": {
+    "board": {
+      "text": "Pinned notes, rain-curled:\n- 'LOST: blue silk ribbon, embroidered. Reward. - S. Reed'\n- 'Pump parts still awaited. - T. Ashby'\n- 'Eastfall crossing CLOSED until repairs. - Bridgewarden'\n- 'Herb gatherers wanted, see Hester.'",
+      "choices": [
+        {
+          "text": "(Done reading.)",
+          "go": "end",
+          "tag": "leave"
+        }
+      ],
+      "speaker": "narrator"
+    }
+  }
+}

@@ -1,0 +1,69 @@
+{
+  "id": "wenna",
+  "npc": "wenna",
+  "entries": [
+    {
+      "node": "main"
+    }
+  ],
+  "nodes": {
+    "asleep": {
+      "text": "(Fast asleep. Best not to wake them.)",
+      "speaker": "narrator"
+    },
+    "main": {
+      "text": "Hello! You're not buying apples, are you? Nobody ever is when I'm talking.",
+      "choices": [
+        {
+          "text": "What do you sell?",
+          "go": "end",
+          "tag": "trade",
+          "actions": [
+            {
+              "shop": "ashby_produce",
+              "type": "open_shop"
+            }
+          ]
+        },
+        {
+          "text": "How long have you kept the orchard?",
+          "go": "orchard",
+          "tag": "ask"
+        },
+        {
+          "text": "About the pump...",
+          "go": "pump",
+          "tag": "ask",
+          "when": {
+            "quest_active": "m02"
+          }
+        },
+        {
+          "text": "Goodbye.",
+          "go": "end",
+          "tag": "leave"
+        }
+      ]
+    },
+    "orchard": {
+      "text": "Twenty years with Tobin, and his father before that. The old trees were planted by someone who liked straight lines. I've been undoing it a branch at a time.",
+      "choices": [
+        {
+          "text": "Goodbye.",
+          "go": "end",
+          "tag": "leave"
+        }
+      ]
+    },
+    "pump": {
+      "text": "Tobin won't say it, but he's worried. If you can fix it, I'll owe you pie. Proper pie.",
+      "choices": [
+        {
+          "text": "Goodbye.",
+          "go": "end",
+          "tag": "leave"
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,94 @@
+{
+  "id": "sq02",
+  "title": "The Last Delivery",
+  "category": "side",
+  "giver": "elsie",
+  "summary": "Elsie Varrow walked the Westreach routes for forty years. She wants the old one written down before nobody remembers it.",
+  "stages": [
+    {
+      "id": "walk",
+      "text": "Elsie's route, from her notes: the west milestone, the lone oak on the north meadow, the top of Lark Hill, and the old cart track through Mossgate Wood.",
+      "hint": "Your Atlas (M) charts each place once you've stood there.",
+      "objectives": [
+        {
+          "id": "mile",
+          "type": "reach",
+          "target": "milestone_west.sign",
+          "radius": 6,
+          "text": "The west milestone",
+          "marker": "milestone_west.sign"
+        },
+        {
+          "id": "oak",
+          "type": "reach",
+          "target": "lone_oak.stand",
+          "radius": 8,
+          "text": "The lone oak",
+          "marker": "lone_oak.stand"
+        },
+        {
+          "id": "hill",
+          "type": "reach",
+          "target": "overlook_cairn.view",
+          "radius": 6,
+          "text": "The top of Lark Hill",
+          "marker": "overlook_cairn.view"
+        },
+        {
+          "id": "wagon",
+          "type": "reach",
+          "target": "wagon",
+          "radius": 10,
+          "text": "The old cart track in Mossgate Wood",
+          "marker": "wagon"
+        }
+      ],
+      "next": "clear"
+    },
+    {
+      "id": "clear",
+      "text": "Someone has made a camp of Elsie's old cart track. They didn't look like they wanted visitors.",
+      "hint": "Deal with the brigands at the wagon, or come back better prepared.",
+      "objectives": [
+        {
+          "id": "brigands",
+          "type": "flag",
+          "target": "hollowatlas:encounter_cleared:wagon_ambush",
+          "text": "Clear the cart track"
+        }
+      ],
+      "next": "report"
+    },
+    {
+      "id": "report",
+      "text": "The route is walked. Elsie will want every detail.",
+      "objectives": [
+        {
+          "id": "tell",
+          "type": "talk",
+          "target": "elsie_route_done",
+          "text": "Report to Elsie",
+          "marker": "old_cottage.door_out"
+        }
+      ],
+      "next": "complete"
+    }
+  ],
+  "rewards": [
+    {
+      "amount": 20,
+      "type": "coins"
+    },
+    {
+      "item": "hollowatlas:courier_charm",
+      "count": 1,
+      "type": "give_item"
+    },
+    {
+      "npc": "elsie",
+      "delta": 10,
+      "type": "relationship"
+    }
+  ],
+  "completion_text": "Elsie's route is written down. She made you promise to keep the notes dry."
+}

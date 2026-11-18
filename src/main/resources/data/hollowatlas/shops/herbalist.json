@@ -1,0 +1,19 @@
+{
+  "id": "herbalist",
+  "title": "Hester's Remedies",
+  "npc": "hester",
+  "anchor": "herb_house.inside",
+  "restock_days": 2,
+  "sells": [
+    {
+      "item": "hollowatlas:trail_tonic",
+      "price": 8,
+      "stock": 2
+    }
+  ],
+  "buys": {
+    "hollowatlas:yarrow": 3,
+    "hollowatlas:feverfew": 3,
+    "minecraft:sweet_berries": 1
+  }
+}

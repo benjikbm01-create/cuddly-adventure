@@ -1,0 +1,370 @@
+{
+  "id": "brindlecross",
+  "changes": [
+    {
+      "id": "pump_water",
+      "flag": "hollowatlas:repaired_pump",
+      "blocks": [
+        {
+          "anchor": "orchard_pump.trough",
+          "state": "minecraft:water_cauldron[level=3]"
+        }
+      ],
+      "otherwise": [
+        {
+          "anchor": "orchard_pump.trough",
+          "state": "minecraft:cauldron"
+        }
+      ]
+    },
+    {
+      "id": "shrine_hatch",
+      "flag": "hollowatlas:shrine_solved",
+      "blocks": [
+        {
+          "anchor": "old_shrine.hatch",
+          "state": "minecraft:iron_trapdoor[facing=north,half=top,open=true,powered=false,waterlogged=false]"
+        }
+      ],
+      "otherwise": [
+        {
+          "anchor": "old_shrine.hatch",
+          "state": "minecraft:iron_trapdoor[facing=north,half=top,open=false,powered=false,waterlogged=false]"
+        }
+      ]
+    },
+    {
+      "id": "stall_b_sabine",
+      "flag": "hollowatlas:stall_b_sabine",
+      "blocks": [
+        {
+          "anchor": "stall_b.work",
+          "dx": -2,
+          "dy": 3,
+          "dz": -1,
+          "state": "minecraft:light_blue_wool"
+        },
+        {
+          "anchor": "stall_b.work",
+          "dx": -2,
+          "dy": 3,
+          "dz": 0,
+          "state": "minecraft:light_blue_wool"
+        },
+        {
+          "anchor": "stall_b.work",
+          "dx": -2,
+          "dy": 3,
+          "dz": 1,
+          "state": "minecraft:light_blue_wool"
+        },
+        {
+          "anchor": "stall_b.work",
+          "dx": -1,
+          "dy": 3,
+          "dz": -1,
+          "state": "minecraft:light_blue_wool"
+        },
+        {
+          "anchor": "stall_b.work",
+          "dx": -1,
+          "dy": 3,
+          "dz": 0,
+          "state": "minecraft:light_blue_wool"
+        },
+        {
+          "anchor": "stall_b.work",
+          "dx": -1,
+          "dy": 3,
+          "dz": 1,
+          "state": "minecraft:light_blue_wool"
+        },
+        {
+          "anchor": "stall_b.work",
+          "dx": 0,
+          "dy": 3,
+          "dz": -1,
+          "state": "minecraft:light_blue_wool"
+        },
+        {
+          "anchor": "stall_b.work",
+          "dx": 0,
+          "dy": 3,
+          "dz": 0,
+          "state": "minecraft:light_blue_wool"
+        },
+        {
+          "anchor": "stall_b.work",
+          "dx": 0,
+          "dy": 3,
+          "dz": 1,
+          "state": "minecraft:light_blue_wool"
+        },
+        {
+          "anchor": "stall_b.work",
+          "dx": 1,
+          "dy": 3,
+          "dz": -1,
+          "state": "minecraft:light_blue_wool"
+        },
+        {
+          "anchor": "stall_b.work",
+          "dx": 1,
+          "dy": 3,
+          "dz": 0,
+          "state": "minecraft:light_blue_wool"
+        },
+        {
+          "anchor": "stall_b.work",
+          "dx": 1,
+          "dy": 3,
+          "dz": 1,
+          "state": "minecraft:light_blue_wool"
+        },
+        {
+          "anchor": "stall_b.work",
+          "dx": 2,
+          "dy": 3,
+          "dz": -1,
+          "state": "minecraft:light_blue_wool"
+        },
+        {
+          "anchor": "stall_b.work",
+          "dx": 2,
+          "dy": 3,
+          "dz": 0,
+          "state": "minecraft:light_blue_wool"
+        },
+        {
+          "anchor": "stall_b.work",
+          "dx": 2,
+          "dy": 3,
+          "dz": 1,
+          "state": "minecraft:light_blue_wool"
+        }
+      ]
+    },
+    {
+      "id": "stall_b_maren",
+      "flag": "hollowatlas:stall_b_maren",
+      "blocks": [
+        {
+          "anchor": "stall_b.work",
+          "dx": -2,
+          "dy": 3,
+          "dz": -1,
+          "state": "minecraft:yellow_wool"
+        },
+        {
+          "anchor": "stall_b.work",
+          "dx": -2,
+          "dy": 3,
+          "dz": 0,
+          "state": "minecraft:yellow_wool"
+        },
+        {
+          "anchor": "stall_b.work",
+          "dx": -2,
+          "dy": 3,
+          "dz": 1,
+          "state": "minecraft:yellow_wool"
+        },
+        {
+          "anchor": "stall_b.work",
+          "dx": -1,
+          "dy": 3,
+          "dz": -1,
+          "state": "minecraft:yellow_wool"
+        },
+        {
+          "anchor": "stall_b.work",
+          "dx": -1,
+          "dy": 3,
+          "dz": 0,
+          "state": "minecraft:yellow_wool"
+        },
+        {
+          "anchor": "stall_b.work",
+          "dx": -1,
+          "dy": 3,
+          "dz": 1,
+          "state": "minecraft:yellow_wool"
+        },
+        {
+          "anchor": "stall_b.work",
+          "dx": 0,
+          "dy": 3,
+          "dz": -1,
+          "state": "minecraft:yellow_wool"
+        },
+        {
+          "anchor": "stall_b.work",
+          "dx": 0,
+          "dy": 3,
+          "dz": 0,
+          "state": "minecraft:yellow_wool"
+        },
+        {
+          "anchor": "stall_b.work",
+          "dx": 0,
+          "dy": 3,
+          "dz": 1,
+          "state": "minecraft:yellow_wool"
+        },
+        {
+          "anchor": "stall_b.work",
+          "dx": 1,
+          "dy": 3,
+          "dz": -1,
+          "state": "minecraft:yellow_wool"
+        },
+        {
+          "anchor": "stall_b.work",
+          "dx": 1,
+          "dy": 3,
+          "dz": 0,
+          "state": "minecraft:yellow_wool"
+        },
+        {
+          "anchor": "stall_b.work",
+          "dx": 1,
+          "dy": 3,
+          "dz": 1,
+          "state": "minecraft:yellow_wool"
+        },
+        {
+          "anchor": "stall_b.work",
+          "dx": 2,
+          "dy": 3,
+          "dz": -1,
+          "state": "minecraft:yellow_wool"
+        },
+        {
+          "anchor": "stall_b.work",
+          "dx": 2,
+          "dy": 3,
+          "dz": 0,
+          "state": "minecraft:yellow_wool"
+        },
+        {
+          "anchor": "stall_b.work",
+          "dx": 2,
+          "dy": 3,
+          "dz": 1,
+          "state": "minecraft:yellow_wool"
+        }
+      ]
+    },
+    {
+      "id": "stall_b_shared",
+      "flag": "hollowatlas:stall_b_shared",
+      "blocks": [
+        {
+          "anchor": "stall_b.work",
+          "dx": -2,
+          "dy": 3,
+          "dz": -1,
+          "state": "minecraft:light_blue_wool"
+        },
+        {
+          "anchor": "stall_b.work",
+          "dx": -2,
+          "dy": 3,
+          "dz": 0,
+          "state": "minecraft:light_blue_wool"
+        },
+        {
+          "anchor": "stall_b.work",
+          "dx": -2,
+          "dy": 3,
+          "dz": 1,
+          "state": "minecraft:light_blue_wool"
+        },
+        {
+          "anchor": "stall_b.work",
+          "dx": -1,
+          "dy": 3,
+          "dz": -1,
+          "state": "minecraft:yellow_wool"
+        },
+        {
+          "anchor": "stall_b.work",
+          "dx": -1,
+          "dy": 3,
+          "dz": 0,
+          "state": "minecraft:yellow_wool"
+        },
+        {
+          "anchor": "stall_b.work",
+          "dx": -1,
+          "dy": 3,
+          "dz": 1,
+          "state": "minecraft:yellow_wool"
+        },
+        {
+          "anchor": "stall_b.work",
+          "dx": 0,
+          "dy": 3,
+          "dz": -1,
+          "state": "minecraft:light_blue_wool"
+        },
+        {
+          "anchor": "stall_b.work",
+          "dx": 0,
+          "dy": 3,
+          "dz": 0,
+          "state": "minecraft:light_blue_wool"
+        },
+        {
+          "anchor": "stall_b.work",
+          "dx": 0,
+          "dy": 3,
+          "dz": 1,
+          "state": "minecraft:light_blue_wool"
+        },
+        {
+          "anchor": "stall_b.work",
+          "dx": 1,
+          "dy": 3,
+          "dz": -1,
+          "state": "minecraft:yellow_wool"
+        },
+        {
+          "anchor": "stall_b.work",
+          "dx": 1,
+          "dy": 3,
+          "dz": 0,
+          "state": "minecraft:yellow_wool"
+        },
+        {
+          "anchor": "stall_b.work",
+          "dx": 1,
+          "dy": 3,
+          "dz": 1,
+          "state": "minecraft:yellow_wool"
+        },
+        {
+          "anchor": "stall_b.work",
+          "dx": 2,
+          "dy": 3,
+          "dz": -1,
+          "state": "minecraft:light_blue_wool"
+        },
+        {
+          "anchor": "stall_b.work",
+          "dx": 2,
+          "dy": 3,
+          "dz": 0,
+          "state": "minecraft:light_blue_wool"
+        },
+        {
+          "anchor": "stall_b.work",
+          "dx": 2,
+          "dy": 3,
+          "dz": 1,
+          "state": "minecraft:light_blue_wool"
+        }
+      ]
+    }
+  ]
+}

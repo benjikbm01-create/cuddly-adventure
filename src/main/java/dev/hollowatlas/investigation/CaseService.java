@@ -103,7 +103,7 @@ public final class CaseService {
         JsonArray out = new JsonArray();
         for (CaseDef c : CASES.values()) {
             boolean any = c.evidence.stream().anyMatch(e -> p.evidence.contains(e.id));
-            if (!any && !Logic.test(player, c.visible_when, Logic.Ctx.NONE)) continue;
+            if (c.visible_when != null && !Logic.test(player, c.visible_when, Logic.Ctx.NONE)) continue;
             if (!any && c.visible_when == null) continue;
             JsonObject jc = new JsonObject();
             jc.addProperty("id", c.id);

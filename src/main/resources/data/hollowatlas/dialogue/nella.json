@@ -1,0 +1,247 @@
+{
+  "id": "nella",
+  "npc": "nella",
+  "entries": [
+    {
+      "when": {
+        "quest_stage": {
+          "quest": "m01",
+          "stage": "inn"
+        }
+      },
+      "node": "room"
+    },
+    {
+      "when": {
+        "quest_active": "sq03",
+        "time": {
+          "from": 0,
+          "to": 24
+        }
+      },
+      "node": "main"
+    },
+    {
+      "node": "main"
+    }
+  ],
+  "nodes": {
+    "asleep": {
+      "text": "(Fast asleep. Best not to wake them.)",
+      "speaker": "narrator"
+    },
+    "room": {
+      "text": "Shut the door, you're letting the weather in. You've the look of someone who walked a long way to stand in my doorway dripping.",
+      "choices": [
+        {
+          "text": "I need a room.",
+          "go": "room2",
+          "tag": "quest"
+        },
+        {
+          "text": "Is it always this wet here?",
+          "go": "weather",
+          "tag": "ask"
+        }
+      ]
+    },
+    "weather": {
+      "text": "Only in spring, summer and autumn. Winter's mostly ice. You'll want a room, then.",
+      "choices": [
+        {
+          "text": "I will.",
+          "go": "room2",
+          "tag": "quest"
+        }
+      ]
+    },
+    "room2": {
+      "text": "First one up the stairs, on the left. Bed's dry, which puts it ahead of you. Where've you come from, then?",
+      "choices": [
+        {
+          "text": "From the coast, a long way west.",
+          "go": "room3",
+          "actions": [
+            {
+              "flag": "background_coast",
+              "type": "set_flag"
+            }
+          ]
+        },
+        {
+          "text": "From the hill farms. I've worked a lot of harvests.",
+          "go": "room3",
+          "actions": [
+            {
+              "flag": "background_farms",
+              "type": "set_flag"
+            }
+          ]
+        },
+        {
+          "text": "Here and there. I don't stay anywhere long.",
+          "go": "room3",
+          "actions": [
+            {
+              "flag": "background_road",
+              "type": "set_flag"
+            }
+          ]
+        }
+      ]
+    },
+    "room3": {
+      "text": "Well, you're here now. Here's the key. Breakfast is whatever Maren didn't sell yesterday, supper's stew. Keep to the roads after dark, Ilse gets twitchy about strangers in hedges.",
+      "choices": [
+        {
+          "text": "Is there work in the village?",
+          "go": "work",
+          "tag": "ask"
+        }
+      ],
+      "actions": [
+        {
+          "item": "hollowatlas:room_key",
+          "type": "give_item"
+        },
+        {
+          "flag": "met_nella",
+          "type": "set_flag"
+        },
+        {
+          "anchor": "inn.common_room",
+          "type": "checkpoint"
+        },
+        {
+          "event": "talk",
+          "target": "nella_room",
+          "type": "quest_event"
+        },
+        {
+          "delta": 2,
+          "type": "relationship"
+        }
+      ]
+    },
+    "work": {
+      "text": "Work finds people here, mostly by the notice board outside the Hall. And if Tobin Ashby comes in looking like a wet sheep, it's his pump again. You could do worse than help him.",
+      "choices": [
+        {
+          "text": "Thanks, Nella.",
+          "go": "end",
+          "tag": "leave"
+        }
+      ]
+    },
+    "main": {
+      "text": "Back again? The fire's going, at least.",
+      "choices": [
+        {
+          "text": "What's the news around the village?",
+          "go": "news",
+          "tag": "ask"
+        },
+        {
+          "text": "Could I use the hearth?",
+          "go": "hearth",
+          "tag": "ask"
+        },
+        {
+          "text": "What do you sell?",
+          "go": "end",
+          "tag": "trade",
+          "actions": [
+            {
+              "shop": "inn",
+              "type": "open_shop"
+            }
+          ]
+        },
+        {
+          "text": "How long have you kept the inn?",
+          "go": "history",
+          "tag": "ask",
+          "once": true
+        },
+        {
+          "text": "Goodbye.",
+          "go": "end",
+          "tag": "leave"
+        }
+      ],
+      "variants": [
+        {
+          "when": {
+            "time": {
+              "from": 19,
+              "to": 24
+            }
+          },
+          "text": "Evening. Mind Garrick, he's had one cider and thinks he's a philosopher."
+        },
+        {
+          "when": {
+            "weather": "rain"
+          },
+          "text": "Rain again. Half the village is in here and the other half's thinking about it."
+        }
+      ]
+    },
+    "news": {
+      "text": "Bridge east is still out, so the carters are grumpy and the cider's selling. Sabine and Maren are at it over that empty stall. And Corin's been 'leaving tomorrow' for a week.",
+      "choices": [
+        {
+          "text": "Anything else?",
+          "go": "main"
+        },
+        {
+          "text": "Goodbye.",
+          "go": "end",
+          "tag": "leave"
+        }
+      ],
+      "variants": [
+        {
+          "when": {
+            "world_flag": "hollowatlas:repaired_pump"
+          },
+          "text": "Tobin's pump runs again, so he's stopped sighing into his soup. The bridge east is still out. And Corin is still leaving tomorrow."
+        }
+      ]
+    },
+    "hearth": {
+      "text": "Help yourself, just don't burn my soup pot. You'll cook better with a recipe than with hope.",
+      "choices": [
+        {
+          "text": "Goodbye.",
+          "go": "end",
+          "tag": "leave"
+        }
+      ]
+    },
+    "history": {
+      "text": "Eleven years. My mother before me. I know every traveler by their boots and their bad habits.",
+      "choices": [
+        {
+          "text": "And mine?",
+          "go": "history2"
+        },
+        {
+          "text": "Goodbye.",
+          "go": "end",
+          "tag": "leave"
+        }
+      ]
+    },
+    "history2": {
+      "text": "Wet boots. Asks a lot of questions. I'll reserve judgment on the bad habits.",
+      "choices": [
+        {
+          "text": "Goodbye.",
+          "go": "end",
+          "tag": "leave"
+        }
+      ]
+    }
+  }
+}

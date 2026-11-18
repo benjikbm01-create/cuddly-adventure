@@ -1,0 +1,150 @@
+{
+  "id": "maren",
+  "npc": "maren",
+  "entries": [
+    {
+      "when": {
+        "quest_active": "sq01",
+        "hypothesis": {
+          "case": "ribbon_case",
+          "id": "maren_took_it"
+        }
+      },
+      "node": "accused"
+    },
+    {
+      "when": {
+        "quest_stage": {
+          "quest": "sq01",
+          "stage": "look"
+        }
+      },
+      "node": "ribbon"
+    },
+    {
+      "node": "main"
+    }
+  ],
+  "nodes": {
+    "asleep": {
+      "text": "(Fast asleep. Best not to wake them.)",
+      "speaker": "narrator"
+    },
+    "ribbon": {
+      "text": "Sabine's ribbon? She thinks I took it. As if I've time to steal ribbons between the second and third bake.",
+      "choices": [
+        {
+          "text": "There's blue thread on your door post.",
+          "go": "thread",
+          "tag": "evidence",
+          "when": {
+            "evidence": [
+              "blue_thread"
+            ]
+          }
+        },
+        {
+          "text": "Did you see anything?",
+          "go": "saw",
+          "tag": "investigate"
+        },
+        {
+          "text": "Goodbye.",
+          "go": "end",
+          "tag": "leave"
+        }
+      ]
+    },
+    "thread": {
+      "text": "On my... let me see. Huh. Well, it wasn't me who put it there. Something brushed past in the night, the bins were knocked over. I blamed the cats.",
+      "choices": [
+        {
+          "text": "Goodbye.",
+          "go": "end",
+          "tag": "leave"
+        }
+      ],
+      "actions": [
+        {
+          "id": "maren_bins",
+          "type": "evidence"
+        }
+      ]
+    },
+    "saw": {
+      "text": "I saw flour. I always see flour. Ask the boy, he's up at all hours.",
+      "choices": [
+        {
+          "text": "Goodbye.",
+          "go": "end",
+          "tag": "leave"
+        }
+      ],
+      "actions": [
+        {
+          "event": "talk",
+          "target": "ribbon_witness_m",
+          "type": "quest_event"
+        }
+      ]
+    },
+    "accused": {
+      "text": "I hear you think I took it. I hope you're enjoying your life in the village, because my bread won't be in it.",
+      "choices": [
+        {
+          "text": "I was wrong. I'm sorry.",
+          "go": "sorry",
+          "tag": "persuade",
+          "actions": [
+            {
+              "delta": 2,
+              "type": "relationship"
+            }
+          ]
+        },
+        {
+          "text": "Goodbye.",
+          "go": "end",
+          "tag": "leave"
+        }
+      ],
+      "actions": [
+        {
+          "delta": -3,
+          "type": "relationship"
+        }
+      ]
+    },
+    "sorry": {
+      "text": "...Hmph. Apology noted. Not accepted. Noted.",
+      "choices": [
+        {
+          "text": "Goodbye.",
+          "go": "end",
+          "tag": "leave"
+        }
+      ]
+    },
+    "main": {
+      "text": "Bread, buns, and opinions. The first two cost money.",
+      "choices": [
+        {
+          "text": "Let's see the bread.",
+          "go": "end",
+          "tag": "trade",
+          "actions": [
+            {
+              "shop": "bakery",
+              "type": "open_shop"
+            }
+          ]
+        },
+        {
+          "text": "Goodbye.",
+          "go": "end",
+          "tag": "leave"
+        }
+      ]
+    }
+  }
+}

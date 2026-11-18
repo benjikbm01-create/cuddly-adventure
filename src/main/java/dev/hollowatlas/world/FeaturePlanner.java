@@ -42,6 +42,7 @@ public final class FeaturePlanner {
         p.set(-3, 0, 3, "minecraft:spruce_fence");
         p.set(-3, 1, 3, "minecraft:lantern[hanging=false]");
         p.anchor("view", -1, 0, 4);
+        p.anchor("sign", 0, 0, 1);
     }
 
     private static void shrine(BuildingPlanner.Plan p) {
@@ -111,6 +112,7 @@ public final class FeaturePlanner {
         }
         p.set(0, 2, 1, "minecraft:oak_wall_sign[facing=south]|~ NOTICES ~|Read the board|for work and|local news.");
         p.anchor("read", 0, 0, 2);
+        p.anchor("sign", 0, 2, 1);
     }
 
     private static void pump(BuildingPlanner.Plan p) {
@@ -133,12 +135,14 @@ public final class FeaturePlanner {
         p.set(-1, 0, -4, "minecraft:oak_sign[rotation=4]|BRIDGE OUT|Eastfall crossing|closed until|repairs.");
         p.set(-1, 0, 4, "minecraft:oak_sign[rotation=4]|Turn back.|Ask at the|Bridgewarden's|hut.");
         p.anchor("barrier", -2, 0, 0);
+        p.anchor("sign", -1, 0, -4);
     }
 
     private static void milestone(BuildingPlanner.Plan p) {
         p.set(0, 0, 0, "minecraft:mossy_stone_brick_wall");
         p.set(0, 1, 0, "minecraft:stone_brick_wall");
         p.set(-1, 0, 0, "minecraft:oak_sign[rotation=4]|Brindlecross|one mile east|~|Westreach Road");
+        p.anchor("sign", -1, 0, 0);
     }
 
     private static void camp(BuildingPlanner.Plan p) {

@@ -1,0 +1,185 @@
+{
+  "id": "elsie",
+  "npc": "elsie",
+  "entries": [
+    {
+      "when": {
+        "quest_stage": {
+          "quest": "sq03",
+          "stage": "deliver"
+        },
+        "has_item": {
+          "item": "hollowatlas:herbal_remedy"
+        }
+      },
+      "node": "remedy"
+    },
+    {
+      "when": {
+        "quest_stage": {
+          "quest": "sq02",
+          "stage": "report"
+        }
+      },
+      "node": "route_done"
+    },
+    {
+      "when": {
+        "quest_active": "sq02"
+      },
+      "node": "route_progress"
+    },
+    {
+      "when": {
+        "quest_not_started": "sq02",
+        "quest_done": "m01"
+      },
+      "node": "offer"
+    },
+    {
+      "node": "main"
+    }
+  ],
+  "nodes": {
+    "asleep": {
+      "text": "(Fast asleep. Best not to wake them.)",
+      "speaker": "narrator"
+    },
+    "offer": {
+      "text": "You there. You've got walking legs. Sit. No, don't sit, you'll get comfortable. Listen.",
+      "choices": [
+        {
+          "text": "I'm listening.",
+          "go": "offer2"
+        }
+      ]
+    },
+    "offer2": {
+      "text": "Forty years I walked the Westreach for the post. The old route went the long way round: the west milestone, the lone oak, up Lark Hill, down through Mossgate on the cart track. Nobody uses it now. I want it walked once more and written down before my memory goes the way of my knees.",
+      "choices": [
+        {
+          "text": "I'll walk it for you.",
+          "go": "offer3",
+          "tag": "quest"
+        },
+        {
+          "text": "Maybe another day.",
+          "go": "end",
+          "tag": "leave"
+        }
+      ]
+    },
+    "offer3": {
+      "text": "Good. Take these notes. They're in my handwriting, so good luck. And mind the cart track. Folk used to say it was haunted. It wasn't. It was Tobin's father with a bottle.",
+      "choices": [
+        {
+          "text": "Goodbye.",
+          "go": "end",
+          "tag": "leave"
+        }
+      ],
+      "actions": [
+        {
+          "quest": "sq02",
+          "type": "start_quest"
+        },
+        {
+          "item": "hollowatlas:route_notes",
+          "type": "give_item"
+        }
+      ]
+    },
+    "route_progress": {
+      "text": "Well? Did you find the milestone? They moved it once, you know. Fifty paces. Nobody asked me.",
+      "choices": [
+        {
+          "text": "Still walking.",
+          "go": "end",
+          "tag": "leave"
+        }
+      ]
+    },
+    "route_done": {
+      "text": "You walked it. All of it? Even the cart track? ...Who was camped there?",
+      "choices": [
+        {
+          "text": "Brigands. They won't be back soon.",
+          "go": "route_done2"
+        }
+      ]
+    },
+    "route_done2": {
+      "text": "Hm. In my day it was just foxes and Tobin's father. Here: this charm was mine for thirty years. Never once late while I wore it. Well. Rarely.",
+      "choices": [
+        {
+          "text": "Goodbye.",
+          "go": "end",
+          "tag": "leave"
+        }
+      ],
+      "actions": [
+        {
+          "event": "talk",
+          "target": "elsie_route_done",
+          "type": "quest_event"
+        }
+      ]
+    },
+    "remedy": {
+      "text": "What's that smell? Is that... Hester's brew? Give it here. If it's poison, at least it's local.",
+      "choices": [
+        {
+          "text": "She says it's a good sign that it smells awful.",
+          "go": "remedy2"
+        }
+      ],
+      "actions": [
+        {
+          "item": "hollowatlas:herbal_remedy",
+          "type": "take_item"
+        },
+        {
+          "event": "talk",
+          "target": "remedy_given",
+          "type": "quest_event"
+        }
+      ]
+    },
+    "remedy2": {
+      "text": "...Oh. Oh, that's warm. All the way down. Tell Hester she's a menace and I love her.",
+      "choices": [
+        {
+          "text": "Goodbye.",
+          "go": "end",
+          "tag": "leave"
+        }
+      ]
+    },
+    "main": {
+      "text": "Still here? Good. The village needs people who notice things.",
+      "choices": [
+        {
+          "text": "What did you notice, on the roads?",
+          "go": "roads",
+          "tag": "ask",
+          "once": true
+        },
+        {
+          "text": "Goodbye.",
+          "go": "end",
+          "tag": "leave"
+        }
+      ]
+    },
+    "roads": {
+      "text": "That the post always arrives, and the reasons why it's late are always more interesting than the post.",
+      "choices": [
+        {
+          "text": "Goodbye.",
+          "go": "end",
+          "tag": "leave"
+        }
+      ]
+    }
+  }
+}

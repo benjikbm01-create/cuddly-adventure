@@ -710,13 +710,13 @@ public final class RegionBuilder {
 
     /** World flag recording that a region's terrain has been generated. */
     public static String builtFlag(RegionModel m) {
-        return m == LocationIndex.model() ? BUILT_FLAG : BUILT_FLAG + ":" + m.layout.id;
+        return LocationIndex.isFirstOfMode(m) ? BUILT_FLAG : BUILT_FLAG + ":" + m.layout.id;
     }
 
     private void finish() {
         MinecraftServer server = world.getServer();
         BoundaryService.applyWorldBorder(server);
-        if (model == LocationIndex.model()) {
+        if (LocationIndex.isFirstOfMode(model)) {
             int[] arrival = model.anchor("arrival");
             world.setSpawnPos(wpos(arrival[0], arrival[1], arrival[2]), -90f);
             GameState.get(server).setFlag(CONNECT_FIX_FLAG, true);
@@ -728,7 +728,7 @@ public final class RegionBuilder {
 
     /** Build every region that hasn't been generated yet, one after another, then run {@code after}. */
     public static void buildMissing(MinecraftServer server, Runnable after) {
-        for (RegionModel m : LocationIndex.models()) {
+        for (RegionModel m : LocationIndex.modelsFor(server)) {
             if (!GameState.get(server).flag(builtFlag(m))) {
                 start(server.getOverworld(), m, () -> buildMissing(server, after));
                 return;

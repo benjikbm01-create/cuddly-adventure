@@ -17,8 +17,11 @@ import net.minecraft.util.Identifier;
  * Zoom with the scroll wheel, pan by dragging. The continental atlas is future work.
  */
 public class AtlasScreen extends Screen {
-    private static final Identifier MAP = HollowAtlas.id("textures/gui/atlas_map.png");
-    private static final int TEX = 751;
+    /** The region the player is standing in (story or test); its survey texture is atlas_<regionId>.png. */
+    private RegionModel region() {
+        RegionModel m = client != null && client.player != null ? LocationIndex.regionAt(client.player.getX(), client.player.getZ()) : null;
+        return m != null ? m : LocationIndex.model();
+    }
     private double zoom = 1.0, panX = 0, panZ = 0;
     private boolean centered = false;
 
@@ -31,7 +34,9 @@ public class AtlasScreen extends Screen {
     @Override
     public void render(DrawContext c, int mx, int my, float delta) {
         super.render(c, mx, my, delta);
-        RegionModel m = LocationIndex.model();
+        RegionModel m = region();
+        Identifier MAP = HollowAtlas.id("textures/gui/atlas_" + m.layout.id + ".png");
+        int TEX = 2 * m.half + 1;
         int ox = m.layout.origin[0], oz = m.layout.origin[1], half = m.half;
         if (!centered && client.player != null) {
             panX = client.player.getX() - ox;
@@ -41,7 +46,7 @@ public class AtlasScreen extends Screen {
         int s = size();
         int x0 = width / 2 - s / 2, y0 = height / 2 - s / 2 + 6;
         Ui.panel(c, x0 - 6, y0 - 18, s + 12, s + 24);
-        Ui.title(c, textRenderer, "The Atlas - Westreach (local survey)", x0, y0 - 13);
+        Ui.title(c, textRenderer, "The Atlas - " + (m.layout.name == null ? m.layout.id : m.layout.name), x0, y0 - 13);
         double blocksAcross = (2 * half + 1) / zoom;
         double scale = s / blocksAcross;        // pixels per block
         double left = panX - blocksAcross / 2, top = panZ - blocksAcross / 2;
@@ -106,7 +111,7 @@ public class AtlasScreen extends Screen {
 
     @Override
     public boolean mouseDragged(double mx, double my, int button, double dx, double dy) {
-        RegionModel m = LocationIndex.model();
+        RegionModel m = region();
         double blocksAcross = (2 * m.half + 1) / zoom;
         double scale = size() / blocksAcross;
         panX -= dx / scale;

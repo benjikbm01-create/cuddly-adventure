@@ -92,6 +92,7 @@ public final class EncounterService {
         GameState gs = GameState.get(server);
         long now = world.getTime();
         for (Def d : DEFS.values()) {
+            if (!dev.hollowatlas.state.WorldMode.allowed(server, d)) continue;
             BlockPos at = LocationIndex.pos(d.anchor);
             List<EnemyEntity> live = ACTIVE.get(d.id);
             if (live != null) {

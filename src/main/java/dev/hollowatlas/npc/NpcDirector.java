@@ -152,6 +152,7 @@ public final class NpcDirector {
         double hour = ScheduleService.hour(world);
         boolean raining = world.isRaining();
         for (NpcDefinition def : DEFS.values()) {
+            if (!dev.hollowatlas.state.WorldMode.allowed(server, def)) continue;
             try {
                 update(world, state, def, hour, raining);
             } catch (Exception e) {

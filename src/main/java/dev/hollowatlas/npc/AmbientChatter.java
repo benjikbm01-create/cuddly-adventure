@@ -77,6 +77,7 @@ public final class AmbientChatter {
         double hour = ScheduleService.hour(world);
         GameState state = GameState.get(server);
         for (Conversation c : CONVERSATIONS.values()) {
+            if (!dev.hollowatlas.state.WorldMode.allowed(server, c)) continue;
             Long last = LAST.get(c.id);
             if (last != null && now - last < c.cooldown_minutes * 1200L) continue;
             if (!c.timeOk(hour)) continue;

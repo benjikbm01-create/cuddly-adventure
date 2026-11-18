@@ -72,6 +72,7 @@ public final class QuestEngine {
     public static boolean start(ServerPlayerEntity player, String id) {
         QuestDef def = QUESTS.get(id);
         if (def == null) { HollowAtlas.LOGGER.warn("start_quest: unknown quest {}", id); return false; }
+        if (!dev.hollowatlas.state.WorldMode.allowed(player.getServer(), def)) return false;   // story and test quests never cross worlds
         GameState state = GameState.get(player.getServer());
         PlayerProfile p = state.profile(player.getUuid());
         if (p.quest(id) != null) return false;               // already started or finished: idempotent

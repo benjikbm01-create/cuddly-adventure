@@ -112,5 +112,10 @@
   "dialogue.hollowatlas.goodbye": "(Leave)",
   "message.hollowatlas.boundary_return": "That way isn't open yet. You turn back.",
   "message.hollowatlas.surveying": "The lands to the east are being prepared. This takes about a minute...",
-  "message.hollowatlas.surveyed": "The lands to the east are ready."
+  "message.hollowatlas.surveyed": "The lands to the east are ready.",
+  "item.hollowatlas.test_token": "Test Token",
+  "item.hollowatlas.test_token.desc": "A developer testing item. Exists only for testing key-item rules.",
+  "message.hollowatlas.devtest_welcome": "DEVELOPER TESTING WORLD: no story content here. Press F7 (or /devtest) for the developer menu. Your story saves are separate.",
+  "key.hollowatlas.dev_menu": "Developer menu (test world only)",
+  "screen.hollowatlas.dev_menu": "Developer Menu"
 }

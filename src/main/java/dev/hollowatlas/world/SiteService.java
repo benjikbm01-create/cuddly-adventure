@@ -48,6 +48,7 @@ public final class SiteService {
             if (player.isSpectator()) continue;
             PlayerProfile p = gs.profile(player.getUuid());
             for (Bundle b : BUNDLES.values()) for (Site s : b.sites) {
+                if (!dev.hollowatlas.state.WorldMode.allowed(server, b)) continue;
                 if (p.discovered.contains(s.id)) continue;
                 BlockPos a = LocationIndex.pos(s.anchor);
                 if (player.squaredDistanceTo(a.toCenterPos()) > s.radius * s.radius) continue;
@@ -65,6 +66,7 @@ public final class SiteService {
         PlayerProfile p = GameState.get(player.getServer()).profile(player.getUuid());
         JsonArray arr = new JsonArray();
         for (Bundle b : BUNDLES.values()) for (Site s : b.sites) {
+            if (!dev.hollowatlas.state.WorldMode.allowed(player.getServer(), b)) continue;
             if (!p.discovered.contains(s.id)) continue;
             BlockPos a = LocationIndex.pos(s.anchor);
             JsonObject o = new JsonObject();

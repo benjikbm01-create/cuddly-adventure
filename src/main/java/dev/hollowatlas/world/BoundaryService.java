@@ -26,7 +26,7 @@ public final class BoundaryService {
     /** Size the vanilla border to the bounding square of all authored regions. */
     public static void applyWorldBorder(MinecraftServer server) {
         int minX = Integer.MAX_VALUE, maxX = Integer.MIN_VALUE, minZ = Integer.MAX_VALUE, maxZ = Integer.MIN_VALUE;
-        for (RegionModel m : LocationIndex.models()) {
+        for (RegionModel m : LocationIndex.modelsFor(server)) {
             int[] o = m.layout.origin;
             minX = Math.min(minX, o[0] - m.half); maxX = Math.max(maxX, o[0] + m.half);
             minZ = Math.min(minZ, o[1] - m.half); maxZ = Math.max(maxZ, o[1] + m.half);

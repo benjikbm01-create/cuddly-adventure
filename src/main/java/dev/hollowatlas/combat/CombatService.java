@@ -143,8 +143,9 @@ public final class CombatService {
             int cost = Math.min(25, p.coins / 10);
             p.coins -= cost;
             gs.markDirty();
-            if (LocationIndex.has(p.checkpoint)) {
-                BlockPos cp = LocationIndex.pos(p.checkpoint);
+            BlockPos devCp = dev.hollowatlas.devtest.DevTestService.parseCheckpoint(p.checkpoint);
+            if (devCp != null || LocationIndex.has(p.checkpoint)) {
+                BlockPos cp = devCp != null ? devCp : LocationIndex.pos(p.checkpoint);
                 newP.teleport(newP.getServerWorld(), cp.getX() + 0.5, cp.getY(), cp.getZ() + 0.5, newP.getYaw(), 0);
             }
             newP.sendMessage(Text.translatable("message.hollowatlas.recovered", cost).formatted(Formatting.GRAY), false);

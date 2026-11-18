@@ -102,6 +102,7 @@ public final class CaseService {
         PlayerProfile p = GameState.get(player.getServer()).profile(player.getUuid());
         JsonArray out = new JsonArray();
         for (CaseDef c : CASES.values()) {
+            if (!dev.hollowatlas.state.WorldMode.allowed(player.getServer(), c)) continue;
             boolean any = c.evidence.stream().anyMatch(e -> p.evidence.contains(e.id));
             if (c.visible_when != null && !Logic.test(player, c.visible_when, Logic.Ctx.NONE)) continue;
             if (!any && c.visible_when == null) continue;

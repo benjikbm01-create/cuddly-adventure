@@ -30,6 +30,8 @@ public final class RegionLayout {
     public int border_size = 740;
     /** World flag that must be set before players may enter this region (null/empty = always open). */
     public String open_flag;
+    /** "story" (real game) or "devtest" (noncanonical developer testing world). */
+    public String mode = "story";
     /** Snow cover on terrain at or above this Y (0 = none). */
     public int snow_line = 0;
     /** Default building pad style for this region's terrain surface: "grass" or "mountain". */

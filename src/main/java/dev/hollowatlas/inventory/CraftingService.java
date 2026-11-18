@@ -46,7 +46,7 @@ public final class CraftingService {
 
     private static boolean nearStation(ServerPlayerEntity player, String station) {
         for (Map.Entry<BlockPos, Interactions.Def> e : Interactions.all().entrySet()) {
-            if ("station".equals(e.getValue().type) && station.equals(e.getValue().station)
+            if ("station".equals(e.getValue().type) && station.equals(e.getValue().station) && Interactions.allowed(player.getServer(), e.getValue())
                     && player.squaredDistanceTo(e.getKey().toCenterPos()) < 6 * 6) return true;
         }
         return false;

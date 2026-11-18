@@ -179,7 +179,7 @@ public final class AbilityService {
         int n = 0;
         for (Map.Entry<BlockPos, Interactions.Def> e : Interactions.all().entrySet()) {
             Interactions.Def d = e.getValue();
-            if (!List.of("inspect", "cache", "puzzle").contains(d.type)) continue;
+            if (!List.of("inspect", "cache", "puzzle").contains(d.type) || !Interactions.allowed(player.getServer(), d)) continue;
             if (p.flags.contains("int:" + d.id) && !"puzzle".equals(d.type)) continue;
             BlockPos pos = e.getKey();
             if (pos.getSquaredDistance(player.getBlockPos()) > 24 * 24) continue;

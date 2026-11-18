@@ -45,6 +45,7 @@ public final class HudSync {
         o.addProperty("exhausted", CombatService.isExhausted(player));
         o.addProperty("guarding", CombatService.isGuarding(player));
         o.addProperty("difficulty", GameState.get(player.getServer()).difficulty);
+        o.addProperty("devtest", dev.hollowatlas.state.WorldMode.devtest(player.getServer()));
         JsonArray ab = AbilityService.hud(player, p);
         o.add("abilities", ab);
         Net.send(player, "hud", o);

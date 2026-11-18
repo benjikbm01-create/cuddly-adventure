@@ -33,6 +33,10 @@ public final class ContentManager implements SimpleSynchronousResourceReloadList
     private static final List<Kind<?>> KINDS = new ArrayList<>();
     private static final List<BiConsumer<ContentManager, List<String>>> VALIDATORS = new ArrayList<>();
     private static final List<String> LAST_REPORT = new ArrayList<>();
+    /** Content loaded from a {@code devtest/} sub-folder is noncanonical test content. */
+    private static final java.util.Set<Object> DEVTEST = java.util.Collections.newSetFromMap(new java.util.IdentityHashMap<>());
+
+    public static boolean isDevtest(Object content) { return content != null && DEVTEST.contains(content); }
     private static int loadCount = 0;
 
     public static <T> Map<String, T> register(String folder, Class<T> type) {
@@ -57,6 +61,7 @@ public final class ContentManager implements SimpleSynchronousResourceReloadList
     @Override
     public void reload(ResourceManager manager) {
         LAST_REPORT.clear();
+        DEVTEST.clear();
         int total = 0;
         StringBuilder counts = new StringBuilder();
         for (Kind<?> kind : KINDS) {
@@ -91,6 +96,7 @@ public final class ContentManager implements SimpleSynchronousResourceReloadList
                 String id = idOf(obj, file);
                 if (kind.store().containsKey(id)) LAST_REPORT.add(file + ": duplicate id '" + id + "'");
                 if (obj instanceof Validatable v) v.validate(file, LAST_REPORT);
+                if (file.contains("/devtest/")) DEVTEST.add(obj);
                 kind.store().put(id, obj);
                 n++;
             } catch (JsonParseException | IllegalStateException ex) {

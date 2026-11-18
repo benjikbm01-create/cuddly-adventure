@@ -90,6 +90,7 @@ public final class ModItems {
     public static final Item ROUTE_NOTES = reg("route_notes", new KeyItem(new Item.Settings()));
     public static final Item TRACER_LENS = reg("tracer_lens", new AbilityItem("echo_sight", new Item.Settings().rarity(Rarity.RARE)));
     public static final Item TECHNIQUE_WINDSTEP = reg("technique_windstep", new AbilityItem("windstep", new Item.Settings()));
+    public static final Item TEST_TOKEN = reg("test_token", new KeyItem(new Item.Settings()));
     public static final Item HERBAL_REMEDY = reg("herbal_remedy", new KeyItem(new Item.Settings()));
 
     // materials

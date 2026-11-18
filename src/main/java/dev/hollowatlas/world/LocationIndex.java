@@ -22,7 +22,7 @@ import java.util.Set;
  */
 public final class LocationIndex {
     /** Regions in map order. Their layout files live in data/hollowatlas/region/. */
-    public static final List<String> REGIONS = List.of("westreach_brindlecross", "boreal_sableforge");
+    public static final List<String> REGIONS = List.of("westreach_brindlecross", "boreal_sableforge", "devtest_grounds");
     public static final String DEFAULT_REGION = REGIONS.get(0);
 
     private static List<RegionModel> models;
@@ -61,6 +61,23 @@ public final class LocationIndex {
     public static RegionModel model() { ensure(); return models.get(0); }
 
     public static List<RegionModel> models() { ensure(); return models; }
+
+    /** Regions that belong to this world's mode (story regions in story worlds, the test region in test worlds). */
+    public static List<RegionModel> modelsFor(MinecraftServer server) {
+        String mode = dev.hollowatlas.state.WorldMode.of(server);
+        return models().stream().filter(m -> mode.equals(m.layout.mode == null ? "story" : m.layout.mode)).toList();
+    }
+
+    /** First region of this world's mode: where new players arrive. */
+    public static RegionModel first(MinecraftServer server) {
+        List<RegionModel> l = modelsFor(server);
+        return l.isEmpty() ? model() : l.get(0);
+    }
+
+    public static boolean isFirstOfMode(RegionModel m) {
+        for (RegionModel x : models()) if (x.layout.mode.equals(m.layout.mode)) return x == m;
+        return false;
+    }
 
     public static RegionModel region(String id) {
         for (RegionModel m : models()) if (m.layout.id.equals(id)) return m;
@@ -106,7 +123,7 @@ public final class LocationIndex {
      */
     public static double distanceToEdge(MinecraftServer server, double x, double z) {
         RegionModel m = regionAt(x, z);
-        if (m == null || !isOpen(server, m)) return -1;
+        if (m == null || !isOpen(server, m) || !modelsFor(server).contains(m)) return -1;
         int[] o = m.layout.origin;
         double half = m.half + 0.5;
         double best = Double.MAX_VALUE;
@@ -115,7 +132,7 @@ public final class LocationIndex {
         for (double[] e : edges) {
             double probeX = x + e[1] * (e[0] + 2), probeZ = z + e[2] * (e[0] + 2);
             RegionModel next = regionAt(probeX, probeZ);
-            if (next != null && next != m && isOpen(server, next)) continue;   // internal seam between open regions
+            if (next != null && next != m && isOpen(server, next) && modelsFor(server).contains(next)) continue;   // internal seam between open regions
             best = Math.min(best, e[0]);
         }
         return best;

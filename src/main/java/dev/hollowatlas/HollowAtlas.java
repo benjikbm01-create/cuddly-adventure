@@ -79,6 +79,7 @@ public final class HollowAtlas implements ModInitializer {
         Interactions.init();          // must register before protection so designated interactions win
         ProtectionService.register();
         dev.hollowatlas.command.DevCommands.init();
+        dev.hollowatlas.devtest.DevTestService.init();
         CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, env) -> AtlasCommands.register(dispatcher));
 
         ServerLifecycleEvents.SERVER_STARTING.register(StateBackup::backupIfMigrating);
@@ -123,11 +124,14 @@ public final class HollowAtlas implements ModInitializer {
             }
         };
         if (state.flag(RegionBuilder.BUILT_FLAG) && Boolean.getBoolean("hollowatlas.rendermap")
-                && LocationIndex.models().stream().allMatch(m -> state.flag(RegionBuilder.builtFlag(m)))) {
+                && LocationIndex.modelsFor(server).stream().allMatch(m -> state.flag(RegionBuilder.builtFlag(m)))) {
             afterBuild.run();
             return;
         }
         if (!state.flag(RegionBuilder.BUILT_FLAG)) {
+            if (Boolean.getBoolean("hollowatlas.autobuild") && "devtest".equals(System.getProperty("hollowatlas.mode"))) {
+                state.setFlag(dev.hollowatlas.state.WorldMode.DEVTEST_FLAG, true);   // a brand-new developer testing world
+            }
             if (Boolean.getBoolean("hollowatlas.autobuild")) {
                 RegionBuilder.buildMissing(server, afterBuild);
             } else {
@@ -137,7 +141,7 @@ public final class HollowAtlas implements ModInitializer {
         } else {
             BoundaryService.applyWorldBorder(server);
             // an existing save from an older version: generate any regions added since, in place
-            boolean missing = LocationIndex.models().stream().anyMatch(m -> !state.flag(RegionBuilder.builtFlag(m)));
+            boolean missing = LocationIndex.modelsFor(server).stream().anyMatch(m -> !state.flag(RegionBuilder.builtFlag(m)));
             if (missing) {
                 LOGGER.info("Generating regions added since this world was created...");
                 RegionBuilder.buildMissing(server, () -> {
@@ -153,8 +157,11 @@ public final class HollowAtlas implements ModInitializer {
 
     public static void renderMap(MinecraftServer server) {
         try {
-            MapRenderer.render(server.getOverworld(),
-                    server.getSavePath(net.minecraft.util.WorldSavePath.ROOT).resolve("hollowatlas").resolve("region_map.png"), 1);
+            for (dev.hollowatlas.world.RegionModel m : LocationIndex.modelsFor(server)) {
+                if (!GameState.get(server).flag(RegionBuilder.builtFlag(m))) continue;
+                MapRenderer.render(server.getOverworld(), m,
+                        server.getSavePath(net.minecraft.util.WorldSavePath.ROOT).resolve("hollowatlas").resolve("atlas_" + m.layout.id + ".png"), 1);
+            }
         } catch (Exception e) {
             LOGGER.error("Map render failed", e);
         }
@@ -169,7 +176,9 @@ public final class HollowAtlas implements ModInitializer {
         }
         boolean firstVisit = !state.players.containsKey(player.getUuid());
         PlayerProfile profile = state.profile(player.getUuid());
-        if (firstVisit) {
+        if (firstVisit && dev.hollowatlas.state.WorldMode.devtest(server)) {
+            dev.hollowatlas.devtest.DevTestService.onFirstJoin(player);
+        } else if (firstVisit) {
             BlockPos arrival = LocationIndex.pos("arrival");
             player.teleport(server.getOverworld(), arrival.getX() + 0.5, arrival.getY(), arrival.getZ() + 0.5, -90f, 0f);
             player.setSpawnPoint(server.getOverworld().getRegistryKey(), arrival, -90f, true, false);

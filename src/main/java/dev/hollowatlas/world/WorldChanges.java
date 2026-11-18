@@ -59,6 +59,7 @@ public final class WorldChanges {
         ServerWorld world = server.getOverworld();
         GameState state = GameState.get(server);
         for (Bundle b : BUNDLES.values()) {
+            if (!dev.hollowatlas.state.WorldMode.allowed(server, b)) continue;
             for (Change c : b.changes) {
                 List<BlockSet> sets = state.flag(c.flag) ? c.blocks : c.otherwise;
                 for (BlockSet s : sets) {

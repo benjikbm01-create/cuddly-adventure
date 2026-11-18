@@ -19,8 +19,7 @@ import java.nio.file.Path;
 public final class MapRenderer {
     private MapRenderer() {}
 
-    public static Path render(ServerWorld world, Path out, int scale) throws Exception {
-        RegionModel m = LocationIndex.model();
+    public static Path render(ServerWorld world, RegionModel m, Path out, int scale) throws Exception {
         int ox = m.layout.origin[0], oz = m.layout.origin[1], h = m.half;
         int size = (2 * h + 1) / scale;
         BufferedImage img = new BufferedImage(size, size, BufferedImage.TYPE_INT_RGB);

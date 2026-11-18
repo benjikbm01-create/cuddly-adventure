@@ -106,13 +106,23 @@ public final class Interactions {
 
     private Interactions() {}
 
+    private static final java.util.Set<Def> DEVTEST_DEFS = java.util.Collections.newSetFromMap(new java.util.IdentityHashMap<>());
+
+    /** True if this interaction belongs to the kind of world currently loaded (story vs. developer testing). */
+    public static boolean allowed(MinecraftServer server, Def d) {
+        return DEVTEST_DEFS.contains(d) == dev.hollowatlas.state.WorldMode.devtest(server);
+    }
+
     private static void reindex() {
         if (indexedLoad == ContentManager.loads()) return;
         indexedLoad = ContentManager.loads();
         BY_POS.clear();
         PUZZLES.clear();
+        DEVTEST_DEFS.clear();
         for (Bundle b : BUNDLES.values()) {
+            boolean dev = ContentManager.isDevtest(b);
             for (Def d : b.interactions) {
+                if (dev) DEVTEST_DEFS.add(d);
                 if (d.anchor != null && LocationIndex.has(d.anchor)) BY_POS.put(LocationIndex.pos(d.anchor).add(d.dx, d.dy, d.dz), d);
             }
             for (Puzzle p : b.puzzles) PUZZLES.put(p.id, p);
@@ -132,7 +142,7 @@ public final class Interactions {
             }
             reindex();
             Def d = BY_POS.get(hit.getBlockPos());
-            if (d == null) return ActionResult.PASS;
+            if (d == null || !allowed(sp.getServer(), d)) return ActionResult.PASS;
             handle(sp, d, hit.getBlockPos());
             return ActionResult.SUCCESS;
         });
@@ -289,7 +299,7 @@ public final class Interactions {
         long now = server.getOverworld().getTime();
         for (Map.Entry<BlockPos, Def> e : BY_POS.entrySet()) {
             Def d = e.getValue();
-            if (!"gather".equals(d.type) || d.ripe_state == null) continue;
+            if (!"gather".equals(d.type) || d.ripe_state == null || !allowed(server, d)) continue;
             Long ready = state.nodeCooldowns.get(d.id);
             if (!server.getOverworld().isChunkLoaded(e.getKey())) continue;
             if (ready != null && ready <= now) {

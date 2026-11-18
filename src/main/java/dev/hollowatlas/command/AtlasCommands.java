@@ -42,7 +42,8 @@ public final class AtlasCommands {
                 .requires(src -> src.hasPermissionLevel(2));
 
         root.then(CommandManager.literal("build").executes(ctx -> {
-            boolean ok = RegionBuilder.start(ctx.getSource().getServer().getOverworld(), LocationIndex.model(), null);
+            boolean ok = !RegionBuilder.isRunning();
+            if (ok) RegionBuilder.buildMissing(ctx.getSource().getServer(), null);
             ctx.getSource().sendFeedback(() -> Text.literal(ok ? "Region build started." : "A build is already running."), true);
             return ok ? 1 : 0;
         }));

@@ -1,11 +1,11 @@
-THE HOLLOW ATLAS v0.1.2 - QUICK START (Windows)
+THE HOLLOW ATLAS v0.1.3 - QUICK START (Windows)
 =============================================
 
 You need: Minecraft Java Edition 1.21.1 with the Fabric Loader installed
 (Fabric Loader 0.16.0 or newer). You said you already have this.
 
-1. Open the release folder (TheHollowAtlas-v0.1.2). It contains:
-     mods\hollowatlas-0.1.2.jar
+1. Open the release folder (TheHollowAtlas-v0.1.3). It contains:
+     mods\hollowatlas-0.1.3.jar
      mods\fabric-api-0.116.6+1.21.1.jar      (only needed if you don't have Fabric API already)
      TheHollowAtlas-world.zip
      TheHollowAtlas-DevTest-world.zip        (optional: spoiler-free test world)
@@ -16,7 +16,7 @@ You need: Minecraft Java Edition 1.21.1 with the Fabric Loader installed
 3. Copy BOTH jars from the release "mods" folder into the "mods" folder there.
    (Create the "mods" folder if it doesn't exist. If you already have a Fabric API
    jar for 1.21.1, keep just one copy of it.)
-   UPDATING? Delete the old hollowatlas-0.1.0.jar from "mods" first: only one
+   UPDATING? Delete any older hollowatlas-0.1.x.jar from "mods" first: only one
    hollowatlas jar may be there. Your existing save keeps working.
 
 4. Unzip TheHollowAtlas-world.zip into the "saves" folder there (skip this if you

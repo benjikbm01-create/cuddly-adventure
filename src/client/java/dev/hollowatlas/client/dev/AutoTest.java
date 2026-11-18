@@ -51,7 +51,7 @@ import java.util.function.Function;
  * the harness never calls quest-completion code directly.
  */
 public final class AutoTest {
-    private record Step(String name, int delay, Runnable action) {}
+    private record Step(String name, int delay, Runnable action, String section) {}
 
     private static final List<Step> STEPS = new ArrayList<>();
     private static final List<String> RESULTS = new ArrayList<>();
@@ -65,6 +65,12 @@ public final class AutoTest {
         phase = System.getProperty("hollowatlas.autotest");
         if (phase == null || phase.isBlank()) return;
         if (phase.equals("phase1")) phase1(); else phase2();
+        String only = System.getProperty("hollowatlas.autotest.only", "");
+        if (!only.isBlank()) {
+            java.util.Set<String> keep = new java.util.HashSet<>(java.util.Arrays.asList(only.split(",")));
+            keep.add("core");   // setup/opening always runs; other sections depend on it
+            STEPS.removeIf(st -> !keep.contains(st.section()));
+        }
         ClientTickEvents.END_CLIENT_TICK.register(AutoTest::tick);
         HollowAtlas.LOGGER.info("[autotest] {} with {} steps", phase, STEPS.size());
     }
@@ -90,6 +96,7 @@ public final class AutoTest {
     private static boolean finished = false;
     private static int coinsBeforeDeath;
     private static int potatoesBefore;
+    private static int shopCoins;
 
     private static void finish(MinecraftClient mc) {
         if (finished) return;
@@ -128,7 +135,15 @@ public final class AutoTest {
         HollowAtlas.LOGGER.info("[autotest] {}", line);
     }
 
-    private static void step(String name, int delay, Runnable r) { STEPS.add(new Step(name, delay, r)); }
+    private static String section = "core";
+    private static final double SCALE = Double.parseDouble(System.getProperty("hollowatlas.autotest.scale", "0.65"));
+
+    /** Marks the start of an independently runnable section (select with -Dhollowatlas.autotest.only=a,b). */
+    private static void section(String name) { section = name; }
+
+    private static void step(String name, int delay, Runnable r) {
+        STEPS.add(new Step(name, Math.max(3, (int) Math.round(delay * SCALE)), r, section));
+    }
 
     private static Runnable pendingMove;
     private static int pendingTicks;
@@ -157,7 +172,7 @@ public final class AutoTest {
             p.sendAbilitiesUpdate();
             return null;
         });
-        pendingTicks = 45;
+        pendingTicks = 35;
     }
 
     private static NpcEntity npc(String id) {
@@ -320,6 +335,7 @@ public final class AutoTest {
         step("atlas shot", 30, () -> { shot("06_atlas"); mc().setScreen(null); });
 
         // ---- M03 offer from Corin (morning at the square)
+        section("courier");
         step("find corin", 5, () -> tp("plaza_east", 0, 0, 2, 180, 0, 3000));
         talkSteps("corin", 120);
         step("corin 1", 20, () -> choose("Depends where"));
@@ -340,6 +356,7 @@ public final class AutoTest {
         });
 
         // ---- M02 orchard pump
+        section("pump");
         step("find tobin", 5, () -> tp("field_wheat", 0, 0, 0, 0, 0, 2000));
         talkSteps("tobin", 120);
         step("tobin 1", 20, () -> choose("I can take a look"));
@@ -387,24 +404,30 @@ public final class AutoTest {
         });
 
         // ---- shop buy / sell
-        step("shop", 5, () -> tp("store.counter_front", 0, 0, 0, 90, 0, 5000));
+        section("shop");
+        step("shop", 5, () -> {
+            srv(s -> { RewardService.give(sp(s), "minecraft:apple", 1); RewardService.coins(sp(s), 5); return null; });
+            tp("store.counter_front", 0, 0, 0, 90, 0, 5000);
+        });
         talkSteps("ada", 120);
         step("trade", 20, () -> choose("Let's trade"));
         step("shop open", 20, () -> { check("shop window opens", mc().currentScreen instanceof ShopScreen); shot("08_shop"); });
-        step("buy bread", 5, () -> { JsonObject o = new JsonObject(); o.addProperty("shop", "general_store"); o.addProperty("item", "minecraft:bread"); ClientState.send("shop_buy", o); });
-        step("bought", 20, () -> check("bought bread: 2 coins spent", profile().coins == 24));
+        step("buy bread", 5, () -> {
+            shopCoins = profile().coins; JsonObject o = new JsonObject(); o.addProperty("shop", "general_store"); o.addProperty("item", "minecraft:bread"); ClientState.send("shop_buy", o); });
+        step("bought", 20, () -> check("bought bread: 2 coins spent", profile().coins == shopCoins - 2));
         step("sell apple", 5, () -> {
             int slot = mc().player.getInventory().getSlotWithStack(new ItemStack(Items.APPLE));
             JsonObject o = new JsonObject(); o.addProperty("shop", "general_store"); o.addProperty("slot", slot); ClientState.send("shop_sell", o);
         });
-        step("sold", 20, () -> check("sold an apple for 1 coin", profile().coins == 25));
+        step("sold", 20, () -> check("sold an apple for 1 coin", profile().coins == shopCoins - 1));
         step("sell key", 5, () -> {
             int slot = mc().player.getInventory().getSlotWithStack(new ItemStack(item("hollowatlas:room_key")));
             JsonObject o = new JsonObject(); o.addProperty("shop", "general_store"); o.addProperty("slot", slot); ClientState.send("shop_sell", o);
         });
-        step("key kept", 20, () -> { check("key item can't be sold", count(item("hollowatlas:room_key")) == 1 && profile().coins == 25); mc().setScreen(null); });
+        step("key kept", 20, () -> { check("key item can't be sold", count(item("hollowatlas:room_key")) == 1 && profile().coins == shopCoins - 1); mc().setScreen(null); });
 
         // ---- gathering + cooking
+        section("gather");
         step("carrots", 5, () -> tp("carrots_1", 0, 0, 2, 180, 40, 5000));
         step("pick carrots", 70, () -> useBlock("carrots_1"));
         step("potatoes", 20, () -> tp("potatoes_1", 0, 0, 2, 180, 40, 5000));
@@ -424,6 +447,7 @@ public final class AutoTest {
         step("cooked", 20, () -> { check("cooked hearth stew from gathered food", count(item("hollowatlas:hearth_stew")) == 3); mc().setScreen(null); });
 
         // ---- combat
+        section("combat");
         step("combat approach", 5, () -> { mode(GameMode.ADVENTURE); tp("abandoned_wagon.ambush", -14, 0, 0, -90, 0, 5000); });
         step("encounter", 80, () -> {
             check("road encounter spawns as the player approaches", EncounterService.activeCount() == 2);
@@ -486,6 +510,7 @@ public final class AutoTest {
 
 
         // ---- SQ01: investigation, case board, persistent routine + village change
+        section("ribbon");
         step("sabine", 5, () -> tp("weaver_house.door_out", 0, 0, 0, 180, 0, 3000));
         talkSteps("sabine", 120);
         step("sabine 1", 20, () -> choose("When did it go missing"));
@@ -540,6 +565,7 @@ public final class AutoTest {
         step("stall view", 90, () -> shot("16_market_stall_reopened"));
 
         // ---- reward overflow, HUD truth, difficulty
+        section("systems");
         step("fill pack", 5, () -> srv(s -> {
             var inv = sp(s).getInventory();
             for (int i = 0; i < inv.main.size(); i++) if (inv.main.get(i).isEmpty()) inv.main.set(i, new ItemStack(Items.COBBLESTONE, 64));
@@ -562,6 +588,7 @@ public final class AutoTest {
         step("difficulty back", 5, () -> { JsonObject o = new JsonObject(); o.addProperty("key", "difficulty"); o.addProperty("value", "normal"); ClientState.send("setting", o); });
 
         // ---- residents: sleeping and talking to each other
+        section("residents");
         step("night inn", 5, () -> tp("inn.room_c", 0, 0, -1, 180, 25, 20000));
         step("asleep", 420, () -> {
             NpcEntity n = npc("nella");
@@ -589,6 +616,7 @@ public final class AutoTest {
         step("third person shot", 20, () -> { shot("18_third_person"); mc().options.setPerspective(net.minecraft.client.option.Perspective.FIRST_PERSON); });
 
         // ---- death and checkpoint
+        section("death");
         step("die", 30, () -> {
             coinsBeforeDeath = profile().coins;
             srv(s -> { sp(s).damage(s.getOverworld().getDamageSources().genericKill(), 1000f); return null; });
@@ -605,6 +633,7 @@ public final class AutoTest {
         });
 
         // ---- residents
+        section("evening");
         step("village evening", 5, () -> tp("plaza", -10, 6, 16, -150, 20, 12500));
         step("residents", 140, () -> {
             int live = srv(s -> (int) NpcDirector.liveView().values().stream().filter(e -> !e.isRemoved()).count());

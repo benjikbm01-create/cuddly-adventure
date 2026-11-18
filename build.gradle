@@ -86,7 +86,7 @@ jar {
 
 // Dev QA hooks: pass -Phollowatlas.autoshot=... / -Phollowatlas.autotest=... through to the client JVM.
 tasks.matching { it.name == "runClient" }.configureEach {
-    ["hollowatlas.autoshot", "hollowatlas.autotest"].each { key ->
+    ["hollowatlas.autoshot", "hollowatlas.autotest", "hollowatlas.autotest.only", "hollowatlas.autotest.scale"].each { key ->
         if (project.hasProperty(key)) jvmArgs "-D${key}=" + project.property(key)
     }
 }

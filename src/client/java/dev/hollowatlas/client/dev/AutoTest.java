@@ -196,13 +196,13 @@ public final class AutoTest {
 
     /** Adds the two steps needed to talk to a resident: walk up to them, then interact. */
     private static void talkSteps(String id, int delay) {
-        step("approach " + id, delay, () -> approach(id));
-        step("talk " + id, 12, () -> interactNpc(id));
-        step("retry approach " + id, 15, () -> { if (!(mc().currentScreen instanceof DialogueScreen)) approach(id); });
-        step("retry talk " + id, 12, () -> {
+        // the server validates reach against its own (already teleported) player position, so step up and talk at once
+        step("talk " + id, delay, () -> { approach(id); interactNpc(id); });
+        step("retry talk " + id, 15, () -> {
             if (mc().currentScreen instanceof DialogueScreen) return;
             NpcEntity n = npc(id);
             HollowAtlas.LOGGER.info("[autotest] retrying talk with {} (distance {})", id, n == null ? -1 : mc().player.distanceTo(n));
+            approach(id);
             interactNpc(id);
         });
     }
@@ -437,10 +437,22 @@ public final class AutoTest {
         step("unguard", 5, () -> { JsonObject o = new JsonObject(); o.addProperty("on", false); ClientState.send("guard", o); });
         for (int k = 0; k < 2; k++) step("defeat (harness) " + k, 10, () -> srv(s -> {
             // NOTE: the harness ends the fight directly; real melee is a manual QA item.
-            for (EnemyEntity e : s.getOverworld().getEntitiesByClass(EnemyEntity.class, sp(s).getBoundingBox().expand(96), x -> true))
-                e.damage(s.getOverworld().getDamageSources().playerAttack(sp(s)), 200f);
+            for (EnemyEntity e : s.getOverworld().getEntitiesByClass(EnemyEntity.class, sp(s).getBoundingBox().expand(96), x -> true)) {
+                float before = e.getHealth();
+                boolean hit = e.damage(s.getOverworld().getDamageSources().playerAttack(sp(s)), 200f);
+                HollowAtlas.LOGGER.info("[autotest] harness hit {}: {} -> {} (accepted={}, hurtTime={}, blocking={})",
+                        e.kind(), before, e.getHealth(), hit, e.timeUntilRegen, e.isBlocking());
+            }
             return null;
         }));
+        step("defeat check", 10, () -> {
+            int alive = srv(s -> s.getOverworld().getEntitiesByClass(EnemyEntity.class, sp(s).getBoundingBox().expand(96), EnemyEntity::isAlive).size());
+            check("player-sourced damage defeats brigands (" + alive + " still alive)", alive == 0);
+            if (alive > 0) srv(s -> {   // unblock the rest of the script; failure above is still reported
+                s.getOverworld().getEntitiesByClass(EnemyEntity.class, sp(s).getBoundingBox().expand(96), x -> true).forEach(e -> e.kill());
+                return null;
+            });
+        });
         step("cleared", 40, () -> {
             String diag = srv(s -> {
                 StringBuilder b = new StringBuilder("active=" + EncounterService.activeCount() + " near:");

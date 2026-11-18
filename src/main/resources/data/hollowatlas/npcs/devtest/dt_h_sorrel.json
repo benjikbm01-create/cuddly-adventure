@@ -1,0 +1,53 @@
+{
+  "id": "dt_h_sorrel",
+  "name": "Sorrel Wynd",
+  "title": "Test Lookout Keeper",
+  "skin": "dt_h_sorrel",
+  "home": "dt_h_house_b",
+  "work": "dt_h_watch",
+  "dialogue": "dt_h_sorrel",
+  "traits": [
+    "quiet"
+  ],
+  "fallback_anchor": "dt_h_lookout",
+  "schedule": [
+    {
+      "from": 0,
+      "to": 6,
+      "activity": "sleep",
+      "anchor": "dt_h_house_b.bed0"
+    },
+    {
+      "from": 6,
+      "to": 7,
+      "activity": "eat",
+      "anchor": "dt_h_house_b.table"
+    },
+    {
+      "from": 7,
+      "to": 17,
+      "activity": "work",
+      "anchor": "dt_h_watch.work",
+      "style": "watch",
+      "radius": 1
+    },
+    {
+      "from": 17,
+      "to": 20,
+      "activity": "social",
+      "anchor": "dt_h_lodge.common_room",
+      "radius": 3
+    },
+    {
+      "from": 20,
+      "to": 24,
+      "activity": "sleep",
+      "anchor": "dt_h_house_b.bed0"
+    }
+  ],
+  "barks": {
+    "greet": [
+      "Longest commute in the test world. Top terrace, every morning."
+    ]
+  }
+}

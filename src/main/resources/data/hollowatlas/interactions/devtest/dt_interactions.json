@@ -28,6 +28,19 @@
       "text": "Test hearth."
     },
     {
+      "id": "dt_h_hearth",
+      "anchor": "dt_h_lodge.hearth_block",
+      "type": "station",
+      "station": "hearth",
+      "text": "Test lodge hearth."
+    },
+    {
+      "id": "dt_h_rest",
+      "anchor": "dt_h_lodge.bed_room_guest",
+      "type": "rest",
+      "text": "Rest test (mountain lodge)."
+    },
+    {
       "id": "dt_cart_clue",
       "anchor": "dt_cart.clue",
       "type": "inspect",

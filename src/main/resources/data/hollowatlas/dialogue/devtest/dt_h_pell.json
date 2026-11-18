@@ -1,0 +1,25 @@
+{
+  "id": "dt_h_pell",
+  "npc": "dt_h_pell",
+  "entries": [
+    {
+      "node": "main"
+    }
+  ],
+  "nodes": {
+    "asleep": {
+      "text": "(Asleep. This is the sleeping-resident test response.)",
+      "speaker": "narrator"
+    },
+    "main": {
+      "text": "Forge test. Afternoons I walk into the mine tunnel and back.",
+      "choices": [
+        {
+          "text": "Goodbye.",
+          "go": "end",
+          "tag": "leave"
+        }
+      ]
+    }
+  }
+}

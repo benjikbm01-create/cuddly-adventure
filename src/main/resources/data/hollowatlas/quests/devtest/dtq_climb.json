@@ -1,0 +1,76 @@
+{
+  "id": "dtq_climb",
+  "title": "Test: Summit Climb",
+  "category": "test",
+  "giver": "dt_h_ivo",
+  "abandonable": true,
+  "summary": "Exercises long-distance reach objectives over steep terrain, a rope bridge and region-to-region travel.",
+  "stages": [
+    {
+      "id": "cross",
+      "text": "Cross the rope bridge over the canyon.",
+      "objectives": [
+        {
+          "id": "b",
+          "type": "reach",
+          "target": "dt_h_bridge_e",
+          "radius": 6,
+          "text": "Cross the bridge",
+          "marker": "dt_h_bridge_e"
+        }
+      ],
+      "next": "checkin"
+    },
+    {
+      "id": "checkin",
+      "text": "Check in with Marta at the Test Lodge.",
+      "objectives": [
+        {
+          "id": "m",
+          "type": "talk",
+          "target": "dt_h_checkin",
+          "text": "Talk to Marta",
+          "marker": "dt_h_lodge.counter_front"
+        }
+      ],
+      "next": "lookout"
+    },
+    {
+      "id": "lookout",
+      "text": "Climb the terraces to the lookout.",
+      "objectives": [
+        {
+          "id": "l",
+          "type": "reach",
+          "target": "dt_h_lookout",
+          "radius": 6,
+          "text": "Reach the lookout",
+          "marker": "dt_h_lookout"
+        }
+      ],
+      "next": "summit"
+    },
+    {
+      "id": "summit",
+      "text": "Follow the trail to the summit cairn.",
+      "objectives": [
+        {
+          "id": "s",
+          "type": "reach",
+          "target": "dt_h_summit.stand",
+          "radius": 5,
+          "text": "Reach the summit",
+          "marker": "dt_h_summit.stand"
+        }
+      ],
+      "next": "complete"
+    }
+  ],
+  "rewards": [
+    {
+      "amount": 15,
+      "type": "coins"
+    }
+  ],
+  "completion_text": "Summit test complete."
+}

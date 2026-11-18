@@ -30,6 +30,42 @@
       "name": "Test Brook",
       "anchor": "dt_gap_north",
       "radius": 8
+    },
+    {
+      "id": "dt_h_village_site",
+      "name": "Test Heights",
+      "anchor": "dt_h_plaza",
+      "radius": 20
+    },
+    {
+      "id": "dt_h_canyon_site",
+      "name": "Test Canyon",
+      "anchor": "dt_h_bridge_w",
+      "radius": 12
+    },
+    {
+      "id": "dt_h_spires_site",
+      "name": "Test Spires",
+      "anchor": "dt_h_spires",
+      "radius": 25
+    },
+    {
+      "id": "dt_h_arch_site",
+      "name": "Test Arch",
+      "anchor": "dt_h_arch_view",
+      "radius": 16
+    },
+    {
+      "id": "dt_h_lookout_site",
+      "name": "Test Lookout",
+      "anchor": "dt_h_lookout",
+      "radius": 10
+    },
+    {
+      "id": "dt_h_summit_site",
+      "name": "Test Summit",
+      "anchor": "dt_h_summit.stand",
+      "radius": 10
     }
   ]
 }

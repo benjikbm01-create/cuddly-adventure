@@ -1,0 +1,35 @@
+{
+  "id": "dt_h_shop",
+  "title": "Test Lodge Pantry",
+  "npc": "dt_h_marta",
+  "anchor": "dt_h_lodge.counter_front",
+  "restock_days": 1,
+  "sells": [
+    {
+      "item": "minecraft:bread",
+      "price": 2,
+      "stock": 6
+    },
+    {
+      "item": "hollowatlas:hearth_stew",
+      "price": 5,
+      "stock": 3
+    },
+    {
+      "item": "hollowatlas:trail_tonic",
+      "price": 6,
+      "stock": 2
+    },
+    {
+      "item": "minecraft:leather_boots",
+      "price": 8,
+      "stock": 1
+    }
+  ],
+  "buys": {
+    "hollowatlas:yarrow": 2,
+    "minecraft:sweet_berries": 1,
+    "hollowatlas:old_coin": 6
+  },
+  "buy_back_rate": 0.5
+}

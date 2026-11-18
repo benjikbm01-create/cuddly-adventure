@@ -928,6 +928,36 @@ public final class AutoTest {
         }));
         step("arena done", 40, () -> check("kill objectives complete the arena quest", questStage("dtq_arena").equals("COMPLETED")));
 
+        // ---- second test region: mountain village (region-to-region travel, steep roads, rope bridge, residents on terraces)
+        step("to heights", 5, () -> { dev("time_noon", ""); dev("tp", "dt_h_plaza"); });
+        step("in heights", 80, () -> {
+            check("teleport into the mountain test region", mc().player.getBlockPos().getSquaredDistance(LocationIndex.pos("dt_h_plaza")) < 25);
+            check("mountain residents are live", srv(s -> NpcDirector.live("dt_h_marta") != null || NpcDirector.live("dt_h_pell") != null));
+            shot("dev06_heights_village");
+        });
+        step("walk test", 5, () -> tp("dt_east_gate", 0, 0, 0, -90, 0, 6000));
+        step("cross seam", 60, () -> srv(s -> { sp(s).teleport(s.getOverworld(), sp(s).getX() + 30, sp(s).getY() + 1, sp(s).getZ(), -90, 0); return null; }));
+        step("seam ok", 40, () -> check("walking from one test region into the next is allowed", mc().player.getX() > 150));
+        step("start climb", 5, () -> dev("start_quest", "dtq_climb"));
+        step("bridge", 5, () -> tp("dt_h_bridge_e", 0, 0, 0, -90, 0, 6000));
+        step("bridge done", 130, () -> {
+            check("rope bridge reach objective", questStage("dtq_climb").equals("checkin"));
+            BlockPos deck = LocationIndex.pos("dt_h_bridge_w").add(13, -1, 0);
+            check("rope bridge deck exists over the canyon", srv(s -> s.getOverworld().getBlockState(LocationIndex.pos("dt_h_bridge_e").add(-15, -1, 0)).isOf(Blocks.SPRUCE_PLANKS)
+                    || s.getOverworld().getBlockState(deck).isOf(Blocks.SPRUCE_PLANKS) || s.getOverworld().getBlockState(deck).isOf(Blocks.STRIPPED_SPRUCE_WOOD)));
+        });
+        step("to marta", 5, () -> tp("dt_h_lodge.counter_front", 0, 0, 0, 0, 0, 6000));
+        talkSteps("dt_h_marta", 100);
+        step("marta bye", 20, () -> choose("Goodbye"));
+        step("checked in", 20, () -> check("mountain resident dialogue advances the quest", questStage("dtq_climb").equals("lookout")));
+        step("lookout", 5, () -> tp("dt_h_lookout", 0, 0, 0, 90, 10, 6000));
+        step("lookout done", 130, () -> { check("lookout reach objective", questStage("dtq_climb").equals("summit")); shot("dev07_from_lookout"); });
+        step("summit", 5, () -> tp("dt_h_summit.stand", 0, 0, 0, 90, 15, 6000));
+        step("summit done", 130, () -> {
+            check("summit climb quest completed (stage " + questStage("dtq_climb") + ")", questStage("dtq_climb").equals("COMPLETED"));
+            check("summit charted on the atlas", profile().discovered.contains("dt_h_summit_site"));
+        });
+
         // ---- checkpoint + death
         step("checkpoint", 5, () -> { tp("dt_square_east", 0, 0, 0, 0, 0, 6000); });
         step("set checkpoint", 60, () -> { devCheckpoint = mc().player.getBlockPos(); dev("checkpoint_here", ""); });

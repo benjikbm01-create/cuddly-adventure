@@ -200,7 +200,8 @@ public final class FeaturePlanner {
      */
     private static void rockArch(BuildingPlanner.Plan p, int span) {
         double a = span / 2.0, b = span * 0.55, thick = Math.max(3, span / 7.0);
-        String[] rock = {"minecraft:stone", "minecraft:andesite", "minecraft:tuff", "minecraft:stone", "minecraft:calcite", "minecraft:andesite"};
+        String[] rock = {"minecraft:stone", "minecraft:andesite", "minecraft:stone", "minecraft:tuff", "minecraft:stone", "minecraft:andesite",
+                "minecraft:stone", "minecraft:calcite", "minecraft:cobblestone", "minecraft:stone"};
         for (int x = (int) -a - 2; x <= (int) a + 2; x++) for (int y = -14; y <= (int) b + 2; y++) for (int z = -3; z <= 3; z++) {
             double yy = Math.max(0, y);
             double r = Math.hypot(x / a, yy / b);                    // 1.0 on the outer curve
@@ -211,7 +212,9 @@ public final class FeaturePlanner {
             boolean solid = r <= 1.0 + rough * 0.08 && inner >= 1.0 - rough * 0.1;
             if (y < 0) solid = Math.abs(x) >= a - thick - rough && Math.abs(x) <= a + 0.5 + rough * 4;
             if (!solid) continue;
-            int band = Math.floorMod(y / 3 + (x * 31 + z * 17 & 1), rock.length);
+            int warp = (int) Math.round(Math.sin(x * 0.35 + z * 0.2) * 1.5);
+            int band = Math.floorMod(Math.floorDiv(y + warp + 14, 3), rock.length);
+            if (((x * 7349 ^ y * 1931 ^ z * 3307) & 15) == 0) band = 8;   // scattered rough patches
             p.set(x, y, z, rock[band]);
         }
         p.anchor("under", 0, 0, 0);

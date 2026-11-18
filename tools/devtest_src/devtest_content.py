@@ -99,11 +99,39 @@ NPCS = [
          schedule=[E(0, 6, "sleep", "dt_hall.bed_room_c"), E(6, 23, "work", "dt_hall.work", "serve", 3), E(23, 24, "sleep", "dt_hall.bed_room_c")],
          barks={"greet": ["The hearth works. So do the stairs, mostly."]}),
 ]
+# ---- Test Heights (mountain test village east of the Proving Grounds: tests climbing routes, stairs and terraces)
+CLIMB = ["dt_h_plaza", "dt_h_mid", "dt_h_upper", "dt_h_lookout", "dt_h_upper", "dt_h_mid"]
+NPCS += [
+    dict(id="dt_h_ivo", name="Ivo Brask", title="Test Mountain Guide", skin="dt_h_ivo", home="dt_h_lodge", work="dt_h_plaza", dialogue="dt_h_ivo",
+         held="minecraft:spruce_sapling", traits=["steady"], fallback_anchor="dt_h_plaza",
+         schedule=[E(0, 6, "sleep", "dt_h_lodge.bed_room_b"), E(6, 7, "eat", "dt_h_lodge.table_a"),
+                   E(7, 18, "patrol", route=CLIMB, outdoors=True), E(18, 22, "social", "dt_h_lodge.common_room", radius=3),
+                   E(22, 24, "sleep", "dt_h_lodge.bed_room_b")],
+         barks={"greet": ["Every stair up here is a test. Report the ones that trip you."]}),
+    dict(id="dt_h_marta", name="Marta Seln", title="Test Lodgekeeper", skin="dt_h_marta", home="dt_h_lodge", work="dt_h_lodge", dialogue="dt_h_marta",
+         traits=["warm"], fallback_anchor="dt_h_lodge.counter_front",
+         schedule=[E(0, 6, "sleep", "dt_h_lodge.bed_room_c"), E(6, 23, "work", "dt_h_lodge.work", "serve", 3), E(23, 24, "sleep", "dt_h_lodge.bed_room_c")],
+         barks={"greet": ["Warm in here. Cold everywhere else. That's the test."]}),
+    dict(id="dt_h_pell", name="Pell Varro", title="Test Smith", skin="dt_h_pell", home="dt_h_house_a", work="dt_h_forge", dialogue="dt_h_pell",
+         held="minecraft:iron_pickaxe", traits=["gruff"], fallback_anchor="dt_h_forge.counter_front",
+         schedule=[E(0, 6, "sleep", "dt_h_house_a.bed0"), E(6, 7, "eat", "dt_h_house_a.table"), E(7, 12, "work", "dt_h_forge.work", "hammer", 2),
+                   E(12, 13, "eat", "dt_h_lodge.table_b"), E(13, 18, "work", "dt_h_mine", "dig", 2),
+                   E(18, 21, "social", "dt_h_plaza", radius=4, outdoors=True), E(21, 24, "sleep", "dt_h_house_a.bed0")],
+         rain=[E(13, 18, "work", "dt_h_forge.work", "hammer", 2)],
+         barks={"greet": ["The mine tunnel's a pathing test. Watch me walk it."]}),
+    dict(id="dt_h_sorrel", name="Sorrel Wynd", title="Test Lookout Keeper", skin="dt_h_sorrel", home="dt_h_house_b", work="dt_h_watch", dialogue="dt_h_sorrel",
+         traits=["quiet"], fallback_anchor="dt_h_lookout",
+         schedule=[E(0, 6, "sleep", "dt_h_house_b.bed0"), E(6, 7, "eat", "dt_h_house_b.table"), E(7, 17, "work", "dt_h_watch.work", "watch", 1),
+                   E(17, 20, "social", "dt_h_lodge.common_room", radius=3), E(20, 24, "sleep", "dt_h_house_b.bed0")],
+         barks={"greet": ["Longest commute in the test world. Top terrace, every morning."]}),
+]
 for n in NPCS:
     write("npcs", n)
 
 write("ambient", dict(id="dt_housemates", speakers=["dt_alda", "dt_juno"], **{"from": 17, "to": 21}, radius=6, cooldown_minutes=5, lines=[
     ["dt_alda", "Ambient talk test, line one."], ["dt_juno", "Line two. Do you hear us?"], ["dt_alda", "If so, it works."]]))
+write("ambient", dict(id="dt_h_lodge_talk", speakers=["dt_h_ivo", "dt_h_sorrel"], **{"from": 18, "to": 20}, radius=6, cooldown_minutes=5, lines=[
+    ["dt_h_ivo", "Mountain ambient test. Line one."], ["dt_h_sorrel", "Line two. Heard from the lodge."], ["dt_h_ivo", "Good. Echoes work."]]))
 write("ambient", dict(id="dt_square_talk", speakers=["dt_bertram", "dt_kade"], **{"from": 18, "to": 21}, radius=10, cooldown_minutes=5, lines=[
     ["dt_kade", "Sales today?"], ["dt_bertram", "All test sales."], ["dt_kade", "Good."]]))
 
@@ -180,6 +208,33 @@ write("dialogue", dict(id="dt_notice", npc=None, entries=[dict(node="board")], n
     "board": N("TEST NOTICE BOARD\n- Reading this counts for the Errand Chain test.\n- Report bugs with what you did and what happened.",
                [CH("(Done reading.)", "end", tag="leave")], speaker="narrator")}))
 
+write("dialogue", dict(id="dt_h_ivo", npc="dt_h_ivo", entries=[dict(node="main")], nodes={
+    "asleep": ASLEEP,
+    "main": N("Test Heights. Steep roads, rope bridge, terraces, a mine, a lookout and a summit. All of it is a test.",
+              variants=[dict(when={"weather": "rain"}, text="Rain on the mountain. Roads are still walkable; tell me if they aren't.")],
+              choices=[CH("Start: Summit Climb", "end", tag="quest", when={"quest_not_started": "dtq_climb"}, actions=[A("start_quest", quest="dtq_climb")]),
+                       CH("What should I test here?", "tips", tag="ask"), BYE]),
+    "tips": N("Walk every ramp without jumping. Cross the rope bridge. Follow a resident up the terraces. Watch the waterfalls. Climb to the top.", [CH("Back.", "main"), BYE]),
+}))
+write("dialogue", dict(id="dt_h_marta", npc="dt_h_marta", entries=[dict(when=stage("dtq_climb", "checkin"), node="checkin"), dict(node="main")], nodes={
+    "asleep": ASLEEP,
+    "main": N("Lodge's open. The hearth works for cooking tests too.", [CH("Trade.", "end", tag="trade", actions=[A("open_shop", shop="dt_h_shop")]), BYE]),
+    "checkin": N("Checked in. Next: the lookout on the top terrace, then the summit.", [BYE],
+                 actions=[A("quest_event", event="talk", target="dt_h_checkin")]),
+}))
+write("dialogue", dict(id="dt_h_pell", npc="dt_h_pell", entries=[dict(node="main")], nodes={
+    "asleep": ASLEEP,
+    "main": N("Forge test. Afternoons I walk into the mine tunnel and back.", [BYE]),
+}))
+write("dialogue", dict(id="dt_h_sorrel", npc="dt_h_sorrel", entries=[dict(node="main")], nodes={
+    "asleep": ASLEEP,
+    "main": N("From the lookout you can see the whole test world. Mind the drop.", [BYE]),
+}))
+write("shops", dict(id="dt_h_shop", title="Test Lodge Pantry", npc="dt_h_marta", anchor="dt_h_lodge.counter_front", restock_days=1,
+                    sells=[dict(item="minecraft:bread", price=2, stock=6), dict(item="hollowatlas:hearth_stew", price=5, stock=3),
+                           dict(item="hollowatlas:trail_tonic", price=6, stock=2), dict(item="minecraft:leather_boots", price=8, stock=1)],
+                    buys={"hollowatlas:yarrow": 2, "minecraft:sweet_berries": 1, "hollowatlas:old_coin": 6}, buy_back_rate=0.5))
+
 # ----------------------------------------------------------------------------------------- quests
 QUESTS = [
     dict(id="dtq_errand", title="Test: Errand Chain", category="test", giver="dt_alda", abandonable=True,
@@ -223,6 +278,13 @@ QUESTS = [
          stages=[dict(id="solve", text="Pull the levers in the order on the sign (west of the square).", objectives=[dict(id="p", type="solve", target="dt_levers", text="Solve the lever puzzle", marker="dt_levers.stand")], next="loot"),
                  dict(id="loot", text="Open the hatch cache.", objectives=[dict(id="l", type="inspect", target="dt_lever_cache", text="Take the cache")], next="complete")],
          rewards=[A("coins", amount=10)], completion_text="Puzzle test complete."),
+    dict(id="dtq_climb", title="Test: Summit Climb", category="test", giver="dt_h_ivo", abandonable=True,
+         summary="Exercises long-distance reach objectives over steep terrain, a rope bridge and region-to-region travel.",
+         stages=[dict(id="cross", text="Cross the rope bridge over the canyon.", objectives=[dict(id="b", type="reach", target="dt_h_bridge_e", radius=6, text="Cross the bridge", marker="dt_h_bridge_e")], next="checkin"),
+                 dict(id="checkin", text="Check in with Marta at the Test Lodge.", objectives=[dict(id="m", type="talk", target="dt_h_checkin", text="Talk to Marta", marker="dt_h_lodge.counter_front")], next="lookout"),
+                 dict(id="lookout", text="Climb the terraces to the lookout.", objectives=[dict(id="l", type="reach", target="dt_h_lookout", radius=6, text="Reach the lookout", marker="dt_h_lookout")], next="summit"),
+                 dict(id="summit", text="Follow the trail to the summit cairn.", objectives=[dict(id="s", type="reach", target="dt_h_summit.stand", radius=5, text="Reach the summit", marker="dt_h_summit.stand")], next="complete")],
+         rewards=[A("coins", amount=15)], completion_text="Summit test complete."),
 ]
 for q in QUESTS:
     write("quests", q)
@@ -232,6 +294,8 @@ write("interactions", dict(id="dt_interactions", interactions=[
     dict(id="dt_board", anchor="dt_board.sign", type="read", text="", actions=[A("open_dialogue", tree="dt_notice", node="board")]),
     dict(id="dt_rest", anchor="dt_hall.bed_room_guest", type="rest", text="Rest test: you sleep until morning (if it's night)."),
     dict(id="dt_hearth", anchor="dt_hall.hearth_block", type="station", station="hearth", text="Test hearth."),
+    dict(id="dt_h_hearth", anchor="dt_h_lodge.hearth_block", type="station", station="hearth", text="Test lodge hearth."),
+    dict(id="dt_h_rest", anchor="dt_h_lodge.bed_room_guest", type="rest", text="Rest test (mountain lodge)."),
     dict(id="dt_cart_clue", anchor="dt_cart.clue", type="inspect", once=True, evidence="dt_ev_cart",
          text="FACT TEST: an empty bucket hook on the cart. Inspecting again must not duplicate the evidence."),
     dict(id="dt_lever_red", anchor="dt_levers.lever_red", type="puzzle", puzzle="dt_levers", symbol="red", text="Red lever."),
@@ -288,6 +352,12 @@ write("sites", dict(id="dt_sites", sites=[
     dict(id="dt_pond_site", name="Test Pond", anchor="dt_pond", radius=10),
     dict(id="dt_puzzle_site", name="Test Puzzle", anchor="dt_levers.stand", radius=8),
     dict(id="dt_brook_site", name="Test Brook", anchor="dt_gap_north", radius=8),
+    dict(id="dt_h_village_site", name="Test Heights", anchor="dt_h_plaza", radius=20),
+    dict(id="dt_h_canyon_site", name="Test Canyon", anchor="dt_h_bridge_w", radius=12),
+    dict(id="dt_h_spires_site", name="Test Spires", anchor="dt_h_spires", radius=25),
+    dict(id="dt_h_arch_site", name="Test Arch", anchor="dt_h_arch_view", radius=16),
+    dict(id="dt_h_lookout_site", name="Test Lookout", anchor="dt_h_lookout", radius=10),
+    dict(id="dt_h_summit_site", name="Test Summit", anchor="dt_h_summit.stand", radius=10),
 ]))
 
 print("devtest content written:", len(NPCS), "residents,", len(QUESTS), "quests")

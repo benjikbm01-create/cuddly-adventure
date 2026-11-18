@@ -507,7 +507,8 @@ public final class RegionModel {
                 if (roadMask[i] || water[i] != Integer.MIN_VALUE || surface[i] == SURF_PAD || occupied[i]) continue;
                 int c = height[i];
                 int lowest = Math.min(Math.min(height[idx(x + 1, z)], height[idx(x - 1, z)]), Math.min(height[idx(x, z + 1)], height[idx(x, z - 1)]));
-                if (c - lowest >= 2) surface[i] = SURF_WALL;
+                // on the terrace edge: a built retaining wall; outside it (dug into the slope): a natural rock cut
+                if (c - lowest >= 2) surface[i] = d <= f.r + 0.5 ? SURF_WALL : SURF_ROCK;
             }
         }
 

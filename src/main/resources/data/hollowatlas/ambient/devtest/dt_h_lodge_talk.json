@@ -1,0 +1,25 @@
+{
+  "id": "dt_h_lodge_talk",
+  "speakers": [
+    "dt_h_ivo",
+    "dt_h_sorrel"
+  ],
+  "from": 18,
+  "to": 20,
+  "radius": 6,
+  "cooldown_minutes": 5,
+  "lines": [
+    [
+      "dt_h_ivo",
+      "Mountain ambient test. Line one."
+    ],
+    [
+      "dt_h_sorrel",
+      "Line two. Heard from the lodge."
+    ],
+    [
+      "dt_h_ivo",
+      "Good. Echoes work."
+    ]
+  ]
+}

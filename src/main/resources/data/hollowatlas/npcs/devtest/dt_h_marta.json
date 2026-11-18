@@ -1,0 +1,40 @@
+{
+  "id": "dt_h_marta",
+  "name": "Marta Seln",
+  "title": "Test Lodgekeeper",
+  "skin": "dt_h_marta",
+  "home": "dt_h_lodge",
+  "work": "dt_h_lodge",
+  "dialogue": "dt_h_marta",
+  "traits": [
+    "warm"
+  ],
+  "fallback_anchor": "dt_h_lodge.counter_front",
+  "schedule": [
+    {
+      "from": 0,
+      "to": 6,
+      "activity": "sleep",
+      "anchor": "dt_h_lodge.bed_room_c"
+    },
+    {
+      "from": 6,
+      "to": 23,
+      "activity": "work",
+      "anchor": "dt_h_lodge.work",
+      "style": "serve",
+      "radius": 3
+    },
+    {
+      "from": 23,
+      "to": 24,
+      "activity": "sleep",
+      "anchor": "dt_h_lodge.bed_room_c"
+    }
+  ],
+  "barks": {
+    "greet": [
+      "Warm in here. Cold everywhere else. That's the test."
+    ]
+  }
+}

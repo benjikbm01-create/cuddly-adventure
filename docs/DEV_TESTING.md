@@ -2,8 +2,9 @@
 
 Test every gameplay system **without playing or seeing the real story**.
 
-Everything in this mode is noncanonical: a separate world ("Proving Grounds"), five fictional test residents, six test
-quests, a test shop, a test arena and a test puzzle. It runs on **the same game code** as the real game (same quest engine,
+Everything in this mode is noncanonical: a separate world with two test regions, the **Proving Grounds** (flat test village,
+arena, puzzle) and **Test Heights** (a mountainside village east of it, with extreme terrain), nine fictional test residents
+and seven test quests. It runs on **the same game code** as the real game (same quest engine,
 dialogue, combat, shops, crafting, saving); only the content is different.
 
 ## Why it can't touch your real save
@@ -40,6 +41,18 @@ To start over completely, delete the `hollow_atlas_devtest` folder and unzip it 
 The same actions work as chat commands: `/devtest <action> [arg]` (for example `/devtest tp dt_arena.center`,
 `/devtest coins 200`, `/devtest start_quest dtq_branch`). Type `/devtest` and press Tab to see them.
 
+## Test Heights (the mountain region)
+
+Follow the road east out of the Proving Grounds square (or Developer Menu > Travel > `dt_h_plaza`). It's built to stress
+the terrain and movement systems:
+
+- a deep **canyon** crossed by a **rope bridge**, with a waterfall pouring into it
+- a **terraced village** on four levels with stone retaining walls, linked by **stepped switchback roads** (half-slab steps:
+  you should never need to jump on a road)
+- a waterfall off the lowest terrace, a **mine tunnel**, a **lookout tower**, and a trail to a **snowy summit** around y=200
+- **rock spires**, mesas and a natural **stone arch** in the valley; banded cliffs; spruce woods
+- four mountain residents in cold-weather clothes who climb between terraces every day
+
 ## Test residents
 
 | Name | Role | What to test with them |
@@ -49,6 +62,10 @@ The same actions work as chat commands: `/devtest <action> [arg]` (for example `
 | Kade Halvard | Drill Sergeant, patrols the square | Teaches Windstep; rain greeting (weather condition) |
 | Juno Pike | Test Farmer | Rain routine; routine change from the branch quest |
 | Remy Tallow | Test Innkeeper, test hall | Sleeps upstairs at night; errand step |
+| Ivo Brask | Test Mountain Guide (Test Heights) | Walks up and down every terrace all day; starts Summit Climb |
+| Marta Seln | Test Lodgekeeper (Test Heights) | Lodge pantry shop; quest check-in; sleeps upstairs |
+| Pell Varro | Test Smith (Test Heights) | Forge in the morning, walks into the mine tunnel in the afternoon |
+| Sorrel Wynd | Test Lookout Keeper (Test Heights) | Climbs to the lookout tower every morning; longest walk in the world |
 
 ## Test quests
 
@@ -60,6 +77,7 @@ The same actions work as chat commands: `/devtest <action> [arg]` (for example `
 | Arena Trial | an encounter with one melee and one ranged enemy; kill objectives |
 | Cooking | gathering, buying, cooking at a station |
 | Lever Puzzle | wrong order resets, right order opens a hatch, one-time cache |
+| Summit Climb (Test Heights) | crossing into a second region, long reach objectives over steep ground, a resident check-in, the summit |
 
 ## Bug-hunting checklist
 
@@ -105,6 +123,17 @@ in game. A screenshot (F2) helps; screenshots are in `%APPDATA%\.minecraft\scree
 - [ ] Gathering spots: pick a flower, it's empty, it regrows after ~2 minutes (or "reset gathering spots").
 - [ ] Doors, beds, stairs work; residents walk around without getting stuck for long.
 - [ ] M opens the Atlas with the test map and discovered places.
+
+### E2. Mountain terrain (Test Heights)
+- [ ] Walk east from the Proving Grounds into Test Heights: no invisible wall, no sudden drop at the region edge.
+- [ ] Walk every village road and stairway up to the lookout **without jumping**. Note any spot where you must jump or get stuck.
+- [ ] Cross the rope bridge; look down into the canyon. Try to fall off the bridge edges (railings should stop you).
+- [ ] Waterfalls: one into the canyon, one off the lowest terrace. Touch them; they shouldn't vanish or flood.
+- [ ] Follow Ivo or Sorrel for a while: they should climb the terraces without getting stuck for long.
+- [ ] Pell walks into the mine tunnel in the afternoon (13:00-18:00 in game) and back.
+- [ ] Climb the summit trail. Snow, rock bands and the view should look right; note FPS (F3) at the summit.
+- [ ] Rain on the mountain: roads still walkable; residents behave.
+- [ ] Atlas (M) inside Test Heights: places are charted as you find them.
 
 ### F. Dialogue and quests
 - [ ] Each test quest can be started from Alda and from the Quests tab.

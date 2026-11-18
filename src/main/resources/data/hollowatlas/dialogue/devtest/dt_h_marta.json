@@ -1,0 +1,62 @@
+{
+  "id": "dt_h_marta",
+  "npc": "dt_h_marta",
+  "entries": [
+    {
+      "when": {
+        "quest_stage": {
+          "quest": "dtq_climb",
+          "stage": "checkin"
+        }
+      },
+      "node": "checkin"
+    },
+    {
+      "node": "main"
+    }
+  ],
+  "nodes": {
+    "asleep": {
+      "text": "(Asleep. This is the sleeping-resident test response.)",
+      "speaker": "narrator"
+    },
+    "main": {
+      "text": "Lodge's open. The hearth works for cooking tests too.",
+      "choices": [
+        {
+          "text": "Trade.",
+          "go": "end",
+          "tag": "trade",
+          "actions": [
+            {
+              "shop": "dt_h_shop",
+              "type": "open_shop"
+            }
+          ]
+        },
+        {
+          "text": "Goodbye.",
+          "go": "end",
+          "tag": "leave"
+        }
+      ]
+    },
+    "checkin": {
+      "text": "Checked in. Next: the lookout on the top terrace, then the summit.",
+      "choices": [
+        {
+          "text": "Goodbye.",
+          "go": "end",
+          "tag": "leave"
+        }
+      ],
+      "actions": [
+        {
+          "event": "talk",
+          "target": "dt_h_checkin",
+          "type": "quest_event"
+        }
+      ]
+    }
+  }
+}

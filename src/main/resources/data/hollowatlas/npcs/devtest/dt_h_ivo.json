@@ -1,0 +1,60 @@
+{
+  "id": "dt_h_ivo",
+  "name": "Ivo Brask",
+  "title": "Test Mountain Guide",
+  "skin": "dt_h_ivo",
+  "home": "dt_h_lodge",
+  "work": "dt_h_plaza",
+  "dialogue": "dt_h_ivo",
+  "held": "minecraft:spruce_sapling",
+  "traits": [
+    "steady"
+  ],
+  "fallback_anchor": "dt_h_plaza",
+  "schedule": [
+    {
+      "from": 0,
+      "to": 6,
+      "activity": "sleep",
+      "anchor": "dt_h_lodge.bed_room_b"
+    },
+    {
+      "from": 6,
+      "to": 7,
+      "activity": "eat",
+      "anchor": "dt_h_lodge.table_a"
+    },
+    {
+      "from": 7,
+      "to": 18,
+      "activity": "patrol",
+      "outdoors": true,
+      "route": [
+        "dt_h_plaza",
+        "dt_h_mid",
+        "dt_h_upper",
+        "dt_h_lookout",
+        "dt_h_upper",
+        "dt_h_mid"
+      ]
+    },
+    {
+      "from": 18,
+      "to": 22,
+      "activity": "social",
+      "anchor": "dt_h_lodge.common_room",
+      "radius": 3
+    },
+    {
+      "from": 22,
+      "to": 24,
+      "activity": "sleep",
+      "anchor": "dt_h_lodge.bed_room_b"
+    }
+  ],
+  "barks": {
+    "greet": [
+      "Every stair up here is a test. Report the ones that trip you."
+    ]
+  }
+}

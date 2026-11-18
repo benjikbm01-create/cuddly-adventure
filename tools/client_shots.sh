@@ -15,7 +15,7 @@ renderDistance:${RD:-8}
 simulationDistance:6
 maxFps:30
 graphicsMode:0
-renderClouds:\"false\"
+renderClouds:"false"
 particles:2
 entityShadows:false
 fov:0.25

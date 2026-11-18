@@ -9,6 +9,7 @@ For your own bug-hunting without story spoilers, see **[DEV_TESTING.md](DEV_TEST
 | Suite | Tests | Result |
 |---|---|---|
 | Region layout (all regions: no warnings, no overlapping/flooded buildings, doors onto ground, anchors on land, map render) | 5 | pass |
+| Stepped roads are walkable (no road rises more than one block between neighbouring cells) + relief previews | 2 | pass |
 | Content graph (stage reachability, every objective producible, every quest startable, dialogue/action references) | 4 | pass |
 | Narrative conditions satisfiable (story and test content; story failures reported by opaque id) | 1 | pass |
 | Story/test isolation | 1 | pass |
@@ -28,7 +29,12 @@ The Minecraft 1.21.1 client runs off-screen (Xvfb, Mesa software rendering, no a
 `-Dhollowatlas.autotest` is set) sends the same packets a player's clicks send and checks the server's state.
 Teleports only skip walking between test points.
 
-### Developer test world (`tools/dev_client_test.sh`), latest run 18 Nov 2026
+### Developer test world (`tools/dev_client_test.sh`), latest run 18 Nov 2026 (with Test Heights)
+- **Launch 1: 82 passed, 0 failed** (adds: locked-choice feedback and unlock, travel into Test Heights, walking across the
+  region seam, mountain residents present, rope bridge deck, resident check-in, lookout and summit reach objectives, summit
+  charted). Launch 2 below.
+
+Earlier run (before Test Heights):
 - **Launch 1: 70 passed, 0 failed.** Mode checks (test world detected, only test residents, no story quest, menu allowed),
   developer menu opens, every item action, full-pack reward queue and delivery, coins, both abilities and cooldown reset,
   spawning both enemy types, heavy attack, refill, clear enemies, difficulty, time, weather, footbridge world change
